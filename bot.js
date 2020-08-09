@@ -4,6 +4,7 @@ const Discord = require('discord.js');
 const config = require('./auth.json');
 const client = new Discord.Client();
 let coin;
+
 var answers = ["It is certain", 
                    "It is decidedly so", 
                    "Without a doubt", 
@@ -24,7 +25,7 @@ var answers = ["It is certain",
                    "Better not tell you now",
                    "Cannot predict now", 
                    "Concentrate and ask again",
-                   "Perver"];
+                   "Pervert"];
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -66,10 +67,34 @@ client.on('ready', () => {
                         return message.channel.send('bar');
                     }
                     var coin = Math.floor(Math.random() * Math.floor(answers.length));
-                    message.channel.send(`${args[0]}\n${answers[coin]}`);
+                    message.channel.reply(`\n${answers[coin]}`);
+                }
+
+                
+
+
+                else if (command === 'meow') {
+                    
+                    message.channel.send(`pspspspsps`);
                 }
                 
-            
+                else if (command === 'ping') {
+                    
+                    message.channel.send(`pong`);
+                }
+                else if (command === 'bang') {
+                    
+                    message.channel.send(`♪bang bang ♪ he shot me down ♫`);
+                }
+                else if (command === 'Bang') {
+                    
+                    message.channel.send(`duck tell me what to say`);
+                }
+                //admin commands start
+                else if (command === 'server') {
+                    
+                    message.channel.send(`server name: ${Discord.guild.name}\nTotal members: ${Discord.Guild.length}`);
+                }
 
             
     });
