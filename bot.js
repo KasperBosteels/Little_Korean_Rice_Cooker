@@ -102,22 +102,20 @@ client.on('ready', () => {
                     message.channel.send(`You wanted to kick: ${taggedUser.username}`);
                 }
 
-
-
-
-                else if (command === 'avatar') {
-                    if (!message.mentions.users.size) {
-                        return message.channel.send(`Your avatar: <${message.author.displayAvatarURL({ format: "png", dynamic: true })}>`);
+                else if (command === 'purge') {
+                    const amount = parseInt(args[0])+ 1;
+                
+                    if (isNaN(amount)) {
+                        return message.reply('that doesn\'t seem to be a valid number.');
+                    }else if (amount <= 1 || amount > 100) {
+                        return message.reply('you need to input a number between 1 and 99.');
                     }
-                
-                    const avatarList = message.mentions.users.map(user => {
-                        return `${user.username}'s avatar: <${user.displayAvatarURL({ format: "png", dynamic: true })}>`;
-                    });
-                
-                    // send the entire array of strings as a message
-                    // by default, discord.js will `.join()` the array with `\n`
-                    message.channel.send(avatarList);
+                    message.channel.bulkDelete(amount,true);
+                    
                 }
+
+
+               
 
             
     });
@@ -157,3 +155,22 @@ switch (msg.content){
         msg.reply(`server name: ${Discord.guild.name}\nTotal members: ${Discord.Guild.length}`);
 };
  */
+/*
+
+
+//avatar image command 
+ else if (command === 'avatar') {
+                    if (!message.mentions.users.size) {
+                        return message.channel.send(`Your avatar: <${message.author.displayAvatarURL({ format: "png", dynamic: true })}>`);
+                    }
+                
+                    const avatarList = message.mentions.users.map(user => {
+                        return `${user.username}'s avatar: <${user.displayAvatarURL({ format: "png", dynamic: true })}>`;
+                    });
+                
+                    // send the entire array of strings as a message
+                    // by default, discord.js will `.join()` the array with `\n`
+                    message.channel.send(avatarList);
+                }
+                
+*/
