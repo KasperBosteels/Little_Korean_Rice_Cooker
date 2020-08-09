@@ -86,15 +86,22 @@ client.on('ready', () => {
                     
                     message.channel.send(`♪bang bang ♪ he shot me down ♫`);
                 }
-                else if (command === 'Bang') {
+                else if (command === 'bangbang') {
                     
                     message.channel.send(`duck tell me what to say`);
                 }
                 //admin commands start
-                else if (command === 'server') {
-                    
-                    message.channel.send(`server name: ${Discord.guild.name}\nTotal members: ${Discord.Guild.length}`);
+                else if (command === 'kick') {
+                    if (!message.mentions.users.size) {
+                        return message.reply('you need to tag a user in order to make em walk the plank ARRRR');
+                    }
+                    // grab the "first" mentioned user from the message
+                    // this will return a `User` object, just like `message.author`
+                    const taggedUser = message.mentions.users.first();
+                
+                    message.channel.send(`You wanted to kick: ${taggedUser.username}`);
                 }
+
 
             
     });
