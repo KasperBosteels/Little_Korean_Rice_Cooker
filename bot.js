@@ -21,7 +21,7 @@ client.on('ready', () => {
         msg.reply('♪bang bang ♪ he shot me down ♫')
         break;
     case `${config.prefix}server`:
-        msg.reply(`server name: ${Discord.Guild.name}\nTotal members: ${Discord.Guild.length}`);
+        msg.reply(`server name: ${Discord.guild.name}\nTotal members: ${Discord.Guild.length}`);
 };
     });
 
