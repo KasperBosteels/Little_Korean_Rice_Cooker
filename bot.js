@@ -8,9 +8,9 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
     client.on('message', message => {
-        if (!message.content.startsWith(prefix) || message.author.bot) return;
+        if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
-        const args = message.content.slice(prefix.length).trim().split(' ');
+        const args = message.content.slice(config.prefix.length).trim().split(' ');
         const command = args.shift().toLowerCase();
     
     });
