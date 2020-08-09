@@ -80,7 +80,7 @@ client.on('ready', () => {
                 }
                 else if (command === 'bangbang') {
                     
-                    message.channel.send(`duck tell me what to say`);
+                    message.channel.send(`♪Bang ♪bang ♪bang pull my devil trigger♫`);
                 }
                 //#endregion
                 //#region admin
