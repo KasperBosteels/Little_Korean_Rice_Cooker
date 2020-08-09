@@ -4,6 +4,28 @@ const Discord = require('discord.js');
 const config = require('./auth.json');
 const client = new Discord.Client();
 let coin;
+var answers = ["It is certain", 
+                   "It is decidedly so", 
+                   "Without a doubt", 
+                   "Yes - definitely",
+                   "You may rely on it", 
+                   "As I see it, yes", 
+                   "Most likely", 
+                   "Outlook good", 
+                   "Yes", 
+                   "Signs point to yes",
+                   "Don't count on it", 
+                   "My reply is no",
+                   "My sources say no", 
+                   "Outlook not so good",
+                   "Very doubtful", 
+                   "Reply hazy, try again", 
+                   "Ask again later", 
+                   "Better not tell you now",
+                   "Cannot predict now", 
+                   "Concentrate and ask again",
+                   "Perver"];
+
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
@@ -36,6 +58,16 @@ client.on('ready', () => {
                 return message.channel.send(`${coin}`);
                 }
             
+                else if (command === 'ask') {
+                    if (!args.length) {
+                        return message.channel.send(`You didn't ask me anything, ${message.author}!`);
+                    }
+                    else if (args[0] === 'foo') {
+                        return message.channel.send('bar');
+                    }
+                    var coin = Math.floor(Math.random() * Math.floor(answers.length));
+                    message.channel.send(`${args[0]}\n${answers[coin]}`);
+                }
                 
             
 
