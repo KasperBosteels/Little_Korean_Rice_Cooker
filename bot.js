@@ -3,7 +3,6 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const config = require('./auth.json');
 const client = new Discord.Client();
-let coin;
 
 var answers = ["It is certain", 
                    "It is decidedly so", 
@@ -35,6 +34,9 @@ client.on('ready', () => {
 
         const args = message.content.slice(config.prefix.length).trim().split(/ +/);
         const command = args.shift().toLowerCase();
+       
+       
+                 //#region fun
         if (command === 'args-info') {
             if (!args.length) {
                 return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
@@ -43,18 +45,9 @@ client.on('ready', () => {
             message.channel.send(`Command name: ${command}\nArguments: ${args}`);}
 
 
-            else if (command === 'args-info') {
-                if (!args.length) {
-                    return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
-                }
-                else if (args[0] === 'foo') {
-                    return message.channel.send('bar');
-                }
             
-                message.channel.send(`First argument: ${args[0]}`);
-            }
             else if (command === 'coin') {
-                coin = Math.floor((Math.random() * 2) + 1);
+                let coin = Math.floor((Math.random() * 2) + 1);
                 if (coin <= 1){coin = 'tails';}else coin = 'heads';
                 return message.channel.send(`${coin}`);
                 }
@@ -71,7 +64,6 @@ client.on('ready', () => {
                 }
 
                 
-
 
                 else if (command === 'meow') {
                     
@@ -90,7 +82,8 @@ client.on('ready', () => {
                     
                     message.channel.send(`duck tell me what to say`);
                 }
-                //admin commands start
+                //#endregion
+                //#region admin
                 else if (command === 'kick') {
                     if (!message.mentions.users.size) {
                         return message.reply('you need to tag a user in order to make em walk the plank ARRRR');
@@ -99,9 +92,7 @@ client.on('ready', () => {
                     // this will return a `User` object, just like `message.author`
                     const taggedUser = message.mentions.users.first();
                 
-                    message.channel.send(`You wanted to kick: ${taggedUser.username}`);
-                }
-
+                    message.channel.send(`You wanted to kick: ${taggedUser.username}`);}
                 else if (command === 'purge') {
                     const amount = parseInt(args[0])+ 1;
                 
@@ -113,6 +104,28 @@ client.on('ready', () => {
                     message.channel.bulkDelete(amount,true);
                     
                 }
+
+
+
+                else if (command === 'kick') {
+                    if (!message.mentions.users.size) {
+                        return message.reply('you need to tag a user in order to make em walk the plank ARRRR');
+                    }
+                    // grab the "first" mentioned user from the message
+                    // this will return a `User` object, just like `message.author`
+                    // Easy way to get member object though mentions.
+        var member= message.mentions.members.first();
+        // Kick
+        member.kick().then((member) => {
+            // Successmessage
+            message.channel.send(":wave: " + member.displayName + " has been successfully kicked :point_right: ");
+        }).catch(() => {
+             // Failmessage
+            message.channel.send("Access Denied");
+        });
+                
+                }
+                //#endregion
 
 
                
@@ -138,8 +151,18 @@ else if (command === 'args-info') {
 
 	message.channel.send(`First argument: ${args[0]}`);
 */
-
-
+/*
+else if (command === 'args-info') {
+                if (!args.length) {
+                    return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
+                }
+                else if (args[0] === 'foo') {
+                    return message.channel.send('bar');
+                }
+            
+                message.channel.send(`First argument: ${args[0]}`);
+            }
+*/
 /*
 switch (msg.content){
     case    `${config.prefix}meow`:
