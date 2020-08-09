@@ -3,7 +3,7 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const config = require('./auth.json');
 const client = new Discord.Client();
-
+let coin
 var answers = ["It is certain", 
                    "It is decidedly so", 
                    "Without a doubt", 
@@ -59,7 +59,7 @@ client.on('ready', () => {
                     else if (args[0] === 'foo') {
                         return message.channel.send('bar');
                     }
-                    var coin = Math.floor(Math.random() * Math.floor(answers.length));
+                     coin = Math.floor(Math.random() * Math.floor(answers.length));
                     message.channel.reply(`\n${answers[coin]}`);
                 }
 
@@ -84,15 +84,7 @@ client.on('ready', () => {
                 }
                 //#endregion
                 //#region admin
-                else if (command === 'kick') {
-                    if (!message.mentions.users.size) {
-                        return message.reply('you need to tag a user in order to make em walk the plank ARRRR');
-                    }
-                    // grab the "first" mentioned user from the message
-                    // this will return a `User` object, just like `message.author`
-                    const taggedUser = message.mentions.users.first();
-                
-                    message.channel.send(`You wanted to kick: ${taggedUser.username}`);}
+           
                 else if (command === 'purge') {
                     const amount = parseInt(args[0])+ 1;
                 
