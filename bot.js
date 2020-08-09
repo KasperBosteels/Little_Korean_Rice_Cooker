@@ -41,7 +41,7 @@ switch (msg.content){
 
 //initiate bot by connecting to server
 client.login(process.env.DISCORD_TOKEN);
-msg.send('im awake daddy');
+
 
 
 
