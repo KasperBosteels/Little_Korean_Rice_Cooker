@@ -12,25 +12,15 @@ client.on('ready', () => {
 
         const args = message.content.slice(prefix.length).trim().split(' ');
         const command = args.shift().toLowerCase();
-         if (command === 'args-info'){
-            if (!args.length){
-                return message.channel.send(`*deaf noises intensify*\n ${message.author}!`); 
+
+         if (command === 'args-info') {
+            if (!args.length) {
+                return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
             }
-            message.channel.send(`command name: ${command}\nArguments ${args}`)
+        
+            message.channel.send(`Command name: ${command}\nArguments: ${args}`);
         }
-    switch (msg.content){
-    case    `${config.prefix}meow`:
-        msg.reply('pspspspspspspspspsp')
-        break;
-    case `${config.prefix}ping`:
-        msg.reply('pong')
-        break;
-    case `${config.prefix}bang`:
-        msg.reply('♪bang bang ♪ he shot me down ♫')
-        break;
-    case `${config.prefix}server`:
-        msg.reply(`server name: ${Discord.guild.name}\nTotal members: ${Discord.Guild.length}`);
-};
+    
     });
 
 
@@ -43,25 +33,18 @@ client.login(process.env.DISCORD_TOKEN);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
+switch (msg.content){
+    case    `${config.prefix}meow`:
+        msg.reply('pspspspspspspspspsp')
+        break;
+    case `${config.prefix}ping`:
+        msg.reply('pong')
+        break;
+    case `${config.prefix}bang`:
+        msg.reply('♪bang bang ♪ he shot me down ♫')
+        break;
+    case `${config.prefix}server`:
+        msg.reply(`server name: ${Discord.guild.name}\nTotal members: ${Discord.Guild.length}`);
+};
+ */
