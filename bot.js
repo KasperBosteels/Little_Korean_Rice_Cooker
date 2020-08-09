@@ -7,19 +7,11 @@ const client = new Discord.Client();
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
-    client.on('message', msg => {
-        if (!Message.content.startsWith(prefix) || Message.author.bot) return;
+    client.on('message', message => {
+        if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-        const args = Message.content.slice(prefix.length).trim().split(' ');
+        const args = message.content.slice(prefix.length).trim().split(' ');
         const command = args.shift().toLowerCase();
-
-         if (command === 'args-info') {
-            if (!args.length) {
-                return Message.channel.send(`You didn't provide any arguments, ${Message.author}!`);
-            }
-        
-            Message.channel.send(`Command name: ${command}\nArguments: ${args}`);
-        }
     
     });
 
