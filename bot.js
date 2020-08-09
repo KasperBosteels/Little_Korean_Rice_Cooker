@@ -8,12 +8,18 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
 client.on('message', msg => {
-    if (msg.content ==='ping'){msg.reply('pong');}
     if (msg.content ==='pew'){msg.reply('***dies***');}
     switch (msg.content){
-    case 'pang':
-    msg.reply('pspspspspspspspspsp')
-    break;
+    case    `${config.prefix}meow`:
+        msg.reply('pspspspspspspspspsp')
+        break;
+    case 'ping':
+        msg.reply('pong')
+        break;
+    case 'pew':
+        msg.reply('♪bang bang ♪ he shot me down ♫')
+        break;
+
 };
 });
 
