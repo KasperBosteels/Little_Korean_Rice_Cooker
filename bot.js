@@ -21,19 +21,6 @@ client.on('ready', () => {
             msg.channel.send(`Command name: ${command}\nArguments: ${args}`);
         }
     
-    });
-
-
-
-
-//initiate bot by connecting to server
-client.login(process.env.DISCORD_TOKEN);
-
-
-
-
-
-/*
 switch (msg.content){
     case    `${config.prefix}meow`:
         msg.reply('pspspspspspspspspsp')
@@ -47,4 +34,17 @@ switch (msg.content){
     case `${config.prefix}server`:
         msg.reply(`server name: ${Discord.guild.name}\nTotal members: ${Discord.Guild.length}`);
 };
- */
+    });
+
+
+
+
+//initiate bot by connecting to server
+client.login(process.env.DISCORD_TOKEN);
+msg.send('im awake daddy');
+
+
+
+
+
+ 
