@@ -8,8 +8,16 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
     client.on('message', msg => {
-    
+        if (!message.content.startsWith(prefix) || message.author.bot) return;
 
+        const args = message.content.slice(prefix.length).trim().split(' ');
+        const command = args.shift().toLowerCase();
+         if (command === 'args-info'){
+            if (!args.length){
+                return message.channel.send(`*deaf noises intensify*\n ${message.author}!`); 
+            }
+            message.channel.send(`command name: ${command}\nArguments ${args}`)
+        }
     switch (msg.content){
     case    `${config.prefix}meow`:
         msg.reply('pspspspspspspspspsp')
