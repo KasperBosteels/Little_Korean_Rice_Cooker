@@ -1,7 +1,7 @@
 // Run dotenv
 require('dotenv').config();
-
 const Discord = require('discord.js');
+const config = require('./auth.json');
 const client = new Discord.Client();
 
 client.on('ready', () => {
