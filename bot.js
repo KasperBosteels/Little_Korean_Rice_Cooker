@@ -7,21 +7,17 @@ const client = new Discord.Client();
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
-client.on('message', msg => {
-    if (msg.content ==='pew'){msg.reply('***dies***');}
-    switch (msg.content){
-    case    `${config.prefix}meow`:
-        msg.reply('pspspspspspspspspsp')
-        break;
-    case 'ping':
-        msg.reply('pong')
-        break;
-    case 'pew':
-        msg.reply('♪bang bang ♪ he shot me down ♫')
-        break;
+//client.on('message', msg => {
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-};
-});
+    const args = message.content.slice(prefix.length).trim().split(' ');
+    const command = args.shift().toLowerCase();
+
+switch (command){
+    case 'meow':
+    return message.channel.send('pspspspspsps')
+    break;
+}
 
 
 
