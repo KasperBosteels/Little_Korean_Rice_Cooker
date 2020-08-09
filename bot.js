@@ -10,7 +10,7 @@ client.on('ready', () => {
 client.on('message', msg => {
     if (msg.content ==='ping'){msg.reply('pong');
     switch (msg.content){
-    case '-ping':
+    case 'pang':
     msg.reply('pspspspspspspspspsp')
     break;
 };
