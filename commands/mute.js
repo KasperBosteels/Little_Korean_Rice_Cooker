@@ -2,7 +2,7 @@ const ms = require('ms');
 module.exports = {
     name: 'mute',
     description: 'ahhh sweet silence',
-    usage: '<@ user>',
+    usage: '<@ user> <1-n>s/n/m',
     guildOnly: 'true',
     args : 'true',
     async execute(message, args) {
