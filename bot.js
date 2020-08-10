@@ -3,7 +3,8 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const config = require('./auth.json');
 const client = new Discord.Client();
-let coin
+let coin;
+var sent;
 var answers = ["It is certain", 
                    "It is decidedly so", 
                    "Without a doubt", 
@@ -59,8 +60,9 @@ client.on('ready', () => {
                     else if (args[0] === 'foo') {
                         return message.channel.send('bar');
                     }
+                    sent = args.slice(0,args.length).join(' ');
                      coin = Math.floor(Math.random() * Math.floor(answers.length));
-                    message.channel.send(`${args[0]} ${answers[coin]}`);
+                    message.channel.send(`${sent} ${answers[coin]}`);
                 }
 
                 
