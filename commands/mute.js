@@ -19,7 +19,7 @@ module.exports = {
 
         if (muteperson.hasPermission('MANAGE_MESSAGES')) return message.reply('unable to do this to this person');
 
-        var muteRole = message.guild.roles.cache.get('742462154564960440');//566308437944958976
+        var muteRole = message.guild.roles.cache.get('566308437944958976');//742462154564960440
         if (!muteRole) return message.channel.send('no mute channel');
 
         var muteTime = args[1];
