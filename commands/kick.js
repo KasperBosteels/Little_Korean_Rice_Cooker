@@ -1,7 +1,8 @@
     
     module.exports = {
         name: 'kick',
-        description: 'make am walk arrrr',
+        description: 'make em walk the plank ARRRRR',
+        usage: '<@ user>',
         guildOnly: 'true',
         execute(message, args) {
             if (!message.mentions.users.size) {
