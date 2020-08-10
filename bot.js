@@ -29,9 +29,9 @@ client.on('ready', () => {
             return message.reply('i can\'t is this command in personal chat')
         }
         if (command.args && !args.length){
-            let reply = `you didnt prive any arguments, ${message.author}!`;
+            let reply = `you didnt provide any arguments, ${message.author}!`;
             if (command.usage){
-            reply += `\nThe correct way to use this is: \`${prefix}${command.name} ${command.usage}\``;
+            reply += `\nThe correct way to use this is: \`${config.prefix}${command.name} ${command.usage}\``;
         }
         return message.channel.send(reply);
     }
