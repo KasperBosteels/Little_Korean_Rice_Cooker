@@ -22,8 +22,8 @@ client.on('ready', () => {
         const args = message.content.slice(config.prefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
        
-        if (!client.commands.has(commandName)) return;
-        const command = client.command.get(commandName);
+        if (!client.commands.has(commandName))return;
+        const command = client.commands.get(commandName);
         
         if (command.guildOnly && message.channel.type === 'dm'){
             return message.reply('i can\'t is this command in personal chat')
