@@ -25,6 +25,7 @@ setTimeout(() => {
 }, MUTE_TIME);
 
 message.channel.send(`*${message.author.username} forcechockes ${userToMute.user.username} for ${MUTE_TIME / 60} seconds*`, { file: 'url/path' });
+process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 return;
 
 
