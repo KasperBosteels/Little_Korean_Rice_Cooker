@@ -103,7 +103,10 @@ const sweetlove = [
 'Collect moments – not things.',
 
 'Feel the fear and do it anyway.'
+
+
 ];
+var coin;
 module.exports = {
     name: 'love',
     description: 'sends a loving message',
@@ -112,7 +115,7 @@ module.exports = {
     cooldown: 1,
     execute(message, args) {
         if (!message.mentions.users) {
-            coin = Math.floor(Math.random() * Math.floor(sweetlove.length));
+             coin = Math.floor(Math.random() * Math.floor(sweetlove.length));
             message.reply(` ${sweetlove[coin]}`);
         }else {
 
@@ -120,13 +123,6 @@ module.exports = {
             message.channel.send(`${member}\n${sweetlove[coin]}`)
         }
 
-// Kick
-//member.kick().then((member) => {
-// Successmessage
-//message.channel.send(":wave: " + member.displayName + " has been successfully kicked :point_right: ");     }).catch(() => {
-// Failmessage
-//message.channel.send("Access Denied");
-//});
 
 
 

@@ -33,7 +33,7 @@ module.exports = {
             
             muteperson.roles.remove(muteRole.id);
 
-            message/channel.send(`${muteperson} has been unmuted`)
+            message.channel.send(`${muteperson} has been unmuted`)
 
         }, ms(muteTime))
     
