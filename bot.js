@@ -1,6 +1,6 @@
 // Run dotenv
 require('dotenv').config();
-
+require('ms');
 const fs = require('fs');
 const Discord = require('discord.js');
 const config = require('./auth.json');
@@ -17,6 +17,7 @@ for (const file of commandFiles){
 const cooldowns = new Discord.Collection();
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    const guild = client.guilds.get()
 });
     client.on('message', message => {
         if (!message.content.startsWith(config.prefix) || message.author.bot) return;

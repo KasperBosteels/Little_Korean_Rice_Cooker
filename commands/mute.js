@@ -1,5 +1,4 @@
-const ms = require('ms');
-const { Message } = require('discord.js');
+
 module.exports = {
     name: 'mute',
     description: 'ahhh sweet silence',
@@ -8,22 +7,29 @@ module.exports = {
     args : 'true',
     async execute(message, args) {
 
-        if (!message.member.hasPermission("MANAGE_MEMBERS"))     return message.channel.send('Acces Denied');
-        var user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+        if (!message.member.hasPermission("Kick_MEMBERS")) return message.reply('Acces Denied');
+        //normaal is er al een check
+        //if (!args[0]) return message.reply('no tag');
+        
+        if (!message.guild.me.hasPermission("KICK_MEMBERS")) return message.reply('Acces Denied');
 
-        if (!user) return message.channel.send('missed try again');
+        var muteperson = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
 
-        if (user.hasPermission('MANAGE_MESSAGES')) return message.channel.send("cant mute this person");
-        var muteRole = message.member.cache.find("name", "Muted");
-        if(!muteRole) return message.channel.send('pls create a Muted role');
+        if (!muteperson) return message.reply('unable to find this person');
 
-        var mutetime = args[1];
-        if (!mutetime) return message.channel.send('pls input a time');
-        await (user.addRole(muteRole.id));
-        message.channel.send(`${user} is muted for ${mutetime}`);
-        setTimeout(function(){
-            user.removeRole(muteRole.id);
-            message.channel.send(`${user} has been unmuted\nbe kind now`);
-        }, ms(mutetime));
+        if (muteperson.hasPermission('MANAGE_MESSAGES')) return message.reply('unable to do this to this person');
+
+        var muteRole = message.guild.roles.cache.get('742462154564960440');//566308437944958976
+        if (!muteRole) return message.channel.send('no mute channel');
+
+        var muteTime = args[1];
+
+        if (!muteTime) return message.channel.send('no time input');
+
+        await(muteperson.roles.add(muteRole.id));
+        message.channel.send(`${muteperson} has been muted for ${muteTime}`);
+        
+
+
     },
 };
