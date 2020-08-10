@@ -1,4 +1,4 @@
-
+const ms = require('ms');
 module.exports = {
     name: 'mute',
     description: 'ahhh sweet silence',
@@ -29,7 +29,14 @@ module.exports = {
         await(muteperson.roles.add(muteRole.id));
         message.channel.send(`${muteperson} has been muted for ${muteTime}`);
         
+        setTimeout(() => {
+            
+            muteperson.roles.remove(muteRole.id);
 
+            message/channel.send(`${muteperson} has been unmuted`)
+
+        }, ms(muteTime);
+    
 
     },
 };

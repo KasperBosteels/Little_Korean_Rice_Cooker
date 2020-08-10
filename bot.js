@@ -1,6 +1,6 @@
 // Run dotenv
 require('dotenv').config();
-require('ms');
+
 const fs = require('fs');
 const Discord = require('discord.js');
 const config = require('./auth.json');
