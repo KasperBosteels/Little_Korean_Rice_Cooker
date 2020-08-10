@@ -4,35 +4,29 @@ module.exports = {
     usage: '<@ user>',
     guildOnly: 'true',
     args : 'true',
-    execute(message, args) {
+    async execute(message, args) {
+// get the user from the required args object
+const userToMute = message.guild.members.find('id', args.user.id);
+    
+// find the name of a role called Muted in the guild that the message
+// was sent from
+const muteRole = message.guild.roles.find("name", "Muted");
+
+// add that role to the user that should be muted
+userToMute.addRole(muteRole);
+
+// the time it takes for the mute to be removed
+// in miliseconds
+const MUTE_TIME = 60 * 1000;
+
+// wait MUTE_TIME miliseconds and then remove the role
+setTimeout(() => {
+    userToMute.removeRole(muteRole);
+}, MUTE_TIME);
+
+message.channel.send(`*${message.author.username} forcechockes ${userToMute.user.username} for ${MUTE_TIME / 60} seconds*`, { file: 'url/path' });
+return;
 
 
-
-        // Variables
-    var muteRole = message.guild.roles.find(role => role.name.toLowerCase().includes("Muted"));
-    var muteChannel = message.guild.channels.find(channel => channel.name.includes("bot-logs"));
-    var muteUser = message.mentions.members.first();
-    var muteReason = message.content.slice(prefix.length + 27);
-
-// Conditions
-if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("You don't have the permissions");
-if (!muteUser) return message.channel.send("You have to mention a valid member");
-if (!muteChannel) return message.channel.send("There's no channel called modlogs");
-if (!muteRole) return message.channel.send("There's no role called muted");
-if (!message.guild.member(client.user.id).hasPermission("MANAGE_ROLES")) return message.channel.send("I Don't have permissions");
-if (!muteReason) muteReason = "No reason given";
-
-    var muteEmbed = new Discord.RichEmbed() 
-    .setTitle("Mute")
-    .addField("Muted user", muteUser)
-    .addField("Reason", muteReason)
-    .setFooter(`Muted by ${message.author.tag}`)
-    .setTimestamp();
-
-    //Mute
-    muteUser.addRole(muteRole);
-    message.channel.send(`${muteUser} has been muted`);
-    muteChannel.send(muteEmbed);
-          
     },
 };
