@@ -108,10 +108,10 @@ module.exports = {
     name: 'love',
     description: 'sends a loving message',
     usage: 'empty or <@ user>',
-    aliases: ['ily','enc','precious'],
+    aliases: ['ily','enc','precious','encourage'],
     cooldown: 1,
     execute(message, args) {
-        if (!message.mentions.users.size) {
+        if (!message.mentions.users) {
             coin = Math.floor(Math.random() * Math.floor(sweetlove.length));
             message.reply(` ${sweetlove[coin]}`);
         }else {
