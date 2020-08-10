@@ -17,7 +17,6 @@ for (const file of commandFiles){
 const cooldowns = new Discord.Collection();
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    const guild = client.guilds.get()
 });
     client.on('message', message => {
         if (!message.content.startsWith(config.prefix) || message.author.bot) return;
@@ -70,4 +69,5 @@ client.on('ready', () => {
 
 //initiate bot by connecting to server
 client.login(process.env.DISCORD_TOKEN);
+
 process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
