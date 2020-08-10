@@ -25,6 +25,7 @@ module.exports = {
 	name: 'ask',
     description: 'ask a question',
     usage: '<question>',
+    args: 'true',
 	execute(message, args) {
          if (args[0] === 'foo') {
             return message.channel.send('bar');
