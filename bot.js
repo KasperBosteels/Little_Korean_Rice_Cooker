@@ -60,7 +60,7 @@ client.on('ready', () => {
                         return message.channel.send('bar');
                     }
                      coin = Math.floor(Math.random() * Math.floor(answers.length));
-                    message.channel.reply(`${answers[coin]}`);
+                    message.channel.send(`${answers[coin]}`);
                 }
 
                 
