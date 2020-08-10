@@ -84,6 +84,10 @@ client.on('ready', () => {
                     
                     message.channel.send(`♪Bang ♪bang ♪bang pull my devil trigger♫`);
                 }
+                else if (command === 'obi1') {
+                    
+                    message.channel.send(`hello there`);
+                }
                 //#endregion
                 //#region admin
            
