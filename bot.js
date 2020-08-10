@@ -1,31 +1,17 @@
 // Run dotenv
 require('dotenv').config();
+const fs = require(fs);
 const Discord = require('discord.js');
 const config = require('./auth.json');
 const client = new Discord.Client();
-let coin;
-var sent;
-var answers = ["It is certain", 
-                   "It is decidedly so", 
-                   "Without a doubt", 
-                   "Yes - definitely",
-                   "You may rely on it", 
-                   "As I see it, yes", 
-                   "Most likely", 
-                   "Outlook good", 
-                   "Yes", 
-                   "Signs point to yes",
-                   "Don't count on it", 
-                   "My reply is no",
-                   "My sources say no", 
-                   "Outlook not so good",
-                   "Very doubtful", 
-                   "Reply hazy, try again", 
-                   "Ask again later", 
-                   "Better not tell you now",
-                   "Cannot predict now", 
-                   "Concentrate and ask again",
-                   "Pervert"];
+client.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+//let coin;
+//var sent;
+for (const file of commandFiles){
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.name,command)
+}
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -36,98 +22,14 @@ client.on('ready', () => {
         const args = message.content.slice(config.prefix.length).trim().split(/ +/);
         const command = args.shift().toLowerCase();
        
-       
-                 //#region fun
-        if (command === 'args-info') {
-            if (!args.length) {
-                return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
-            }
-        
-            message.channel.send(`Command name: ${command}\nArguments: ${args}`);}
+        if (!client.commands.has(command)) return;
 
-
-            
-            else if (command === 'coin') {
-                let coin = Math.floor((Math.random() * 2) + 1);
-                if (coin <= 1){coin = 'tails';}else coin = 'heads';
-                return message.channel.send(`${coin}`);
-                }
-            
-                else if (command === 'ask') {
-                    if (!args.length) {
-                        return message.channel.send(`You didn't ask me anything, ${message.author}!`);
-                    }
-                    else if (args[0] === 'foo') {
-                        return message.channel.send('bar');
-                    }
-                    sent = args.slice(0,args.length).join(' ');
-                     coin = Math.floor(Math.random() * Math.floor(answers.length));
-                    return message.channel.send(`${sent}\n ${answers[coin]}`);
-                }
-
-                
-
-                else if (command === 'meow') {
-                    
-                    message.channel.send(`pspspspsps`);
-                }
-                
-                else if (command === 'ping') {
-                    
-                    message.channel.send(`pong`);
-                }
-                else if (command === 'bang') {
-                    
-                    message.channel.send(`♪bang bang ♪ he shot me down ♫`);
-                }
-                else if (command === 'bangbang') {
-                    
-                    message.channel.send(`♪Bang ♪bang ♪bang pull my devil trigger♫`);
-                }
-                else if (command === 'obi1') {
-                    
-                    message.channel.send(`hello there`);
-                }
-                //#endregion
-                //#region admin
-           
-                else if (command === 'purge') {
-                    const amount = parseInt(args[0])+ 1;
-                
-                    if (isNaN(amount)) {
-                        return message.reply('that doesn\'t seem to be a valid number.');
-                    }else if (amount <= 1 || amount > 100) {
-                        return message.reply('you need to input a number between 1 and 99.');
-                    }
-                    message.channel.bulkDelete(amount,true);
-                    
-                }
-
-
-
-                else if (command === 'kick') {
-                    if (!message.mentions.users.size) {
-                        return message.reply('you need to tag a user in order to make em walk the plank ARRRR');
-                    }
-                    // grab the "first" mentioned user from the message
-                    // this will return a `User` object, just like `message.author`
-                    // Easy way to get member object though mentions.
-        var member= message.mentions.members.first();
-        // Kick
-        member.kick().then((member) => {
-            // Successmessage
-            message.channel.send(":wave: " + member.displayName + " has been successfully kicked :point_right: ");
-        }).catch(() => {
-             // Failmessage
-            message.channel.send("Access Denied");
-        });
-                
-                }
-                //#endregion
-
-
-               
-
+        try {
+            client.commands.get(command).execute(message, args);
+        } catch (error) {
+            console.error(error);
+            message.reply('there was an error trying to execute that command!');
+        }
             
     });
 
