@@ -62,7 +62,7 @@ client.on('ready', () => {
                     }
                     sent = args.slice(0,args.length).join(' ');
                      coin = Math.floor(Math.random() * Math.floor(answers.length));
-                    return message.reply(`      ${sent}\n ${answers[coin]}`);
+                    return message.reply(`  ${sent}\n ${answers[coin]}`);
                 }
 
                 
