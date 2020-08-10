@@ -20,12 +20,25 @@ client.on('ready', () => {
         if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
         const args = message.content.slice(config.prefix.length).trim().split(/ +/);
-        const command = args.shift().toLowerCase();
+        const commandName = args.shift().toLowerCase();
        
-        if (!client.commands.has(command)) return;
+        if (!client.commands.has(commandName)) return;
+        const command = client.command.get(commandName);
+        
+        if (command.guildOnly && message.channel.type === 'dm'){
+            return message.reply('i can\'t is this command in personal chat')
+        }
+        if (command.args && !args.length){
+            let reply = `you didnt prive any arguments, ${message.author}!`;
+            if (command.usage){
+            reply += `\nThe correct way to use this is: \`${prefix}${command.name} ${command.usage}\``;
+        }
+        return message.channel.send(reply);
+    }
+
 
         try {
-            client.commands.get(command).execute(message, args);
+            command.execute(message,args);
         } catch (error) {
             console.error(error);
             message.reply('there was an error trying to execute that command!');

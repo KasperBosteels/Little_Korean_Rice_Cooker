@@ -23,11 +23,10 @@ var answers = ["It is certain",
 module.exports = {
     
 	name: 'ask',
-	description: 'ask a question',
+    description: 'ask a question',
+    usage: '<question>',
 	execute(message, args) {
-        if (!args.length) {
-            return message.channel.send(`You didn't ask me anything, ${message.author}!`);
-        }else if (args[0] === 'foo') {
+         if (args[0] === 'foo') {
             return message.channel.send('bar');
         }
 		sent = args.slice(0,args.length).join(' ');
