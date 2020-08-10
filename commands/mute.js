@@ -14,7 +14,7 @@ module.exports = {
         if (!user) return message.channel.send('missed try again');
 
         if (user.hasPermission('MANAGE_MESSAGES')) return message.channel.send("cant mute this person");
-        var muteRole = message.guimd.roles.find("name", "Muted");
+        var muteRole = message.guild.roles.find("name", "Muted");
         if(!muteRole) return message.channel.send('pls create a Muted role');
 
         var mutetime = args[1];
