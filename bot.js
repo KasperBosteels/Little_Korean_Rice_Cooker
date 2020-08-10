@@ -69,3 +69,4 @@ client.on('ready', () => {
 
 //initiate bot by connecting to server
 client.login(process.env.DISCORD_TOKEN);
+process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
