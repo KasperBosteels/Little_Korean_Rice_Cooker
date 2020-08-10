@@ -35,7 +35,7 @@ module.exports = {
 
             message/channel.send(`${muteperson} has been unmuted`)
 
-        }, ms(muteTime);
+        }, ms(muteTime))
     
 
     },
