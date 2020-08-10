@@ -4,6 +4,7 @@ module.exports = {
     description: 'delete messages',
     args: 'true',
     usage:'<number to delete>',
+    aliases: ['delete','remove'],
 	execute(message, args) {
 		const amount = parseInt(args[0])+ 1;
 
