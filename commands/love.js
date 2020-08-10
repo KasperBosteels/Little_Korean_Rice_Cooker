@@ -114,13 +114,11 @@ module.exports = {
         if (!message.mentions.users.size) {
             coin = Math.floor(Math.random() * Math.floor(sweetlove.length));
             message.reply(` ${sweetlove[coin]}`);
-        }
-            // grab the "first" mentioned user from the message
-// this will return a `User` object, just like `message.author`
-// Easy way to get member object though mentions.
-var member= message.mentions.members.first();
-message.channel.send(`${member}\n${sweetlove[coin]}`)
+        }else {
 
+            var member= message.mentions.members.first();
+            message.channel.send(`${member}\n${sweetlove[coin]}`)
+        }
 
 // Kick
 //member.kick().then((member) => {
