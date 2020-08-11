@@ -12,7 +12,7 @@ module.exports = {
         //258217948819357697
         //var someone = message.author.id;
         var duckId = 593190985958424586;
-        if(!message.author.id == duckId) return message.reply('donate to my only fans first!!');
+        if(message.author.id != duckId) return message.reply('donate to my only fans first!!');
         var muteperson = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
 
         if (!muteperson) return message.reply('i cant find him');
