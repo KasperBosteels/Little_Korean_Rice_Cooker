@@ -6,7 +6,10 @@ module.exports = {
     usage:'<number to delete>',
     aliases: ['delete','remove'],
 	execute(message, args) {
-		const amount = parseInt(args[0])+ 1;
+        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm Denied');
+        if (!message.guild.me.hasPermission("KICK_MEMBERS")) return message.reply('perm2 Denied');
+
+        const amount = parseInt(args[0])+ 1;
 
     if (isNaN(amount)) {
         return message.reply('that doesn\'t seem to be a valid number.');
