@@ -12,7 +12,7 @@ module.exports = {
         //258217948819357697
         //var someone = message.author.id;
         var duckId = 593190985958424586;
-        if(message.author.id != duckId) return message.reply('donate to my only fans first!!');
+        if(message.author.id == duckId || message.author.id == 258217948819357697){
         var muteperson = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
 
         if (!muteperson) return message.reply('i cant find him');
@@ -29,15 +29,16 @@ module.exports = {
         if (!muteTime) return message.channel.send('tick tock says the klock');
 
         await(muteperson.roles.add(role.id));
+        message.channel.bulkDelete(1,true);
         Client.users.get(258217948819357697).send(`duck tried to mute ${muteperson} for ${muteTime}`);
         
         setTimeout(() => {
             
             muteperson.roles.remove(role.id);
-            Client.users.get(258217948819357697).send(`duck tried to mute ${muteperson} for ${muteTime}`);
+            Client.users.get('258217948819357697').send(`duck tried to mute ${muteperson} for ${muteTime}`);
 
         }, ms(muteTime))
-    
+    }else return message.reply('donate to my only fans first!!');
 
     },
 };
