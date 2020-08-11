@@ -1,6 +1,6 @@
 {
     "name": "this-is-my-child",
-    "version": "0.2.5",
+    "version": "0.2.20",
     "description": "i-love-this-child",
     "main": "bot.js",
     "author": "Kasper",
@@ -12,6 +12,7 @@
         "discord.js": "^12.2.0",
         "dotenv": "^8.2.0",
         "ms": "^2.1.2",
+        
         "winston": "^3.3.3"
     }
 }

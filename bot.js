@@ -33,7 +33,7 @@ client.on('ready', () => {
         if (command.args && !args.length){
             let reply = `you didnt provide any arguments, ${message.author}!`;
             if (command.usage){
-            reply += `\nThe correct way to use this is: \`${config.prefix}${command.name} ${command.usage}\``;
+            reply += `\nThe correct way to use this is:\n\`${command.usage}\`\n for more help type:  \`${config.prefix}help\` or  \`${config.prefix}help ${command.name}\``;
         }
         return message.channel.send(reply);
     }
