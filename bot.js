@@ -33,31 +33,39 @@ client.on('ready', () => {
                   return message.reply("profanity filter").then(msg => msg.delete({timeout: 10000}));
               }
           }*/
-          let messageArray = message.content.split();
-          let swear = JSON.parse(fs.readFileSync("./swearwords.json"));
-          let sentecUser = "";
-          let amountswear = 0;
+          var messageArray = message.content.split();
+          var swear = JSON.parse(fs.readFileSync("./swearwords.json"));
+          var sentecUser = "";
+          var amountswear = 0;
+
           for (let Y = 0; Y < messageArray.length; Y++) {
+
               const word = messageArray[Y].toLowerCase();
+              
               var changeword = "";
+
               for (let i = 0; i < swear["vloekwoorden"].length; i++) {
+
                 if(word.includes(swear["vloekwoorden"][i])){
+
                   changeword = word.replace(swear["vloekwoorden"][i], "******");
 
-                  sentecUser += " " +changeword;
+                  sentecUser += " " + changeword;
+
                   amountswear++;
+
                 }
               }
             if(!changeword){
-                sentecUser+= " "+messageArray[Y];
+                sentecUser+= " " + messageArray[Y];
             }
-              
+            if (amountswear != 0){
+                //message.delete();
+                //message.channel.send(sentecUser);
+                message.channel.send("no profanity")
+            }
           }
-          if (amountswear != 0){
-              message.delete();
-              message.channel.send(`${message.author}\n${sentecUser}\nno swearing`);
-              
-          }
+          
           //#endregion
         if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
