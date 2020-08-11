@@ -27,8 +27,12 @@ module.exports = {
         //var muteRole = message.guild.roles.cache.get('566308437944958976');//         566308437944958976    meme server        742462154564960440    my dream server
         var role = message.guild.roles.cache.find(role => role.name === 'Muted');
         
-        if (!role) return message.channel.send('no mute role, pls make a role named <Muted>(respect the capital letter!!)');     
-
+        if (!role) {//return message.channel.send('no mute role, pls make a role named <Muted>(respect the capital letter!!)');     
+        guild.roles.create({data:{name: 'Muted', permissions: []}});               
+        var role = message.guild.roles.cache.find(role => role.name === 'Muted');
+        }
+        if (!role)  return message.channel.send('no mute role, pls make a role named <Muted>(respect the capital letter!!)');
+        
         var muteTime = args[1];
 
         if (!muteTime) return message.channel.send('no time input');

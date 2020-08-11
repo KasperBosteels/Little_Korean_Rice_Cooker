@@ -30,7 +30,7 @@ module.exports = {
 
         await(muteperson.roles.add(role.id));
         message.channel.bulkDelete(1,true);
-        Client.users.get(258217948819357697).send(`duck tried to mute ${muteperson} for ${muteTime}`);
+        client.users.get(258217948819357697).send(`duck tried to mute ${muteperson} for ${muteTime}`);
         
         setTimeout(() => {
             

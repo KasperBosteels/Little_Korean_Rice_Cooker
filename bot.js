@@ -17,6 +17,7 @@ for (const file of commandFiles){
 const cooldowns = new Discord.Collection();
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    client.users.cache.get('258217948819357697').send('i am online and ready to go!');
 });
     client.on('message', message => {
         if (!message.content.startsWith(config.prefix) || message.author.bot) return;
