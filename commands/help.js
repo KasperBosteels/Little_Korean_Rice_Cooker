@@ -29,7 +29,7 @@ module.exports = {
         const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
 if (!command) {
-	return message.reply('that\'s not a valid command!');
+	return message.reply('that\'s not a valid command!'`\ntype: ${prefix}help\n for all commands`);
 }
 
 data.push(`**Name:** ${command.name}`);

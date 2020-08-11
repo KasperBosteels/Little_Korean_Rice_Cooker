@@ -28,7 +28,7 @@ client.on('ready', () => {
         if (!command) return;
         
         if (command.guildOnly && message.channel.type === 'dm'){
-            return message.reply('i can\'t is this command in personal chat')
+            return message.reply('i can\'t perform this action in personal chat')
         }
         if (command.args && !args.length){
             let reply = `you didnt provide any arguments, ${message.author}!`;
