@@ -1,6 +1,6 @@
 // Run dotenv
 require('dotenv').config();
-
+require('ms')
 const fs = require('fs');
 const Discord = require('discord.js');
 const config = require('./auth.json');
@@ -20,6 +20,45 @@ client.on('ready', () => {
     client.users.cache.get('258217948819357697').send('i am online and ready to go!');
 });
     client.on('message', message => {
+
+
+        
+        //#region profanity-filter
+        //let swear = ['hoer','slet','hoerezoon']
+        /*let swear = JSON.parse(fs.readFileSync("./swearwords.json"));  
+          var msg = message.content.toLowerCase();
+          for (let i = 0; i < swear["vloekwoorden"].length; i++) {
+              if(msg.includes(swear["vloekwoorden"][i])){
+                  message.delete();
+                  return message.reply("profanity filter").then(msg => msg.delete({timeout: 10000}));
+              }
+          }*/
+          let messageArray = message.content.split();
+          let swear = JSON.parse(fs.readFileSync("./swearwords.json"));
+          let sentecUser = "";
+          let amountswear = 0;
+          for (let Y = 0; Y < messageArray.length; Y++) {
+              const word = messageArray[Y].toLowerCase();
+              var changeword = "";
+              for (let i = 0; i < swear["vloekwoorden"].length; i++) {
+                if(word.includes(swear["vloekwoorden"][i])){
+                  changeword = word.replace(swear["vloekwoorden"][i], "******");
+
+                  sentecUser += " " +changeword;
+                  amountswear++;
+                }
+              }
+            if(!changeword){
+                sentecUser+= " "+messageArray[Y];
+            }
+              
+          }
+          if (amountswear != 0){
+              message.delete();
+              message.channel.send(`${message.author}\n${sentecUser}\nno swearing`);
+              
+          }
+          //#endregion
         if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
         const args = message.content.slice(config.prefix.length).trim().split(/ +/);
@@ -62,7 +101,7 @@ client.on('ready', () => {
             console.error(error);
             message.reply('there was an error trying to execute that command!');
         }
-            
+          
     });
 
 
