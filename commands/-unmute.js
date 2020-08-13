@@ -9,11 +9,11 @@ module.exports = {
     async execute(message, args) {
 
 
-        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm Denied');
-        //normaal is er al een check
+        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm-1 Denied');
+        //normaal is er al een checkkare
         //if (!args[0]) return message.reply('no tag');
         
-        if (!message.guild.me.hasPermission("KICK_MEMBERS")) return message.reply('perm2 Denied');
+        if (!message.guild.me.hasPermission("BAN_MEMBERS")) return message.reply('perm-2 Denied');
 
         var unmuteperson = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
 
@@ -23,7 +23,7 @@ module.exports = {
         var role = message.guild.roles.cache.find(role => role.name === 'Muted');
         
         if (!role) {//return message.channel.send('no mute role, pls make a role named <Muted>(respect the capital letter!!)');     
-        message.channel.reply("somehting is whrong mute method was unconventional");
+        message.reply("somehting is wrong mute method was unconventional");
         }
      
     unmuteperson.roles.remove(role.id);
