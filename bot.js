@@ -13,8 +13,8 @@ for (const file of commandFiles){
     const command = require(`./commands/${file}`);
     client.commands.set(command.name,command)
 }
-
 const cooldowns = new Discord.Collection();
+
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
     client.users.cache.get('258217948819357697').send('i am online and ready to go!');
