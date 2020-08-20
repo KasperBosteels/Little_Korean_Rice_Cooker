@@ -22,7 +22,9 @@
 // Kick
 member.kick().then((member) => {
 // Successmessage
-message.channel.send(":wave: " + member.displayName + " has been successfully kicked :point_right: ");
+message.channel.send(":wave: " + member.displayName + " has been successfully kicked :woman_cartwheeling: :person_golfing: ");
+console.log(`${member.user.tag} has been kicked by ${message.author.tag}`);
+
 }).catch(() => {
 // Failmessage
 message.channel.send("Access Denied");

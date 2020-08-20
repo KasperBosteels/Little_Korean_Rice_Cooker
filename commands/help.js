@@ -14,7 +14,7 @@ module.exports = {
         data.push('Here\'s a list of all my commands:');
         data.push(commands.map(command => command.name).join(', '));
         data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
-        
+        console.log(`${message.author.tag}  asked for help in channel`);
         return message.author.send(data, { split: true })
             .then(() => {
                 if (message.channel.type === 'dm') return;

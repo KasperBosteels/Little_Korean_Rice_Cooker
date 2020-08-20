@@ -40,7 +40,7 @@ module.exports = {
 
         await(muteperson.roles.add(role.id));
         message.channel.send(`${muteperson} has been muted for ${muteTime}`);
-        console.log(`${message.mentions.users.tag} has been muted for ${muteTime} by ${message.author.tag}`)
+        console.log(`${muteperson.user.tag} has been muted for ${muteTime} by ${message.author.tag}`)
         setTimeout(() => {
             
             muteperson.roles.remove(role.id);

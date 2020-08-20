@@ -17,5 +17,7 @@ module.exports = {
         return message.reply('you need to input a number between 1 and 99.');
     }
     message.channel.bulkDelete(amount,true);
+    console.log(`${message.author.tag} has purged ${amount} messages`);
+
 	},
 };

@@ -29,7 +29,7 @@ module.exports = {
     unmuteperson.roles.remove(role.id);
 
     message.channel.send(`${unmuteperson} has been unmuted`)
-    console.log(`${message.author.name} unmuted ${unmuteperson.name}`);
+    console.log(`${unmuteperson.user.tag} unmuted by ${message.author.tag}`);
 
     },
 };
