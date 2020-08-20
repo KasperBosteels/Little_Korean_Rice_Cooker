@@ -118,6 +118,8 @@ module.exports = {
         if (!args[0])
         {
             message.reply(` ${sweetlove[coin]}`);
+            console.log(`encouraged ${message.author.tag}`);
+
         }else {
 
             var member= message.mentions.members.first();

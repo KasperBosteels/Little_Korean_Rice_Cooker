@@ -19,6 +19,8 @@ module.exports = {
             .then(() => {
                 if (message.channel.type === 'dm') return;
                 message.reply('I\'ve sent you a DM with all my commands!');
+                console.log(`dm command ${message.author.tag}`);
+
             })
             .catch(error => {
                 console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
@@ -41,6 +43,8 @@ if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usag
 data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
 
 message.channel.send(data, { split: true });
+console.log(`${message.author.tag}  asked for help with ${command.name}`);
+
     }
     process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
    
