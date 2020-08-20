@@ -32,7 +32,7 @@ module.exports = {
         }
 		sent = args.slice(0,args.length).join(' ');
      coin = Math.floor(Math.random() * Math.floor(answers.length));
-     console.log(`${sent}\n ${answers[coin]}`)
+     console.log(`\n${message.author} asks:\n${sent}\n ${answers[coin]}\n`)
     return message.channel.send(`${sent}\n ${answers[coin]}`);
 	},
 };

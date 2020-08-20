@@ -15,7 +15,7 @@ module.exports = {
         if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm Denied');
         //normaal is er al een check
         //if (!args[0]) return message.reply('no tag');
-        
+        console.log("debug");
         if (!message.guild.me.hasPermission("KICK_MEMBERS")) return message.reply('perm2 Denied');
 
         var muteperson = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
