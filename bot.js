@@ -63,7 +63,8 @@ client.on('ready', () => {
             if (amountswear != 0){
                 //message.delete();
                 //message.channel.send(sentecUser);
-                message.channel.send("no profanity")
+                message.channel.send("no profanity");
+                console.log(`profanity  ${message.author.tag}`)
             }
           }
           
