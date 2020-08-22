@@ -4,6 +4,8 @@ require('ms')
 const fs = require('fs');
 const Discord = require('discord.js');
 const config = require('./auth.json');
+const winston = require('winston/lib/winston/config');
+
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -17,7 +19,6 @@ const cooldowns = new Discord.Collection();
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
     if (client.users.cache.get('258217948819357697'))client.users.cache.get('258217948819357697').send('i am online and ready to go!');
-    
 });
     client.on('message', message => {
 
@@ -114,8 +115,7 @@ client.on('ready', () => {
 
 
 
-
 //initiate bot by connecting to server
 client.login(process.env.DISCORD_TOKEN);
-
+process.on('uncaughtException',error => logger.log('error',error));
 process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));

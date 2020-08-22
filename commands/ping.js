@@ -1,3 +1,5 @@
+const { loggers } = require("winston");
+
 module.exports = {
 	name: 'ping',
     description: 'Ping!',
@@ -5,6 +7,5 @@ module.exports = {
 	execute(message, args) {
 		message.channel.send('Pong.');
 		console.log(`ping       ${message.author.tag}`);
-
 	},
 };
