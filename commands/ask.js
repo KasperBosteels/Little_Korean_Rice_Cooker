@@ -30,9 +30,9 @@ module.exports = {
          if (args[0] === 'foo') {
             return message.channel.send('bar');
         }
-		sent = args.slice(0,args.length).join(' ');
-     coin = Math.floor(Math.random() * Math.floor(answers.length));
-     console.log(`\n${message.author.tag}\n${sent}\n ${answers[coin]}\n`);
-     return message.channel.send(`${sent}\n ${answers[coin]}`);
+	sent = args.slice(0,args.length).join(' ');
+    coin = Math.floor(Math.random() * Math.floor(answers.length));
+    console.log(`ask        ${message.author.tag}           ${sent}           ${answers[coin]}\n`);
+    message.channel.send(`${sent}\n ${answers[coin]}`);
 	},
 };

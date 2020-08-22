@@ -5,7 +5,7 @@ module.exports = {
 	usage: ' ',
 	execute(message, args) {
 		message.channel.send('pspspspspsps');
-		console.log(`meow  ${message.author.tag}`);
+		console.log(`meow       ${message.author.tag}`);
 
 	},
 };

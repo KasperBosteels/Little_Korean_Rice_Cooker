@@ -9,7 +9,7 @@ module.exports = {
         //coin = Math.floor(Math.random() * Math.floor(pics.length));
         //message.channel.send(`${message.author} YOU ARE A DEGENERATE!!`,{files:[pics[coin]]});
         message.channel.send({files:[cringe]});
-        console.log(`cringe   ${message.author.tag}`);
+        console.log(`cringe     ${message.author.tag}`);
 
 	},
 };

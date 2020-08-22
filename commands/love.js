@@ -124,7 +124,7 @@ module.exports = {
 
             var member= message.mentions.members.first();
             message.channel.send(`${member}\n${sweetlove[coin]}`)
-            console.log(`${member.user.tag} has been encouraged by ${message.author.tag}`);
+            console.log(`encouraged ${message.author.tag}           ${member.user.tag}`);
 
         }
 
