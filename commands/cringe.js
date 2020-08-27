@@ -5,6 +5,8 @@ module.exports = {
 	cooldown: 10,
     usage: ' ',
     aliases:['cri',],
+    category:'fun',
+
 	execute(message, args) {
         //coin = Math.floor(Math.random() * Math.floor(pics.length));
         //message.channel.send(`${message.author} YOU ARE A DEGENERATE!!`,{files:[pics[coin]]});

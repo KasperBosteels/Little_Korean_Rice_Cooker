@@ -2,13 +2,14 @@ const Discord = require("discord.io");
 
     
     module.exports = {
-        name: 'kick',
-        description: 'make em walk the plank ARRRRR',
+        name: 'ban',
+        description: 'a final solution  (should work)',
         usage: '<@ user>',
         guildOnly: 'true',
+        aliases: ['die','bye'],
         execute(message, args) {
-            if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm Denied');
-            if (!message.guild.me.hasPermission("KICK_MEMBERS"))return message.reply('perm 2 Denied');
+            if (!message.member.hasPermission("BAN_MEMBERS")) return message.reply('perm Denied');
+            if (!message.guild.me.hasPermission("BAN_MEMBERS"))return message.reply('perm 2 Denied');
             if (!message.mentions.users.size) {
                 return message.reply(`you need to tag a user in order to make em walk the plank ARRRR\nlike this <-kick @user>`);
             }
@@ -22,9 +23,10 @@ const Discord = require("discord.io");
 
     if (member.hasPermission('MANAGE_MESSAGES')) return message.reply('this person is possibly a mod');
 // Kick
-member.kick().then((member) => {
+member.ban
+member.ban().then((member) => {
 // Successmessage
-message.channel.send(":wave: " + member.displayName + " has been successfully kicked :woman_cartwheeling: :person_golfing: ");
+message.channel.send(":man_police_officer: " + member.displayName + " has been successfully banned  :man_police_officer: ");
 }).catch(() => {
 // Failmessage
 message.channel.send("error");

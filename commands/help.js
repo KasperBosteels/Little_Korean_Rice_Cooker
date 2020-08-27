@@ -1,5 +1,10 @@
 const { prefix } = require('../auth.json');
+const { description } = require('./ask');
+const { category } = require('./cringe');
+
+
 module.exports = {
+
 	name: 'help',
 	description: 'List all of my commands or info about a specific command.',
 	aliases: ['commands'],
@@ -18,7 +23,7 @@ module.exports = {
             .then(() => {
                 if (message.channel.type === 'dm') return;
                 message.reply('I\'ve sent you a DM with all my commands!');
-                console.log(`help       ${message.author.tag}           dm`);
+                console.log(`${prefix}help           ${message.author.tag}           dm`);
 
             })
             .catch(error => {

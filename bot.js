@@ -9,12 +9,62 @@ const winston = require('winston/lib/winston/config');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-var today = new Date();
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
     client.commands.set(command.name,command)
 }
 const cooldowns = new Discord.Collection();
+
+
+
+
+
+//#region member leave and add not tested
+//not testet yet
+
+client.on('guildMemberAdd',member =>{
+    /*
+    var role = member.guild.roles.cache.get('');
+    if (!role)return console.log('member joined a server no role found error');
+    member.roles.add(role);
+    */
+    var channel = member.guild.channels.cache.get();
+    if (!channel) return console.log(`${message.user.tag} member joined no channel found error`);
+
+    var joinember = new Discord.MessageEmbed()
+        .setAuthor(`${meber.user.tag}`,member.user.displayAvatarURL)
+        .setDescription(`hello ${member.user.username}`)
+        .setColor("#00FF00")
+        .setFooter("user joined")
+        .setTimestamp();
+        channel.send(joinember)
+
+
+
+})
+
+client.on('guildMemberRemove',member =>{
+    /*
+    var role = member.guild.roles.cache.get('');
+    if (!role)return console.log('member joined a server no role found error');
+    member.roles.add(role);
+    */
+    var channel = member.guild.channels.cache.get();
+    if (!channel) return console.log('member joined no channel found error');
+
+    var leavemember = new Discord.MessageEmbed()
+        .setAuthor(`${meber.user.tag}`,member.user.displayAvatarURL)
+        .setDescription(`hello ${member.user.username}`)
+        .setColor("#FF0000")
+        .setFooter("user left")
+        .setTimestamp();
+        channel.send(leavemember)
+
+
+
+})
+//#endregion
+
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -99,6 +149,7 @@ client.on('ready', () => {
     
         try {
             command.execute(message,args);
+            var today = new Date();
             var time = today.getHours()+ ":" + today.getMinutes() + ":" + today.getSeconds();
             console.log(`${message}           ${message.author.tag}           ${time}`);
         } catch (error) {
