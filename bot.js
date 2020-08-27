@@ -20,8 +20,6 @@ const cooldowns = new Discord.Collection();
 
 
 //#region member leave and add not tested
-//not testet yet
-
 client.on('guildMemberAdd',member =>{
     /*
     var role = member.guild.roles.cache.get('');
@@ -29,7 +27,7 @@ client.on('guildMemberAdd',member =>{
     member.roles.add(role);
     */
     var channel = member.guild.channels.cache.get();
-    if (!channel) return console.log(`${message.user.tag} member joined no channel found error`);
+    if (!channel) return console.log(`${guild.user.tag} member joined no channel found error`);
 
     var joinember = new Discord.MessageEmbed()
         .setAuthor(`${meber.user.tag}`,member.user.displayAvatarURL)
@@ -151,7 +149,7 @@ client.on('ready', () => {
             command.execute(message,args);
             var today = new Date();
             var time = today.getHours()+ ":" + today.getMinutes() + ":" + today.getSeconds();
-            console.log(`${message}           ${message.author.tag}           ${time}`);
+            console.log(`${message}\n${message.author.tag}      ${time}\n`);
         } catch (error) {
             console.error(error);
             message.reply('there was an error trying to execute that command!');
@@ -163,5 +161,5 @@ client.on('ready', () => {
 
 //initiate bot by connecting to server
 client.login(process.env.DISCORD_TOKEN);
-process.on('uncaughtException',error => logger.log('error',error));
-process.on('unhandledRejection', error => logger.log('error', error));
+process.on('uncaughtException',error => console.log('error',error));
+process.on('unhandledRejection', error => console.log('error', error));

@@ -5,7 +5,7 @@ module.exports = {
 	cooldown: 10,
     usage: ' ',
     aliases:['hassan','has','mixedrace'],
-	execute(message, args) {
+	async execute(message, args) {
         //coin = Math.floor(Math.random() * Math.floor(pics.length));
         //message.channel.send(`${message.author} YOU ARE A DEGENERATE!!`,{files:[pics[coin]]});
         message.channel.send({files:[cringe]});
