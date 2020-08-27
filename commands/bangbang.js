@@ -6,7 +6,6 @@ module.exports = {
 	usage: ' ',
 	execute(message, args) {
 		message.channel.send('♪Bang ♪bang ♪bang pull my devil trigger♫');
-		console.log(`bang bang  ${message.author.tag}`);
 
 	},
 };

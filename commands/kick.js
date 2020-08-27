@@ -23,7 +23,6 @@
 member.kick().then((member) => {
 // Successmessage
 message.channel.send(":wave: " + member.displayName + " has been successfully kicked :woman_cartwheeling: :person_golfing: ");
-console.log(`kick       ${message.author.tag}           ${member.user.tag}`);
 
 }).catch(() => {
 // Failmessage

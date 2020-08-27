@@ -14,7 +14,6 @@ module.exports = {
         data.push('Here\'s a list of all my commands:');
         data.push(commands.map(command => command.name).join(', '));
         data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
-        console.log(`help       ${message.author.tag}`);
         return message.author.send(data, { split: true })
             .then(() => {
                 if (message.channel.type === 'dm') return;
@@ -43,7 +42,6 @@ if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usag
 data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
 
 message.channel.send(data, { split: true });
-console.log(`help       ${message.author.tag}           ${command.name}`);
 
     }
     process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));

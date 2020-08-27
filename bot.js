@@ -9,7 +9,7 @@ const winston = require('winston/lib/winston/config');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
+var today = new Date();
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
     client.commands.set(command.name,command)
@@ -25,15 +25,6 @@ client.on('ready', () => {
 
         
         //#region profanity-filter
-        //let swear = ['hoer','slet','hoerezoon']
-        /*let swear = JSON.parse(fs.readFileSync("./swearwords.json"));  
-          var msg = message.content.toLowerCase();
-          for (let i = 0; i < swear["vloekwoorden"].length; i++) {
-              if(msg.includes(swear["vloekwoorden"][i])){
-                  message.delete();
-                  return message.reply("profanity filter").then(msg => msg.delete({timeout: 10000}));
-              }
-          }*/
           var messageArray = message.content.split();
           var swear = JSON.parse(fs.readFileSync("./swearwords.json"));
           var sentecUser = "";
@@ -69,11 +60,12 @@ client.on('ready', () => {
           }
           
           //#endregion
-        if (!message.content.startsWith(config.prefix) || message.author.bot) return;
+       //#region prefix checker
+          if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
         const args = message.content.slice(config.prefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
-       
+       //#endregion
         const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
         if (!command) return;
         
@@ -107,6 +99,8 @@ client.on('ready', () => {
     
         try {
             command.execute(message,args);
+            var time = today.getHours()+ ":" + today.getMinutes() + ":" + today.getSeconds();
+            console.log(`${message}           ${message.author.tag}           ${time}`);
         } catch (error) {
             console.error(error);
             message.reply('there was an error trying to execute that command!');
@@ -119,4 +113,4 @@ client.on('ready', () => {
 //initiate bot by connecting to server
 client.login(process.env.DISCORD_TOKEN);
 process.on('uncaughtException',error => logger.log('error',error));
-process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
+process.on('unhandledRejection', error => logger.log('error', error));

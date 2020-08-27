@@ -32,7 +32,6 @@ module.exports = {
         }
 	sent = args.slice(0,args.length).join(' ');
     coin = Math.floor(Math.random() * Math.floor(answers.length));
-    console.log(`ask        ${message.author.tag}           ${sent}           ${answers[coin]}\n`);
     message.channel.send(`${sent}\n ${answers[coin]}`);
 	},
 };

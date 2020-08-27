@@ -9,6 +9,5 @@
             let coin = Math.floor((Math.random() * 2) + 1);
             if (coin <= 1){coin = 'tails';}else coin = 'heads';
             message.channel.send(`${coin}`);
-            console.log(`coin       ${message.author.tag}`);
         },
     };
