@@ -21,43 +21,47 @@ const cooldowns = new Discord.Collection();
 
 //#region member leave and add not tested
 client.on('guildMemberAdd',member =>{
-    /*
-    var role = member.guild.roles.cache.get('');
-    if (!role)return console.log('member joined a server no role found error');
-    member.roles.add(role);
-    */
-    var channel = member.guild.channels.cache.get();
-    if (!channel) return console.log(`${guild.user.tag} member joined no channel found error`);
+    
+    var lognames = ["bot-logs","bot-log","log","botllog"];
+  for (let u = 0; u < lognames.length; u++) {
+    var logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
+    if (logchannel) {
+        break;
+    }   
+  }
+    //var channel = member.guild.channels.cache.get();
+    if (!logchannel) return console.log(`${guild.user.tag} member joined no channel found error`);
 
     var joinember = new Discord.MessageEmbed()
-        .setAuthor(`${meber.user.tag}`,member.user.displayAvatarURL)
+        .setAuthor(`${member.user.tag}`,member.user.displayAvatarURL)
         .setDescription(`hello ${member.user.username}`)
         .setColor("#00FF00")
         .setFooter("user joined")
         .setTimestamp();
-        channel.send(joinember)
-
+        logchannel.send(joinember)
+        console.log('user joined');
 
 
 })
 
 client.on('guildMemberRemove',member =>{
-    /*
-    var role = member.guild.roles.cache.get('');
-    if (!role)return console.log('member joined a server no role found error');
-    member.roles.add(role);
-    */
-    var channel = member.guild.channels.cache.get();
-    if (!channel) return console.log('member joined no channel found error');
+    var lognames = ["bot-logs","bot-log","log","botllog"];
+    for (let u = 0; u < lognames.length; u++) {
+      var logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
+      if (logchannel) {
+          break;
+      }   
+    }
+    if (!channel) return console.log('member left no channel found error');
 
     var leavemember = new Discord.MessageEmbed()
-        .setAuthor(`${meber.user.tag}`,member.user.displayAvatarURL)
-        .setDescription(`hello ${member.user.username}`)
+        .setAuthor(`${member.user.tag}`,member.user.displayAvatarURL)
+        .setDescription(`${member.user.username}`)
         .setColor("#FF0000")
         .setFooter("user left")
         .setTimestamp();
-        channel.send(leavemember)
-
+        logchannel.send(leavemember)
+        console.log('user left');
 
 
 })
@@ -67,6 +71,7 @@ client.on('guildMemberRemove',member =>{
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
     if (client.users.cache.get('258217948819357697'))client.users.cache.get('258217948819357697').send('i am online and ready to go!');
+    
 });
     client.on('message', message => {
 
@@ -127,14 +132,14 @@ client.on('ready', () => {
         }
         return message.channel.send(reply);
     }
-    
+    //#region cool down
     if (!cooldowns.has(command.name)) {
         cooldowns.set(command.name, new Discord.Collection());
     }
     
     const now = Date.now();
     const timestamps = cooldowns.get(command.name);
-    const cooldownAmount = (command.cooldown || 3) * 1000;
+    const cooldownAmount = (command.cooldown || 5) * 1000;
     
     if (timestamps.has(message.author.id)) {
         const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
@@ -144,7 +149,7 @@ client.on('ready', () => {
             return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
         }
     }
-    
+    //#endregion
         try {
             command.execute(message,args);
             var today = new Date();

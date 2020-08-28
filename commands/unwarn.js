@@ -38,7 +38,7 @@ var embed = new discord.MessageEmbed()
     //.addField({name:'amount of warns:',value:`${warns[unwarnuser.id].warns}`});
 //#endregion
 //#region looks for bot-log channel
-  var lognames = ["bot-logs","bot-log"];
+  var lognames = ["bot-logs","bot-log","log","botllog"];
   for (let u = 0; u < lognames.length; u++) {
     var logchannel = message.guild.channels.cache.find(chan => chan.name === lognames[u]);
     if (logchannel) {
