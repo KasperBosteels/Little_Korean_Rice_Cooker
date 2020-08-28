@@ -125,17 +125,5 @@ module.exports = {
             message.channel.send(`${member}\n${sweetlove[coin]}`)
 
         }
-
-// Kick
-//member.kick().then((member) => {
-// Successmessage
-//message.channel.send(":wave: " + member.displayName + " has been successfully kicked :point_right: ");     }).catch(() => {
-// Failmessage
-//message.channel.send("Access Denied");
-//});
-
-
-
-
     },
 };

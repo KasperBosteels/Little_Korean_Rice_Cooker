@@ -31,7 +31,7 @@ fs.writeFile("./warnings.json",JSON.stringify(warns),(err) => {
 });
 //#region embed
 var amount = warns[warnuser.id].warns;
-var muteafter = 6 - warns[warnuser.id].warns;
+var muteafter = 5 - warns[warnuser.id].warns;
 var embed = new discord.MessageEmbed()
     .setColor('#ff0000')
     .setFooter(message.member.displayName,message.author.displayAvatarURL)
@@ -54,7 +54,35 @@ var embed = new discord.MessageEmbed()
       
   }
   //#endregion
- 
+
+ //#region  mute user if true
+ if(muteafter = 0){
+   
+    //looks for person to mute if not existing return console log
+    var muteperson = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+    if (!muteperson) return console.log('was not able to fin muteperson'+ muteperson.tag);
+
+    //looks for mute role if not existing return console log
+    var role = message.guild.roles.cache.find(role => role.name === 'Muted');
+    if (!role)  return message.channel.send('no mute role, pls make a role named <Muted>(respect the capital letter!!)');
+
+    //makes mute time variable and checks for null if not console log
+    let muteTime = amount;
+    if (!muteTime) return console.log('not able to determine mutetime in warning');
+    if (!muteTime) return message.channel.send('no time input');
+
+    await(muteperson.roles.add(role.id));
+    message.channel.send(`${muteperson} has been muted for ${muteTime}`);
+    setTimeout(() => {
+        
+        muteperson.roles.remove(role.id);
+
+        message.channel.send(`${muteperson} has been unmuted`)
+
+    }, ms(muteTime))
+
+ }
+ //#endregion
   //sends embed to log channel
   logchannel.send(embed);
 

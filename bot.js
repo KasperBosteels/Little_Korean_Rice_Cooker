@@ -16,9 +16,6 @@ for (const file of commandFiles){
 const cooldowns = new Discord.Collection();
 
 
-
-
-
 //#region member leave and add not tested
 client.on('guildMemberAdd',member =>{
     
