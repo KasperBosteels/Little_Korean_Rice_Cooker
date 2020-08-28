@@ -1,3 +1,4 @@
+//this is a test
 const fs = require("fs");
 const warns = JSON.parse(fs.readFileSync("./warnings.json","utf8"));
 const discord = require("discord.js");
@@ -52,7 +53,6 @@ var embed = new discord.MessageEmbed()
  
   //sends embed to log channel
   logchannel.send(embed);
-  message.
 
 },
     };

@@ -24,7 +24,7 @@ const discord = require("discord.js");
     warns: 0
 };
    
-
+//this is a test
 fs.writeFile("./warnings.json",JSON.stringify(warns),(err) => {
     if (err) console.log(err);
 });
