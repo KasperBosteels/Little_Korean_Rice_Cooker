@@ -30,6 +30,8 @@ fs.writeFile("./warnings.json",JSON.stringify(warns),(err) => {
     if (err) console.log(err);
 });
 //#region embed
+var amount = warns[warnuser.id].warns;
+var muteafter = 6 - warns[warnuser.id].warns;
 var embed = new discord.MessageEmbed()
     .setColor('#ff0000')
     .setFooter(message.member.displayName,message.author.displayAvatarURL)
@@ -37,10 +39,13 @@ var embed = new discord.MessageEmbed()
     .setDescription(`**warned** ${warnuser}(${warnuser.id})
     **warned by:** ${message.author}
     **reason:** ${reason}`)
-    .addField(`${warns[warnuser.id].warns}`);
+    .addField(`warnings: `,`${amount}`,true)
+    .addField(`amount before mute: `,`${muteafter}`,true)
+    
+              //{name:'warns before mute:',value:`${}`},);
 //#endregion
 //#region looks for bot-log channel
-  var lognames = ["bot-logs","bot-log"];
+  var lognames = ["bot-logs","bot-log","log","botllog"];
   for (let u = 0; u < lognames.length; u++) {
     var logchannel = message.guild.channels.cache.find(chan => chan.name === lognames[u]);
     if (logchannel) {

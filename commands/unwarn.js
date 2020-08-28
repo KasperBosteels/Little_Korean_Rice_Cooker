@@ -32,9 +32,10 @@ var embed = new discord.MessageEmbed()
     .setColor('#ffa500')
     .setFooter(message.member.displayName,message.author.displayAvatarURL)
     .setTimestamp()
-    .setDescription(`**reset by:** ${unwarnuser}(${unwarnuser.id})
+    .setDescription(`**warn reset** ${unwarnuser}(${unwarnuser.id})
     **reset by:** ${message.author}`)
-    .addField(`${warns[unwarnuser.id].warns}`);
+    .addField(`amount of warns:`,warns[unwarnuser.id].warns,true)
+    //.addField({name:'amount of warns:',value:`${warns[unwarnuser.id].warns}`});
 //#endregion
 //#region looks for bot-log channel
   var lognames = ["bot-logs","bot-log"];
