@@ -1,4 +1,3 @@
-//this is a test
 const fs = require("fs");
 const warns = JSON.parse(fs.readFileSync("./warnings.json","utf8"));
 const discord = require("discord.js");
