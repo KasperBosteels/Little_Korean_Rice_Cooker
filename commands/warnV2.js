@@ -1,26 +1,5 @@
 const fs = require("fs");
 const ms = require('ms');
-/*
-const sequelize = new sequelize('database','user','password',{
-    host: 'localhost',
-    dialect: 'sqlite',
-    logging: 'false',
-    storage: 'database.sqlite',
-});
-const tags = sequelize.define('tags',{
-    id: {
-        type: sequelize.STRING,
-        unique: true,
-    },
-    userTag: sequelize.STRING,
-    Usage_count: {
-        type: sequelize.INTEGER,
-        defaultValue: 0,
-        allowNull: false
-    }
-
-});
-*/
 const discord = require("discord.js");
     module.exports = {
         name: 'warn',

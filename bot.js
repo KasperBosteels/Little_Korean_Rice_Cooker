@@ -68,8 +68,6 @@ client.on('guildMemberRemove',member =>{
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    //tags.sync();
-    console.log('synced sqlite')
     if (client.users.cache.get('258217948819357697'))client.users.cache.get('258217948819357697').send('i am online and ready to go!');
     
 });
