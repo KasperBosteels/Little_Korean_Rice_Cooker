@@ -6,9 +6,10 @@ const discord = require("discord.js");
 
 module.exports = {
         name: 'warn',
-        description: 'give a user a warning',
+        description: 'give a user a warning after 5 warnings it wil mute the tagged user for the amount of warnings in minutes.',
         usage: '<@ user> <your warning> (warning is mandatory!)',
         guildOnly: 'true',
+        aliases: ['w'],
         async execute(message, args) {
        //#region default check
        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm 1 denied');
@@ -22,12 +23,12 @@ module.exports = {
        //#endregion
 
 
-
+       var warns = JSON.parse(fs.readFileSync("./warnings.json","utf8"));
             //checks if a user is in the warning database if not add id and set count to 0
        if(!warns[warnuser.id]) warns[warnuser.id] = {warns: 0};
-    warns[warnuser.id].warns++;
+     warns[warnuser.id].warns++;
 
-fs.writeFile("./warnings.json",JSON.stringify(warns,null,2),(err) => {
+fs.writeFileSync("./warnings.json",JSON.stringify(warns,null,2),(err) => {
     if (err) console.log(err);
 });
 //#region embed

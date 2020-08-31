@@ -3,10 +3,10 @@ var warns = JSON.parse(fs.readFileSync("./warnings.json","utf8"));
 const discord = require("discord.js");
     module.exports = {
         name: 'reset warn',
-        description: 'resets a users warnings back to 0 (doesnt work yet)',
+        description: 'resets a users warnings back to 0 (should work)',
         usage: '<@ user>',
         guildOnly: 'true',
-        aliases: ['unwarn','uwarn','rw'],
+        aliases: ['unwarn','uwarn','rw','unw'],
         async execute(message, args) {
        //#region default check
        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm 1 denied');
@@ -22,7 +22,7 @@ const discord = require("discord.js");
             //checks if a user is in the warning database sets count to 0 else error
             if(!warns[unwarnuser.id]) warns[unwarnuser.id] = {warns: 0};
             warns[unwarnuser.id].warns = 0;
-fs.writeFile("./warnings.json",JSON.stringify(warns,null,2),(err) => {
+fs.writeFileSync("./warnings.json",JSON.stringify(warns,null,2),(err) => {
     if (err) console.log(err);
 });
 //#region embed
