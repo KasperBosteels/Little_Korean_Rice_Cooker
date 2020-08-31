@@ -2,7 +2,9 @@ const fs = require("fs");
 const ms = require('ms');
 var warns = JSON.parse(fs.readFileSync("./warnings.json","utf8"));
 const discord = require("discord.js");
-    module.exports = {
+    
+
+module.exports = {
         name: 'warn',
         description: 'give a user a warning',
         usage: '<@ user> <your warning> (warning is mandatory!)',
