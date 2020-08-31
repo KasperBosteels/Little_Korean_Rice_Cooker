@@ -7,6 +7,7 @@ const config = require('./auth.json');
 const winston = require('winston/lib/winston/config');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
+const lognames = ["bot-logs","bot-log","log","botllog"];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
@@ -30,9 +31,10 @@ client.on('guildMemberAdd', member => {
           
       }
     // Do nothing if the channel wasn't found on this server
-    if (!logchannel) return;
+    if (!logchannel) {console.log('logchannel = null');
+                      return;}
     // Send the message, mentioning the member
-    channel.send(`Welcome to the server, ${member}`);
+    logchannel.send(`Welcome to the server, ${member}`);
   });
     client.on('message', message => {
 
