@@ -1,4 +1,3 @@
-const { loggers } = require("winston");
 
 module.exports = {
 	name: 'ping',
