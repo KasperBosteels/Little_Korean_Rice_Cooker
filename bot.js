@@ -18,20 +18,21 @@ const cooldowns = new Discord.Collection();
 
 //#region member leave and add not tested
 client.on('guildMemberAdd',member =>{
-    
+    //#region checks for a log channel named log,bot-log,...
     var lognames = ["bot-logs","bot-log","log","botllog"];
   for (let u = 0; u < lognames.length; u++) {
     var logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
     if (logchannel) {
         break;
-    }   
+    }
   }
+
     //var channel = member.guild.channels.cache.get();
     if (!logchannel) return console.log(`${guild.user.tag} member joined no channel found error`);
-
+  //#endregion
     var joinember = new Discord.MessageEmbed()
         .setAuthor(`${member.user.tag}`,member.user.displayAvatarURL)
-        .setDescription(`hello ${member.user.username}`)
+        .setDescription(`henlo ${member.user.username}`)
         .setColor("#00FF00")
         .setFooter("user joined")
         .setTimestamp();
@@ -67,6 +68,8 @@ client.on('guildMemberRemove',member =>{
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    //tags.sync();
+    console.log('synced sqlite')
     if (client.users.cache.get('258217948819357697'))client.users.cache.get('258217948819357697').send('i am online and ready to go!');
     
 });

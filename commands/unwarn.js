@@ -1,9 +1,9 @@
 const fs = require("fs");
-const warns = JSON.parse(fs.readFileSync("./warnings.json","utf8"));
+var warns = JSON.parse(fs.readFileSync("./warnings.json","utf8"));
 const discord = require("discord.js");
     module.exports = {
         name: 'reset warn',
-        description: 'resets a users warnings back to 0',
+        description: 'resets a users warnings back to 0 (doesnt work yet)',
         usage: '<@ user>',
         guildOnly: 'true',
         aliases: ['unwarn','uwarn','rw'],
@@ -14,17 +14,15 @@ const discord = require("discord.js");
        if (!message.guild.me.hasPermission('KICK_MEMBERS')) return message.reply('perm 2 denied');
        var unwarnuser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
        if (!unwarnuser) return message.reply('no user found');
+       //reading the json file again cus idk anymore
+       warns = JSON.parse(fs.readFileSync("./warnings.json","utf8"));
        //if(warnuser.hasPermission("MANAGE_MESSAGES")) return message.reply("sorry not sorry u cant do that smuck!!");
        //#endregion
-
-
-
+       
             //checks if a user is in the warning database sets count to 0 else error
-       if(warns[unwarnuser.id]) warns[unwarnuser.id] = {
-    warns: 0
-};
-   
-fs.writeFile("./warnings.json",JSON.stringify(warns),(err) => {
+            if(!warns[unwarnuser.id]) warns[unwarnuser.id] = {warns: 0};
+            warns[unwarnuser.id].warns = 0;
+fs.writeFile("./warnings.json",JSON.stringify(warns,null,2),(err) => {
     if (err) console.log(err);
 });
 //#region embed
@@ -51,5 +49,5 @@ var embed = new discord.MessageEmbed()
   //sends embed to log channel
   logchannel.send(embed);
 
-},
-    };
+    },
+};

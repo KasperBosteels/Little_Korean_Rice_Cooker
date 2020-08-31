@@ -1,5 +1,6 @@
 const fs = require("fs");
-const warns = JSON.parse(fs.readFileSync("./warnings.json","utf8"));
+const ms = require('ms');
+var warns = JSON.parse(fs.readFileSync("./warnings.json","utf8"));
 const discord = require("discord.js");
     module.exports = {
         name: 'warn',
@@ -21,12 +22,10 @@ const discord = require("discord.js");
 
 
             //checks if a user is in the warning database if not add id and set count to 0
-       if(!warns[warnuser.id]) warns[warnuser.id] = {
-    warns: 0
-};
+       if(!warns[warnuser.id]) warns[warnuser.id] = {warns: 0};
     warns[warnuser.id].warns++;
 
-fs.writeFile("./warnings.json",JSON.stringify(warns),(err) => {
+fs.writeFile("./warnings.json",JSON.stringify(warns,null,2),(err) => {
     if (err) console.log(err);
 });
 //#region embed
@@ -56,7 +55,7 @@ var embed = new discord.MessageEmbed()
   //#endregion
 
  //#region  mute user if true
- if(muteafter = 0){
+ if(amount > 5){
    
     //looks for person to mute if not existing return console log
     var muteperson = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
@@ -67,7 +66,7 @@ var embed = new discord.MessageEmbed()
     if (!role)  return message.channel.send('no mute role, pls make a role named <Muted>(respect the capital letter!!)');
 
     //makes mute time variable and checks for null if not console log
-    let muteTime = amount;
+    let muteTime = amount+'m';
     if (!muteTime) return console.log('not able to determine mutetime in warning');
     if (!muteTime) return message.channel.send('no time input');
 
@@ -86,5 +85,5 @@ var embed = new discord.MessageEmbed()
   //sends embed to log channel
   logchannel.send(embed);
 
-},
-    };
+    },
+};
