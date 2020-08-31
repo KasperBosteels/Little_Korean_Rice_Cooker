@@ -5,7 +5,6 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const config = require('./auth.json');
 const winston = require('winston/lib/winston/config');
-
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -19,8 +18,22 @@ const cooldowns = new Discord.Collection();
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
     if (client.users.cache.get('258217948819357697'))client.users.cache.get('258217948819357697').send('i am online and ready to go!');
-    
+    client.user.setActivity('rice',{type: 'WATCHING'});
 });
+// Create an event listener for new guild members
+client.on('guildMemberAdd', member => {
+    for (let u = 0; u < lognames.length; u++) {
+        var logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
+        if (logchannel) {
+            break;
+        }
+          
+      }
+    // Do nothing if the channel wasn't found on this server
+    if (!logchannel) return;
+    // Send the message, mentioning the member
+    channel.send(`Welcome to the server, ${member}`);
+  });
     client.on('message', message => {
 
 
