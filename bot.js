@@ -7,7 +7,6 @@ const config = require('./auth.json');
 const winston = require('winston/lib/winston/config');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
-const lognames = ["bot-logs","bot-log","log","botllog"];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
@@ -23,12 +22,12 @@ client.on('ready', () => {
 });
 // Create an event listener for new guild members
 client.on('guildMemberAdd', member => {
+    var lognames = ["bot-logs","bot-log","log","botllog"];
     for (let u = 0; u < lognames.length; u++) {
         var logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
         if (logchannel) {
             break;
         }
-          
       }
     // Do nothing if the channel wasn't found on this server
     if (!logchannel) {console.log('logchannel = null');
