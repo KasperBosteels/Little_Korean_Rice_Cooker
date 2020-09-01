@@ -116,7 +116,7 @@ client.on('guildMemberAdd', member => {
             command.execute(message,args);
             var today = new Date();
             var time = today.getHours()+ ":" + today.getMinutes() + ":" + today.getSeconds();
-            console.log(`${message}\n${message.author.tag}      ${time}\n`);
+            console.log(`${message}           ${message.channel.name}\n${message.author.tag}      ${time}\n`);
         } catch (error) {
             console.error(error);
             message.reply('there was an error trying to execute that command!');
