@@ -31,6 +31,7 @@ client.on('guildMemberAdd', member => {
       }
     // Do nothing if the channel wasn't found on this server
     if (!logchannel) {console.log('logchannel = null');
+                        console.log(`joined person is ${member.tag} guild is ${member.guild.name}`);
                       return;}
     // Send the message, mentioning the member
     logchannel.send(`Welcome to the server, ${member}`);
