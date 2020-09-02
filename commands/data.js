@@ -26,7 +26,7 @@ module.exports = {
         console.log(guildid);
         if(rolename){
             var roleinfo = message.guild.roles.cache.find(r => r.name == rolename);
-            if (!rolename) return console.log('role doesnt exist');
+            if (!roleinfo) return message.channel.send('role not found check spelling');
             var roleID = roleinfo.id;
         }
         if(user && !rolename){
