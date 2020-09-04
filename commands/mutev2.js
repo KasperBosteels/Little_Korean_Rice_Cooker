@@ -2,7 +2,7 @@ const ms = require('ms');
 module.exports = {
     name: 'mutev2',
     description: 'a more dynamic version',
-    usage: `<@ user> <1-n>s/n/m\nbe aware that after you auto-complete a tag there is already a space so dont type in another space.\n(note: between the number and the consonant is no space)`,
+    usage: `<@ user> <1-n>s/m/h\nbe aware that after you auto-complete a tag there is already a space so dont type in another space.\n(note: between the number and the consonant is no space)`,
     guildOnly: 'true',
     args : 'true',
     aliases:['mute','silence','shhh'],

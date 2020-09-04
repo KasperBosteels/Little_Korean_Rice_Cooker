@@ -1,13 +1,25 @@
 const database = require("../database.json");
 const mysql = require("mysql");
+
+
+
+// DOTO:
+//data removal 
+//think of something to add to no role given if part
+
+
+
+
+
 module.exports = {
 	name: 'dtb test',
-    description: 'debug for sql server',
+    description: 'debug for sql server (inserts IDuser, IDrole and IDguild into database',
     cooldown : 10,
     args: 'true',
     guildOnly: 'true',
     aliases: ['data','dt'],
-	execute(message, args) {
+    usage: '<user tag> <role name>',
+    execute(message, args) {
 		var con = mysql.createConnection({
             host: database.host,
             user : database.user,

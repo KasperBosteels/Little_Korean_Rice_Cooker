@@ -1,6 +1,4 @@
 const Discord = require("discord.io");
-
-    
     module.exports = {
         name: 'ban',
         description: 'a final solution  (should work)',

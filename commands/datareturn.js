@@ -6,6 +6,7 @@ module.exports = {
     cooldown : 10,
     guildOnly: 'true',
     aliases: ['return','dtr'],
+    usage:'optional: <user tag>/<role name>/<user tag> <role name>',
 	execute(message, args) {
 		var con = mysql.createConnection({
             host: database.host,

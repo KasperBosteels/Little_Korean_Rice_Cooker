@@ -1,6 +1,7 @@
-// Run dotenv
 require('dotenv').config();
 require('ms')
+const database = require("./database.json");
+const mysql = require("mysql");
 const fs = require('fs');
 const Discord = require('discord.js');
 const config = require('./auth.json');
@@ -17,6 +18,19 @@ const cooldowns = new Discord.Collection();
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    //#region test connection between server and sql server
+    var con = mysql.createConnection({
+        host: database.host,
+        user : database.user,
+        password: database.pwd,
+        database: database.database
+
+    });
+    con.connect(err =>{if (err)console.log(err);
+    });
+    con.end(err =>{if (err)console.log(err);
+    });
+    //#endregion
     if (client.users.cache.get('258217948819357697'))client.users.cache.get('258217948819357697').send('i am online and ready to go!');
     client.user.setActivity('rice',{type: 'WATCHING'});
 });
@@ -30,9 +44,7 @@ client.on('guildMemberAdd', member => {
         }
       }
     // Do nothing if the channel wasn't found on this server
-    if (!logchannel) {console.log('logchannel = null');
-                        console.log(`joined person is ${member.tag} guild is ${member.guild.name}`);
-                      return;}
+    if (!logchannel) {return console.log('logchannel = not ');}
     // Send the message, mentioning the member
     logchannel.send(`Welcome to the server, ${member}`);
   });
