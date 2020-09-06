@@ -83,7 +83,7 @@ client.on('guildMemberAdd', member => {
                 //message.delete();
                 //message.channel.send(sentecUser);
                 message.channel.send("no profanity");
-                console.log(`profanity  ${message.author.tag}`)
+                console.log(`profanity  ${message.author.tag}   \"${message.content}\"`)
             }
           }
           
