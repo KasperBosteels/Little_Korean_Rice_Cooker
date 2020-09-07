@@ -35,7 +35,6 @@ module.exports = {
         var rolename = args[1];
         var remove = args [2];
         var guildid = message.guild.id;
-        console.log(guildid);
         if(rolename){
             var roleinfo = message.guild.roles.cache.find(r => r.name == rolename);
             if (!roleinfo) return message.channel.send('role not found check spelling');

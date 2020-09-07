@@ -2,7 +2,7 @@ const database = require("../database.json");
 const mysql = require("mysql");
 module.exports = {
 	name: 'bot-log',
-	description: '!!work in progress NON FUNCTIONAL!!\nto assign a channel where the logs go if there are no log it wil automatically look for a probable channel',
+	description: '!!work in progress NON FUNCTIONAL!!\nto assign a channel where the logs go if there are no log it wil automatically look for a channel named "bot-logs","bot-log","log" or "botllog"',
 	cooldown: 1,
     usage: '<schannel ID> (only works with channel ID)',
     guildOnly: "true",
@@ -19,20 +19,19 @@ module.exports = {
             if(err) {console.log(err); message.channel.send('dtb connection issue');} 
         });
         //asigns id to vars
-        var channel = message.mentions.channels.first().id;
-        var guild = message.guild;
+        var channel = message.channel.id;
+        var guild = message.guild.id;
         //undefined check
         if (!channel)return console.log('no channel');
         if (!guild)return console.log('no guild');
-        //cheks if already in database
-        con.query(`SELECT * FROM guildchannels WHERE guildID = '${guild.id}' AND channelId = '${channel}'`,(err,rows) =>{
-            if (err)console.log(err);
-            if(rows.length > 0){
-                return message.channel.send('already done')
-            }else {
-                //insertions into database
-        con.query(`INSERT INTO guildchannels (guildID, channelID) VALUES ("${guild.id}","${channel}")`,(err)=>{ if (err)console.log(err);});
-            }
+        con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
+        if(err)console.log(err);
+        if(rows[0].exist != 0){
+            con.query(`UPDATE logchannel SET channelID = '${channel}' WHERE guildID = '${guild}';`)
+        }else{
+            con.query(`INSERT INTO logchannel (guildID,channelID) VALUES("${guild}","${channel}");`)
+        }
         });
+        message.channel.send('i will send my logs here now.')
     },
 };

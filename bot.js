@@ -125,7 +125,8 @@ client.on('guildMemberAdd', member => {
         }
     }
     //#endregion
-        try {
+        
+    try {
             command.execute(message,args);
             var today = new Date();
             var time = today.getHours()+ ":" + today.getMinutes() + ":" + today.getSeconds();
