@@ -18,7 +18,6 @@ module.exports = {
        var warnuser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
        var reason = args.slice(1).join(" ");
        if (!warnuser) return message.reply('no user found');
-       //if(warnuser.hasPermission("MANAGE_MESSAGES")) return message.reply("sorry not sorry u cant do that smuck!!");
        //#endregion
             //#region connecting database
             var con = mysql.createConnection({

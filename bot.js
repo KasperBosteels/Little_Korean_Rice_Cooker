@@ -36,17 +36,29 @@ client.on('ready', () => {
 });
 // Create an event listener for new guild members
 client.on('guildMemberAdd', member => {
-    var lognames = ["bot-logs","bot-log","log","botllog"];
-    for (let u = 0; u < lognames.length; u++) {
-        var logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
-        if (logchannel) {
-            break;
+    con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
+        if(err)console.log(err);
+        if(rows[0].exist != 0){
+            con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{
+                var log = member.guild.channels.cache.get(rows[0].channel);
+                log.send(`${member.tag} joined us hooray !!`);
+
+            });
+        }else{
+            var lognames = ["bot-logs","bot-log","log","botllog"];
+            for (let u = 0; u < lognames.length; u++) {
+                var logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
+                if (logchannel) {
+                    break;
+                }
+              }
+            // Do nothing if the channel wasn't found on this server
+            if (!logchannel) {return console.log('logchannel = not ');}
+            // Send the message, mentioning the member
+            logchannel.send(`Welcome to the server, ${member}`); 
         }
-      }
-    // Do nothing if the channel wasn't found on this server
-    if (!logchannel) {return console.log('logchannel = not ');}
-    // Send the message, mentioning the member
-    logchannel.send(`Welcome to the server, ${member}`);
+        });
+    
   });
     client.on('message', message => {
 

@@ -2,12 +2,14 @@ const database = require("../database.json");
 const mysql = require("mysql");
 module.exports = {
 	name: 'bot-log',
-	description: '!!work in progress NON FUNCTIONAL!!\nto assign a channel where the logs go if there are no log it wil automatically look for a channel named "bot-logs","bot-log","log" or "botllog"',
+	description: '!!in testing!!        assign a channel where the logs go if there are is no specified log channel it wil automatically look for a channel named "bot-logs","bot-log","log" or "botllog"',
 	cooldown: 1,
     usage: '<schannel ID> (only works with channel ID)',
     guildOnly: "true",
     aliases:['btl'],
 	execute(message, args) {
+        if (!message.member.hasPermission("BAN_MEMBERS")) return message.reply('perm 1 Denied');
+        if (!message.guild.me.hasPermission("BAN_MEMBERS"))return message.reply('perm 2 Denied');
 		var con = mysql.createConnection({
             host: database.host,
             user : database.user,
