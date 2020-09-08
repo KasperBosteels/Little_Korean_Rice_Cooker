@@ -45,7 +45,7 @@ client.on('guildMemberAdd', member => {
     });
     con.connect(err =>{if (err)console.log(err);
     });
-    con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
+    con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
         if(err)console.log(err);
         if(rows[0].exist != 0){
             con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{
@@ -67,7 +67,8 @@ client.on('guildMemberAdd', member => {
             logchannel.send(`Welcome to the server, ${member}`); 
         }
         });
-    
+        con.end(err =>{if (err)console.log(err);
+        });
   });
     client.on('message', message => {
 

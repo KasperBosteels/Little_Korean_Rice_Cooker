@@ -55,5 +55,7 @@ var embed = new discord.MessageEmbed()
   //sends embed to log channel
   logchannel.send(embed);
     });
+    con.end(err =>{if (err)console.log(err);
+    });
     },
 };

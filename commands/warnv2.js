@@ -81,5 +81,7 @@ if(amount > 5){
 //sends embed to log channel
 logchannel.send(embed);
   }));
+  con.end(err =>{if (err)console.log(err);
+  });
  },
 };

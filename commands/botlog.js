@@ -35,5 +35,7 @@ module.exports = {
         }
         });
         message.channel.send('i will send my logs here now.')
+        con.end(err =>{if (err)console.log(err);
+        });
     },
 };

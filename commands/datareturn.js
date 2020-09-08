@@ -62,7 +62,8 @@ module.exports = {
         }else {
             message.channel.reply('dont corrupt my data pls, whom ever u are');
         }
-
+        con.end(err =>{if (err)console.log(err);
+        });
 
 
 
