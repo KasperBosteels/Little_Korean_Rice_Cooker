@@ -36,6 +36,15 @@ client.on('ready', () => {
 });
 // Create an event listener for new guild members
 client.on('guildMemberAdd', member => {
+    var con = mysql.createConnection({
+        host: database.host,
+        user : database.user,
+        password: database.pwd,
+        database: database.database
+
+    });
+    con.connect(err =>{if (err)console.log(err);
+    });
     con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
         if(err)console.log(err);
         if(rows[0].exist != 0){
