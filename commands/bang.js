@@ -3,7 +3,8 @@ module.exports = {
 	description: 'bang',
 	cooldown: 1,
 	usage: ' ',
-	execute(message, args) {
+	category: "fun",
+	execute(client,message, args) {
 		message.channel.send('♪bang bang ♪ he shot me down ♫');
 	},
 };

@@ -1,11 +1,12 @@
 const Discord = require("discord.io");
     module.exports = {
         name: 'ban',
-        description: 'a final solution  (should work)',
+        description: 'a final solution',
         usage: '<@ user>',
         guildOnly: 'true',
         aliases: ['die','bye'],
-        execute(message, args) {
+        category: "moderating",
+        execute(client,message, args) {
             if (!message.member.hasPermission("BAN_MEMBERS")) return message.reply('perm Denied');
             if (!message.guild.me.hasPermission("BAN_MEMBERS"))return message.reply('perm 2 Denied');
             if (!message.mentions.users.size) {

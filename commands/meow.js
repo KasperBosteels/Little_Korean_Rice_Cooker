@@ -3,7 +3,8 @@ module.exports = {
 	description: 'catnip is illegal here',
 	cooldown: 1,
 	usage: ' ',
-	execute(message, args) {
+	category: "fun",
+	execute(client,message, args) {
 		message.channel.send('pspspspspsps');
 
 	},

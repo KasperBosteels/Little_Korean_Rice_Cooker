@@ -1,12 +1,13 @@
 const ms = require('ms');
 module.exports = {
     name: 'unmute',
-    description: 'an unmute command in case of emmergency',
+    description: 'unmute a tagged user',
     usage: `<@ user>\n`,
     guildOnly: 'true',
     args : 'true',
+    category: "moderating",
     aliases:['speak','unm','talk'],
-    async execute(message, args) {
+    async execute(client,message, args) {
 
 
         if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm-1 Denied');

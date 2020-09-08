@@ -3,13 +3,14 @@ const mysql = require("mysql");
 
 module.exports = {
 	name: 'return data',
-    description: 'should return data from dataserver\n',
+    description: 'should return data from dataserver',
     cooldown : 10,
     guildOnly: 'true',
     aliases: ['return','dtr'],
     usage:'optional: <user tag>/<role name>/<user tag> <role name>',
+    category: "debug",
     
-	execute(message, args) {
+	execute(client,message, args) {
 		var con = mysql.createConnection({
             host: database.host,
             user : database.user,

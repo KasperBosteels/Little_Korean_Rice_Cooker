@@ -26,7 +26,8 @@ module.exports = {
     description: 'ask a question',
     usage: '<question>',
     args: 'true',
-	execute(message, args) {
+    category: "fun",
+	execute(client,message, args) {
          if (args[0] === 'foo') {
             return message.channel.send('bar');
         }

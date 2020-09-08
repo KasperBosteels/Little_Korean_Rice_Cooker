@@ -8,7 +8,8 @@ const discord = require("discord.js");
         usage: '<@ user>',
         guildOnly: 'true',
         aliases: ['unwarn','uwarn','uw','unw'],
-        async execute(message, args) {
+        category: "moderating",
+        async execute(client,message, args) {
        //#region default check
        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm 1 denied');
        if (!args[0]) return message.reply('no user tagged');

@@ -149,7 +149,7 @@ client.on('guildMemberAdd', member => {
     //#endregion
         
     try {
-            command.execute(message,args);
+            command.execute(client,message,args);
             var today = new Date();
             var time = today.getHours()+ ":" + today.getMinutes() + ":" + today.getSeconds();
             console.log(`${message}           ${message.channel.name}           ${message.guild.name}\n${message.author.tag}      ${time}\n`);

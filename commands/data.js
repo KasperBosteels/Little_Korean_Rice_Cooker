@@ -13,13 +13,14 @@ const mysql = require("mysql");
 
 module.exports = {
 	name: 'dtb test',
-    description: 'debug for sql server (inserts IDuser, IDrole and IDguild into database',
+    description: 'debug for sql server (inserts IDuser, IDrole and IDguild into database)',
     cooldown : 10,
     args: 'true',
     guildOnly: 'true',
     aliases: ['data','dt'],
     usage: '<user tag> <role name>',
-    execute(message, args) {
+    category: "debug",
+    execute(client,message, args) {
 		var con = mysql.createConnection({
             host: database.host,
             user : database.user,

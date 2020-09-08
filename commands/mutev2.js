@@ -1,12 +1,13 @@
 const ms = require('ms');
 module.exports = {
     name: 'mutev2',
-    description: 'a more dynamic version',
+    description: 'second iteration of mute command',
     usage: `<@ user> <1-n>s/m/h\nbe aware that after you auto-complete a tag there is already a space so dont type in another space.\n(note: between the number and the consonant is no space)`,
     guildOnly: 'true',
     args : 'true',
     aliases:['mute','silence','shhh'],
-    async execute(message, args) {
+    category: "moderating",
+    async execute(client,message, args) {
 
 
         //var author = message.author.id;

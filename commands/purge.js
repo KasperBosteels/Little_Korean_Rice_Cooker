@@ -5,7 +5,8 @@ module.exports = {
     args: 'true',
     usage:'<number to delete>',
     aliases: ['delete','remove'],
-	execute(message, args) {
+    category: "moderating",
+	execute(client,message, args) {
         if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm Denied');
         if (!message.guild.me.hasPermission("KICK_MEMBERS")) return message.reply('perm2 Denied');
 

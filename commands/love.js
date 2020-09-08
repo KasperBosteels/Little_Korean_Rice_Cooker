@@ -110,7 +110,8 @@ module.exports = {
     usage: 'empty or <@ user>',
     aliases: ['ily','enc','precious','encourage'],
     cooldown: 1,
-    execute(message, args) {
+    category: "fun",
+    execute(client,message, args) {
         coin = Math.floor(Math.random() * Math.floor(sweetlove.length));
         
         

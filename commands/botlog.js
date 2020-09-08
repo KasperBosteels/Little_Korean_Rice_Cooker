@@ -7,7 +7,8 @@ module.exports = {
     usage: '<schannel ID> (only works with channel ID)',
     guildOnly: "true",
     aliases:['btl'],
-	execute(message, args) {
+    category: "moderating",
+	execute(client,message, args) {
         if (!message.member.hasPermission("BAN_MEMBERS")) return message.reply('perm 1 Denied');
         if (!message.guild.me.hasPermission("BAN_MEMBERS"))return message.reply('perm 2 Denied');
 		var con = mysql.createConnection({

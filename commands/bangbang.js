@@ -4,7 +4,8 @@ module.exports = {
 	cooldown: 1,
 	aliases: ['dmc','qwuack'],
 	usage: ' ',
-	execute(message, args) {
+	category: "fun",
+	execute(client,message, args) {
 		message.channel.send('♪Bang ♪bang ♪bang pull my devil trigger♫');
 
 	},

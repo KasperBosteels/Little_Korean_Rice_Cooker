@@ -6,7 +6,8 @@ const Discord = require("discord.io");
         description: 'make em walk the plank ARRRRR',
         usage: '<@ user>',
         guildOnly: 'true',
-        execute(message, args) {
+        category: "moderating",
+        execute(client,message, args) {
             if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm Denied');
             if (!message.guild.me.hasPermission("KICK_MEMBERS"))return message.reply('perm 2 Denied');
             if (!message.mentions.users.size) {

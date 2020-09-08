@@ -1,6 +1,5 @@
-const { prefix } = require('../auth.json');
-const { description } = require('./ask');
-const { category } = require('./cringe');
+const discord = require('discord.js');
+const botconfig = require('../auth.json');
 
 
 module.exports = {
@@ -9,9 +8,47 @@ module.exports = {
 	description: 'List all of my commands or info about a specific command.',
 	aliases: ['commands'],
 	usage: 'optional: [command name]',
-	cooldown: 5,
-	execute(message, args) {
-		const data = [];
+    cooldown: 5,
+    category: "general",
+	execute(client,message, args) {
+        var commandlist = [];
+        var prefix = botconfig.prefix;
+        client.commands.forEach(command =>{
+            var constructor = {
+                name: command.name,
+                description: command.description,
+                category: command.category
+            }
+            commandlist.push(constructor);
+        });
+        var response = "**BOT COMMANDS**\n\n";
+        var general = "**__General__**\n";
+        var moderating = "\n**__MODERATING__**\n";
+        var fun = "\n**__Fun__**\n";
+        var debug ="\n**__Debug__**\n";
+for (let i = 0; i < commandlist.length; i++) {
+    const command = commandlist[i];
+    if(command['category'] == 'general'){
+        general += `${prefix}${command['name']} - ${command["description"]}\n`;
+    }else if (command['category'] == 'moderating') {
+        moderating += `${prefix}${command['name']} - ${command["description"]}\n`;
+    }else if (command['category'] == 'debug') {
+        debug += `${prefix}${command['name']} - ${command["description"]}\n`;
+    }else if (command['category'] == 'fun') {
+        fun += `${prefix}${command['name']} - ${command["description"]}\n`;
+    }
+}
+response += general;
+response += moderating;
+response += debug;
+response += fun;
+message.author.send(response).then(() =>{message.channel.send('i\'ve send you a dm with my commands :mailbox_with_mail:');
+}).catch(()=>{
+    message.channel.send('i could not dm you')
+})
+
+        //#region old version
+        /*const data = [];
         const { commands } = message.client;
 
     if (!args.length) {
@@ -52,6 +89,7 @@ message.channel.send(data, { split: true });
     process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
    
 
-
+*/
+//#endregion
 	},
 };
