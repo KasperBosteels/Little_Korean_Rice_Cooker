@@ -1,7 +1,7 @@
 
 module.exports = {
 	name: 'ping',
-    description: 'Ping!',
+    description: 'gives you latency of the bot',
 	cooldown : 1,
 	category: "debug",
 	execute(client,message, args) {

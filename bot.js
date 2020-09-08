@@ -32,7 +32,8 @@ client.on('ready', () => {
     });
     //#endregion
     if (client.users.cache.get('258217948819357697'))client.users.cache.get('258217948819357697').send('i am online and ready to go!');
-    client.user.setActivity('rice',{type: 'WATCHING'});
+    client.user.setActivity(config.activity,{type: 'WATCHING'});
+
 });
 // Create an event listener for new guild members
 client.on('guildMemberAdd', member => {
@@ -152,7 +153,10 @@ client.on('guildMemberAdd', member => {
             command.execute(client,message,args);
             var today = new Date();
             var time = today.getHours()+ ":" + today.getMinutes() + ":" + today.getSeconds();
+            if(!message.channel.name){console.log(`${message}           DM           DM\n${message.author.tag}      ${time}\n`);
+            }else {
             console.log(`${message}           ${message.channel.name}           ${message.guild.name}\n${message.author.tag}      ${time}\n`);
+        }
         } catch (error) {
             console.error(error);
             message.reply('there was an error trying to execute that command!');
