@@ -48,7 +48,7 @@ client.on('guildMemberAdd', member => {
     });
     con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
         if(err)console.log(err);
-        if(rows[0].exist != 0){
+        if(rows[0].exist != null){
             con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{
                 var log = member.guild.channels.cache.get(rows[0].channel);
                 log.send(`${member.tag} joined us hooray !!`);
@@ -63,10 +63,10 @@ client.on('guildMemberAdd', member => {
                 }
               }
             // Do nothing if the channel wasn't found on this server
-            if (!logchannel) {return console.log('logchannel = not ');}
-            // Send the message, mentioning the member
+            if (!logchannel) {console.log('noaction taken no channel found');
+        }else{
             logchannel.send(`Welcome to the server, ${member}`); 
-        }
+        }}
         });
         con.end(err =>{if (err)console.log(err);
         });
