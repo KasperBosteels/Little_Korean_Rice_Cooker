@@ -10,6 +10,7 @@ module.exports = {
         //coin = Math.floor(Math.random() * Math.floor(pics.length));
         //message.channel.send(`${message.author} YOU ARE A DEGENERATE!!`,{files:[pics[coin]]});
         message.channel.send({files:[cringe]});
-
+        process.on('Missing Permissions', error => {console.log('error', error)
+                                                    if(error)message.reply("there is a permissions issue.")});
 	},
 };
