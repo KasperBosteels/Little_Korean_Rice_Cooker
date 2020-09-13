@@ -44,11 +44,11 @@ client.on('guildMemberAdd', member => {
         database: database.database
 
     });
-    con.connect(err =>{if (err)console.log(err);
-    });
+    con.connect(err =>{if (err)return console.log(err);});
     con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
         if(err)console.log(err);
-        if(rows[0].exist != null){
+        console.log(rows[0].exist);
+        if(rows[0].exist != 0){
             con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{
                 var log = member.guild.channels.cache.get(rows[0].channel);
                 log.send(`${member.tag} joined us hooray !!`);
