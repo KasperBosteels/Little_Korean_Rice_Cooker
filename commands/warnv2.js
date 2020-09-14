@@ -47,14 +47,28 @@ var embed = new discord.MessageEmbed()
 //#endregion
 
 //#region looks for bot-log channel
-var lognames = ["bot-logs","bot-log","log","botllog"];
-for (let u = 0; u < lognames.length; u++) {
-  var logchannel = message.guild.channels.cache.find(chan => chan.name === lognames[u]);
-  if (logchannel) {
-      break;
-  }
-    
-}
+con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${warnuser.guild.id}")AS exist;`,(err,rows) =>{
+  var logchannel
+  if(err)console.log(err);
+  if(rows[0].exist != 0){
+      con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${warnuser.guild.id}';`,(err,rows) =>{
+           logchannel = warnuser.guild.channels.cache.get(rows[0].channel);
+           logchannel.send(embed); 
+
+      });
+  }else{
+      var lognames = ["bot-logs","bot-log","log","botllog"];
+      for (let u = 0; u < lognames.length; u++) {
+           logchannel = warnuser.guild.channels.cache.find(chan => chan.name === lognames[u]);
+          if (logchannel) {
+              break;
+          }
+        }
+      // Do nothing if the channel wasn't found on this server
+      if (!logchannel) {console.log('noaction taken no channel found');
+    }else{  logchannel.send(embed); 
+    }}
+  });
 //#endregion
 //#region  mute user if true
 if(amount > 5){
@@ -70,19 +84,11 @@ if(amount > 5){
   warnuser.roles.add(role.id);
   message.channel.send(`${warnuser} has been muted for ${muteTime}`);
   setTimeout(() => {
-      
       warnuser.roles.remove(role.id);
-
       message.channel.send(`${warnuser} has been unmuted`)
-
   }, ms(muteTime))
-
 }
 //#endregion
-//sends embed to log channel
-logchannel.send(embed);
-  }));
-  con.end(err =>{if (err)console.log(err);
-  });
+ }));
  },
 };

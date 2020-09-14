@@ -30,13 +30,13 @@ module.exports = {
         con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
         if(err)console.log(err);
         if(rows[0].exist != 0){
-            con.query(`UPDATE logchannel SET channelID = '${channel}' WHERE guildID = '${guild}';`)
+            con.query(`UPDATE logchannel SET channelID = '${channel}' WHERE guildID = '${guild}';`);
         }else{
-            con.query(`INSERT INTO logchannel (guildID,channelID) VALUES("${guild}","${channel}");`)
+            con.query(`INSERT INTO logchannel (guildID,channelID) VALUES("${guild}","${channel}");`);
         }
-        });
-        message.channel.send('i will send my logs here now.')
-        con.end(err =>{if (err)console.log(err);
+        message.channel.send('i will send my logs here now.');
+        console.log("log channel chosen");
+        
         });
     },
 };

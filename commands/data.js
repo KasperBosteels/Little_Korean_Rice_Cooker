@@ -66,8 +66,8 @@ module.exports = {
         }
 
 
-        con.end(err =>{if (err)console.log(err);
-        });
+        
+     
 
 
 

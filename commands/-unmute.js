@@ -31,6 +31,6 @@ module.exports = {
     
 
     message.channel.send(`${unmuteperson} has been unmuted`)
-    console.log(`unmute     ${unmuteperson.user.tag}     by: ${message.author.tag}`);
+   
     },
 };
