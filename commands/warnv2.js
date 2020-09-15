@@ -48,7 +48,7 @@ var embed = new discord.MessageEmbed()
 
 //#region looks for bot-log channel
 con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${warnuser.guild.id}")AS exist;`,(err,rows) =>{
-  var logchannel
+  var logchannel;
   if(err)console.log(err);
   if(rows[0].exist != 0){
       con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${warnuser.guild.id}';`,(err,rows) =>{
@@ -65,7 +65,7 @@ con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${warnuser.gu
           }
         }
       // Do nothing if the channel wasn't found on this server
-      if (!logchannel) {console.log('noaction taken no channel found');
+      if (!logchannel) {console.log('no action taken no channel found');
     }else{  logchannel.send(embed); 
     }}
   });

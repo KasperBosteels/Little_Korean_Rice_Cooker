@@ -46,30 +46,27 @@ client.on('guildMemberAdd', member => {
     });
     con.connect(err =>{if (err)return console.log(err);});
     con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
+        var logchannel;
         if(err)console.log(err);
-        console.log(rows[0].exist);
         if(rows[0].exist != 0){
             con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{
-                var log = member.guild.channels.cache.get(rows[0].channel);
-                log.send(`${member.tag} joined us hooray !!`);
+                logchannel = member.guild.channels.cache.get(rows[0].channel);
+                logchannel.send(`${member.tag} joined us hooray !!`);
 
             });
         }else{
             var lognames = ["bot-logs","bot-log","log","botllog"];
             for (let u = 0; u < lognames.length; u++) {
-                var logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
+                 logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
                 if (logchannel) {
                     break;
                 }
               }
             // Do nothing if the channel wasn't found on this server
-            if (!logchannel) {console.log('noaction taken no channel found');
-        }else{
-            logchannel.send(`Welcome to the server, ${member}`); 
-        }}
+            if (!logchannel) {console.log('no action taken no channel found');
+        }else{logchannel.send(`Welcome to the server, ${member}`); }}
         });
-        con.end(err =>{if (err)console.log(err);
-        });
+       
   });
     client.on('message', message => {
 
