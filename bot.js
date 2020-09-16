@@ -51,7 +51,8 @@ client.on('guildMemberAdd', member => {
         if(rows[0].exist != 0){
             con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{
                 logchannel = member.guild.channels.cache.get(rows[0].channel);
-                logchannel.send(`${member.tag} joined us hooray !!`);
+                console.log(member.user.tag);
+                logchannel.send(`${member.user.tag} joined us hooray !!`);
 
             });
         }else{
@@ -64,7 +65,7 @@ client.on('guildMemberAdd', member => {
               }
             // Do nothing if the channel wasn't found on this server
             if (!logchannel) {console.log('no action taken no channel found');
-        }else{logchannel.send(`Welcome to the server, ${member}`); }}
+        }else{logchannel.send(`Welcome to the server, ${member.username}`); }}
         });
        
   });
