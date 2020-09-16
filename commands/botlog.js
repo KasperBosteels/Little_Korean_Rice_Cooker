@@ -2,7 +2,7 @@ const database = require("../database.json");
 const mysql = require("mysql");
 module.exports = {
 	name: 'bot-log',
-	description: '!!in testing!!        assign a channel where the logs go if there are is no specified log channel it wil automatically look for a channel named "bot-logs","bot-log","log" or "botllog"',
+	description: 'assign a channel where the logs go if there are is no specified log channel it wil automatically look for a channel named "bot-logs","bot-log","log" or "botllog"',
 	cooldown: 1,
     usage: '<schannel ID> (only works with channel ID)',
     guildOnly: "true",
