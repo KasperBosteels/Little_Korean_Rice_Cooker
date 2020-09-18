@@ -1,10 +1,9 @@
 var cringe = "https://cdn.discordapp.com/attachments/553714556669657101/744700534149087242/video0.mp4"
 module.exports = {
 	name: 'cringe',
-	description: 'hassan i luv u',
+	description: 'mixed race marriages ?',
 	cooldown: 10,
     usage: ' ',
-    aliases:['cri',],
     category: "fun",
 
 	async execute(client,message, args) {

@@ -4,7 +4,7 @@ module.exports = {
 	name: 'bot-log',
 	description: 'assign a channel where the logs go if there are is no specified log channel it wil automatically look for a channel named "bot-logs","bot-log","log" or "botllog"',
 	cooldown: 1,
-    usage: '<schannel ID> (only works with channel ID)',
+    usage: ' you just type the command in the channel u want the logs to go in',
     guildOnly: "true",
     aliases:['btl'],
     category: "moderating",

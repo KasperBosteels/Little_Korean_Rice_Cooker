@@ -3,7 +3,7 @@ const Discord = require("discord.io");
     
     module.exports = {
         name: 'kick',
-        description: 'make em walk the plank ARRRRR',
+        description: 'kick a tagged user',
         usage: '<@ user>',
         guildOnly: 'true',
         category: "moderating",
