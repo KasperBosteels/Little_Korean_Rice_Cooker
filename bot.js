@@ -51,21 +51,22 @@ client.on('guildMemberRemove',member =>{
             con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{
                 logchannel = member.guild.channels.cache.get(rows[0].channel);
                 logchannel.send(`ohno ${member.user.tag} left us ;_;`);
-                console.log(`new member added:  ${member.user.tag}\n`);
+                console.log(`member left:  ${member.user.tag}\n`);
 
             });
         }else{
             var lognames = ["bot-logs","bot-log","log","botllog"];
             for (let u = 0; u < lognames.length; u++) {
                  logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
-                 console.log(`new member added:  ${member.user.tag}\n`);
                  if (logchannel) {
                     break;
                 }
               }
             // Do nothing if the channel wasn't found on this server
             if (!logchannel) {console.log('no action taken no channel found     member remove');
-        }else{logchannel.send(`Welcome to the server, ${member.username} :cry`); }}
+        }else{logchannel.send(`Welcome to the server, ${member.username} :cry`); 
+        console.log(`member left:  ${member.user.tag}\n`);
+    }}
         });
        
   });
@@ -85,9 +86,8 @@ client.on('guildMemberAdd', member => {
         if(rows[0].exist != 0){
             con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{
                 logchannel = member.guild.channels.cache.get(rows[0].channel);
-                console.log(member.user.tag);
                 logchannel.send(`${member.user.tag} joined us hooray !!`);
-
+                console.log(`new member joined:     ${member.user.tag}\n`);
             });
         }else{
             var lognames = ["bot-logs","bot-log","log","botllog"];
@@ -99,7 +99,9 @@ client.on('guildMemberAdd', member => {
               }
             // Do nothing if the channel wasn't found on this server
             if (!logchannel) {console.log('no action taken no channel found');
-        }else{logchannel.send(`Welcome to the server, ${member.username}`); }}
+        }else{logchannel.send(`Welcome to the server, ${member.username}`); 
+        console.log(`new member joined:     ${member.user.tag}\n`);
+    }}
         });
        
   });
