@@ -35,6 +35,39 @@ client.on('ready', () => {
     client.user.setActivity(config.activity,{type: 'WATCHING'});
 
 });
+client.on('guildMemberRemove',member =>{
+    var con = mysql.createConnection({
+        host: database.host,
+        user : database.user,
+        password: database.pwd,
+        database: database.database
+
+    });
+    con.connect(err =>{if (err)return console.log(err);});
+    con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
+        var logchannel;
+        if(err)console.log(err);
+        if(rows[0].exist != 0){
+            con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{
+                logchannel = member.guild.channels.cache.get(rows[0].channel);
+                console.log(member.user.tag);
+                logchannel.send(`ohno ${member.user.tag} left us ;_;`);
+
+            });
+        }else{
+            var lognames = ["bot-logs","bot-log","log","botllog"];
+            for (let u = 0; u < lognames.length; u++) {
+                 logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
+                if (logchannel) {
+                    break;
+                }
+              }
+            // Do nothing if the channel wasn't found on this server
+            if (!logchannel) {console.log('no action taken no channel found');
+        }else{logchannel.send(`Welcome to the server, ${member.username} :cry`); }}
+        });
+       
+  });
 // Create an event listener for new guild members
 client.on('guildMemberAdd', member => {
     var con = mysql.createConnection({
