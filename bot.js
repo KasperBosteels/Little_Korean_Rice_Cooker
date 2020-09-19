@@ -63,7 +63,7 @@ client.on('guildMemberRemove',member =>{
                 }
               }
             // Do nothing if the channel wasn't found on this server
-            if (!logchannel) {console.log('no action taken no channel found');
+            if (!logchannel) {console.log('no action taken no channel found     member remove');
         }else{logchannel.send(`Welcome to the server, ${member.username} :cry`); }}
         });
        
