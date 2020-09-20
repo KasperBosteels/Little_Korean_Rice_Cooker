@@ -4,12 +4,13 @@ const med = 'https://i.imgur.com/WOCTtFu.gif';
 const low = 'https://i.imgur.com/ByK1nCL.gif';
 const lower = 'https://i.imgur.com/yAlP0u1.gif';
 var chosen = " ";
+//loading bar in here for use of other commands possible
 module.exports = {
 	name: 'matchmaker',
 	description: 'to find true happines is to find lewd people online',
 	cooldown: 1,
     usage: '<@user> or <@user> <@user> ',
-    aliases:['mm'],
+    aliases:['mm','marry'],
 	category: "fun",
 	async execute(client,message, args) {
 		/**
@@ -38,10 +39,9 @@ global.progressBar = (value, maxValue, size) => {
 			for (let i = 0; i < args.length; i++) {
 				users[i] = getUserFromMention(client,args[i])
 			}
-		}
+		}else{return message.channel.send("pls give me a match")}
 		if(!args[1]){
 			var percentage = value;
-			console.log(value);
 			if(percentage<=25)chosen = lower;
 			if(percentage<=50 && percentage>25)chosen = low;
 			if(percentage<=75 && percentage>50)chosen = med;
@@ -58,7 +58,6 @@ global.progressBar = (value, maxValue, size) => {
     .setImage(chosen)
 }else{
 	var percentage = value;
-			console.log(value);
 			if(percentage<=25)chosen = lower;
 			if(percentage<=50 && percentage>25)chosen = low;
 			if(percentage<=75 && percentage>50)chosen = med;
