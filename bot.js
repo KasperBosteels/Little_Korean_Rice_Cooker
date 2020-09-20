@@ -33,7 +33,6 @@ client.on('ready', () => {
     //#endregion
     if (client.users.cache.get('258217948819357697'))client.users.cache.get('258217948819357697').send('i am online and ready to go!');
     client.user.setActivity(config.activity,{type: 'WATCHING'});
-
 });
 client.on('guildMemberRemove',member =>{
     var con = mysql.createConnection({

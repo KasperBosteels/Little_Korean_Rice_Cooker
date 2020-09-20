@@ -1,4 +1,4 @@
-const sweetlove = [
+const answer = [
 'You can totally do this.',
 'Impossible is for the unwilling.',
 'No pressure, no diamonds.',
@@ -16,7 +16,6 @@ const sweetlove = [
 'The past does not equal the future.',
 'Dream without fear. Love without limits.',
 'You are loved.',
-'Actually, you can.',
 'Focus on the good.',
 'You are doing great.',
 'We rise by lifting others.',
@@ -25,12 +24,9 @@ const sweetlove = [
 'You are amazing. Remember that.',
 'Darling, you are a work of art.',
 'Love.',
-'Begin.',
-'Let go.',
 'Breathe.',
 'Slow down.',
 'Let it be.',
-'Go for it.',
 'I love you.',
 'Keep going.',
 'Choose joy.',
@@ -39,7 +35,6 @@ const sweetlove = [
 'Choose happy.',
 'Keep it cool.',
 'Take it easy.',
-'Be in the now.',
 'Live the moment.',
 'Choose to shine.',
 'Love conquers all.',
@@ -71,7 +66,7 @@ const sweetlove = [
 '“Every breath we take, every step we make, can be filled with peace, joy and serenity.”',
 'Pack your weaponry you and me are going to free Jerusalem.',
 'What...why am i desperatly sucking your pp like this...?',
-'Huh huhwhuh - dani',
+'Huh huh whuh - dani',
 'I\'m going to become lewd for you.',
 'Please eat me.',
 'Rather than cumming on my clarinet, let\'s hold hands.',
@@ -92,7 +87,8 @@ const sweetlove = [
 '**pats you**',
 'Every boy in the world becomes the fucking flash when their parents almost walk in on them jerking off.',
 'In a sexual way',
-'My lower body feels somewhat refreshed'
+'My lower body feels somewhat refreshed',
+'i am ready for a snack (its you)',
 
 
 ];
@@ -100,23 +96,40 @@ module.exports = {
     name: 'love',
     description: 'sends a loving message',
     usage: 'empty or <@ user>',
-    aliases: ['ily','enc','precious','encourage'],
+    aliases: ['ily'],
     cooldown: 1,
     category: "fun",
-    execute(client,message, args) {
-        coin = Math.floor(Math.random() * Math.floor(sweetlove.length));
+    async execute(client,message, args) {
+        coin = Math.floor(Math.random() * Math.floor(answer.length));
+        var manualinput = " ";
+
         
-        
-        //if (!message.mentions.users) 
+        //looks for given arguments
         if (!args[0])
         {
-            message.reply(` ${sweetlove[coin]}`);
+            //no arguments reply command
+            return message.reply(` ${answer[coin]}`);
 
         }else {
-
+            //argument given, assign mention to variable
             var member= message.mentions.members.first();
-            message.channel.send(`${member}\n${sweetlove[coin]}`)
 
+            //if variable == undefined 
+            if(!member){
+                console.log(args);
+
+                //assign args array to string
+                for (let i = 0; i < args.length; i++) {
+                    if(args[i] == undefined){}else{
+                    manualinput += ` ${args[i]}`;
+                    console.log(manualinput);
+                }}
+                //return string with text
+                return message.channel.send(`${manualinput}\n${answer[coin]}`);
+            }else{
+                //return member and text
+                return message.channel.send(`${member}\n${answer[coin]}`);
+            }
         }
     },
 };
