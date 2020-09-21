@@ -74,7 +74,7 @@ const answer = [
 'Fighting for peace is like screwing for virginity',
 'It was almost too big, too thick, too long to be a penis but it was yours',
 'The penis i grew is my true feelings',
-'You have nice boobies i don\t need any more reason to love you.',
+'You have nice boobies i don\'t need any more reason to love you.',
 'I would love to give you the gay.',
 '*gives spicy italian cream*',
 'Sperm people living in your balls are saying they want to form an alliance with my ovaries.',
