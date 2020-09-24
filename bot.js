@@ -142,7 +142,10 @@ client.on('guildMemberAdd', member => {
                 console.log(`profanity  ${message.author.tag}   \"${message.content}\"`)
             }
           }
-          
+          if(HasArabicCharacters(message) && message.author != "593190985958424586"){
+              message.delete();
+              message.channel.send("chiken soup !");
+          };
           //#endregion
        //#region prefix checker
           if (!message.content.startsWith(config.prefix) || message.author.bot) return;
@@ -203,3 +206,8 @@ client.on('guildMemberAdd', member => {
 client.login(process.env.DISCORD_TOKEN);
 process.on('uncaughtException',error => console.log('error',error));
 process.on('unhandledRejection', error => console.log('error', error));
+function HasArabicCharacters(text)
+{
+    var arregex = /[\u0600-\u06FF]/;
+    return arregex.test(text);
+}
