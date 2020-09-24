@@ -29,6 +29,7 @@ const discord = require("discord.js");
         if(err) {console.log(err); return message.channel.send('dtb connection issue');} 
     });
     //#endregion
+    //delete warnings from sql server
     con.query(`DELETE FROM warnings WHERE userID = "${unwarnuser.id}" AND guildID = "${message.guild.id}"`);
 
     //#region embed

@@ -5,6 +5,7 @@ module.exports = {
 	cooldown : 1,
 	category: "debug",
 	execute(client,message, args) {
+		//get current time and message recieved timestamp subtract and send back 
 return message.channel.send('pong: ' +( Date.now() -message.createdTimestamp ) + ' ms');
 	},
 };

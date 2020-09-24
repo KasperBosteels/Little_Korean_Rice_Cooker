@@ -5,6 +5,7 @@ module.exports = {
 	usage: ' ',
 	category: "fun",
 	execute(client,message, args) {
+		//simple
 		message.channel.send('pspspspspsps');
 
 	},

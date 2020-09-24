@@ -9,9 +9,11 @@ module.exports = {
     aliases:['btl'],
     category: "moderating",
 	execute(client,message, args) {
+        //check perms
         if (!message.member.hasPermission("BAN_MEMBERS")) return message.reply('perm 1 Denied');
         if (!message.guild.me.hasPermission("BAN_MEMBERS"))return message.reply('perm 2 Denied');
-		var con = mysql.createConnection({
+        //#region sql connect
+        var con = mysql.createConnection({
             host: database.host,
             user : database.user,
             password: database.pwd,
@@ -21,12 +23,16 @@ module.exports = {
         con.connect(err =>{
             if(err) {console.log(err); message.channel.send('dtb connection issue');} 
         });
-        //asigns id to vars
+        //#endregion
+        
+        //asigns id to variables
         var channel = message.channel.id;
         var guild = message.guild.id;
         //undefined check
         if (!channel)return console.log('no channel');
         if (!guild)return console.log('no guild');
+        
+        //checks if database already exists if true update else insert
         con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
         if(err)console.log(err);
         if(rows[0].exist != 0){
@@ -34,6 +40,8 @@ module.exports = {
         }else{
             con.query(`INSERT INTO logchannel (guildID,channelID) VALUES("${guild}","${channel}");`);
         }
+        
+        //reply
         message.channel.send('i will send my logs here now.');
         console.log("log channel chosen");
         

@@ -32,7 +32,9 @@ module.exports = {
                 if(err) {console.log(err); return message.channel.send('dtb connection issue');} 
             });
             //#endregion
-con.query(`INSERT INTO warnings (guildID,userID,warnings) VALUES("${message.guild.id}","${warnuser.id}","${reason}")`);
+//get data and insert into data base
+ con.query(`INSERT INTO warnings (guildID,userID,warnings) VALUES("${message.guild.id}","${warnuser.id}","${reason}")`);
+ //get the amounts a user was warned
  await(con.query(`SELECT COUNT(*) AS number FROM warnings where userID = '${warnuser.id}' AND guildID = '${message.guild.id}';`,(err,rows,fields) => {amount = rows[0].number
 //#region embed
 var embed = new discord.MessageEmbed()
@@ -70,7 +72,7 @@ con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${warnuser.gu
     }}
   });
 //#endregion
-//#region  mute user if true
+// mute user if true +5 warns
 if(amount > 5){
   //looks for mute role if not existing return console log
   var role = message.guild.roles.cache.find(role => role.name === 'Muted');
@@ -81,8 +83,11 @@ if(amount > 5){
   if (!muteTime) return console.log('not able to determine mutetime in warning');
   if (!muteTime) return message.channel.send('no time input');
 
+  //adds mute role to user
   warnuser.roles.add(role.id);
   message.channel.send(`${warnuser} has been muted for ${muteTime}`);
+  
+  //sets time out
   setTimeout(() => {
       warnuser.roles.remove(role.id);
       message.channel.send(`${warnuser} has been unmuted`)

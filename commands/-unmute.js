@@ -9,27 +9,22 @@ module.exports = {
     aliases:['speak','unm','talk'],
     async execute(client,message, args) {
 
-
+        //control for perms
         if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm-1 Denied');
-        //normaal is er al een checkkare
-        //if (!args[0]) return message.reply('no tag');
-        
         if (!message.guild.me.hasPermission("BAN_MEMBERS")) return message.reply('perm-2 Denied');
-
+        //assign mention and check if true
         var unmuteperson = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-
         if (!unmuteperson) return message.reply('unable to find this person');
 
-        //var muteRole = message.guild.roles.cache.get('566308437944958976');//         566308437944958976    meme server        742462154564960440    my dream server
+        //look for role named Muted and check if true
         var role = message.guild.roles.cache.find(role => role.name === 'Muted');
-        
-        if (!role) {//return message.channel.send('no mute role, pls make a role named <Muted>(respect the capital letter!!)');     
-        message.reply("somehting is wrong mute method was unconventional");
-        }
+        if (!role) {
+        message.reply("somehting is wrong mute method was unconventional or it was simply miss spelled");}
      
+            //unmute
     unmuteperson.roles.remove(role.id);
     
-
+            //confirmation
     message.channel.send(`${unmuteperson} has been unmuted`)
    
     },

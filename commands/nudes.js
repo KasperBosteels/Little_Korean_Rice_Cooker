@@ -7,7 +7,10 @@ module.exports = {
     cooldown: 60,
     category: "fun",
 	execute(client,message, args) {
+        //get random
         coin = Math.floor(Math.random() * Math.floor(pics.length));
+        
+        //get random response from pics send link if error catch
         message.channel.send(`${message.author} YOU ARE A DEGENERATE!!`,{files:[pics[coin]]});
         process.on('Missing Permissions', error => {console.log('error', error)
                                                     if(error)message.reply("there is a permissions issue.")});

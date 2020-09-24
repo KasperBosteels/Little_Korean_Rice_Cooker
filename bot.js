@@ -1,22 +1,26 @@
 require('dotenv').config();
 require('ms')
+//#region get important files
 const database = require("./database.json");
 const mysql = require("mysql");
 const fs = require('fs');
 const Discord = require('discord.js');
 const config = require('./auth.json');
 const winston = require('winston/lib/winston/config');
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
     client.commands.set(command.name,command)
 }
 const cooldowns = new Discord.Collection();
+//#endregion
 
 
+//when bot is ready to receive commands
 client.on('ready', () => {
+    //send confirmation to korean acount
     console.log(`Logged in as ${client.user.tag}!`);
     //#region test connection between server and sql server
     var con = mysql.createConnection({
@@ -32,9 +36,13 @@ client.on('ready', () => {
     });
     //#endregion
     if (client.users.cache.get('258217948819357697'))client.users.cache.get('258217948819357697').send('i am online and ready to go!');
+   //sets activity
     client.user.setActivity(config.activity,{type: 'WATCHING'});
 });
+
+//when a user leaves a guild
 client.on('guildMemberRemove',member =>{
+    //#region sql connection
     var con = mysql.createConnection({
         host: database.host,
         user : database.user,
@@ -43,6 +51,8 @@ client.on('guildMemberRemove',member =>{
 
     });
     con.connect(err =>{if (err)return console.log(err);});
+    //#endregion
+    //#region get log channel for guild
     con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
         var logchannel;
         if(err)console.log(err);
@@ -67,10 +77,13 @@ client.on('guildMemberRemove',member =>{
         console.log(`member left:  ${member.user.tag}\n`);
     }}
         });
+        //#endregion
        
   });
-// Create an event listener for new guild members
+
+//when a new user joins a guild
 client.on('guildMemberAdd', member => {
+   //#region sql conneciton
     var con = mysql.createConnection({
         host: database.host,
         user : database.user,
@@ -79,6 +92,7 @@ client.on('guildMemberAdd', member => {
 
     });
     con.connect(err =>{if (err)return console.log(err);});
+    //#endregion
     con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
         var logchannel;
         if(err)console.log(err);
@@ -104,7 +118,9 @@ client.on('guildMemberAdd', member => {
         });
        
   });
-    client.on('message', message => {
+  
+  //when a user sends a message
+  client.on('message', message => {
 
 
         

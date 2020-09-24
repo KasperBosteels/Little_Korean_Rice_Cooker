@@ -11,22 +11,28 @@ module.exports = {
     cooldown: 5,
     category: "general",
 	execute(client,message, args) {
+        //checks if a speciic command query was asked if not send dm withh all commmands
         if(!args.length){
         var commandlist = [];
         var prefix = botconfig.prefix;
+        
+        //for each command in commands folder get name description and category
         client.commands.forEach(command =>{
             var constructor = {
                 name: command.name,
                 description: command.description,
                 category: command.category
             }
+            //assign values to command list array 
             commandlist.push(constructor);
         });
+        //default markup
         var response = "**BOT COMMANDS**\n\n";
         var general = "**__General__**\n";
         var moderating = "\n**__MODERATING__**\n";
         var fun = "\n**__Fun__**\n";
         var debug ="\n**__Debug__**\n";
+        //for the every command in the commandlist add values to a string from its category
 for (let i = 0; i < commandlist.length; i++) {
     const command = commandlist[i];
     if(command['category'] == 'general'){
@@ -39,32 +45,43 @@ for (let i = 0; i < commandlist.length; i++) {
         fun += `${prefix}${command['name']} - ${command["description"]}\n`;
     }
 }
+//put all category strings in response string
 response += general;
 response += moderating;
 response += debug;
 response += fun;
+
+//dm the response string to the author if not possible send declined in channel
 message.author.send(response).then(() =>{message.channel.send(`i\'ve send you a dm with my commands :mailbox_with_mail:\ntip: you can also use ${botconfig.prefix}help <command name>   to get info about a specific command.`);
 }).catch(()=>{
     message.channel.send('i could not dm you');
 });
+
+
+
+//if specific command was asked
 }else {
     const data = [];
     const {commands} = message.client;
+    //get the command that was mentioned check all the names and aliases
     const name = args[0].toLowerCase();
         const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
+        //if there is no command found return 
 if (!command) {
 	return message.reply('that was not a valid command!'`\ntype: ${botconfig.prefix}help\n for all commands`);
 }
 
+//push values to data array
 data.push(`**Name:** ${command.name}`);
 
+//markup of message
 if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
 if (command.description) data.push(`**Description:** ${command.description}`);
 if (command.usage) data.push(`**Usage:** ${botconfig.prefix}${command.name} ${command.usage}`);
-
 data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
 
+//send
 message.channel.send(data, { split: true });
 
 }

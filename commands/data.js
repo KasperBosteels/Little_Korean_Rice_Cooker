@@ -21,7 +21,8 @@ module.exports = {
     usage: '<user tag> <role name>',
     category: "debug",
     execute(client,message, args) {
-		var con = mysql.createConnection({
+        //#region sql connect
+        var con = mysql.createConnection({
             host: database.host,
             user : database.user,
             password: database.pwd,
@@ -31,11 +32,15 @@ module.exports = {
         con.connect(err =>{
             if(err) {console.log(err); message.channel.send('dtb connection issue');} 
         });
-
+//#endregion
+       
+        //assing args to variables
         var user = message.guild.member(message.mentions.members.first());
         var rolename = args[1];
         var remove = args [2];
         var guildid = message.guild.id;
+
+        //if role exists get info about it
         if(rolename){
             var roleinfo = message.guild.roles.cache.find(r => r.name == rolename);
             if (!roleinfo) return message.channel.send('role not found check spelling');
@@ -43,7 +48,8 @@ module.exports = {
         }
         if(user && !rolename){
 
-        }else if (user && rolename && !remove){
+        }//if user and rolename where given but not remove check if already exits then insert
+        else if (user && rolename && !remove){
                 con.query(`SELECT * FROM roles WHERE IDUser = '${user.id}' AND roles = '${roleID}' AND guild = '${guildid}'`,(err,rows) =>{
 
                 if (err)console.log(err);
@@ -60,7 +66,7 @@ module.exports = {
         
         }else if (user && rolename && remove == "yes"){
 
-
+            //////////////////////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////////////////////////////
         }else {
             message.channel.send("gebruik het command als volgt: !role gebruikernaam rolenaam verwijderen");
         }

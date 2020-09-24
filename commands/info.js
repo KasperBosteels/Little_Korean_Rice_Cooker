@@ -1,4 +1,4 @@
-//const Discord = require("discord.io");
+//get files for display
 const discord = require('discord.js');
 const info = require('../package.json');
 const database = require("../database.json");
@@ -9,6 +9,7 @@ module.exports = {
 	cooldown: 1,
 	usage: ' ',
 	execute(client, message, args) {
+        //#region sql connection
         var con = mysql.createConnection({
             host: database.host,
             user : database.user,
@@ -18,7 +19,9 @@ module.exports = {
         });
         con.connect(err =>{
             if(err) {console.log(err); var connection = ':x:'}else {var connection = ':white_check_mark:'} 
-        
+        //#endregion
+       
+       //make embed with values of the const
         const messageembed = new discord.MessageEmbed()
         .setTitle(info.name)
         .setDescription(`version: ${info.version}`)
@@ -31,8 +34,11 @@ module.exports = {
         .addField(`mysql`,`${info.dependencies["mysql"]}`,true)
         .addField(`sql connection:`,`${connection}`,true)
         .addField(`winston`,`${info.dependencies["winston"]}`,true)
+        
+        //send embeded message
         return message.channel.send(messageembed);
         });
+        //close connection
         con.end();
     },
 };
