@@ -1,12 +1,18 @@
 require('dotenv').config();
 require('ms')
 //#region get important files
+const logger = require("./logger.js");
+const prfilter = require('./profanityfilter.js');
+const start = require("./startup.js");
 const database = require("./database.json");
+const sqlconnect = require('./sql_serverconnection.js');
 const mysql = require("mysql");
 const fs = require('fs');
 const Discord = require('discord.js');
 const config = require('./auth.json');
 const winston = require('winston/lib/winston/config');
+const prefixcheck = require('./prefixcheck.js');
+//const cooldown = require('./cooldown.js');
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -15,45 +21,30 @@ for (const file of commandFiles){
     client.commands.set(command.name,command)
 }
 const cooldowns = new Discord.Collection();
+var con = mysql.createConnection({
+    host: database.host,
+    user : database.user,
+    password: database.pwd,
+    database: database.database
+
+});
 //#endregion
 
 
 //when bot is ready to receive commands
 client.on('ready', () => {
-    //send confirmation to korean acount
-    console.log(`Logged in as ${client.user.tag}!`);
     //#region test connection between server and sql server
-    var con = mysql.createConnection({
-        host: database.host,
-        user : database.user,
-        password: database.pwd,
-        database: database.database
+    sqlconnect.execute(con);
+    start.execute(client);
 
-    });
-    con.connect(err =>{if (err)console.log(err);
-    });
-    con.end(err =>{if (err)console.log(err);
-    });
-    //#endregion
-    if (client.users.cache.get('258217948819357697'))client.users.cache.get('258217948819357697').send('i am online and ready to go!');
-   //sets activity
-    client.user.setActivity(config.activity,{type: 'WATCHING'});
 });
 
 //when a user leaves a guild
 client.on('guildMemberRemove',member =>{
-    //#region sql connection
-    var con = mysql.createConnection({
-        host: database.host,
-        user : database.user,
-        password: database.pwd,
-        database: database.database
-
-    });
-    con.connect(err =>{if (err)return console.log(err);});
-    //#endregion
+    
+   sqlconnect.execute(con);
     //#region get log channel for guild
-    con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
+    /*con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
         var logchannel;
         if(err)console.log(err);
         if(rows[0].exist != 0){
@@ -77,94 +68,30 @@ client.on('guildMemberRemove',member =>{
         console.log(`member left:  ${member.user.tag}\n`);
     }}
         });
+      */
         //#endregion
-       
+       sqlconnect.execute(con,member,1)
   });
 
 //when a new user joins a guild
 client.on('guildMemberAdd', member => {
    //#region sql conneciton
-    var con = mysql.createConnection({
-        host: database.host,
-        user : database.user,
-        password: database.pwd,
-        database: database.database
-
-    });
-    con.connect(err =>{if (err)return console.log(err);});
+   sqlconnect.execute(con);
+   
     //#endregion
-    con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
-        var logchannel;
-        if(err)console.log(err);
-        if(rows[0].exist != 0){
-            con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{
-                logchannel = member.guild.channels.cache.get(rows[0].channel);
-                logchannel.send(`${member.user.tag} joined us hooray !!`);
-                console.log(`new member joined:     ${member.user.tag}\n`);
-            });
-        }else{
-            var lognames = ["bot-logs","bot-log","log","botllog"];
-            for (let u = 0; u < lognames.length; u++) {
-                 logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
-                if (logchannel) {
-                    break;
-                }
-              }
-            // Do nothing if the channel wasn't found on this server
-            if (!logchannel) {console.log('no action taken no channel found');
-        }else{logchannel.send(`Welcome to the server, ${member.username}`); 
-        console.log(`new member joined:     ${member.user.tag}\n`);
-    }}
-        });
+    sqlconnect.execute(con,member,2);
        
   });
   
   //when a user sends a message
   client.on('message', message => {
 
-
-        
-        //#region profanity-filter
-          var messageArray = message.content.split();
-          var swear = JSON.parse(fs.readFileSync("./swearwords.json"));
-          var sentecUser = "";
-          var amountswear = 0;
-
-          for (let Y = 0; Y < messageArray.length; Y++) {
-
-              const word = messageArray[Y].toLowerCase();
-              
-              var changeword = "";
-
-              for (let i = 0; i < swear["vloekwoorden"].length; i++) {
-
-                if(word.includes(swear["vloekwoorden"][i])){
-
-                  changeword = word.replace(swear["vloekwoorden"][i], "******");
-
-                  sentecUser += " " + changeword;
-
-                  amountswear++;
-
-                }
-              }
-            if(!changeword){
-                sentecUser+= " " + messageArray[Y];
-            }
-            if (amountswear != 0){
-                //message.delete();
-                //message.channel.send(sentecUser);
-                message.channel.send("no profanity");
-                console.log(`profanity  ${message.author.tag}   \"${message.content}\"`)
-            }
-          }
-          if(HasArabicCharacters(message) && message.author != "593190985958424586"){
-              message.delete();
-              message.channel.send("chiken soup !");
-          };
-          //#endregion
+    //get message and use function in the profanityfilter.js
+       
+       prfilter.execute(message);
+          
        //#region prefix checker
-          if (!message.content.startsWith(config.prefix) || message.author.bot) return;
+            if(!prefixcheck.execute(message))return;
 
         const args = message.content.slice(config.prefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
@@ -183,32 +110,12 @@ client.on('guildMemberAdd', member => {
         return message.channel.send(reply);
     }
     //#region cool down
-    if (!cooldowns.has(command.name)) {
-        cooldowns.set(command.name, new Discord.Collection());
-    }
-    
-    const now = Date.now();
-    const timestamps = cooldowns.get(command.name);
-    const cooldownAmount = (command.cooldown || 5) * 1000;
-    
-    if (timestamps.has(message.author.id)) {
-        const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-
-        if (now < expirationTime) {
-            const timeLeft = (expirationTime - now) / 1000;
-            return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
-        }
-    }
+   //if(!cooldown.execute(cooldowns,command,message)) return;
     //#endregion
         
     try {
             command.execute(client,message,args);
-            var today = new Date();
-            var time = today.getHours()+ ":" + today.getMinutes() + ":" + today.getSeconds();
-            if(!message.channel.name){console.log(`${message}           DM           DM\n${message.author.tag}      ${time}\n`);
-            }else {
-            console.log(`${message}           ${message.channel.name}           ${message.guild.name}\n${message.author.tag}      ${time}\n`);
-        }
+           logger.execute(message);
         } catch (error) {
             console.error(error);
             message.reply('there was an error trying to execute that command!');
@@ -222,8 +129,3 @@ client.on('guildMemberAdd', member => {
 client.login(process.env.DISCORD_TOKEN);
 process.on('uncaughtException',error => console.log('error',error));
 process.on('unhandledRejection', error => console.log('error', error));
-function HasArabicCharacters(text)
-{
-    var arregex = /[\u0600-\u06FF]/;
-    return arregex.test(text);
-}

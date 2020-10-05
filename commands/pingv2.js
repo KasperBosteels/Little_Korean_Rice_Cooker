@@ -2,7 +2,7 @@
 module.exports = {
 	name: 'ping',
     description: 'gives you latency of the bot',
-	cooldown : 1,
+	cooldown : 100,
 	category: "debug",
 	execute(client,message, args) {
 		//get current time and message recieved timestamp subtract and send back 
