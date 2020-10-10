@@ -12,7 +12,7 @@ const mysql = require("mysql");
 
 
 module.exports = {
-	name: 'dtb test',
+	name: 'data',
     description: 'debug for sql server (inserts IDuser, IDrole and IDguild into database)',
     cooldown : 10,
     args: 'true',
