@@ -11,7 +11,7 @@ module.exports = {
                 case 3:
                 endconnect(con)
                 break;
-            default:
+            case 4:
                 sqlconnect(con);
                 break;
 
@@ -22,7 +22,9 @@ function sqlconnect(con) {
     con.connect(err =>{if (err)return console.log(err);});
 
 }
-//get log channel
+
+
+//get log channel and send welcome or leave message
 function logget(con,member,happening) {
     con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
         var logchannel;
@@ -58,7 +60,7 @@ function logget(con,member,happening) {
         }
     }}
         });
-        con.end(err =>{if (err)return console.log(err);});
+        endconnect(con);
 }
 function endconnect(con){
     con.end(err =>{if (err)return console.log(err);});
