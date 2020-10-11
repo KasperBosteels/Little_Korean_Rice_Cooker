@@ -1,12 +1,15 @@
 
 module.exports = {
-    execute(con,member,functie){
+    execute(con,functie,member){
         switch (functie) {
             case 1:
                 logget(con,member,functie)
                 break;
             case 2:
                 logget(con,member,functie)
+                break;
+                case 3:
+                endconnect(con)
                 break;
             default:
                 sqlconnect(con);
@@ -55,4 +58,8 @@ function logget(con,member,happening) {
         }
     }}
         });
+        con.end(err =>{if (err)return console.log(err);});
+}
+function endconnect(con){
+    con.end(err =>{if (err)return console.log(err);});
 }
