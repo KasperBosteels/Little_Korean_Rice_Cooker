@@ -33,9 +33,6 @@ var con = mysql.createConnection({
 
 //when bot is ready to receive commands
 client.on('ready', () => {
-    //#region test connection between server and sql server
-    sqlconnect.execute(con);
-    sqlconnect.execute(con,3);
     start.execute(client);
 
 });
