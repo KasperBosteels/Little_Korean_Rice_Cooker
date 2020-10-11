@@ -35,13 +35,14 @@ var con = mysql.createConnection({
 client.on('ready', () => {
     //#region test connection between server and sql server
     sqlconnect.execute(con);
+    sqlconnect.execute(con,3);
     start.execute(client);
 
 });
 
 //when a user leaves a guild
 client.on('guildMemberRemove',member =>{
-       sqlconnect.execute(con,member,1)
+       sqlconnect.execute(con,member,1);
   });
 
 //when a new user joins a guild
