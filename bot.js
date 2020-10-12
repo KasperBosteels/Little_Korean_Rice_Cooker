@@ -44,8 +44,7 @@ client.on('guildMemberRemove',member =>{
 
 //when a new user joins a guild
 client.on('guildMemberAdd', member => {
-    sqlconnect.execute(con,member,2);
-       
+    sqlconnect.execute(con,member,2);    
   });
   
   //when a user sends a message

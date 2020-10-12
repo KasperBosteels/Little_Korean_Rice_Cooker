@@ -24,13 +24,13 @@ module.exports = {
 
             //if variable == undefined 
             if(!member){
-                console.log(args);
+                
 
                 //assign args array to string
                 for (let i = 0; i < args.length; i++) {
                     if(args[i] == undefined){}else{
                     manualinput += ` ${args[i]}`;
-                    console.log(manualinput);
+                   
                 }}
                 //return string with text
                 return message.channel.send(`${manualinput}\n${love.answer[coin]}`);
