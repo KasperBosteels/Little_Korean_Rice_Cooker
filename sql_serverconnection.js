@@ -26,6 +26,7 @@ function sqlconnect(con) {
 
 //get log channel and send welcome or leave message
 function logget(con,member,happening) {
+    sqlconnect(con);
     con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
         var logchannel;
         if(err)console.log(err);
