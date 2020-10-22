@@ -55,6 +55,9 @@ client.on('guildMemberAdd', member => {
        //prfilter.execute(message);
           
        //#region prefix checker
+       if (message.content == "bot lies" || message.content == "bot lie") {
+           message.reply("i dont lie")
+       }
             if(!prefixcheck.execute(message))return;
 
         const args = message.content.slice(config.prefix.length).trim().split(/ +/);

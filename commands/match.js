@@ -3,7 +3,11 @@ const high ='https://i.imgur.com/9r74r3m.gif';
 const med = 'https://i.imgur.com/WOCTtFu.gif';
 const low = 'https://i.imgur.com/ByK1nCL.gif';
 const lower = 'https://i.imgur.com/yAlP0u1.gif';
+const zero = "https://i.imgur.com/s2WvDaB.gif"
 var chosen = " ";
+var value = 0;
+var users = [];
+var lovemeter;
 //loading bar in here for use of other commands possible
 module.exports = {
 	name: 'matchmaker',
@@ -13,6 +17,7 @@ module.exports = {
     aliases:['mm','marry'],
 	category: "fun",
 	async execute(client,message, args) {
+		if (!args[0]) return message.channel.send(`pls give me a match\n if you dont know how to use this command try "-help matchmaker"`);
 		/**
  * Create a text progress bar
  * @param {Number} value - The value to fill the bar
@@ -32,17 +37,28 @@ global.progressBar = (value, maxValue, size) => {
 	const bar = '```[' + progressText + emptyProgressText + ']' + percentageText + '```'; // Creating the bar
 	return bar;
   };
-		let value = Math.floor((Math.random() * 100) + 1);
-		var lovemeter = progressBar(value,100,25);
-		var users = [];
+
+		value = Math.floor((Math.random() * 100) + 1);
+		//#region afterhours and iced's request 
+		
+		if(!args[1]&&message.author == message.mentions.users.first()){
+			value = 0;
+			 console.log("executed");
+		}else if (!args[1] && message.mentions.users.first().id == "284553236864827392") {
+			if (value > 75) value = value /2;
+		}
+		//#endregion
+		 lovemeter = progressBar(value,100,25);
 		if(args[0]){
 			for (let i = 0; i < args.length; i++) {
 				users[i] = getUserFromMention(client,args[i])
 			}
-		}else{return message.channel.send("pls give me a match")}
+
+		}
 		if(!args[1]){
 			var percentage = value;
-			if(percentage<=25)chosen = lower;
+			if (percentage<1)chosen = zero; 
+			if(percentage<=25 && percentage>1)chosen = lower;
 			if(percentage<=50 && percentage>25)chosen = low;
 			if(percentage<=75 && percentage>50)chosen = med;
 			if(percentage<=100 && percentage>75)chosen = high;
@@ -57,11 +73,14 @@ global.progressBar = (value, maxValue, size) => {
 	**measured love**\n${lovemeter}`)
     .setImage(chosen)
 }else{
-	var percentage = value;
-			if(percentage<=25)chosen = lower;
+			var percentage = value;
+			
+			if(percentage<1)chosen = zero;
+			if(percentage<=25 && percentage>1)chosen = lower;
 			if(percentage<=50 && percentage>25)chosen = low;
 			if(percentage<=75 && percentage>50)chosen = med;
 			if(percentage<=100 && percentage>75)chosen = high;
+			
 			var embed = new discord.MessageEmbed()
 			.setColor('#fc0fc0')
 			.setFooter(message.member.displayName,message.author.displayAvatarURL)

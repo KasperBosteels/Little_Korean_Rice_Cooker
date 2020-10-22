@@ -1,15 +1,16 @@
 
 module.exports = {
     execute(con,functie,member){
+        console.log("member left");
         switch (functie) {
             case 1:
-                logget(con,member,functie)
+                logget(con,member,functie);
                 break;
             case 2:
-                logget(con,member,functie)
+                logget(con,member,functie);
                 break;
                 case 3:
-                endconnect(con)
+                endconnect(con);
                 break;
             case 4:
                 sqlconnect(con);
@@ -27,6 +28,7 @@ function sqlconnect(con) {
 //get log channel and send welcome or leave message
 function logget(con,member,happening) {
     sqlconnect(con);
+    console.log("got to connect");
     con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
         var logchannel;
         if(err)console.log(err);
