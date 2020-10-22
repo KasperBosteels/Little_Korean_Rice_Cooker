@@ -5,7 +5,7 @@ module.exports = {
 	description: 'pat a short person or a tall person i dont really care',
 	cooldown: 1,
     usage: '<@user> or <nothing>',
-    aliases:['p'],
+    aliases:['p','pat'],
 	category: "fun",
 	async execute(client,message, args) {
        
