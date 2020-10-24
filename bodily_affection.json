@@ -3,19 +3,22 @@
         
         "https://media.discordapp.net/attachments/750217665620213780/765188466434506752/image1.gif",
         "https://media.discordapp.net/attachments/750217665620213780/765188467213991986/image3.gif",
-        "https://media.discordapp.net/attachments/750217665620213780/765188598198697995/image1.gif?width=469&height=490"
-        
-        
+        "https://media.discordapp.net/attachments/750217665620213780/765188598198697995/image1.gif?width=469&height=490",
+        "https://i.imgur.com/NaMmySW.gif",
+        "https://i.imgur.com/uXNQv1t.gif",
+        "https://i.imgur.com/NaMmySW.gif"   
     ],
     "pats":[
-        "https://media.discordapp.net/attachments/750217665620213780/765188833900888064/image0.gif",
-        "https://discordapp.com/channels/735448895013912576/742041718186180658/768933247198429204",
-        "https://discordapp.com/channels/735448895013912576/742041718186180658/768933336189370368",
-        "https://discordapp.com/channels/735448895013912576/742041718186180658/768933410344927272",
-        "https://discordapp.com/channels/735448895013912576/742041718186180658/768933798418972733"
-       
-        
-        
-    ]
-    
+        "https://i.imgur.com/2k0MFIr.gif",
+        "https://i.imgur.com/OVOMifa.gif",
+        "https://i.imgur.com/HWjzYPG.gif",
+        "https://i.imgur.com/LUypjw3.gif",
+        "https://i.imgur.com/7HFDaQs.gif"
+    ],
+    "max":["https://i.imgur.com/SSWPDvX.gif","https://i.imgur.com/KvLrCfw.gif","https://i.imgur.com/GelQ1zQ.gif"],
+    "zero":["https://i.imgur.com/s2WvDaB.gif"],
+    "high":["https://i.imgur.com/9r74r3m.gif","https://i.imgur.com/JfYW28T.gif"],
+    "med":["https://i.imgur.com/WOCTtFu.gif","https://i.imgur.com/3FNRYPZ.gif"],
+    "low":["https://i.imgur.com/ByK1nCL.gif","https://i.imgur.com/ST75kXz.gif","https://i.imgur.com/5lzn5sb.gif","https://i.imgur.com/DW2VrGL.gif","https://i.imgur.com/3MHPhRy.gif"],
+    "lower":["https://i.imgur.com/yAlP0u1.gif"]    
     }

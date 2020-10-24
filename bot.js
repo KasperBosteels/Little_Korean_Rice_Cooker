@@ -96,3 +96,11 @@ client.on('guildMemberAdd', member => {
 client.login(process.env.DISCORD_TOKEN);
 process.on('uncaughtException',error => console.log('error',error));
 process.on('unhandledRejection', error => console.log('error', error));
+
+
+
+/*cool links
+ https://i.imgur.com/18qFmWU.mp4
+ https://i.imgur.com/FIZVQik.mp4
+ https://imgur.com/t/anime_gifs/p4xuail
+*/
