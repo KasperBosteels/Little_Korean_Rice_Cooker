@@ -5,15 +5,19 @@ module.exports = {
         switch (functie) {
             case 1:
                 logget(con,member,functie);
+                console.log("option 1")
                 break;
             case 2:
                 logget(con,member,functie);
+                console.log("option 2")
                 break;
                 case 3:
                 endconnect(con);
+                console.log("option 3")
                 break;
             case 4:
                 sqlconnect(con);
+                console.log("option 4")
                 break;
 
         }

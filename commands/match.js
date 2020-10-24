@@ -37,19 +37,16 @@ global.progressBar = (value, maxValue, size) => {
 		value = Math.floor((Math.random() * 100) + 1);
 		//#region ott's, afterhours and iced's request 
 		
-		if(!args[1]&&message.author == message.mentions.users.first()){
-			value = 0;
-			 console.log("executed");
-		}else if (!args[1] && message.mentions.users.first().id == "284553236864827392" || !args[1] && message.author.id == "284553236864827392") {
-			if (value > 75) value = value /2;
-		}else if(message.author.id == "550024839063404559"){value = 100;}
+		if(!args[1]&&message.author == message.mentions.users.first()){value = 0;}
+		if (!args[1] && message.mentions.users.first().id == "284553236864827392" || !args[1] && message.author.id == "284553236864827392") {if (value > 75) value = value /2;}
+		if(message.author.id == "550024839063404559"){value = 100;}
 		//#endregion
 		 
 		if(args[0]){
 			for (let i = 0; i < args.length; i++) {
 				users[i] = getUserFromMention(client,args[i])
 			}
-			if (users[0] == users[1]) {
+			if (users[1]&&users[0] == users[1]) {
 				value = 0;
 			}
 
