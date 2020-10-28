@@ -56,14 +56,30 @@ client.on('ready', () => {
 //#region member leave 
 //member leaves guild will trigger logchannel check and sad message
 client.on('guildMemberRemove',member =>{
-       sqlconnect.execute(con,member,1);
+    var embed = new discord.MessageEmbed()
+   .setColor('#006400')
+   .setTitle('oh no')
+   //.setThumbnail(warnuser.user.avatarURL({ dynamic: true, format: 'png', size: 32 }))
+   .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
+   .setImage(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
+   .setDescription(`${member.displayName} left`)
+
+    sqlconnect.execute(con,member,5,embed);    
   });
   //#endregion
 
 //#region member join
 //member joins execute sql connection with parameters that correspondt with friendly message in logchannel
 client.on('guildMemberAdd', member => {
-    sqlconnect.execute(con,member,2);    
+    var embed = new discord.MessageEmbed()
+   .setColor('#006400')
+   .setTitle('hello')
+   //.setThumbnail(warnuser.user.avatarURL({ dynamic: true, format: 'png', size: 32 }))
+   .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
+   .setImage(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
+   .setDescription(`Welcome to the server ${member.displayName}`)
+
+    sqlconnect.execute(con,member,5,embed);    
   });
   //#endregion
   
