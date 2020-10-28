@@ -1,43 +1,70 @@
 
 module.exports = {
-    execute(con,member,functie){
-        console.log("member left");
+    execute(con,member,functie,embed){
         switch (functie) {
             case 1:
                 logget(con,member,functie);
-                console.log("option 1")
+                console.log(`member left ${member.guild}`);
                 break;
             case 2:
                 logget(con,member,functie);
-                console.log("option 2")
                 break;
                 case 3:
                 endconnect(con);
-                console.log("option 3")
                 break;
             case 4:
                 sqlconnect(con);
-                console.log("option 4")
+                break;
+            case 5:
+            embedlog(con,member,embed);
                 break;
 
         }
-    }
+    },
+    
 };
 function sqlconnect(con) {
-    con.connect(err =>{if (err)return console.log(err);});
+    con.connect(err =>{if (err)
+        return console.log(err);});
 
 }
 
-
+function embedlog(con,member,embed){
+    //#region looks for bot-log channel
+con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
+    var logchannel;
+    if(err)console.log(err);
+    if(rows[0].exist != 0){
+        con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{
+            if(err) return console.log(err);
+            logchannel = member.guild.channels.cache.get(rows[0].channel);
+            logchannel.send(embed); 
+  
+        });
+    }else{
+        var lognames = ["bot-logs","bot-log","log","botllog"];
+        for (let u = 0; u < lognames.length; u++) {
+             logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
+            if (logchannel) {
+                break;
+            }
+          }
+        // Do nothing if the channel wasn't found on this server
+        if (!logchannel) {console.log('no action taken no channel found');
+      }else{  logchannel.send(embed); 
+      }}
+    });
+    //endconnect(con);
+}
 //get log channel and send welcome or leave message
 function logget(con,member,happening) {
     sqlconnect(con);
-    console.log("got to connect");
     con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
         var logchannel;
         if(err)console.log(err);
         if(rows[0].exist != 0){
             con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{
+                if (err)return console.log(err);
                 logchannel = member.guild.channels.cache.get(rows[0].channel);
                 if (happening == 1) {
                     logchannel.send(`ohno ${member.user.tag} left us ;_;`);
@@ -67,7 +94,6 @@ function logget(con,member,happening) {
         }
     }}
         });
-        endconnect(con);
 }
 function endconnect(con){
     con.end(err =>{if (err)return console.log(err);});

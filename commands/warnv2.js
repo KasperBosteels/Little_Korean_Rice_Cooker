@@ -1,9 +1,8 @@
-const fs = require("fs");
-const ms = require('ms');
 const discord = require("discord.js");
 const database = require("../database.json");
 const mysql = require("mysql");
-
+const sqlcon = require("../sql_serverconnection.js");
+const mute = require("../mutetimer.js");
 module.exports = {
         name: 'warn',
         description: 'give a user a warning, after 5 warnings it wil mute the tagged user for the amount of warnings in minutes.',
@@ -28,11 +27,9 @@ module.exports = {
                 database: database.database
     
             });
-            con.connect(err =>{
-                if(err) {console.log(err); return message.channel.send('dtb connection issue');} 
-            });
             //#endregion
 //get data and insert into data base
+sqlcon.execute(con,warnuser,4);
  con.query(`INSERT INTO warnings (guildID,userID,warnings) VALUES("${message.guild.id}","${warnuser.id}","${reason}")`);
  //get the amounts a user was warned
  await(con.query(`SELECT COUNT(*) AS number FROM warnings where userID = '${warnuser.id}' AND guildID = '${message.guild.id}';`,(err,rows,fields) => {amount = rows[0].number
@@ -47,31 +44,8 @@ var embed = new discord.MessageEmbed()
     .addField(`warnings: `,`${amount}`,true)
     .addField(`amount before mute: `,`${amount}/5`,true)
 //#endregion
+sqlcon.execute(con,warnuser,5,embed);
 
-//#region looks for bot-log channel
-con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${warnuser.guild.id}")AS exist;`,(err,rows) =>{
-  var logchannel;
-  if(err)console.log(err);
-  if(rows[0].exist != 0){
-      con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${warnuser.guild.id}';`,(err,rows) =>{
-           logchannel = warnuser.guild.channels.cache.get(rows[0].channel);
-           logchannel.send(embed); 
-
-      });
-  }else{
-      var lognames = ["bot-logs","bot-log","log","botllog"];
-      for (let u = 0; u < lognames.length; u++) {
-           logchannel = warnuser.guild.channels.cache.find(chan => chan.name === lognames[u]);
-          if (logchannel) {
-              break;
-          }
-        }
-      // Do nothing if the channel wasn't found on this server
-      if (!logchannel) {console.log('no action taken no channel found');
-    }else{  logchannel.send(embed); 
-    }}
-  });
-//#endregion
 // mute user if true +5 warns
 if(amount > 5){
   //looks for mute role if not existing return console log
@@ -79,19 +53,8 @@ if(amount > 5){
   if (!role)  return message.channel.send('no mute role, pls make a role named <Muted>(respect the capital letter!!)');
 
   //makes mute time variable and checks for null if not console log
-  let muteTime = amount+'m';
-  if (!muteTime) return console.log('not able to determine mutetime in warning');
-  if (!muteTime) return message.channel.send('no time input');
-
-  //adds mute role to user
-  warnuser.roles.add(role.id);
-  message.channel.send(`${warnuser} has been muted for ${muteTime}`);
-  
-  //sets time out
-  setTimeout(() => {
-      warnuser.roles.remove(role.id);
-      message.channel.send(`${warnuser} has been unmuted`)
-  }, ms(muteTime))
+  //let muteTime = amount+'m';
+  mute.execute(amount+'m',member,role);
 }
 //#endregion
  }));

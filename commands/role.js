@@ -1,7 +1,7 @@
 const database = require("../database.json");
 const mysql = require("mysql");
 const discord = require("discord.js");
-
+const sqlcon = require("../sql_serverconnection.js");
 
         module.exports = {
             name: 'role',
@@ -63,35 +63,12 @@ var embed = new discord.MessageEmbed()
                     database: database.database
         
                 });
-                con.connect(err =>{
-                    if(err) {console.log(err); return message.channel.send('dtb connection issue');} 
-                });
+                sqlcon.execute(con,person,4);
                 //#endregion
 
 
 //#region looks for bot-log channel
-con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${person.guild.id}")AS exist;`,(err,rows) =>{
-var logchannel;
-if(err)console.log(err);
-if(rows[0].exist != 0){
-  con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${person.guild.id}';`,(err,rows) =>{
-       logchannel = person.guild.channels.cache.get(rows[0].channel);
-       logchannel.send(embed); 
-
-  });
-}else{
-  var lognames = ["bot-logs","bot-log","log","botllog"];
-  for (let u = 0; u < lognames.length; u++) {
-       logchannel = person.guild.channels.cache.find(chan => chan.name === lognames[u]);
-      if (logchannel) {
-          break;
-      }
-    }
-  // Do nothing if the channel wasn't found on this server
-  if (!logchannel) {console.log('no action taken no channel found');
-}else{  logchannel.send(embed); 
-}}
-});
+sqlcon.execute(con,person,5,embed);
 //#endregion
         
 

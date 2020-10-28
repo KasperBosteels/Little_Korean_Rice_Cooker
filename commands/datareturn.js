@@ -1,6 +1,6 @@
 const database = require("../database.json");
 const mysql = require("mysql");
-
+const sqlcon = require("../sql_serverconnection.js");
 module.exports = {
 	name: 'return data',
     description: 'should return data from dataserver',
@@ -19,12 +19,6 @@ module.exports = {
             database: database.database
 
         });
-        con.connect(err =>{
-            if(err) {
-                console.log(err); 
-                message.channel.send('dtb connection issue');
-        } 
-        });
         //#endregion
         
         //check if mentioned if not variable user becomes author
@@ -35,7 +29,7 @@ module.exports = {
         var guildid = message.guild.id;
         var rolename = args[1];
         var output = [];
-        
+        sqlcon.execute(con,user,4);
         //if no arguments are given return author all 
         if(!user && !rolename){
                 con.query(`SELECT * FROM roles WHERE IDUser = '${message.author.id}' AND guild = '${guildid}';`,(err,rows,fields) =>{

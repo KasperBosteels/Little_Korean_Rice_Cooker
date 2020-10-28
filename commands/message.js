@@ -3,7 +3,8 @@ module.exports = {
 	description: 'message the author of the bot',
 	cooldown: 10,
 	usage: '<you message>',
-	category: "general",
+    category: "general",
+    args: 'true',
 	execute(client,message, args) {
         //258217948819357697
         let mail =message.content;

@@ -1,5 +1,6 @@
 const database = require("../database.json");
 const mysql = require("mysql");
+const sqlcon = require("../sql_serverconnection.js");
 module.exports = {
 	name: 'bot-log',
 	description: 'assign a channel where the logs go if there are is no specified log channel it wil automatically look for a channel named "bot-logs","bot-log","log" or "botllog"',
@@ -20,9 +21,6 @@ module.exports = {
             database: database.database
 
         });
-        con.connect(err =>{
-            if(err) {console.log(err); message.channel.send('dtb connection issue');} 
-        });
         //#endregion
         
         //asigns id to variables
@@ -31,7 +29,7 @@ module.exports = {
         //undefined check
         if (!channel)return console.log('no channel');
         if (!guild)return console.log('no guild');
-        
+        sqlcon.execute(con,"false",4);
         //checks if database already exists if true update else insert
         con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
         if(err)console.log(err);

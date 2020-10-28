@@ -1,6 +1,6 @@
 const database = require("../database.json");
 const mysql = require("mysql");
-
+const sqlcon = require("../sql_serverconnection");
 
 
 // DOTO:
@@ -29,9 +29,7 @@ module.exports = {
             database: database.database
 
         });
-        con.connect(err =>{
-            if(err) {console.log(err); message.channel.send('dtb connection issue');} 
-        });
+        
 //#endregion
        
         //assing args to variables
@@ -46,10 +44,9 @@ module.exports = {
             if (!roleinfo) return message.channel.send('role not found check spelling');
             var roleID = roleinfo.id;
         }
+        sqlcon.execute(con,'user',4);
         if(user && !rolename){
-
-        }//if user and rolename where given but not remove check if already exits then insert
-        else if (user && rolename && !remove){
+        }else if (user && rolename && !remove){
                 con.query(`SELECT * FROM roles WHERE IDUser = '${user.id}' AND roles = '${roleID}' AND guild = '${guildid}'`,(err,rows) =>{
 
                 if (err)console.log(err);
