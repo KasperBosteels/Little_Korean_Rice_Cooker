@@ -27,6 +27,7 @@ module.exports = {
         .setDescription(`version: ${info.version}`)
         .setColor(`#228B22`)
         .addField(`author:`,`${info.author}`)
+        .addField('have any cool gifs or you would like to send me a message ? pls use "-message <your message>".')
         .addField(`dependencies `,true)
         .addField(`discordjs`,`${info.dependencies["discord.js"]}`,true)
         .addField(`dotenv`,`${info.dependencies["dotenv"]}`,true)

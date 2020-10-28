@@ -12,6 +12,7 @@ const Discord = require('discord.js');
 const config = require('./auth.json');
 const winston = require('winston/lib/winston/config');
 const prefixcheck = require('./prefixcheck.js');
+const lie = require('./liedetector.js');
 //const cooldown = require('./cooldown.js');
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const client = new Discord.Client();
@@ -55,9 +56,10 @@ client.on('guildMemberAdd', member => {
        //prfilter.execute(message);
           
        //#region prefix checker
-       if (message.content == "bot lies" || message.content == "bot lie") {
-           message.reply("i dont lie")
-       }
+       //#region lie detector
+       lie.execute(message);
+       
+       //#endregion
             if(!prefixcheck.execute(message))return;
 
         const args = message.content.slice(config.prefix.length).trim().split(/ +/);
@@ -76,9 +78,6 @@ client.on('guildMemberAdd', member => {
         }
         return message.channel.send(reply);
     }
-    //#region cool down
-   //if(!cooldown.execute(cooldowns,command,message)) return;
-    //#endregion
         
     try {
             command.execute(client,message,args);

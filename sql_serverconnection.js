@@ -1,6 +1,6 @@
 
 module.exports = {
-    execute(con,functie,member){
+    execute(con,member,functie){
         console.log("member left");
         switch (functie) {
             case 1:
