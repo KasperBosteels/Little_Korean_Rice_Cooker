@@ -9,7 +9,9 @@ module.exports ={
 }
 
 function liedetector (message){
-if (message.content == "bot lies" || message.content == "bot lie") {
+   let sentece = message.content;
+   
+if (message.content.toLowerCase() == "bot lies" || message.content.toLowerCase() == "bot lie") {
     message.reply("i dont lie");
 }
 }
