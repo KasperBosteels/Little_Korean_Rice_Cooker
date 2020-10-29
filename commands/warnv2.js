@@ -34,7 +34,7 @@ sqlcon.execute(con,warnuser,4);
  //get the amounts a user was warned
  await(con.query(`SELECT COUNT(*) AS number FROM warnings where userID = '${warnuser.id}' AND guildID = '${message.guild.id}';`,(err,rows,fields) => {amount = rows[0].number
 //#region embed
-/*
+
 var embed = new discord.MessageEmbed()
     .setColor('#ff0000')
     .setFooter(message.member.displayName,message.author.displayAvatarURL)
@@ -44,7 +44,7 @@ var embed = new discord.MessageEmbed()
     **reason:** ${reason}`)
     .addField(`warnings: `,`${amount}`,true)
     .addField(`amount before mute: `,`${amount}/5`,true)
-    */
+    
    
 //#endregion
 sqlcon.execute(con,warnuser,5,embed);
