@@ -36,7 +36,7 @@ const sqlcon = require("../sql_serverconnection.js");
 
     var embed = new discord.MessageEmbed()
     .setColor('#ffa500')
-    .setFooter(message.member.displayName,message.author.displayAvatarURL)
+    .setFooter(message.member.displayName)
     .setTimestamp()
     .setDescription(`**warn reset** ${unwarnuser}\n
     **reset by:** ${message.author}`)

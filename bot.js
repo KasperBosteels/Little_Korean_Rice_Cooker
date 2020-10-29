@@ -56,14 +56,15 @@ client.on('ready', () => {
 //#region member leave 
 //member leaves guild will trigger logchannel check and sad message
 client.on('guildMemberRemove',member =>{
+    console.log('member left')
     var embed = new discord.MessageEmbed()
    .setColor('#006400')
    .setTitle('oh no')
+   .setTimestamp()
    //.setThumbnail(warnuser.user.avatarURL({ dynamic: true, format: 'png', size: 32 }))
    .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
    .setImage(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
    .setDescription(`${member.displayName} left`)
-
     sqlconnect.execute(con,member,5,embed);    
   });
   //#endregion
@@ -74,6 +75,7 @@ client.on('guildMemberAdd', member => {
     var embed = new discord.MessageEmbed()
    .setColor('#006400')
    .setTitle('hello')
+   .setTimestamp()
    //.setThumbnail(warnuser.user.avatarURL({ dynamic: true, format: 'png', size: 32 }))
    .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
    .setImage(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))

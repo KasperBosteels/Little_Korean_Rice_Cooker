@@ -37,7 +37,7 @@ sqlcon.execute(con,warnuser,4);
 
 var embed = new discord.MessageEmbed()
     .setColor('#ff0000')
-    .setFooter(message.member.displayName,message.author.displayAvatarURL)
+    .setFooter(message.member.displayName)
     .setTimestamp()
     .setDescription(`**warned** ${warnuser}\n
     **warned by:** ${message.author}
