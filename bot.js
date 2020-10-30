@@ -57,7 +57,7 @@ client.on('ready', () => {
 //member leaves guild will trigger logchannel check and sad message
 client.on('guildMemberRemove',member =>{
     console.log('member left')
-    var embed = new discord.MessageEmbed()
+    var embed = new Discord.MessageEmbed()
    .setColor('#006400')
    .setTitle('oh no')
    .setTimestamp()
@@ -65,6 +65,7 @@ client.on('guildMemberRemove',member =>{
    .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
    .setImage(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
    .setDescription(`${member.displayName} left`)
+   
     sqlconnect.execute(con,member,5,embed);    
   });
   //#endregion
@@ -72,7 +73,8 @@ client.on('guildMemberRemove',member =>{
 //#region member join
 //member joins execute sql connection with parameters that correspondt with friendly message in logchannel
 client.on('guildMemberAdd', member => {
-    var embed = new discord.MessageEmbed()
+    console.log("member joined");
+    var embed = new Discord.MessageEmbed()
    .setColor('#006400')
    .setTitle('hello')
    .setTimestamp()
