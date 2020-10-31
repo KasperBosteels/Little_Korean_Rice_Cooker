@@ -4,7 +4,6 @@ module.exports = {
         switch (functie) {
             case 1:
                 logget(con,member,functie);
-                console.log(`member left ${member.guild}`);
                 break;
             case 2:
                 logget(con,member,functie);

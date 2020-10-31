@@ -83,9 +83,11 @@ client.on('guildMemberAdd', member => {
    //.setThumbnail(warnuser.user.avatarURL({ dynamic: true, format: 'png', size: 32 }))
    .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
    .setImage(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
-   .setDescription(`Welcome to the server ${member.displayName}`);
+   .setDescription(`welcome, ${member.displayName}`);
     
-
+   try{
+    sqlconnect.execute(con,member,5,embed);
+    }catch(err){console.log(err);} 
   });
   //#endregion
   
