@@ -1,6 +1,6 @@
 
 module.exports = {
-    execute(con,member,functie,embed){
+    async execute(con,member,functie,embed){
         switch (functie) {
             case 1:
                 logget(con,member,functie);
