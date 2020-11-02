@@ -38,7 +38,7 @@ global.progressBar = (value, maxValue, size) => {
 		//#region ott's, afterhours and iced's request 
 		
 		if(!args[1]&&message.author == message.mentions.users.first()){value = 0;}
-		if (!args[1] && message.mentions.users.first().id == "284553236864827392" || !args[1] && message.author.id == "284553236864827392") {if (value > 75) value = value /2;}
+		if (!args[1] && message.author.id == "284553236864827392") {if (value > 75) value = value /2;}
 		if(message.author.id == "550024839063404559"){value = 100;}
 		//#endregion
 		 
@@ -48,6 +48,9 @@ global.progressBar = (value, maxValue, size) => {
 			}
 			if (users[1]&&users[0] == users[1]) {
 				value = 0;
+			}
+			for (let o = 0; o < users.length; o++) {
+				if(users[o].id == "284553236864827392"){if(value > 75)value = value /2;}
 			}
 
 		}
