@@ -74,7 +74,7 @@ client.on('guildMemberRemove',member =>{
 
 //#region member join
 //member joins execute sql connection with parameters that correspondt with friendly message in logchannel
-client.on('guildMemberAdd', member => {
+client.on('guildMemberAdd',member => {
     console.log("member joined");
     var embed = new Discord.MessageEmbed()
    .setColor('#006400')

@@ -15,8 +15,9 @@ module.exports = {
                 sqlconnect(con);
                 break;
             case 5:
-            embedlog(con,member,embed);
+                embedlog(con,member,embed);
                 break;
+                
 
         }
     },
