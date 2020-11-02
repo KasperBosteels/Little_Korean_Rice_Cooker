@@ -9,7 +9,7 @@ const mysql = require("mysql");
         guildOnly: 'true',
         aliases: ['die','bye'],
         category: "moderating",
-        execute(client,message, args) {
+        async execute(client,message, args) {
             //check perms
             if (!message.member.hasPermission("BAN_MEMBERS")) return message.reply('perm Denied');
             if (!message.guild.me.hasPermission("BAN_MEMBERS"))return message.reply('perm 2 Denied');
