@@ -15,6 +15,7 @@ const config = require('./auth.json');
 const prefixcheck = require('./prefixcheck.js');
 const lie = require('./liedetector.js');
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
 //#endregion
 
 //#region init bot as client
@@ -50,6 +51,15 @@ var con = mysql.createConnection({
 client.on('ready', () => {
     start.execute(client);
 
+});
+//#endregion
+
+//#region error handler
+client.on('error', Err =>{
+console.log(`an error occured`)
+fs.writeFileSync("./errors.json",JSON.stringify(Err,null,2),(err) => {
+    if (err) console.log(err);
+});
 });
 //#endregion
 
