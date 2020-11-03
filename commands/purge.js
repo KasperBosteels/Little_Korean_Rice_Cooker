@@ -1,4 +1,7 @@
-
+const discord = require("discord.js");
+const mysql = require("mysql");
+const database = require("../database.json");
+const sqlconnect = require('../sql_serverconnection.js');
 module.exports = {
 	name: 'purge',
     description: 'delete messages',
@@ -13,7 +16,6 @@ module.exports = {
 
         //get amount to delete
         const amount = parseInt(args[0])+ 1;
-
         //if no args given or if hte number is between 1 and 100
     if (isNaN(amount)) {
         return message.reply('that doesn\'t seem to be a valid option.');
@@ -22,6 +24,23 @@ module.exports = {
     }
     //delete messages
     message.channel.bulkDelete(amount,true);
-
-	},
+    var con = mysql.createConnection({
+        host: database.host,
+        user : database.user,
+        password: database.pwd,
+        database: database.database
+    
+    });
+    sqlconnect.execute(con,message,5,createbed(amount,discord,message));
+    },
 };
+function createbed(amount,discord,message){
+    var embed = new discord.MessageEmbed()
+    .setColor('#FFFF00')
+    .setTimestamp()
+    .setDescription(`${message.author}\n
+     deleted ${amount-1} messages\n
+     in ${message.channel}`)
+     return embed;
+	
+}

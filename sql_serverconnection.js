@@ -31,6 +31,8 @@ function sqlconnect(con) {
 
 function embedlog(con,member,embed){
     //#region looks for bot-log channel
+    
+        
 con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
     var logchannel;
     if(err)console.log(err);

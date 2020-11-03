@@ -15,7 +15,6 @@ const config = require('./auth.json');
 const prefixcheck = require('./prefixcheck.js');
 const lie = require('./liedetector.js');
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
 //#endregion
 
 //#region init bot as client
@@ -110,6 +109,8 @@ client.on('guildMemberAdd',member => {
         //check if bot is being accused of lying
        lie.execute(message);
        //#endregion
+
+        //#region level handler
 
         //#region prefix check
         //check if messages contains the selected prefix
