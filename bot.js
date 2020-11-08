@@ -207,7 +207,7 @@ function level(message){
            var LEV = rows[0].level;
            var EXP = rows[0].exp+randomint;
            if(LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);
-           var nextlevel =(15 + 100)*LEV;
+           var nextlevel =(15 + 300)*LEV;
            console.log(`${message.author} exp to next: ${nextlevel} exp:${EXP}`);
            if(EXP >= nextlevel){LEV++;
             
