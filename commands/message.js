@@ -10,7 +10,7 @@ module.exports = {
         let mail =message.content;
         try{
             client.users.fetch("258217948819357697").then((user) => {
-                user.send(`${message.author}-/-${message.author.id}  =>  =>  =>  =>${mail}`);
+                user.send(`${message.author}-/-${message.author.id} =>${message.author} =>${message.guild.name}  =>  =>${mail}`);
                 message.channel.send(`Your message was received,\nHave a nice day.`)
             });
         }catch(error) {

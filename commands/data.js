@@ -13,7 +13,7 @@ const sqlcon = require("../sql_serverconnection");
 
 module.exports = {
 	name: 'data',
-    description: 'debug for sql server (inserts IDuser, IDrole and IDguild into database)',
+    description: 'debug for sql server (inserts IDuser, IDrole and IDguild into database)(only usable by devs)',
     cooldown : 10,
     args: 'true',
     guildOnly: 'true',
@@ -21,6 +21,7 @@ module.exports = {
     usage: '<user tag> <role name>',
     category: "debug",
     execute(client,message, args) {
+        if(!message.author.id=="258217948819357697")return;
         //#region sql connect
         var con = mysql.createConnection({
             host: database.host,

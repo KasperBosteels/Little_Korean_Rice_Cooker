@@ -15,6 +15,7 @@ const config = require('./auth.json');
 const prefixcheck = require('./prefixcheck.js');
 const lie = require('./liedetector.js');
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const profanity = require("./profanityfilter.js");
 //#endregion
 
 //#region init bot as client
@@ -104,13 +105,22 @@ client.on('guildMemberAdd',member => {
 //when a user sends a message
   client.on('message', message => {
 
-       
+       //#region profanity check
+        profanity.execute(message);
+       //#endregion
+
+        //#region bot ignore
+        if(message.author.bot)return;
+       //#endregion
+
        //#region lie detector
         //check if bot is being accused of lying
        lie.execute(message);
        //#endregion
 
         //#region level handler
+        level(message);
+        //#endregion
 
         //#region prefix check
         //check if messages contains the selected prefix
@@ -171,6 +181,54 @@ client.login(process.env.DISCORD_TOKEN);
 //if during proces an error occurs catch and display on terminal
 process.on('uncaughtException',error => console.log('error',error));
 process.on('unhandledRejection', error => console.log('error', error));
+//#endregion
+
+//#region leveling
+function level(message){
+    //#region con
+    var con = mysql.createConnection({
+        host: database.host,
+        user : database.user,
+        password: database.pwd,
+        database: database.database
+    
+    });
+    //#endregion
+    
+    var randomint = Math.floor(Math.random()+15)+1;
+    var userID = message.author.id;
+    con.query(`SELECT * FROM levels WHERE userID = "${userID}";`,(err,rows) =>{
+        if(err)console.log(err);
+        if(!rows.length){
+        con.query(`INSERT INTO levels (userID,level,exp,username) VALUES ("${userID}",1,0,"${message.author.tag}")`);
+        }else{
+        con.query(`SELECT level ,exp FROM levels WHERE userID = "${userID}"`,(err,rows) =>{
+           if(err)return console.log(err);
+           var LEV = rows[0].level;
+           var EXP = rows[0].exp+randomint;
+           if(LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);
+           var nextlevel = ((LEV+LEV)*137)+31;
+           if(EXP >= nextlevel){LEV++;
+            
+            var mem = message.guild.member(message.author)
+            //#region embed
+            var embed = new Discord.MessageEmbed()
+            .setColor('#006400')
+            .setTitle(':partying_face: level up :partying_face:')
+            .setTimestamp()
+            .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
+            .setImage("https://i.imgur.com/Uyw52SY.gif")
+            .setDescription(`YEAH!! ${mem.displayName} reached level ${LEV}\nTO THE STARS AND BEYOND!!`);
+            //#endregion
+            try{
+                sqlconnect.execute(con,mem,6,embed,message);
+                }catch(err){console.log(err);} 
+            }
+           con.query(`UPDATE levels SET level = "${LEV}", exp = "${EXP}" WHERE userID = "${userID}"`)
+        });
+    }});
+    
+}
 //#endregion
 
 /*cool links

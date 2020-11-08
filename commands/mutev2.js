@@ -1,7 +1,7 @@
 const ms = require('ms');
 module.exports = {
-    name: 'mutev2',
-    description: 'second iteration of mute command',
+    name: 'mute',
+    description: 'silence a user for a given time',
     usage: `<@ user> <1-n>s/m/h\nbe aware that after you auto-complete a tag there is already a space so dont type in another space.\n(note: between the number and the consonant is no space)`,
     guildOnly: 'true',
     args : 'true',

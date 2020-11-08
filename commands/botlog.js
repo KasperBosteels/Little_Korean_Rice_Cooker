@@ -3,7 +3,7 @@ const mysql = require("mysql");
 const sqlcon = require("../sql_serverconnection.js");
 module.exports = {
 	name: 'bot-log',
-	description: 'assign a channel where the logs go if there are is no specified log channel it wil automatically look for a channel named "bot-logs","bot-log","log" or "botllog"',
+	description: 'assign a channel where the logs go if there is no specified log channel it wil automatically look for a channel named "bot-logs","bot-log","log" or "botllog"',
 	cooldown: 1,
     usage: ' you just type the command in the channel u want the logs to go in',
     guildOnly: "true",

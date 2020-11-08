@@ -7,10 +7,12 @@ module.exports = {
     cooldown : 10,
     guildOnly: 'true',
     aliases: ['return','dtr'],
-    usage:'optional: <user tag>/<role name>/<user tag> <role name>',
+    usage:'optional: <user tag>/<role name>/<user tag> <role name>(only usable by devs)',
     category: "debug",
     
 	execute(client,message, args) {
+        if(!message.author.id=="258217948819357697")return;
+
         //#region sql connect
         var con = mysql.createConnection({
             host: database.host,

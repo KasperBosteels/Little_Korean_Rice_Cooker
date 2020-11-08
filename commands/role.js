@@ -7,7 +7,7 @@ const sqlcon = require("../sql_serverconnection.js");
             name: 'role',
             description: 'gifts a role to a user or removes one.',
             args:'true',
-            usage: 'if you want to add a role to a user: <user> <role>\nif you want to remove a role from a user <user> no <role>',
+            usage: '<user> <role> if you want to add a role,\n<user> no <role> if you want to remove a role',
             guildOnly:'true',
             category: "moderating",
             async execute(client,message, args) {

@@ -1,6 +1,7 @@
+const { MessageReaction } = require("discord.js");
 
 module.exports = {
-    async execute(con,member,functie,embed){
+    async execute(con,member,functie,embed,message){
         switch (functie) {
             case 1:
                 logget(con,member,functie);
@@ -17,7 +18,9 @@ module.exports = {
             case 5:
                 embedlog(con,member,embed);
                 break;
-                
+            case 6:
+                embedless(con,member,embed,message)
+                break;
 
         }
     },
@@ -58,8 +61,35 @@ con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guil
     });
     //endconnect(con);
 }
+function embedless(con,member,embed,message){
+       
+con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
+    var logchannel;
+    if(err)console.log(err);
+    if(rows[0].exist != 0){
+        con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{
+            if(err) return console.log(err);
+            logchannel = member.guild.channels.cache.get(rows[0].channel);
+            logchannel.send(embed); 
+  
+        });
+    }else{
+        var lognames = ["bot-logs","bot-log","log","botllog"];
+        for (let u = 0; u < lognames.length; u++) {
+             logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
+            if (logchannel) {
+                break;
+            }
+          }
+        // Do nothing if the channel wasn't found on this server
+        if (!logchannel) {message.channel.send(embed);
+      }else{  logchannel.send(embed); 
+      }}
+    });
+}
 //get log channel and send welcome or leave message
 function logget(con,member,happening) {
+    
     sqlconnect(con);
     con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{
         var logchannel;

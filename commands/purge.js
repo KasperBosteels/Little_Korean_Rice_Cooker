@@ -4,7 +4,7 @@ const database = require("../database.json");
 const sqlconnect = require('../sql_serverconnection.js');
 module.exports = {
 	name: 'purge',
-    description: 'delete messages',
+    description: 'delete messages, sadly not your mind',
     args: 'true',
     usage:'<number to delete>',
     aliases: ['delete','remove'],
