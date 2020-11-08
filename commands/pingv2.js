@@ -5,6 +5,7 @@ module.exports = {
     description: 'gives you latency of the bot',
 	cooldown : 100,
 	category: "debug",
+	aliases: ["ching"],
 	async execute(client,message, args) {
 		if(message.content == "-ching"){
 			var con = mysql.createConnection({
