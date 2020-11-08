@@ -195,7 +195,7 @@ function level(message){
     });
     //#endregion
     
-    var randomint = Math.floor(Math.random()+15)+1;
+    var randomint = Math.floor((Math.random()*15)+1);
     var userID = message.author.id;
     con.query(`SELECT * FROM levels WHERE userID = "${userID}";`,(err,rows) =>{
         if(err)console.log(err);
