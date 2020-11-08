@@ -208,9 +208,8 @@ function level(message){
            var EXP = rows[0].exp+randomint;
            if(LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);
            var nextlevel =(15 + 300)*LEV;
-           console.log(`${message.author} exp to next: ${nextlevel} exp:${EXP}`);
            if(EXP >= nextlevel){LEV++;
-            
+            console.log(`${message.author} exp to next: ${nextlevel} exp:${EXP}`);
             var mem = message.guild.member(message.author)
             //#region embed
             var embed = new Discord.MessageEmbed()
