@@ -207,18 +207,10 @@ function level(message){
            var LEV = rows[0].level;
            var EXP = rows[0].exp+randomint;
            if(LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);
-           var nextlevel = Math.max(Math.floor(8.7 * Math.log(EXP + 111) + -40),1);
+           var nextlevel =(15 + 100)*LEV;
            console.log(`${message.author} exp to next: ${nextlevel} exp:${EXP}`);
            if(EXP >= nextlevel){LEV++;
-            /*
-            For ~10 million XP at level 100 you should choose something like constA = 8.7, constB = -40 and constC = 111.
-
-If the level gap rises too fast for your taste increase constA, decrease constB if you want the inital level gap to be higher, and finally set constC ~= exp((1-constB)/constA), in order to properly start at level 1.
-
-Note that the appropriateness of any levelling formula depend completely on how fast players can gain XP at any given level.
-
-See also: Algorithm for dynamically calculating a level based on experience points?
-            */
+            
             var mem = message.guild.member(message.author)
             //#region embed
             var embed = new Discord.MessageEmbed()
