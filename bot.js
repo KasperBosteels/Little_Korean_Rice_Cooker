@@ -120,7 +120,7 @@ client.on('guildMemberAdd',member => {
        //#endregion
 
         //#region level handler
-        level.execute(message,con);
+        level.execute(message,con,Discord);
         //#endregion
 
         //#region prefix check

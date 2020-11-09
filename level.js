@@ -1,7 +1,7 @@
 const sqlconnect = require('./sql_serverconnection.js');
 module.exports = {
 	
-	execute(message,con) {
+	execute(message,con,Discord) {
 		var randomint = Math.floor((Math.random()*15)+1);
     var userID = message.author.id;
     con.query(`SELECT * FROM levels WHERE userID = "${userID}";`,(err,rows) =>{
@@ -14,9 +14,9 @@ module.exports = {
            var LEV = rows[0].level;
            var EXP = rows[0].exp+randomint;
            if(LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);
-           var nextlevel =((15 + 300)*LEV)*1.25;
+           var nextlevel =(15 + 300)*LEV;
            if(EXP >= nextlevel){LEV++;
-            console.log(`${message.author} exp to next: ${nextlevel} exp:${EXP}`);
+            console.log(`${message.author} exp to next: ${nextlevel}`);
             var mem = message.guild.member(message.author)
             //#region embed
             var embed = new Discord.MessageEmbed()
@@ -31,7 +31,7 @@ module.exports = {
                 sqlconnect.execute(con,mem,6,embed,message);
                 }catch(err){console.log(err);} 
             }
-           con.query(`UPDATE levels SET level = "${LEV}", exp = "${EXP}" WHERE userID = "${userID}"`)
+           con.query(`UPDATE levels SET level = "${LEV}", exp = "0" WHERE userID = "${userID}"`)
         });
     }});
     
