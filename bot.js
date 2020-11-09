@@ -49,7 +49,7 @@ var con = mysql.createConnection({
 //default state when bot starts up will set activity
 //and display succes message in terminal
 client.on('ready', () => {
-    start.execute(client);
+    start.execute(client,con);
 
 });
 //#endregion
@@ -161,7 +161,7 @@ client.on('guildMemberAdd',member => {
         //#region execute command
         //tries to perform the command if error occurs catch it and display on terminal
         try {
-            command.execute(client,message,args);
+            command.execute(client,message,args,con);
            logger.execute(message);
         } catch (error) {
             console.error(error);
@@ -181,20 +181,12 @@ client.login(process.env.DISCORD_TOKEN);
 //if during proces an error occurs catch and display on terminal
 process.on('uncaughtException',error => console.log('error',error));
 process.on('unhandledRejection', error => console.log('error', error));
+process.on('ECONNRESET',error => {con.connect(con); throw(error) });
+process.on('PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR',error =>{throw(error)});
 //#endregion
 
 //#region leveling
 function level(message){
-    //#region con
-    var con = mysql.createConnection({
-        host: database.host,
-        user : database.user,
-        password: database.pwd,
-        database: database.database
-    
-    });
-    //#endregion
-    
     var randomint = Math.floor((Math.random()*15)+1);
     var userID = message.author.id;
     con.query(`SELECT * FROM levels WHERE userID = "${userID}";`,(err,rows) =>{
@@ -207,7 +199,7 @@ function level(message){
            var LEV = rows[0].level;
            var EXP = rows[0].exp+randomint;
            if(LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);
-           var nextlevel =(15 + 300)*LEV;
+           var nextlevel =((15 + 300)*LEV)*1.25;
            if(EXP >= nextlevel){LEV++;
             console.log(`${message.author} exp to next: ${nextlevel} exp:${EXP}`);
             var mem = message.guild.member(message.author)

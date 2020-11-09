@@ -6,16 +6,8 @@ module.exports = {
 	cooldown : 100,
 	category: "debug",
 	aliases: ["ching"],
-	async execute(client,message, args) {
+	async execute(client,message, args,con) {
 		if(message.content == "-ching"){
-			var con = mysql.createConnection({
-                host: database.host,
-                user : database.user,
-                password: database.pwd,
-                database: database.database
-    
-			});
-			sqlconnect(con);
 			con.query(`INSERT INTO ching (guildID) VALUES("${message.guild.id}");`);
 			con.query(`SELECT EXISTS(SELECT * FROM ching WHERE guildID = "${message.guild.id}")AS exist;`,(err,rows) =>{
 				if(err)return console.log(err);
@@ -40,10 +32,4 @@ module.exports = {
 	return message.channel.send('pong: ' +( Date.now() -message.createdTimestamp ) + ' ms');
 	},
 };
-
-function sqlconnect(con){
-    con.connect(err =>{if (err)
-        return console.log(err);});
-
-}
  
