@@ -1,16 +1,9 @@
 const fs = require('fs');
-const { serialize } = require('v8');
-
-
-
 module.exports = {
     execute(message){
         proffilter(message);
     }
 };
-
-
-
 
 
 function proffilter(message) {
@@ -58,20 +51,7 @@ function proffilter(message) {
     };
 
 
-    for (let A = 0; A < messageArray.length; A++) {
-        const word = messageArray[A].toLowerCase();
-        var changeword = "";
-        for (let U = 0; U < swear["rice"].length; U++) {
-            if (word.includes(swear["rice"][U])){
-                amountswear++;
-            }
-        }
-        if(amountswear != 0){
-            message.channel.send("here you go, :rice:");
-        } 
-        
-    }
-    return;
+    
 }
 
 

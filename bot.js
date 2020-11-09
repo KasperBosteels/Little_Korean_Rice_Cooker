@@ -17,6 +17,7 @@ const lie = require('./liedetector.js');
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const profanity = require("./profanityfilter.js");
 const level = require('./level.js');
+const rice = require("./rice.js");
 //#endregion
 
 //#region init bot as client
@@ -118,6 +119,10 @@ client.on('guildMemberAdd',member => {
         //check if bot is being accused of lying
        lie.execute(message);
        //#endregion
+
+        //#region rice questions
+        rice.execute(message);
+        //#endregion
 
         //#region level handler
         level.execute(message,con,Discord);

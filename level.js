@@ -16,8 +16,8 @@ module.exports = {
            if(LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);
            var nextlevel =(15 + 300)*LEV;
            if(EXP >= nextlevel){LEV++;
-            console.log(`${message.author} exp to next: ${nextlevel}`);
-            var mem = message.guild.member(message.author)
+            var mem = message.guild.member(message.author);
+            console.log(`${mem.displayName} exp to next: ${nextlevel}`);
             //#region embed
             var embed = new Discord.MessageEmbed()
             .setColor('#006400')
