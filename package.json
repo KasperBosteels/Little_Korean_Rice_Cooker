@@ -6,16 +6,15 @@
     "author": "Kasper",
     "license": "ISC",
     "scripts": {
-      "start": "bot.js",
+        "start": "bot.js",
         "test": "echo \"error: no test specified\" && exit &"
-        
     },
     "dependencies": {
         "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
-        "discord.js": "^12.4.0",
-        "dotenv": "^8.2.0",
-        "ms": "^2.1.2",
-        "mysql": "^2.18.1",
-        "winston": "^3.3.3"
+        "discord.js": "*",
+        "dotenv": "*",
+        "ms": "*",
+        "mysql": "*",
+        "winston": "*"
     }
 }
