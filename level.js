@@ -31,7 +31,7 @@ module.exports = {
                 sqlconnect.execute(con,mem,6,embed,message);
                 }catch(err){console.log(err);} 
             }
-           con.query(`UPDATE levels SET level = "${LEV}", exp = "0" WHERE userID = "${userID}"`)
+           con.query(`UPDATE levels SET level = "${LEV}", exp = 0 WHERE userID = "${userID}"`)
         });
     }});
     
