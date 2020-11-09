@@ -14,7 +14,7 @@ module.exports = {
            var LEV = rows[0].level;
            var EXP = rows[0].exp+randomint;
            if(LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);
-           var nextlevel =(15 + 300)*LEV;
+           var nextlevel =(15 + 300)*(LEV * 2);
            if(EXP >= nextlevel){LEV++;
             var mem = message.guild.member(message.author);
             console.log(`${mem.displayName} exp to next: ${nextlevel}`);
@@ -29,9 +29,12 @@ module.exports = {
             //#endregion
             try{
                 sqlconnect.execute(con,mem,6,embed,message);
+                
                 }catch(err){console.log(err);} 
+                con.query(`UPDATE levels SET level = "${LEV}", exp = 0 WHERE userID = "${userID}"`)
             }
-           con.query(`UPDATE levels SET level = "${LEV}", exp = 0 WHERE userID = "${userID}"`)
+            con.query(`UPDATE levels SET level = "${LEV}", exp = "${EXP}" WHERE userID = "${userID}"`)
+
         });
     }});
     

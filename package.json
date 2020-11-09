@@ -6,9 +6,8 @@
     "author": "Kasper",
     "license": "ISC",
     "scripts": {
-      "start": "bot.js",
+        "start": "bot.js",
         "test": "echo \"error: no test specified\" && exit &"
-        
     },
     "dependencies": {
         "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
