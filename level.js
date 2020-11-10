@@ -7,7 +7,7 @@ module.exports = {
     con.query(`SELECT * FROM levels WHERE userID = "${userID}";`,(err,rows) =>{
         if(err)console.log(err);
         if(!rows.length){
-        con.query(`INSERT INTO levels (userID,level,exp,username) VALUES ("${userID}",1,0,"${message.author.tag}")`);
+        con.query(`INSERT INTO levels (userID,level,exp) VALUES ("${userID}",1,0)`);
         }else{
         con.query(`SELECT level ,exp FROM levels WHERE userID = "${userID}"`,(err,rows) =>{
            if(err)return console.log(err);

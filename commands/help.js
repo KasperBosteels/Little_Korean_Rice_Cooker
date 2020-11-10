@@ -80,7 +80,7 @@ if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
 if (command.description) data.push(`**Description:** ${command.description}`);
 if (command.usage) data.push(`**Usage:** ${botconfig.prefix}${command.name} ${command.usage}`);
 data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
-
+if(args[0] == 'lewd')data.push(`**specifics**${command.specifics}`);
 //send
 message.channel.send(data, { split: true });
 

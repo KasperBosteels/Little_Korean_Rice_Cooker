@@ -4,8 +4,8 @@ const sqlcon = require("../sql_serverconnection.js");
 const mysql = require("mysql");
     module.exports = {
         name: 'ban',
-        description: 'a final solution',
-        usage: '<@ user>',
+        description: 'a final solution (only one person at a time)',
+        usage: '<@ user> optional <reason>',
         guildOnly: 'true',
         aliases: ['die','bye'],
         category: "moderating",
@@ -18,9 +18,10 @@ const mysql = require("mysql");
 	if (!user) {
 		return message.reply('Please use a proper mention if you want to ban someone.');
     }
-    
+    var Reason = args[1]
+    if(!Reason) Reason = "no given";
     try {
-		await message.guild.members.ban(user, { reason });
+		await message.guild.members.ban(user, { reason: Reason});
 	} catch (error) {
 		return message.channel.send(`Failed to ban **${user.tag}**: ${error}`);
 	}
