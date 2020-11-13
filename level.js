@@ -19,7 +19,6 @@ module.exports = {
             LEV++;
             EXP = 0;
             var mem = message.guild.member(message.author);
-            console.log(`${mem.displayName} exp to next: ${nextlevel}`);
             //#region embed
             var embed = new Discord.MessageEmbed()
             .setColor('#006400')
@@ -43,4 +42,4 @@ module.exports = {
     }});
     
 	},
-};747873253619531898
+};
