@@ -124,10 +124,6 @@ client.on('guildMemberAdd',member => {
         rice.execute(message);
         //#endregion
 
-        //#region level handler
-        level.execute(message,con,Discord);
-        //#endregion
-
         //#region prefix check
         //check if messages contains the selected prefix
        if(!prefixcheck.execute(message))return;
@@ -174,6 +170,10 @@ client.on('guildMemberAdd',member => {
             message.reply('there was an error trying to execute that command!');
         }
         //#endregion
+         
+          //#region level handler
+          level.execute(message,con,Discord);
+          //#endregion
           
     });
 //#endregion
