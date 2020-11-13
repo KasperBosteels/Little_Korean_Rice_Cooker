@@ -15,7 +15,9 @@ module.exports = {
            var EXP = rows[0].exp+randomint;
            if(LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);
            var nextlevel =(15 + 300)*(LEV * 2);
-           if(EXP >= nextlevel){LEV++;
+           if(EXP >= nextlevel){
+            LEV++;
+            EXP = 0;
             var mem = message.guild.member(message.author);
             console.log(`${mem.displayName} exp to next: ${nextlevel}`);
             //#region embed
@@ -29,15 +31,16 @@ module.exports = {
             //#endregion
             try{
                 sqlconnect.execute(con,mem,6,embed,message);
-                
+                con.query(`UPDATE levels SET level = ${LEV}, exp = 0 WHERE userID = "${userID}"`,(err)=>{
+                if(err)console.log(err);
+                });
                 }catch(err){console.log(err);} 
-                con.query(`UPDATE levels SET level = "${LEV}", exp = "0" WHERE userID = "${userID}"`)
             }
-            con.query(`UPDATE levels SET level = "${LEV}", exp = "${EXP}" WHERE userID = "${userID}"`)
+            con.query(`UPDATE levels SET level = ${LEV}, exp = ${EXP} WHERE userID = "${userID}"`)
             if(LEV == 5){con.query(`INSERT INTO currency (userID,ballance) values ("${message.author.id}",100)`,(err)=>{if(err)throw(err);});
         }else if(LEV > 5){con.query(`UPDATE currency SET ballance = ballance + 100 WHERE userID = "${message.channel.id}"`,(err)=>{if(err)throw(err);});}
         });
     }});
     
 	},
-};
+};747873253619531898
