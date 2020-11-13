@@ -1,101 +1,108 @@
 const alarm = require('./nudes.js');
-const akaneko = require('akaneko');
+const Nsfw = require('discord-nsfw');
+const Discord = require('discord.js');
+const nsfw = new Nsfw();
+const choise= [
+	"anal",
+	"fourk",
+	"ass",
+	"gonewild",
+	"pgif",
+	"pussy",
+	"thigh",
+	"boobs",
+	"hentaiass",
+	"hentai",
+	"hmidriff",
+	"hentaithigh",
+	"erokemo",
+	"kitsune",
+	"lewd",
+	"nekofeet",
+	"nekopussy",
+	"nekotits",
+	"solo",
+	"wallpaper"]
 module.exports = {
 	name: 'lewd',
 	description: 'ever put a cat in a microwave ?',
 	cooldown: 1,
 	usage: ' <your preference>',
 	category: "fun",
-	specifics: [" ass"," blowjob"," cum"," doujin"," feet"," femdom"," foxgirl"," gifs"," glasses"," hentai"," netorare"," maid"," masturbation"," orgy"," panties"," pussy"," tentacles"," thighs"," ugly"," neko"," foxy"," bomb"," wallpaper"," mobile"],
+	specifics: choise,
 	async execute(client,message, args) {
+		if(!args[0]) args[0] = choise[Math.floor(Math.random() * Math.floor(choise.length))];
         if(!message.channel.nsfw)return alarm.execute(client,message,args);
-		return message.channel.send(await preference(args));
+		 return message.channel.send(await preference(args,Discord,message));                                    
 	},
 };
-async function preference(args){
-	var lewdnes;
+async function preference(args,Discord,message){
+	const embed = new Discord.MessageEmbed()
+	var lewdnes = "not found sorry";
 	switch(args[0]){
 		
 		case 'ass':
-		 lewdnes= await akaneko.nsfw.ass();
+		 lewdnes= await  nsfw.ass();
+		 
 		break;
-			/*case 'bsm':
-			lewdnes= await akaneko.nsfw.bdsm();
+			case'anal':
+			lewdnes= await  nsfw.anal();
 			break;
-			*/
-			case'blowjob':
-			lewdnes= await akaneko.nsfw.blowjob();
+			case '4k':
+				lewdnes= await  nsfw.fourk();
 			break;
-			case 'cum':
-				lewdnes= await akaneko.nsfw.cum();
-			break;
-			case 'doujin':
-				lewdnes = await akaneko.nsfw.doujin();
+			case 'gonewild':
+				lewdnes = await  nsfw.gonewild();
 				break;
-				case 'feet':
-					lewdnes = await akaneko.nsfw.feet();
+				case 'ass':
+					lewdnes = await  nsfw.ass();
 					break;
-			case 'femdom':
-				lewdnes= await akaneko.nsfw.femdom();
+			case 'pussy':
+				lewdnes= await  nsfw.pussy();
 			break;
-			case 'foxgirl':
-				lewdnes = await akaneko.nsfw.foxgirl();
+			case 'thigh':
+				lewdnes = await  nsfw.thigh();
 				break;
-			case 'gifs':
-				lewdnes= await akaneko.nsfw.gifs();
+			case 'gif':
+				lewdnes= await  nsfw.pgif();
 			 break;
-			 case 'glasses':
-				lewdnes= await akaneko.nsfw.glasses();
+			 case 'boobs':
+				lewdnes= await  nsfw.boobs();
 			 break;
-			 case 'hentai': 
-			 lewdnes= await akaneko.nsfw.hentai();
+			 case 'hentaiass': 
+			 lewdnes= await  nsfw.hentaiass();
 			 break;
-			 case 'netorare':
-				lewdnes= await akaneko.nsfw.netorare();
+			 case 'hentai':
+				lewdnes= await  nsfw.hentai();
 			 break;
-			 case 'maid':
-				 lewdnes = await akaneko.nsfw.maid();
+			 case 'hmid':
+				 lewdnes = await  nsfw.hmidriff();
 				 break;
-				 case 'masturbation':
-					 lewdnes = await akaneko.nsfw.masturbation();
+				 case 'hthigh':
+					 lewdnes = await  nsfw.hentaithigh();
 					 break;
-			 case 'orgy':
-				lewdnes= await akaneko.nsfw.orgy();
+			 case 'erokemo':
+				lewdnes= await  nsfw.erokemo();
 			 break;
-			 case 'panties':
-				 lewdnes = await akaneko.nsfw.panties();
+			 case 'kitsune':
+				 lewdnes = await  nsfw.kitsune();
 				 break;
-			 case 'pussy': 
-			 lewdnes= await akaneko.nsfw.pussy();
+			 case 'lewd': 
+			 lewdnes= await  nsfw.lewd();
 			 break;
-			 case 'tentacles': 
-			 lewdnes= await akaneko.nsfw.tentacles();
+			 case 'nekofeet': 
+			 lewdnes= await  nsfw.nekofeet();
 			 break;
-			 case 'thighs': 
-			 lewdnes= await akaneko.nsfw.thighs();
+			 case 'nekopussy': 
+			 lewdnes= await  nsfw.nekopussy();
 			 break;
-			 case 'ugly':
-				 lewdnes = await akaneko.nsfw.uglyBastard()
+			 case 'nekotits':
+				 lewdnes = await  nsfw.nekotits()
 				 break;
-			 /*case 'uniforms': 
-			 lewdnes= await akaneko.nsfw.uniforms();
+			 case 'solo':
+				lewdnes= await  nsfw.solo();
 			 break;
-			 */
-			 case 'neko':
-				lewdnes= await akaneko.neko();
-			 break;
-			 case 'foxy':
-				lewdnes= await akaneko.lewdNeko();
-			 break;
-			 case 'bomb':
-				lewdnes= await akaneko.lewdBomb();
-			 break;
-			 case 'wallpaper':
-			 lewdnes = await akaneko.nsfw.wallpapers();
-			 break;
-			case 'mobile':
-				lewdnes = await akaneko.nsfw.mobileWallpapers();
-				break;
 	}
-	return lewdnes;
+	embed.setImage(lewdnes);
+	return embed;
 }

@@ -38,6 +38,7 @@ module.exports = {
              icon     = rows[0].icon;
              inv      = rows[0].exist;
         totalcost = amount * cost;
+        if(!ballance)return message.channel.send('you aren not high enough level yet you need to be level 5 to unlock the store');
         if(amount*cost > ballance)return message.channel.send(`you dont have enough money to buy ${amount} ${name}\nyou need at least __${(amount * cost) - ballance}__ *₿* more`);
         if(inv == 1){
             con.query(`UPDATE inventory SET amount = amount + ${amount} WHERE userID = "${userID}" AND itemID = ${itemID};`,(err)=>{if(err)return console.log(err);});
