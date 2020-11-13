@@ -21,7 +21,9 @@ module.exports = {
         }else {
             //argument given, assign mention to variable
             var member= message.mentions.members.first();
-
+            if (member.id == "397286381883359232" && message.author.id == "258217948819357697"){
+            return message.channel.send(`${member}\nhttps://tenor.com/biAHU.gif`);
+            }
             //if variable == undefined 
             if(!member){
                 

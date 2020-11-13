@@ -75,7 +75,7 @@ client.on('guildMemberRemove',member =>{
    .setTimestamp()
    //.setThumbnail(warnuser.user.avatarURL({ dynamic: true, format: 'png', size: 32 }))
    .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
-   .setImage(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
+   .setThumbnail(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
    .setDescription(`${member.displayName} left`);
    
    try{
@@ -94,7 +94,7 @@ client.on('guildMemberAdd',member => {
    .setTimestamp()
    //.setThumbnail(warnuser.user.avatarURL({ dynamic: true, format: 'png', size: 32 }))
    .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
-   .setImage(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
+   .setThumbnail(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
    .setDescription(`welcome, ${member.displayName}`);
     
    try{

@@ -18,6 +18,7 @@ module.exports = {
 
         //look for role named Muted and check if true
         var role = message.guild.roles.cache.find(role => role.name === 'Muted');
+        if(!role)role = message.guild.roles.cache.find(role => role.name === 'Muted - Sx4');
         if (!role) {
         message.reply("somehting is wrong mute method was unconventional or it was simply miss spelled");}
      

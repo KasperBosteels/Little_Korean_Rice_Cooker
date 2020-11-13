@@ -15,12 +15,13 @@ module.exports = {
         if (!message.guild.me.hasPermission("KICK_MEMBERS")) return message.reply('perm2 Denied');
 
         //get mention and if found succesfully check for mod
-        var muteperson = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+        var muteperson = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
         if (!muteperson) return message.reply('unable to find this person');
         if (muteperson.hasPermission('BAN_MEMBERS')) return message.reply('this person is possibly a mod');
 
         //check if a Muted role is reachable in this server
         var role = message.guild.roles.cache.find(role => role.name === 'Muted');
+        if(!role)role = message.guild.roles.cache.find(role => role.name === 'Muted - Sx4');
         if (!role)  return message.channel.send('no mute role, pls make a role named <Muted>(respect the capital letter!!)');
         
         //get requested time to mute if no time given return 
