@@ -32,8 +32,13 @@ module.exports = {
 	specifics: choise,
 	async execute(client,message, args) {
 		if(!args[0]) args[0] = choise[Math.floor(Math.random() * Math.floor(choise.length))];
-        if(!message.channel.nsfw)return alarm.execute(client,message,args);
-		 return message.channel.send(await preference(args,Discord,message));                                    
+		var arr=[];
+		for (let a = 0; a < args.length; a++) {
+			arr[a] = args[a].toLowerCase();
+			
+		}
+        if(!message.channel.nsfw)return alarm.execute(client,message,arr);
+		 return message.channel.send(await preference(arr,Discord,message));                                    
 	},
 };
 async function preference(args,Discord,message){
