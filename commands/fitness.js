@@ -4,16 +4,16 @@ const Discord = require('discord.js');
 const nsfw = new Nsfw();
 const choise= [
 	"anal",
-	"fourk",
+	"4k",
 	"ass",
 	"gonewild",
-	"pgif",
+	"gif",
 	"pussy",
 	"thigh",
 	"boobs",
 	"hentaiass",
 	"hentai",
-	"hmidriff",
+	"hentaimid",
 	"hentaithigh",
 	"erokemo",
 	"kitsune",
@@ -21,8 +21,7 @@ const choise= [
 	"nekofeet",
 	"nekopussy",
 	"nekotits",
-	"solo",
-	"wallpaper"]
+	"solo"];
 module.exports = {
 	name: 'lewd',
 	description: 'ever put a cat in a microwave ?',
@@ -80,10 +79,10 @@ async function preference(args,Discord,message){
 			 case 'hentai':
 				lewdnes= await  nsfw.hentai();
 			 break;
-			 case 'hmid':
+			 case 'hentaimid':
 				 lewdnes = await  nsfw.hmidriff();
 				 break;
-				 case 'hthigh':
+				 case 'hentaithigh':
 					 lewdnes = await  nsfw.hentaithigh();
 					 break;
 			 case 'erokemo':
