@@ -1,6 +1,5 @@
-const Discord = require("discord.io");
-
-    
+const Discord = require('discord.js');
+const sendembed = require("../sql_serverconnection.js");
     module.exports = {
         name: 'kick',
         description: 'kick a tagged user',
@@ -29,5 +28,13 @@ message.channel.send(":wave: " + member.displayName + " has been successfully ki
 // Failmessage
 message.channel.send("error");
 });
-        },
+var reason = "no reason given";
+if(args[1])reason = args[1];
+var embed = new Discord.MessageEmbed()
+.setTitle(`${member.displayName} has been kicked`)
+.setDescription(`reason: ${reason}`)
+.setTimestamp()
+.setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
+sendembed.execute(con,member,6,embed,message);
+},
     };

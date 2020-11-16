@@ -1,7 +1,5 @@
 const Discord = require("discord.io");
-const database = require("../database.json");
 const sqlcon = require("../sql_serverconnection.js");
-const mysql = require("mysql");
     module.exports = {
         name: 'ban',
         description: 'a final solution (only one person at a time)',
@@ -9,7 +7,7 @@ const mysql = require("mysql");
         guildOnly: 'true',
         aliases: ['die','bye'],
         category: "moderating",
-        async execute(client,message, args) {
+        async execute(client,message, args,con) {
             //check perms
             if (!message.member.hasPermission("BAN_MEMBERS")) return message.reply('perm Denied');
             if (!message.guild.me.hasPermission("BAN_MEMBERS"))return message.reply('perm 2 Denied');
@@ -27,14 +25,6 @@ const mysql = require("mysql");
 	}
 
 	 message.channel.send(`:man_police_officer: ${user.tag} has been successfully banned  :man_police_officer: `);
-
-    var con = mysql.createConnection({
-        host: database.host,
-        user: database.user,
-        password: database.pwd,
-        database:database.database
-    });
-
 
     const embed = new Discord.MessageEmbed()
     .setColor('#ff0000')

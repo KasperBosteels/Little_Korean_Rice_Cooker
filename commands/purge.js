@@ -1,6 +1,4 @@
 const discord = require("discord.js");
-const mysql = require("mysql");
-const database = require("../database.json");
 const sqlconnect = require('../sql_serverconnection.js');
 module.exports = {
 	name: 'purge',
@@ -9,7 +7,7 @@ module.exports = {
     usage:'<number to delete>',
     aliases: ['delete','remove'],
     category: "moderating",
-	execute(client,message, args) {
+	execute(client,message, args,con) {
         //check parms
         if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm Denied');
         if (!message.guild.me.hasPermission("KICK_MEMBERS")) return message.reply('perm2 Denied');
@@ -24,13 +22,6 @@ module.exports = {
     }
     //delete messages
     message.channel.bulkDelete(amount,true);
-    var con = mysql.createConnection({
-        host: database.host,
-        user : database.user,
-        password: database.pwd,
-        database: database.database
-    
-    });
     sqlconnect.execute(con,message,5,createbed(amount,discord,message));
     },
 };

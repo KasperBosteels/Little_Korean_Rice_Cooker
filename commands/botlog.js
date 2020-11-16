@@ -1,5 +1,3 @@
-const database = require("../database.json");
-const mysql = require("mysql");
 const sqlcon = require("../sql_serverconnection.js");
 module.exports = {
 	name: 'bot-log',
@@ -9,19 +7,11 @@ module.exports = {
     guildOnly: "true",
     aliases:['btl'],
     category: "moderating",
-	execute(client,message, args) {
+	execute(client,message, args,con) {
         //check perms
         if (!message.member.hasPermission("BAN_MEMBERS")) return message.reply('perm 1 Denied');
         if (!message.guild.me.hasPermission("BAN_MEMBERS"))return message.reply('perm 2 Denied');
-        //#region sql connect
-        var con = mysql.createConnection({
-            host: database.host,
-            user : database.user,
-            password: database.pwd,
-            database: database.database
 
-        });
-        //#endregion
         
         //asigns id to variables
         var channel = message.channel.id;

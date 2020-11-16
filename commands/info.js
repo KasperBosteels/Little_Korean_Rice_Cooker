@@ -1,23 +1,14 @@
 //get files for display
 const discord = require('discord.js');
 const info = require('../package.json');
-const database = require("../database.json");
-const mysql = require("mysql");
 const prefix = require('../auth.json');
 module.exports = {
 	name: 'info',
 	description: 'gives general info about the bot',
 	cooldown: 1,
 	usage: ' ',
-	execute(client, message, args) {
-        //#region sql connection
-        var con = mysql.createConnection({
-            host: database.host,
-            user : database.user,
-            password: database.pwd,
-            database: database.database
+	execute(client, message, args,con) {
 
-        });
         con.connect(err =>{
             if(err) {console.log(err); var connection = ':x:'}else {var connection = ':white_check_mark:'} 
         //#endregion

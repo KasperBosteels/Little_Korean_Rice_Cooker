@@ -1,5 +1,4 @@
-const database = require("../database.json");
-const mysql = require("mysql");
+
 const discord = require("discord.js");
 const sqlcon = require("../sql_serverconnection.js");
 
@@ -10,7 +9,7 @@ const sqlcon = require("../sql_serverconnection.js");
             usage: '<user> <role> if you want to add a role,\n<user> no <role> if you want to remove a role',
             guildOnly:'true',
             category: "moderating",
-            async execute(client,message, args) {
+            async execute(client,message, args,con) {
       
         
 
@@ -56,13 +55,6 @@ var embed = new discord.MessageEmbed()
        //stops if there is no embed message build becouse this means it didnt go through the switch
        if(!embed)return
                   //#region connecting database
-                  var con = mysql.createConnection({
-                    host: database.host,
-                    user : database.user,
-                    password: database.pwd,
-                    database: database.database
-        
-                });
                 sqlcon.execute(con,person,4);
                 //#endregion
 

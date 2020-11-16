@@ -1,4 +1,4 @@
-const alarm = require('./nudes.js');
+const alarm = require('../old commands/nudes.js');
 const Nsfw = require('discord-nsfw');
 const Discord = require('discord.js');
 const nsfw = new Nsfw();

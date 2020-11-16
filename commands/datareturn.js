@@ -1,5 +1,3 @@
-const database = require("../database.json");
-const mysql = require("mysql");
 const sqlcon = require("../sql_serverconnection.js");
 module.exports = {
 	name: 'return data',
@@ -10,18 +8,9 @@ module.exports = {
     usage:'optional: <user tag>/<role name>/<user tag> <role name>(only usable by devs)',
     category: "debug",
     
-	execute(client,message, args) {
+	execute(client,message, args,con) {
         if(!message.author.id=="258217948819357697")return;
 
-        //#region sql connect
-        var con = mysql.createConnection({
-            host: database.host,
-            user : database.user,
-            password: database.pwd,
-            database: database.database
-
-        });
-        //#endregion
         
         //check if mentioned if not variable user becomes author
         var user = message.guild.member(message.mentions.members.first());

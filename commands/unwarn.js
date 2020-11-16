@@ -1,6 +1,3 @@
-const fs = require("fs");
-const database = require("../database.json");
-const mysql = require("mysql");
 const discord = require("discord.js");
 const sqlcon = require("../sql_serverconnection.js");
     module.exports = {
@@ -10,7 +7,7 @@ const sqlcon = require("../sql_serverconnection.js");
         guildOnly: 'true',
         aliases: ['unwarn','uwarn','uw','unw','rw'],
         category: "moderating",
-        async execute(client,message, args) {
+        async execute(client,message, args,con) {
        //#region default check
        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm 1 denied');
        if (!args[0]) return message.reply('no user tagged');
@@ -19,13 +16,7 @@ const sqlcon = require("../sql_serverconnection.js");
        if (!unwarnuser) return message.reply('no user found');
        //#endregion
        //#region connecting database
-       var con = mysql.createConnection({
-        host: database.host,
-        user : database.user,
-        password: database.pwd,
-        database: database.database
 
-    });
     sqlcon.execute(con,unwarnuser,4);
     //#endregion
     //delete warnings from sql server

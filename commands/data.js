@@ -1,16 +1,8 @@
-const database = require("../database.json");
-const mysql = require("mysql");
+
 const sqlcon = require("../sql_serverconnection");
-
-
 // DOTO:
 //data removal 
 //think of something to add to no role given if part
-
-
-
-
-
 module.exports = {
 	name: 'data',
     description: 'debug for sql server (inserts IDuser, IDrole and IDguild into database)(only usable by devs)',
@@ -20,18 +12,9 @@ module.exports = {
     aliases: ['data','dt'],
     usage: '<user tag> <role name>',
     category: "debug",
-    execute(client,message, args) {
+    execute(client,message, args,con) {
         if(!message.author.id=="258217948819357697")return;
-        //#region sql connect
-        var con = mysql.createConnection({
-            host: database.host,
-            user : database.user,
-            password: database.pwd,
-            database: database.database
 
-        });
-        
-//#endregion
        
         //assing args to variables
         var user = message.guild.member(message.mentions.members.first());

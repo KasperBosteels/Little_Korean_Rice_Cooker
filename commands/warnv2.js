@@ -1,6 +1,4 @@
 const discord = require("discord.js");
-const database = require("../database.json");
-const mysql = require("mysql");
 const sqlcon = require("../sql_serverconnection.js");
 const mute = require("../mutetimer.js");
 module.exports = {
@@ -10,7 +8,7 @@ module.exports = {
         guildOnly: 'true',
         aliases: ['w'],
         category: "moderating",
-        async execute(client,message, args) {
+        async execute(client,message, args,con) {
        //#region default check
        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm 1 denied');
        if (!args[0]) return message.reply('no user tagged');
@@ -19,15 +17,6 @@ module.exports = {
        var reason = args.slice(1).join(" ");
        if (!warnuser) return message.reply('no user found');
        //#endregion
-            //#region connecting database
-            var con = mysql.createConnection({
-                host: database.host,
-                user : database.user,
-                password: database.pwd,
-                database: database.database
-    
-            });
-            //#endregion
 //get data and insert into data base
 sqlcon.execute(con,warnuser,4);
  con.query(`INSERT INTO warnings (guildID,userID,warnings) VALUES("${message.guild.id}","${warnuser.id}","${reason}")`);

@@ -1,4 +1,6 @@
 const ms = require('ms');
+const Discord = require('discord.js');
+const sendembed = require('../sql_serverconnection.js');
 module.exports = {
     name: 'mute',
     description: 'silence a user for a given time',
@@ -40,7 +42,12 @@ module.exports = {
             message.channel.send(`${muteperson} has been unmuted`)
 
         }, ms(muteTime))
-    
+        var embed = new Discord.MessageEmbed()
+        .setTitle(`${member.displayName} has been kicked`)
+        .setDescription(`reason: ${reason}`)
+        .setTimestamp()
+        .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
+        sendembed.execute(con,member,6,embed,message);
 
     },
 };
