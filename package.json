@@ -6,11 +6,10 @@
     "author": "Kasper",
     "license": "ISC",
     "scripts": {
-        "start": "nodemon bot.js",
+        "start": "nodemon",
         "test": "echo \"error: no test specified\" && exit &"
     },
     "dependencies": {
-        "akaneko": "^4.2.0",
         "discord-nsfw": "^1.2.1",
         "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
         "discord.js": "^12.4.0",
