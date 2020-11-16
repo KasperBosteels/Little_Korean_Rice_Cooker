@@ -18,7 +18,6 @@ module.exports = {
        if (!warnuser) return message.reply('no user found');
        //#endregion
 //get data and insert into data base
-sqlcon.execute(con,warnuser,4);
  con.query(`INSERT INTO warnings (guildID,userID,warnings) VALUES("${message.guild.id}","${warnuser.id}","${reason}")`);
  //get the amounts a user was warned
  await(con.query(`SELECT COUNT(*) AS number FROM warnings where userID = '${warnuser.id}' AND guildID = '${message.guild.id}';`,(err,rows,fields) => {amount = rows[0].number

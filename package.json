@@ -6,7 +6,7 @@
     "author": "Kasper",
     "license": "ISC",
     "scripts": {
-        "start": "bot.js",
+        "start": "nodemon bot.js",
         "test": "echo \"error: no test specified\" && exit &"
     },
     "dependencies": {

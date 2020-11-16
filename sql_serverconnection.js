@@ -73,7 +73,7 @@ con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guil
   
         });
     }else{
-        var lognames = ["bot-logs","bot-log","log","botllog"];
+        var lognames = ["bot-logs","bot-log","log","botlog"];
         for (let u = 0; u < lognames.length; u++) {
              logchannel = member.guild.channels.cache.find(chan => chan.name === lognames[u]);
             if (logchannel) {

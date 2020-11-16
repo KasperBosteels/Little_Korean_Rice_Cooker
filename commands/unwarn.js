@@ -15,10 +15,7 @@ const sqlcon = require("../sql_serverconnection.js");
        var unwarnuser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
        if (!unwarnuser) return message.reply('no user found');
        //#endregion
-       //#region connecting database
 
-    sqlcon.execute(con,unwarnuser,4);
-    //#endregion
     //delete warnings from sql server
     con.query(`DELETE FROM warnings WHERE userID = "${unwarnuser.id}" AND guildID = "${message.guild.id}"`);
 
