@@ -23,6 +23,7 @@ client.commands = new Discord.Collection();
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
     client.commands.set(command.name,command)
+    console.log(`file: ${file} is loaded`);
 }
 //#endregion
 

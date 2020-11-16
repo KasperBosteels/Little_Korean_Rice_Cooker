@@ -2,7 +2,7 @@
     "name": "little_korean_rice_cooker",
     "version": "0.0.961",
     "description": "a bot i made to see if i was even able to do it, turns out i was, now its a constant worry",
-    "main": "node .",
+    "main": "bot.js",
     "author": "Kasper",
     "license": "ISC",
     "scripts": {
