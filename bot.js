@@ -1,9 +1,6 @@
-
-
 //#region get res 
 require('dotenv').config();
 require('ms')
-
 const logger = require("./logger.js");
 const start = require("./startup.js");
 const database = require("./database.json");
@@ -77,7 +74,6 @@ client.on('guildMemberRemove',member =>{
    .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
    .setThumbnail(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
    .setDescription(`${member.displayName} left`);
-   
    try{
     sqlconnect.execute(con,member,5,embed);
     }catch(err){console.log(err);}  

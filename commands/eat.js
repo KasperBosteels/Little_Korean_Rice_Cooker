@@ -3,7 +3,7 @@ const embed = new Discord.MessageEmbed().setTitle('**shop content**').setColor('
 var words = ["consumed","devoured","ingested","swallowed","chomped","ingurgitated",];
 module.exports = {
 	name: 'eat',
-	description: 'display shop contents',
+	description: 'eat something',
 	cooldown: 1,
 	usage: ' ',
     category: "currency",
