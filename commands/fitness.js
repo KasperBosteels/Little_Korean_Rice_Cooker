@@ -1,6 +1,5 @@
-const alarm = require('../old commands/nudes.js');
-const Nsfw = require('discord-nsfw');
 const Discord = require('discord.js');
+const Nsfw = require('discord-nsfw');
 const nsfw = new Nsfw();
 const choise= [
 	"anal",
@@ -13,7 +12,7 @@ const choise= [
 	"boobs",
 	"hentaiass",
 	"hentai",
-	"hentaimid",
+	"hentaimidriff",
 	"hentaithigh",
 	"erokemo",
 	"kitsune",
@@ -26,24 +25,35 @@ module.exports = {
 	name: 'lewd',
 	description: 'ever put a cat in a microwave ?',
 	cooldown: 1,
-	usage: ' <your preference>',
+	usage: ' optional: <your preference>',
 	category: "fun",
 	specifics: choise,
-	async execute(client,message, args) {
+	 async execute(client,message, args) {
 		if(!args[0]) args[0] = choise[Math.floor(Math.random() * Math.floor(choise.length))];
 		var arr=[];
 		for (let a = 0; a < args.length; a++) {
-			arr[a] = args[a].toLowerCase();
-			
+			arr[a] = args[a].toLowerCase();	
 		}
-        if(!message.channel.nsfw)return alarm.execute(client,message,arr);
-		 return message.channel.send(await preference(arr,Discord,message));                                    
+		const argscommand = args[0];
+		const commandName = argscommand.toLowerCase();
+		const command = client.subcommands.get(commandName);
+		if(!command)return;
+		try{
+			let link = await command.execute(nsfw);
+			message.channel.send(await preference(Discord,link));
+		}catch (error){
+			console.log(error);
+			return message.channel.send('error occured');
+		}
+		
 	},
 };
-async function preference(args,Discord,message){
-	const embed = new Discord.MessageEmbed()
-	var lewdnes = "not found sorry";
-	switch(args[0]){
+
+async function preference(Discord,link){
+	let lewdnes = "https://imgur.com/gpt2PFh.png";
+	if(link) lewdnes = link;
+	//#region switch shit
+	/*switch(args[0]){
 		
 		case 'ass':
 		 lewdnes= await  nsfw.ass();
@@ -58,9 +68,6 @@ async function preference(args,Discord,message){
 			case 'gonewild':
 				lewdnes = await  nsfw.gonewild();
 				break;
-				case 'ass':
-					lewdnes = await  nsfw.ass();
-					break;
 			case 'pussy':
 				lewdnes= await  nsfw.pussy();
 			break;
@@ -106,7 +113,11 @@ async function preference(args,Discord,message){
 			 case 'solo':
 				lewdnes= await  nsfw.solo();
 			 break;
+			 
 	}
+	*/
+			//#endregion
+	const embed = new Discord.MessageEmbed();
 	embed.setImage(lewdnes);
 	return embed;
 }

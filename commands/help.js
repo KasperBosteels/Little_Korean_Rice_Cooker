@@ -1,7 +1,24 @@
-const discord = require('discord.js');
 const botconfig = require('../auth.json');
-
-
+const irl = [
+    "anal",
+    "4k",
+    "ass",
+    "gonewild",
+    "gif",
+    "pussy",
+    "thigh",
+    "boobs"];
+const hent = [
+    "hentai",
+    "hentaiass",
+    "hentaimidriff",
+    "hentaithigh","erokemo",
+    "kitsune",
+    "lewd",
+    "nekofeet",
+    "nekopussy",
+    "nekotits",
+    "solo"];
 module.exports = {
 
 	name: 'help',
@@ -84,7 +101,17 @@ if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
 if (command.description) data.push(`**Description:** ${command.description}`);
 if (command.usage) data.push(`**Usage:** ${botconfig.prefix}${command.name} ${command.usage}`);
 data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
-if(args[0] == 'lewd')data.push(`**specifics**${command.specifics}`);
+if(args[0] == 'lewd'){
+    let ci="**IRL**";
+    let cd="**DRAWN**";
+    for (let u = 0; u < irl.length; u++) {
+       ci += ` ${irl[u]},`;
+    }
+    for (let v = 0; v < hent.length; v++) {
+       cd += ` ${hent[v]},`;        
+    }
+    data.push(`${ci}\n${cd}`);
+}
 //send
 message.channel.send(data, { split: true });
 

@@ -12,6 +12,7 @@ const config = require('./auth.json');
 const prefixcheck = require('./prefixcheck.js');
 const lie = require('./liedetector.js');
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const subCommandFiles = fs.readdirSync('./sub-commands').filter(file =>file.endsWith('.js'));
 const profanity = require("./profanityfilter.js");
 const level = require('./level.js');
 const rice = require("./rice.js");
@@ -23,7 +24,13 @@ client.commands = new Discord.Collection();
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
     client.commands.set(command.name,command)
-    console.log(`file: ${file} is loaded`);
+    console.log(`command: ${file} is loaded`);
+}
+client.subcommands = new Discord.Collection();
+for (const file of subCommandFiles){
+    const subCommand = require(`./sub-commands/${file}`);
+    client.subcommands.set(subCommand.name,subCommand);
+    console.log(`command-sub: ${file} if loaded`);
 }
 //#endregion
 
