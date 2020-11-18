@@ -1,5 +1,3 @@
-const database = require("../database.json");
-const mysql = require("mysql");
 module.exports = {
 	name: 'ping',
     description: 'gives you latency of the bot',

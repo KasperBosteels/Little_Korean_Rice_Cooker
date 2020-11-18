@@ -1,24 +1,5 @@
 const botconfig = require('../auth.json');
-const irl = [
-    "anal",
-    "4k",
-    "ass",
-    "gonewild",
-    "gif",
-    "pussy",
-    "thigh",
-    "boobs"];
-const hent = [
-    "hentai",
-    "hentaiass",
-    "hentaimidriff",
-    "hentaithigh","erokemo",
-    "kitsune",
-    "lewd",
-    "nekofeet",
-    "nekopussy",
-    "nekotits",
-    "solo"];
+const content = require('../swearwords.json');
 module.exports = {
 
 	name: 'help',
@@ -104,11 +85,11 @@ data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
 if(args[0] == 'lewd'){
     let ci="**IRL**";
     let cd="**DRAWN**";
-    for (let u = 0; u < irl.length; u++) {
-       ci += ` ${irl[u]},`;
+    for (let u = 0; u < content.irl.length; u++) {
+       ci += ` ${content.irl[u]},`;
     }
-    for (let v = 0; v < hent.length; v++) {
-       cd += ` ${hent[v]},`;        
+    for (let v = 0; v < content.drawn.length; v++) {
+       cd += ` ${content.drawn[v]},`;        
     }
     data.push(`${ci}\n${cd}`);
 }

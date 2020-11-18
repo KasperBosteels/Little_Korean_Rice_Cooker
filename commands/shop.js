@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const embed = new Discord.MessageEmbed().setTitle('**shop content**').setColor('#FFDF00').setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
 module.exports = {
 	name: 'shop',
 	description: 'display shop contents',

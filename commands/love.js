@@ -1,5 +1,4 @@
 const love = require("../love.json");
-
 module.exports = {
     name: 'love',
     description: 'sends a loving message',

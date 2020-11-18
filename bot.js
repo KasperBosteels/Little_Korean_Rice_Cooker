@@ -24,13 +24,11 @@ client.commands = new Discord.Collection();
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
     client.commands.set(command.name,command)
-    console.log(`command: ${file} is loaded`);
 }
 client.subcommands = new Discord.Collection();
 for (const file of subCommandFiles){
     const subCommand = require(`./sub-commands/${file}`);
     client.subcommands.set(subCommand.name,subCommand);
-    console.log(`command-sub: ${file} if loaded`);
 }
 //#endregion
 

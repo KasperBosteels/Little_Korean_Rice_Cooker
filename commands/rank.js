@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const sqlconnect = ("../sql_serverconnection.js");
 module.exports = {
 	name: 'level',
 	description: 'see the current level progression from a person',
