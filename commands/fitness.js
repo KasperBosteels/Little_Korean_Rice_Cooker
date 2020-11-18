@@ -19,7 +19,9 @@ module.exports = {
 		const argscommand = args[0];
 		const commandName = argscommand.toLowerCase();
 		const command = client.subcommands.get(commandName);
-		if(!command)return;
+		if(!command){
+			return message.channel.send(await preference(Discord,false));
+		}
 		try{
 			let link = await command.execute(nsfw);
 			message.channel.send(await preference(Discord,link));
@@ -28,12 +30,19 @@ module.exports = {
 			return message.channel.send('error occured');
 		}
 		
+
+		
+		
 	},
 };
 async function preference(Discord,link){
-	let lewdnes = "https://imgur.com/gpt2PFh.png";
-	if(link) lewdnes = link;
+	let lewdnes="https://imgur.com/gpt2PFh.png";
 	const embed = new Discord.MessageEmbed();
-	embed.setImage(lewdnes);
+	if(link) {lewdnes = link;
+		embed.setImage(lewdnes);
+		}else{
+			embed.setDescription("could you ask that again ?");
+			embed.setThumbnail("https://imgur.com/gpt2PFh.png?size=8");
+		}
 	return embed;
 }
