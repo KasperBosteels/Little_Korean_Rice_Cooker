@@ -20,7 +20,6 @@ module.exports = {
         var guildid = message.guild.id;
         var rolename = args[1];
         var output = [];
-        sqlcon.execute(con,user,4);
         //if no arguments are given return author all 
         if(!user && !rolename){
                 con.query(`SELECT * FROM roles WHERE IDUser = '${message.author.id}' AND guild = '${guildid}';`,(err,rows,fields) =>{
@@ -61,8 +60,7 @@ module.exports = {
         }else {
             message.channel.reply('dont corrupt my data pls, whom ever u are');
         }
-        con.end(err =>{if (err)console.log(err);
-        });
+        
 
 
 

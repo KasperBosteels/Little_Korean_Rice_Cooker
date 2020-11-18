@@ -8,9 +8,12 @@ module.exports = {
 	cooldown: 1,
 	usage: ' ',
 	execute(client, message, args,con) {
-
-        con.connect(err =>{
-            if(err) {console.log(err); var connection = ':x:'}else {var connection = ':white_check_mark:'} 
+        var connection = ':x:'
+            if(!con){
+                con.connect(err =>{
+                    if(err.code != 'PROTOCOL_ENQUEUE_HANDSHAKE_TWICE') {console.log(err);}else {connection = ':white_check_mark:';}
+                });
+            }else{connection = ':white_check_mark:';}
         //#endregion
        
        //make embed with values of the const
@@ -28,8 +31,6 @@ module.exports = {
         .addField(`sql connection:`,`${connection}`,true)        
         //send embeded message
         return message.channel.send(messageembed);
-        });
-        //close connection
-        con.end();
+        
     },
 };
