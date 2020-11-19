@@ -16,6 +16,9 @@
         "dotenv": "^8.2.0",
         "ms": "^2.1.2",
         "mysql": "^2.18.1",
+        "node-fetch": "^2.6.1",
+        "oxford-dictionaries-api": "^0.1.2",
+        "oxford-dictionary": "^1.6.0",
         "urban-dictionary": "^2.2.1"
     }
 }

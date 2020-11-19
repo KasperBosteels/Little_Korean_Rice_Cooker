@@ -1,11 +1,12 @@
 const ud = require('urban-dictionary');
 const discord = require('discord.js');
 module.exports = {
-	name: 'define',
-	description: 'define a word',
+	name: 'urban',
+	description: 'urban dictionary',
 	cooldown: 1,
 	usage: ' ',
-	category: "fun",
+    category: "fun",
+    aliases:["udefine","urban"],
 	 execute(client,message, args,con) {
 		let word =args[0]
         let defenition = args[1];
