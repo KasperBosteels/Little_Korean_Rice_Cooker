@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const Nsfw = require('discord-nsfw');
 const nsfw = new Nsfw();
 const content= require('../swearwords.json');
+const nonsfw = require('../sub-commands/nudes.js');
 const choise = content.lewd;
 module.exports = {
 	name: 'lewd',
@@ -11,6 +12,7 @@ module.exports = {
 	category: "fun",
 	specifics: choise,
 	 async execute(client,message, args) {
+		 if(!message.channel.nsfw)return message.channel.send(nonsfw.execute());
 		if(!args[0]) args[0] = choise[Math.floor(Math.random() * Math.floor(choise.length))];
 		var arr=[];
 		for (let a = 0; a < args.length; a++) {
