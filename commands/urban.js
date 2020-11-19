@@ -26,7 +26,7 @@ module.exports = {
         sendembed(makeEmbed(word,explain[0],explain[1],discord),channel);
    }).catch((error)=>{
        console.error(error.message);
-       if(error.code = 'ERR_WORD_UNDEFINED'){channel.send('not in the dictionary...sorry');}
+       if(error.code = 'ERR_WORD_UNDEFINED'){channel.send('perhaps the archives are incomplete...');}
    });
 
     
