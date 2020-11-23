@@ -189,8 +189,8 @@ client.login(process.env.DISCORD_TOKEN);
 //if during proces an error occurs catch and display on terminal
 process.on('uncaughtException',error => console.log('error',error));
 process.on('unhandledRejection', error => console.log('error', error));
-process.on('ECONNRESET',error => {con.connect(con); console.log('reconnecting'); throw(error) });
-process.on('PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR',error =>{throw(error)});
+process.on('ECONNRESET',error => {con.destroy();con.connect(); console.error(error);throw(error) });
+process.on('PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR',error =>{con.connect(); throw(error)});
 //#endregion
 
 /*cool links
