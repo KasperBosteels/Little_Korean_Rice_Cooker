@@ -14,7 +14,7 @@ module.exports = {
            var LEV = rows[0].level;
            var EXP = rows[0].exp+randomint;
            if(LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);
-           var nextlevel =(15 + 300)*(LEV * 2);
+           var nextlevel =(15 + 300)*(LEV * 1.1);
            if(EXP >= nextlevel){
             LEV++;
             EXP = 0;
@@ -36,8 +36,8 @@ module.exports = {
                 }catch(err){console.log(err);} 
             }
             con.query(`UPDATE levels SET level = ${LEV}, exp = ${EXP} WHERE userID = "${userID}"`)
-            if(LEV == 5){con.query(`INSERT INTO currency (userID,ballance) values ("${message.author.id}",100)`,(err)=>{if(err)throw(err);});
-        }else if(LEV > 5){con.query(`UPDATE currency SET ballance = ballance + 100 WHERE userID = "${message.channel.id}"`,(err)=>{if(err)throw(err);});}
+            if(LEV == 3){con.query(`INSERT INTO currency (userID,ballance) values ("${message.author.id}",100)`,(err)=>{if(err)throw(err);});
+        }else if(LEV > 4){con.query(`UPDATE currency SET ballance = ballance + 100 WHERE userID = "${message.channel.id}"`,(err)=>{if(err)throw(err);});}
         });
     }});
     
