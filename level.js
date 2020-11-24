@@ -1,10 +1,11 @@
 const sqlconnect = require('./sql_serverconnection.js');
 module.exports = {
 	
-	execute(message,con,Discord) {
-		var randomint = Math.floor((Math.random()*15)+1);
+	execute(message,con,args,Discord) {
+        var randomint;
+        randomint = Math.floor((Math.random()*20)+1);  
     var userID = message.author.id;
-    con.query(`SELECT * FROM levels WHERE userID = "${userID}";`,(err,rows) =>{
+        con.query(`SELECT * FROM levels WHERE userID = "${userID}";`,(err,rows) =>{
         if(err)console.log(err);
         if(!rows.length){
         con.query(`INSERT INTO levels (userID,level,exp) VALUES ("${userID}",1,0)`);
@@ -18,7 +19,7 @@ module.exports = {
            if(EXP >= nextlevel){
             LEV++;
             EXP = 0;
-            var mem = message.guild.member(message.author);
+            var mem = message.guild.member(message.author)
             //#region embed
             var embed = new Discord.MessageEmbed()
             .setColor('#006400')
@@ -26,7 +27,7 @@ module.exports = {
             .setTimestamp()
             .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
             .setImage("https://i.imgur.com/Uyw52SY.gif")
-            .setDescription(`YEAH!! ${mem.displayName} reached level ${LEV}\nTO THE STARS AND BEYOND!!`);
+            .setDescription(`YEAH!! ${mem.displayName} reached level ${LEV}\nTO THE STARS AND BEYOND!!`)
             //#endregion
             try{
                 sqlconnect.execute(con,mem,6,embed,message);

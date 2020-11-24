@@ -174,7 +174,9 @@ client.on('guildMemberAdd',member => {
         //#endregion
          
           //#region level handler
-          level.execute(message,con,Discord);
+          try{
+          level.execute(message,con,args,Discord);
+        }catch(error){message.channel.send(error.message);}
           //#endregion
           
     });
@@ -189,7 +191,7 @@ client.login(process.env.DISCORD_TOKEN);
 //if during proces an error occurs catch and display on terminal
 process.on('uncaughtException',error => console.log('error',error));
 process.on('unhandledRejection', error => console.log('error', error));
-process.on('ECONNRESET',error => {con.destroy();con.connect(); console.error(error);throw(error) });
+process.on('ECONNRESET',error => {con.destroy();con.connect(); console.error(error.message);});
 process.on('PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR',error =>{con.connect(); throw(error)});
 //#endregion
 

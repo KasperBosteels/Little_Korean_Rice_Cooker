@@ -20,7 +20,6 @@ module.exports = {
             let author =res.metadata.provider;
             let data=(JSON.stringify(res,null,4));
             let object = JSON.parse(data);
-            console.log(object.results[0].lexicalEntries[0]);
             return message.channel.send(makeEmbed(author,word,object,Discord));
         },
         function(err){
