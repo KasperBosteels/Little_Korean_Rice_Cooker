@@ -8,18 +8,15 @@ module.exports = {
     aliases:['btl'],
     category: "moderating",
 	execute(client,message, args,con) {
-        //check perms
-        if (!message.member.hasPermission("BAN_MEMBERS")) return message.reply('perm 1 Denied');
-        if (!message.guild.me.hasPermission("BAN_MEMBERS"))return message.reply('perm 2 Denied');
-
         
+        if(!permission(message))return message.reply('you have no permission to do that.');
+
         //asigns id to variables
         var channel = message.channel.id;
         var guild = message.guild.id;
         //undefined check
         if (!channel)return console.log('no channel');
         if (!guild)return console.log('no guild');
-        sqlcon.execute(con,"false",4);
         //checks if database already exists if true update else insert
         con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
         if(err)console.log(err);
@@ -36,3 +33,9 @@ module.exports = {
         });
     },
 };
+function permission(message){
+//check perms
+if (!message.member.hasPermission("BAN_MEMBERS")) return false;
+if (!message.guild.me.hasPermission("BAN_MEMBERS"))return false;
+return true;
+}
