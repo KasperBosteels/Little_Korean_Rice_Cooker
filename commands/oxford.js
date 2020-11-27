@@ -9,7 +9,7 @@ module.exports = {
 	name: 'oxford',
 	description: 'oxford dictionary',
 	cooldown: 1,
-	usage: ' ',
+	usage: '<a word> ',
     category: "fun",
     aliases:["odefine","define"],
 	async execute(client,message, args,con) {

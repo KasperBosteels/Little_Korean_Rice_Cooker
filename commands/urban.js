@@ -4,7 +4,7 @@ module.exports = {
 	name: 'urban',
 	description: 'urban dictionary',
 	cooldown: 1,
-	usage: ' ',
+	usage: '<a word> ',
     category: "fun",
     aliases:["udefine","urban"],
 	 execute(client,message, args,con) {
