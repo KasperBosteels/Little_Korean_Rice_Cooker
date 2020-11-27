@@ -14,7 +14,16 @@ module.exports = {
     aliases:["odefine","define"],
 	async execute(client,message, args,con) {
         if(!args[0])return;
-        let word = args[0];
+        let word = "";
+        if(!args[1]){
+            word=args[0];
+        }else{
+         for (let i = 0; i < args.length; i++) {
+            if(!args[i+1]){word += args[i];}else{
+             word += `${args[i]} `;
+            }
+         }
+    }
         let lookup = dict.find(word);
         lookup.then(function(res){
             let author =res.metadata.provider;

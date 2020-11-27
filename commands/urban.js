@@ -8,8 +8,10 @@ module.exports = {
     category: "fun",
     aliases:["udefine","urban"],
 	 execute(client,message, args,con) {
-		let word =args[0]
-        let defenition = args[1];
+        let word = " ";
+        for (let i = 0; i < args.length; i++) {
+        word += `${args[i]} `;
+        }
        if(word){
        return term(word,message.channel);
        
