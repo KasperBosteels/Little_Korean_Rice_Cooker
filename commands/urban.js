@@ -23,6 +23,7 @@ module.exports = {
         let explain = ["undefined","undefined"];
     ud.term(word).then((result)=>{
        const entries = result.entries
+       console.log(entries);
         explain[0] =entries[0].definition
         explain[1] = entries[0].example
         sendembed(makeEmbed(word,explain[0],explain[1],discord),channel);

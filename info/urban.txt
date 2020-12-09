@@ -1,0 +1,142 @@
+
+[
+  {
+    definition: 'A feeling that is indescribable to those who have [not felt] it, and needs no description to those who have.  That [desolate] feeling of being left out, left behind, and being all alone forever.  This not only applies to girlfriends(though they bring the strongest effect) but also major life changes - graduation, deaths, etc...  It is that hole that appears in your heart, which cannot be filled by your efforts alone.  In [such a case], crying occurs and is often encouraged as it heals the soul.',
+    permalink: 'http://lonely.urbanup.com/1273768',
+    thumbs_up: 1155,
+    sound_urls: [],
+    author: 'Yogo540',
+    word: 'lonely',
+    defid: 1273768,
+    current_vote: '',
+    written_on: '2005-05-22T20:27:25.000Z',
+    example: "I want to [be with] her [forever], but I know [the day] is coming where we'll never see each other again",
+    thumbs_down: 133
+  },
+  {
+    definition: 'Adjective\r\n' +
+      '1. An adjective describing one who finds him or her self looking up words such as lonely on urbandictionary.com because he or she misses his or her loved one, or has not yet found one to be named as such.\r\n' +
+      '\r\n' +
+      '-or-\r\n' +
+      '\r\n' +
+      `2. 12:[42] [a.m].: Sitting in front of a computer in the dead of night, wondering where the girl that you've fallen [madly] in love with is and most of all, why she's [not here], next to you.  Usually this condition can be cured by random yet enthusiastic reiteration of the phrase: "I love you, [Diana]!"`,
+    permalink: 'http://lonely.urbanup.com/727569',
+    thumbs_up: 2159,
+    sound_urls: [],
+    author: 'Void',
+    word: 'lonely',
+    defid: 727569,
+    current_vote: '',
+    written_on: '2004-06-20T23:33:35.000Z',
+    example: '[I am] [feeling] lonely [without] you.',
+    thumbs_down: 302
+  },
+  {
+    definition: "One of the saddest feelings possible. It can be from not having a partner, not having friends, or not having either. A lonely person can be very sad, and won't have anyone to comfort them. It can [be hard] to [break out] of [loneliness]. Some people are lonely for years at a time, or maybe just one night.",
+    permalink: 'http://lonely.urbanup.com/2767461',
+    thumbs_up: 372,
+    sound_urls: [],
+    author: 'charlie23_',
+    word: 'lonely',
+    defid: 2767461,
+    current_vote: '',
+    written_on: '2007-12-31T04:22:02.000Z',
+    example: "He just moved away from home and has [no friends], he must feel so lonely. [Let's go] [talk to] him!",
+    thumbs_down: 50
+  },
+  {
+    definition: 'The feeling of [despair] and [isolation] suffered when you move to another location, have no friends, live alone far from any past family or friends. The feeling of constant pain and self personality [criticism] due to your situation and social inability to change your situation',
+    permalink: 'http://lonely.urbanup.com/1983944',
+    thumbs_up: 317,
+    sound_urls: [],
+    author: 'p123',
+    word: 'lonely',
+    defid: 1983944,
+    current_vote: '',
+    written_on: '2006-09-19T17:38:20.000Z',
+    example: 'Lonely is doing thinks which youve never done and feel embarrassed doing eg. getting drunk and clubbing alone, [eating in] resturants alone, [binging] from [lonliness]',
+    thumbs_down: 85
+  },
+  {
+    definition: 'someone [who is] so lonely that they [look up] lonely on [urban dictionary].',
+    permalink: 'http://lonely.urbanup.com/3863879',
+    thumbs_up: 852,
+    sound_urls: [],
+    author: 'milkthemcows',
+    word: 'lonely',
+    defid: 3863879,
+    current_vote: '',
+    written_on: '2009-04-05T21:48:10.000Z',
+    example: 'im so lonely...[better] [check out] [the definition]. ',
+    thumbs_down: 251
+  },
+  {
+    definition: 'What you become when you have no one [to love] and no [source] of positive [emotions].',
+    permalink: 'http://lonely.urbanup.com/3563710',
+    thumbs_up: 142,
+    sound_urls: [],
+    author: 'decedebo',
+    word: 'lonely',
+    defid: 3563710,
+    current_vote: '',
+    written_on: '2008-12-20T11:57:14.000Z',
+    example: 'I am becoming very lonely as I have lost 3 girls to [freaken] extroverts, and it is driving me crazy, to the point that animal I have become describes me. I am full of hatred and cold it is getting so bad that i am starting to go insane. If I had one person ot love in a [mutual relationship], I would not be so lonely and [losing my mind].',
+    thumbs_down: 43
+  },
+  {
+    definition: 'The state one is in when one does not have a girl; [the feeling] of [sadness] associated with not having company of any [sort].',
+    permalink: 'http://lonely.urbanup.com/432623',
+    thumbs_up: 323,
+    sound_urls: [],
+    author: 'Tar',
+    word: 'lonely',
+    defid: 432623,
+    current_vote: '',
+    written_on: '2004-01-07T15:22:02.000Z',
+    example: "1) I haven't [touched] a girl in months, which makes me very lonely.\r\n" +
+      '\r\n' +
+      "2) I haven't seen my friends [in a while] so I feel lonely.",
+    thumbs_down: 176
+  },
+  {
+    definition: '[The feeling] you get when you are [alone]. [When you have no friends] or love, you are considered lonely.',
+    permalink: 'http://lonely.urbanup.com/10603519',
+    thumbs_up: 9,
+    sound_urls: [],
+    author: 'The Human Being/Person',
+    word: 'lonely',
+    defid: 10603519,
+    current_vote: '',
+    written_on: '2016-12-06T19:51:25.146Z',
+    example: "I'm so lonely...",
+    thumbs_down: 2
+  },
+  {
+    definition: 'Lonely or [loneliness]\n' +
+      '\n' +
+      "it is a feeling inside our body [that is has] the same vibe as depression because we feel empty like we don't have a place in the world because we know that everyone doesn't like you,on one likes you,[no one cares] for you and no one will ever show you what love is.",
+    permalink: 'http://lonely.urbanup.com/10101552',
+    thumbs_up: 5,
+    sound_urls: [],
+    author: 'Aj12TheKid',
+    word: 'lonely',
+    defid: 10101552,
+    current_vote: '',
+    written_on: '2016-08-11T08:16:22.809Z',
+    example: '"It is hard [to love] someone who has be alone for [too long], because they have [lived] their life being lonely or alone"',
+    thumbs_down: 1
+  },
+  {
+    definition: 'doesn’t [go out] or have [many] [friends]',
+    permalink: 'http://lonely.urbanup.com/12570040',
+    thumbs_up: 5,
+    sound_urls: [],
+    author: 'Jibble ',
+    word: 'lonely',
+    defid: 12570040,
+    current_vote: '',
+    written_on: '2018-02-16T14:30:29.888Z',
+    example: '[jack] doesn’t [go out] often he just [stays] home and plays games he is lonely',
+    thumbs_down: 1
+  }
+]

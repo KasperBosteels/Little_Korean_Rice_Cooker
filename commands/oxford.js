@@ -71,11 +71,27 @@ function exampleGET(object){
     return examples;
 }
 }
+function synonymGET(object){
+    let synonyms = "";
+    if(object.results[0].lexicalEntries[0].entries[0].senses[0].synonyms){
+    
+    for (let g = 0; g < object.results[0].lexicalEntries[0].entries[0].senses.length; g++) {
+        for (let k = 0; k < object.results[0].lexicalEntries[0].entries[0].senses[g].synonyms.length; k++) {
+            synonyms +=`${object.results[0].lexicalEntries[0].entries[0].senses[g].synonyms[k].text}, `;
+        }
+        synonyms +=`\n`;
+    }
+    }else {synonyms = "no synonyms found."}
+    return synonyms;
+    }
+    
 function makeEmbed(author,word,object,Discord){
 let embed = new Discord.MessageEmbed();
 embed.setAuthor(author);
 embed.setTitle(word);
+if(!object){embed.setDescription("nothing found sorry"); return embed;}
 let derivative =derivativeGET(object);
+let synonyms =synonymGET(object);
 let etymology=etymologyGet(object)
 let definitions=defenitionGET(object);
 let examples=exampleGET(object);
@@ -83,6 +99,6 @@ if(!derivative)derivative = 'none found';
 if(!etymology)etymology = 'none found';
 if(!definitions)definitions = 'none found';
 if(!examples)examples = 'none found';
-embed.setDescription(`**derivatives**: ${derivative}\n**etymologies**: ${etymology}\n**definitions**: ${definitions}\n**examples**: ${examples}\n`);
+embed.setDescription(`**derivatives**: ${derivative}\n**etymologies**: ${etymology}\n**definitions**: ${definitions}\n**examples**: ${examples}\n**synonyms**: ${synonyms}`);
 return embed
 }

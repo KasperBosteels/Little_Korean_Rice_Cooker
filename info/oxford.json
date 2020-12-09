@@ -1,0 +1,271 @@
+
+{
+    "id": "lonely",
+    "metadata": {
+        "operation": "retrieve",
+        "provider": "Oxford University Press",
+        "schema": "RetrieveEntry"
+    },
+    "results": [
+        {
+            "id": "lonely",
+            "language": "en-gb",
+            "lexicalEntries": [
+                {
+                    "entries": [
+                        {
+                            "etymologies": [
+                                "late 16th century: from lone+ -ly"
+                            ],
+                            "inflections": [
+                                {
+                                    "inflectedForm": "lonelier"
+                                },
+                                {
+                                    "inflectedForm": "loneliest"
+                                }
+                            ],
+                            "pronunciations": [
+                                {
+                                    "audioFile": "https://audio.oxforddictionaries.com/en/mp3/lonely_gb_1.mp3",
+                                    "dialects": [
+                                        "British English"
+                                    ],
+                                    "phoneticNotation": "IPA",
+                                    "phoneticSpelling": "ˈləʊnli"
+                                }
+                            ],
+                            "senses": [
+                                {
+                                    "definitions": [
+                                        "sad because one has no friends or company"
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "lonely old people whose families do not care for them"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus0592470.006",
+                                    "shortDefinitions": [
+                                        "sad because one has no friends or company"
+                                    ],
+                                    "subsenses": [
+                                        {
+                                            "definitions": [
+                                                "without companions; solitary"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "passing long lonely hours looking on to the street"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0592470.010",
+                                            "shortDefinitions": [
+                                                "without companions"
+                                            ],
+                                            "synonyms": [
+                                                {
+                                                    "language": "en",
+                                                    "text": "solitary"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "unaccompanied"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "alone"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "lone"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "by itself"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "by oneself"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "without companions"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "companionless"
+                                                }
+                                            ],
+                                            "thesaurusLinks": [
+                                                {
+                                                    "entry_id": "lonely",
+                                                    "sense_id": "t_en_gb0008891.002"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "synonyms": [
+                                        {
+                                            "language": "en",
+                                            "text": "isolated"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "alone"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "all alone"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "friendless"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "companionless"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "without companions"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "without friends"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "with no one to turn to"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "outcast"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "forsaken"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "abandoned"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "rejected"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "unloved"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "unwanted"
+                                        }
+                                    ],
+                                    "thesaurusLinks": [
+                                        {
+                                            "entry_id": "lonely",
+                                            "sense_id": "t_en_gb0008891.001"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "definitions": [
+                                        "(of a place) unfrequented and remote"
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "a lonely country lane"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus0592470.012",
+                                    "shortDefinitions": [
+                                        "unfrequented and remote"
+                                    ],
+                                    "synonyms": [
+                                        {
+                                            "language": "en",
+                                            "text": "deserted"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "uninhabited"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "unfrequented"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "unpopulated"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "desolate"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "barren"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "isolated"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "remote"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "out of the way"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "secluded"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "sequestered"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "off the beaten track"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "in the back of beyond"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "in the middle of nowhere"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "godforsaken"
+                                        }
+                                    ],
+                                    "thesaurusLinks": [
+                                        {
+                                            "entry_id": "lonely",
+                                            "sense_id": "t_en_gb0008891.003"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "language": "en-gb",
+                    "lexicalCategory": {
+                        "id": "adjective",
+                        "text": "Adjective"
+                    },
+                    "text": "lonely"
+                }
+            ],
+            "type": "headword",
+            "word": "lonely"
+        }
+    ],
+    "word": "lonely"
+}
