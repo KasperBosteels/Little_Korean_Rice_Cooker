@@ -1,5 +1,6 @@
 
 const sqlcon = require("../sql_serverconnection");
+const Discord = require('discord.js');
 // DOTO:
 //data removal 
 //think of something to add to no role given if part

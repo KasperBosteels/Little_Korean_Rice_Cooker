@@ -51,6 +51,7 @@ module.exports = {
             rolename = args[0];
             var role = message.guild.roles.cache.find(role => role.name === rolename);
             con.query(`SELECT * FROM roles WHERE roles = '${role.id}';`,(err,rows,fields) =>{
+                if(!rows)return message.channel.send('MySQL has failed');
                 rows.forEach(row => {
                 output +=`${row.ID}     ${row.IDUser}     ${row.roles}    ${row.guild}\n`;
             });

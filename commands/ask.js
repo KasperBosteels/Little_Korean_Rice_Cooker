@@ -1,4 +1,4 @@
-
+const Discord = require("discord.js");
 var answers = ["It is certain", 
                    "It is decidedly so", 
                    "Without a doubt", 
@@ -36,8 +36,15 @@ module.exports = {
     sent = args.slice(0,args.length).join(' ');
     //get random from answers
     coin = Math.floor(Math.random() * Math.floor(answers.length));
-    
+    message.channel.send(makeEmbed(sent,answers[coin],message))
     //reply
-    message.channel.send(`${sent}\n ${answers[coin]}`);
+    //message.channel.send(`${sent}\n ${answers[coin]}`);
 	},
 };
+function makeEmbed(question,answer,message){    
+    const bed = new Discord.MessageEmbed()
+    .setColor('#FFDF00')
+    .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
+    .setDescription(`question from ${message.member.displayName}\n"${question}"\n${answer}`);
+    return bed
+}

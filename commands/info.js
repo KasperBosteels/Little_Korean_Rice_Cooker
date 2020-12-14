@@ -11,7 +11,7 @@ module.exports = {
         var connection = ':x:'
             if(con.state == 'disconnected'){
                  con.connect(err =>{
-                    if(err.code != 'PROTOCOL_ENQUEUE_HANDSHAKE_TWICE') {console.log(err);}else {connection = ':white_check_mark:';}
+                    if(err.code != 'PROTOCOL_ENQUEUE_HANDSHAKE_TWICE' || err.code != 'ECONNREFUSED' || err.code != 'PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR') {console.log(err);}else {connection = ':white_check_mark:';}
                     if(err.fatal = true){
                         if(reconnect())connection = ':x:';}
                 });
