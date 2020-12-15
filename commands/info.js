@@ -2,22 +2,14 @@
 const discord = require('discord.js');
 const info = require('../package.json');
 const prefix = require('../auth.json');
-const database = require('../database.json');
+const test = require('../connectionTest.js');
 module.exports = {
 	name: 'info',
 	description: 'gives general info about the bot',
 	usage: ' ',
 	execute(client, message, args,con) {
         var connection = ':x:'
-            if(con.state == 'disconnected'){
-                 con.connect(err =>{
-                    if(err.code != 'PROTOCOL_ENQUEUE_HANDSHAKE_TWICE' || err.code != 'ECONNREFUSED' || err.code != 'PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR') {console.log(err);}else {connection = ':white_check_mark:';}
-                    if(err.fatal = true){
-                        if(reconnect())connection = ':x:';}
-                });
-            }else{
-                connection = ':white_check_mark:';
-            }
+        if(test.execute(con))connection = ':white_check_mark:';
         return message.channel.send(makeEmbed(connection));
         
     },
@@ -36,18 +28,4 @@ function makeEmbed(connection){
     .addField(`mysql`,`${info.dependencies["mysql"]}`,true)
     .addField(`sql connection:`,`${connection}`,true)
     return messageembed;
-}
-function reconnect(){
-    var con = mysql.createConnection({
-        host: database.host,
-        user : database.user,
-        password: database.pwd,
-        database: database.database
-    });
-    con.connect(err =>{
-        if(!err)return true;
-        return false;
-    });
-    
-
 }

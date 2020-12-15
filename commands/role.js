@@ -10,15 +10,9 @@ const sqlcon = require("../sql_serverconnection.js");
             guildOnly:'true',
             category: "moderating",
             async execute(client,message, args,con) {
-      
-        
-
         if (!message.guild.me.hasPermission("KICK_MEMBERS")) return message.reply('perm Denied');
-
         var person = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-
         if (!person) return message.reply('unable to find this person');
-
         if (args[1] == "no")
         {
         }else {

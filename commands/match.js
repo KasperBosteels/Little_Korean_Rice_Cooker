@@ -36,7 +36,6 @@ global.progressBar = (value, maxValue, size) => {
 
 		value = Math.floor((Math.random() * 100) + 1);
 		//#region ott's, afterhours and iced's request 
-		
 		if(!args[1]&&message.author == message.mentions.users.first()){value = 0;}
 		if (!args[1] && message.author.id == "284553236864827392") {if (value > 75) value = value /2;}
 		if(message.author.id == "550024839063404559"){value = 100;}
@@ -56,14 +55,7 @@ global.progressBar = (value, maxValue, size) => {
 		}
 		lovemeter = progressBar(value,100,25);
 		if(!args[1]){
-			var percent = value;
-			if (percent<1)chosen = gif.zero[Math.floor(Math.random() * Math.random(gif.zero.length))];
-			if(percent<=25 && percent>1)chosen = gif.lower[Math.floor(Math.random() * Math.floor(gif.lower.length))];
-			if(percent<=50 && percent>25)chosen = gif.low[Math.floor(Math.random() * Math.floor(gif.low.length))];
-			if(percent<=75 && percent>50)chosen = gif.med[Math.floor(Math.random() * Math.floor(gif.med.length))];
-			if(percent<100 && percent>75)chosen = gif.high[Math.floor(Math.random() * Math.floor(gif.high.length))];
-			if (percent > 99) chosen = gif.max[Math.floor(Math.random() * Math.floor(gif.max.length))];
-			
+			chosen = getGif(value);
 			var embed = new discord.MessageEmbed()
     .setColor('#fc0fc0')
     .setFooter(message.member.displayName,message.author.displayAvatarURL)
@@ -73,14 +65,7 @@ global.progressBar = (value, maxValue, size) => {
 	**measured love**\n${lovemeter}`)
     .setImage(chosen)
 }else{
-			var percent = value;
-			if (percent<1)chosen = gif.zero[Math.floor(Math.random() * Math.floor(gif.zero.length))];
-			if(percent<=25 && percent>1)chosen = gif.lower[Math.floor(Math.random() * Math.floor(gif.lower.length))];
-			if(percent<=50 && percent>25)chosen = gif.low[Math.floor(Math.random() * Math.floor(gif.low.length))];
-			if(percent<=75 && percent>50)chosen = gif.med[Math.floor(Math.random() * Math.floor(gif.med.length))];
-			if(percent<100 && percent>75)chosen = gif.high[Math.floor(Math.random() * Math.floor(gif.high.length))];
-			if (percent > 99) chosen = gif.max[Math.floor(Math.random() * Math.floor(gif.max.length))];
-			
+			chosen = getGif(value);
 			var embed = new discord.MessageEmbed()
 			.setColor('#fc0fc0')
 			.setFooter(message.member.displayName,message.author.displayAvatarURL)
@@ -90,7 +75,6 @@ global.progressBar = (value, maxValue, size) => {
 			**measured love**\n${lovemeter}`)
 			.setImage(chosen)
 		}
-	
 		message.channel.send(embed);
     },
 };
@@ -103,4 +87,13 @@ function getUserFromMention(client,mention)
 		}
 		return client.users.cache.get(mention);
 	}
+}
+function getGif(value){
+	var percent = value;
+	if (percent<1)return gif.zero[Math.floor(Math.random() * Math.random(gif.zero.length))];
+	if(percent<=25 && percent>1)return gif.lower[Math.floor(Math.random() * Math.floor(gif.lower.length))];
+	if(percent<=50 && percent>25)return gif.low[Math.floor(Math.random() * Math.floor(gif.low.length))];
+	if(percent<=75 && percent>50)return gif.med[Math.floor(Math.random() * Math.floor(gif.med.length))];
+	if(percent<100 && percent>75)return gif.high[Math.floor(Math.random() * Math.floor(gif.high.length))];
+	if (percent > 99)return gif.max[Math.floor(Math.random() * Math.floor(gif.max.length))];
 }
