@@ -24,6 +24,7 @@ module.exports = {
         //check if a Muted role is reachable in this server
         var role = message.guild.roles.cache.find(role => role.name === 'Muted');
         if(!role)role = message.guild.roles.cache.find(role => role.name === 'Muted - Sx4');
+        if(!role)role = message.guild.roles.cache.find(role => role.name === 'Muted-Ricefarmer');
         if (!role)  return message.channel.send('no mute role, pls make a role named <Muted>(respect the capital letter!!)');
         
         //get requested time to mute if no time given return 
@@ -37,17 +38,17 @@ module.exports = {
         //set timer for unmute
         setTimeout(() => {
             
+            //check if role deletion is still needed
+            if(CheckUserForRole(muteperson,role.id)){
             //unmute
             muteperson.roles.remove(role.id);
             message.channel.send(`${muteperson} has been unmuted`)
-
+            }
         }, ms(muteTime))
-        var embed = new Discord.MessageEmbed()
-        .setTitle(`${member.displayName} has been kicked`)
-        .setDescription(`reason: ${reason}`)
-        .setTimestamp()
-        .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
-        sendembed.execute(con,member,6,embed,message);
-
     },
 };
+function CheckUserForRole(muteperson,roleID){
+    if(muteperson.roles.cache.has(roleID)){
+        return true;
+    }else{return false;}
+}

@@ -6,7 +6,7 @@ const sendembed = require("../sql_serverconnection.js");
         usage: '<@ user>',
         guildOnly: 'true',
         category: "moderating",
-        execute(client,message, args) {
+        execute(client,message, args,con) {
            //check perms or if there is a mention 
             if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm Denied');
             if (!message.guild.me.hasPermission("KICK_MEMBERS"))return message.reply('perm 2 Denied');
@@ -30,11 +30,15 @@ message.channel.send("error");
 });
 var reason = "no reason given";
 if(args[1])reason = args[1];
-var embed = new Discord.MessageEmbed()
+sendembed.execute(con,member,6,MakeEmbed(member,reason),message);
+},
+};
+function MakeEmbed(reason,member){
+    var embed = new Discord.MessageEmbed()
 .setTitle(`${member.displayName} has been kicked`)
 .setDescription(`reason: ${reason}`)
 .setTimestamp()
-.setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
-sendembed.execute(con,member,6,embed,message);
-},
-    };
+.setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png');
+return embed;
+
+}
