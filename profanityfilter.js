@@ -45,10 +45,10 @@ function proffilter(message) {
           console.log(`profanity  ${message.author.tag}   \"${message.content}\"`)
       }
       //check if any of the characters are arabic if true replace with chiken soup
-    }if(HasArabicCharacters(message)){
+    }/*if(HasArabicCharacters(message)){
         message.delete();
         message.channel.send("chiken soup !");
-    };
+    };*/
 
 
     
