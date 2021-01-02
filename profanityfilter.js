@@ -4,13 +4,11 @@ module.exports = {
         proffilter(message);
     }
 };
-
-
 function proffilter(message) {
-    var messageArray = message.content.split();
-    var swear = getswearwords();
-    var sentecUser = "";
-    var amountswear = 0;
+    let messageArray = message.content.split();
+    let swear = getswearwords();
+    let sentecUser = "";
+    let amountswear = 0;
 
     //for every word in message check if it is in the swearwords list
     for (let Y = 0; Y < messageArray.length; Y++) {
@@ -22,15 +20,10 @@ function proffilter(message) {
         for (let i = 0; i < swear["vloekwoorden"].length; i++) {
             //#region replace word with ***** disabled for now
           if(word.includes(swear["vloekwoorden"][i])){
-
             changeword = word.replace(swear["vloekwoorden"][i], "******");
-
             sentecUser += " " + changeword;
-
             amountswear++;
-
           }
-          
         }
         //glue message togheter again
       if(!changeword){
@@ -44,20 +37,15 @@ function proffilter(message) {
           message.channel.send("no profanity");
           console.log(`profanity  ${message.author.tag}   \"${message.content}\"`)
       }
-      //check if any of the characters are arabic if true replace with chiken soup
-    }/*if(HasArabicCharacters(message)){
+    }
+    //check if any of the characters are arabic if true replace with chiken soup
+    /*
+    if(HasArabicCharacters(message)){
         message.delete();
         message.channel.send("chiken soup !");
-    };*/
-
-
-    
+    };
+    */ 
 }
-
-
-
-
-
 //get swear words from json file
 function getswearwords() {
 return JSON.parse(fs.readFileSync("./swearwords.json")); 
