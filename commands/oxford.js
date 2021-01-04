@@ -75,16 +75,16 @@ function synonymGET(object){
     let synonyms = "";
     if(object.results[0].lexicalEntries[0].entries[0].senses[0].synonyms){
     
-    for (let g = 0; g < object.results[0].lexicalEntries[0].entries[0].senses.length; g++) {
-        for (let k = 0; k < object.results[0].lexicalEntries[0].entries[0].senses[g].synonyms.length; k++) {
-            synonyms +=`${object.results[0].lexicalEntries[0].entries[0].senses[g].synonyms[k].text}, `;
+        for (let k = 0; k < object.results[0].lexicalEntries[0].entries[0].senses[h].synonyms.length; k++) {
+            synonyms +=`${object.results[0].lexicalEntries[0].entries[0].senses[h].synonyms[0].text}, `;
         }
+        
+    
         synonyms +=`\n`;
-    }
+    
     }else {synonyms = "no synonyms found."}
     return synonyms;
-    }
-    
+}
 function makeEmbed(author,word,object,Discord){
 let embed = new Discord.MessageEmbed();
 embed.setAuthor(author);
