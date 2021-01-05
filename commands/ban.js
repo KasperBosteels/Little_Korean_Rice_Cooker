@@ -8,25 +8,28 @@ const sqlcon = require("../sql_serverconnection.js");
         aliases: ['die','bye'],
         category: "moderating",
         async execute(client,message, args,con) {
+            //check permissions of user 
             if(!permissioncheck(message)) return message.reply('you have no permission to do that.');
+
             //check if a person was mentioned
             const user = getUserFromMention(args[0]);
 	if (!user) {
 		return message.reply('Please use a proper mention if you want to ban someone.');
     }
+    //look if reason was given for ban from the server
     var Reason = args[1]
     if(!Reason) Reason = "no given";
     try {
+        //try to ban member with reason
 		await message.guild.members.ban(user, { reason: Reason});
 	} catch (error) {
+        //if unsucsessfull display failed message
 		return message.channel.send(`Failed to ban **${user.tag}**: ${error}`);
 	}
-
 	 message.channel.send(`:man_police_officer: ${user.tag} has been successfully banned  :man_police_officer: `);
 
-  
+    //send message to logchannel
     sqlcon.execute(con,member,5,makeEmbed(user,message,reason));
-      
     }
 }
 function permissioncheck(message){
@@ -35,6 +38,7 @@ function permissioncheck(message){
     if (!message.guild.me.hasPermission("BAN_MEMBERS"))return false;
     return true;
 }
+
 function makeEmbed(user,message,reason){
     const embed = new Discord.MessageEmbed()
     .setColor('#ff0000')
@@ -45,6 +49,7 @@ function makeEmbed(user,message,reason){
                     **Reason:** ${reason}`)
     return embed;
 }
+//advanced identifier for user to not ban the wrong person
 function getUserFromMention(mention) {
     if (!mention) return;
     if (mention.startsWith('<@') && mention.endsWith('>')) {

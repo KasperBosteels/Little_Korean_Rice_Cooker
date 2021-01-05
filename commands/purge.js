@@ -22,7 +22,7 @@ module.exports = {
     }
     //delete messages
     message.channel.bulkDelete(amount,true);
-    sqlconnect.execute(con,message,5,createbed(amount,discord,message));
+    sqlconnect.execute(con,message,6,createbed(amount,discord,message),message);
     },
 };
 function createbed(amount,discord,message){

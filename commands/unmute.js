@@ -1,3 +1,4 @@
+const discord = require('discord.js');
 module.exports = {
     name: 'unmute',
     description: 'unmute a tagged user',
@@ -10,7 +11,7 @@ module.exports = {
 
         //control for perms
         if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm-1 Denied');
-        if (!message.guild.me.hasPermission("BAN_MEMBERS")) return message.reply('perm-2 Denied');
+        if (!message.guild.me.hasPermission("KICK_MEMBERS")) return message.reply('perm-2 Denied');
         //assign mention and check if true
         var unmuteperson = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
         if (!unmuteperson) return message.reply('unable to find this person');
@@ -22,10 +23,19 @@ module.exports = {
         message.reply("somehting is wrong mute method was unconventional or it was simply miss spelled");}
      
             //unmute
-    unmuteperson.roles.remove(role.id);
+            unmuteperson.roles.remove(role.id);
     
             //confirmation
-    message.channel.send(`${unmuteperson} has been unmuted`)
+            let embed = makeEmbed(message,unmuteperson);
+            message.channel.send(embed);
    
     },
 };
+
+function makeEmbed(message,unmute){
+    var embed = new discord.MessageEmbed()
+    .setColor('#ffa500')
+    .setTimestamp()
+    .setDescription(`**${message.member.displayName}** unmuted **${unmute.displayName}**`);
+return embed
+}

@@ -9,7 +9,7 @@ module.exports = {
     args : 'true',
     aliases:['mute','silence','shhh'],
     category: "moderating",
-    async execute(client,message, args) {
+    async execute(client,message,args,con) {
 
 
         //check perms
@@ -33,7 +33,7 @@ module.exports = {
 
         //await giving muteperson the mute role
         await(muteperson.roles.add(role.id));
-        message.channel.send(`${muteperson} has been muted for ${muteTime}`);
+        message.channel.send(makeEmbed(message,muteperson,muteTime));
 
         //set timer for unmute
         setTimeout(() => {
@@ -42,7 +42,7 @@ module.exports = {
             if(CheckUserForRole(muteperson,role.id)){
             //unmute
             muteperson.roles.remove(role.id);
-            message.channel.send(`${muteperson} has been unmuted`)
+            sendembed.execute(con,message.member,6,lastembed(message,muteperson,muteTime),message);
             }
         }, ms(muteTime))
     },
@@ -51,4 +51,20 @@ function CheckUserForRole(muteperson,roleID){
     if(muteperson.roles.cache.has(roleID)){
         return true;
     }else{return false;}
+}
+function makeEmbed(message,mute,time){
+    var embed = new Discord.MessageEmbed()
+    .setColor('#ffa500')
+    .setFooter(message.guild.me.displayName)
+    .setTimestamp()
+    .setDescription(`**${mute.displayName}** has been muted for ${time}`);
+return embed
+}
+function lastembed(message,mute,time){
+    var embed = new Discord.MessageEmbed()
+    .setColor('#ffa500')
+    .setFooter(message.guild.me.displayName)
+    .setTimestamp()
+    .setDescription(`**${mute.displayName}** has been unmuted after a break time of ${time}`);
+return embed
 }

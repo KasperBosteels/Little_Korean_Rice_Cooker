@@ -22,7 +22,7 @@ const sqlcon = require("../sql_serverconnection.js");
     //#region embed
     con.query(`SELECT COUNT(*) AS number FROM warnings where userID = '${unwarnuser.id}' AND guildID = '${message.guild.id}';`,(err,rows,fields) => {amount = rows[0].number
     //#endregion
-    sqlcon.execute(con,unwarnuser,5,makeEmbed(message,unwarnuser,amount));
+    sqlcon.execute(con,unwarnuser,6,makeEmbed(message,unwarnuser,amount),message);
     });
     },
 };

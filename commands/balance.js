@@ -8,9 +8,11 @@ module.exports = {
     aliases:["bal"],
 	async execute(client,message, args,con) {
           
+        //ask sql server for amount of money in users wallet
         con.query(`SELECT ballance FROM currency WHERE userID = "${message.author.id}"`,(err,rows) =>{
             if(err)console.log(err);
             if(!rows.length)return message.channel.send('nothing in inventory yet');
+            //make and send embed
             return message.channel.send(makeEmbed(message,rows[0].ballance));
         });
 

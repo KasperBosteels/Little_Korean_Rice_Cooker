@@ -16,17 +16,16 @@ module.exports = {
 
         4. if already in 
         */
+
+        //if nothing was given ask for more info
        if(!args[0])return message.channel.send('what would you like to buy ?');
        var userID = message.author.id
        var amount;
+
+       //if no amout is given buy 1
        if(!args[1]){amount = 1;}else{amount = args[1];}
-       var product = args[0];
-       var ballance;
-       var itemID;
-       var cost; 
-       var name;   
-       var icon;   
-       var inv;   
+       let product = args[0];
+       let ballance,itemID,cost,name,icon,inv;   
         con.query(`SELECT bal.ballance,it.itemID,it.cost,it.name,it.icon, 
         EXISTS(SELECT * FROM inventory AS inv WHERE inv.userID = "${userID}" AND inv.itemID = (SELECT itemID FROM items WHERE NAME = "${product}")) exist FROM currency AS bal, items AS it WHERE userID = "${userID}" AND NAME = "${product}";`,(err,rows) =>{
             if(err)return console.log(err);

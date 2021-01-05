@@ -30,7 +30,7 @@ message.channel.send("error");
 });
 var reason = "no reason given";
 if(args[1])reason = args[1];
-sendembed.execute(con,member,6,MakeEmbed(member,reason),message);
+sendembed.execute(con,member,5,MakeEmbed(member,reason),message);
 },
 };
 function MakeEmbed(reason,member){

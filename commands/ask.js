@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+//#region answer array
 var answers = ["It is certain", 
                    "It is decidedly so", 
                    "Without a doubt", 
@@ -20,8 +21,8 @@ var answers = ["It is certain",
                    "Cannot predict now", 
                    "Concentrate and ask again",
                    "Pervert"];
+//#endregion
 module.exports = {
-    
 	name: 'ask',
     description: 'ask a question',
     usage: '<question>',
@@ -41,6 +42,7 @@ module.exports = {
     //message.channel.send(`${sent}\n ${answers[coin]}`);
 	},
 };
+//make embed
 function makeEmbed(question,answer,message){    
     const bed = new Discord.MessageEmbed()
     .setColor('#FFDF00')

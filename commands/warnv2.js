@@ -3,7 +3,7 @@ const sqlcon = require("../sql_serverconnection.js");
 const mute = require("../mutetimer.js");
 module.exports = {
         name: 'warn',
-        description: 'give a user a warning, after 5 warnings it wil mute the tagged user for the amount of warnings in minutes.',
+        description: 'give a user a warning, after 3 warnings it wil mute the tagged user for the amount of warnings in minutes.',
         usage: '<@ user> optional:<reason>',
         guildOnly: 'true',
         aliases: ['w'],
@@ -30,14 +30,14 @@ var embed = new discord.MessageEmbed()
     **warned by:** ${message.author}
     **reason:** ${reason}`)
     .addField(`warnings: `,`${amount}`,true)
-    .addField(`amount before mute: `,`${amount}/5`,true)
+    .addField(`amount before mute: `,`${3 - amount}`,true)
 //#endregion
 
 //send embed message to logchannel
-sqlcon.execute(con,warnuser,5,embed);
+sqlcon.execute(con,warnuser,6,embed,message);
 
-// mute user if true +5 warns
-if(amount > 5){
+// mute user if true +3 warns
+if(amount > 3){
   //looks for mute role if not existing return console log
   var role = message.guild.roles.cache.find(role => role.name === 'Muted');
   if (!role)  return message.channel.send('no mute role, pls make a role named <Muted>(respect the capital letter!!)');
