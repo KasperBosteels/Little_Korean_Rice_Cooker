@@ -10,7 +10,7 @@ const fs = require("fs");
     };
 //get swear words from json file
 function getswearwords() {
-    return JSON.parse(fs.readFileSync("./swearwords.json")); 
+    return JSON.parse(fs.readFileSync("./jsonFiles/swearwords.json")); 
     }
 
 function Bad(message,messageArray,swear){

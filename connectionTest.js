@@ -1,4 +1,3 @@
-const database = require("./database.json");
 const mysql = require('mysql');
 const ms = require('ms');
 
@@ -13,10 +12,10 @@ module.exports = {
 }
     function reconnect(){
     let recon = mysql.createConnection({
-        host: database.host,
-        user : database.user,
-        password: database.pwd,
-        database: database.database   
+        host: process.env.HOST,
+        user : process.env.USER,
+        password: process.env.PWD,
+        database: process.env.DATABASE   
     });
     recon.connect(err => {
         if (check(recon)) {

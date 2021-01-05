@@ -1,4 +1,4 @@
-const love = require("../love.json");
+const love = require("../jsonFiles/love.json");
 module.exports = {
     name: 'love',
     description: 'sends a loving message',

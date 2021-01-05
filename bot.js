@@ -3,7 +3,6 @@ require('dotenv').config();
 require('ms')
 const logger = require("./logger.js");
 const start = require("./startup.js");
-const database = require("./database.json");
 const sqlconnect = require('./sql_serverconnection.js');
 const mysql = require("mysql");
 const fs = require('fs');
@@ -16,6 +15,7 @@ const subCommandFiles = fs.readdirSync('./sub-commands').filter(file =>file.ends
 const profanity = require("./profanityfilter.js");
 const level = require('./level.js');
 const rice = require("./rice.js");
+const { Console } = require('console');
 //#endregion
 
 //#region init bot as client
@@ -35,12 +35,13 @@ for (const file of subCommandFiles){
 //#region sql login data
 //sets sql login data in veriable for use
 var con = mysql.createConnection({
-    host: database.host,
-    user : database.user,
-    password: database.pwd,
-    database: database.database
-
+    host: process.env.HOST,
+    user : process.env.USER,
+    password: process.env.PWD,
+    database: process.env.DATABASE
 });
+
+
 //#endregion
 
 //#region un-used res
@@ -121,6 +122,10 @@ client.on('guildMemberAdd',member => {
         //check if bot is being accused of lying
        lie.execute(message);
        //#endregion
+        
+       //#region only bot is tagged
+         
+        //#endregion
 
         //#region rice questions
         rice.execute(message);

@@ -48,7 +48,8 @@ function proffilter(message) {
 }
 //get swear words from json file
 function getswearwords() {
-return JSON.parse(fs.readFileSync("./swearwords.json")); 
+    return JSON.parse(fs.readFileSync('./jsonFiles/swearwords.json')); 
+
 }
 //check for arabic
 function HasArabicCharacters(text) {

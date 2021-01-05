@@ -1,5 +1,5 @@
 const botconfig = require('../auth.json');
-const content = require('../swearwords.json');
+const content = require('../jsonFiles/swearwords.json');
 module.exports = {
 
 	name: 'help',

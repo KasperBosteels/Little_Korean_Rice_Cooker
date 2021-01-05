@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const Nsfw = require('discord-nsfw');
 const nsfw = new Nsfw();
-const content= require('../swearwords.json');
+const content= require('../jsonFiles/swearwords.json');
 const nonsfw = require('../sub-commands/nudes.js');
 const choise = content.lewd;
 module.exports = {
