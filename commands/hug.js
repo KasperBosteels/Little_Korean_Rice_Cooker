@@ -1,6 +1,6 @@
 
 const discord = require("discord.js");
-const hug = require("../bodily_affection.json");
+const hug = require("../jsonFiles/bodily_affection.json");
 module.exports = {
 	name: 'hug',
 	description: 'hug someone that needs hugging',

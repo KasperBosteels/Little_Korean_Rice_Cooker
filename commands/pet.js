@@ -1,5 +1,5 @@
 const discord = require("discord.js");
-const hug = require("../bodily_affection.json");
+const hug = require("../jsonFiles/bodily_affection.json");
 module.exports = {
 	name: 'pet',
 	description: 'pat a short person or a tall person i dont really care',

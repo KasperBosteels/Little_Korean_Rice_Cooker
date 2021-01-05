@@ -1,5 +1,5 @@
 const discord = require("discord.js");
-const gif = require("../bodily_affection.json");
+const gif = require("../jsonFiles/bodily_affection.json");
 var chosen = " ";
 var value = 0;
 var users = [];
