@@ -37,7 +37,7 @@ for (const file of subCommandFiles){
 var con = mysql.createConnection({
     host: process.env.SQL_HOST,
     user : process.env.SQL_USER,
-    password: process.env.PWD,
+    password: process.env.SQL_PASSWORD,
     database: process.env.DATABASE
 });
 
@@ -55,11 +55,7 @@ var con = mysql.createConnection({
 //default state when bot starts up will set activity
 //and display succes message in terminal
 client.on('ready', () => {
-    console.log(process.env.SQL_HOST);
-    console.log(process.env.SQL_USER);
-    console.log(process.env.PWD);
-    console.log(process.env.DATABASE);
-    console.log(process.env.DISCORD_TOKEN);
+    console.log(process.env);
     start.execute(client,con);
 
 });
