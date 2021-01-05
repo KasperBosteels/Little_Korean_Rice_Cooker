@@ -72,7 +72,7 @@ fs.writeFileSync("./errors.json",JSON.stringify(Err,null,2),(err) => {
 //#region member leave 
 //member leaves guild will trigger logchannel check and sad message
 client.on('guildMemberRemove',member =>{
-    console.log('member left')
+    console.log(`member left ${member.displayName} ${member.guild}`)
     var embed = new Discord.MessageEmbed()
    .setColor('#006400')
    .setTitle('oh no')
@@ -109,7 +109,7 @@ client.on('guildMemberAdd',member => {
 //#region message processor
 //when a user sends a message
   client.on('message', message => {
-      
+
         //#region bot ignore
         if(message.author.bot)return;
        //#endregion

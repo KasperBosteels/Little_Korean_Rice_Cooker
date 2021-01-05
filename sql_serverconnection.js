@@ -62,7 +62,7 @@ function embedless(con,member,embed,message){
         if(err)console.log(err);	
         if(rows[0].exist != 0){	
          con.query(`SELECT channelID AS channel FROM logchannel WHERE guildID = '${member.guild.id}';`,(err,rows) =>{	
-             if(err) return console.log(err);	
+            if(err) return console.log(err);	
              logchannel = member.guild.channels.cache.get(rows[0].channel);	
              logchannel.send(embed);
     });	
