@@ -1,8 +1,7 @@
-const login = require('../oxford.json');
 const ox = require("oxford-dictionary");
 const Discord = require("discord.js");
-const ID = login.app_ID;
-const KEY = login.app_KEY;
+const ID = process.env.OXFORD_ID;
+const KEY = process.env.OXFORD_KEY;
 const config={app_id : ID,app_key: KEY,source_lang:"en-gb"};
 const dict = new ox(config);
 module.exports = {
@@ -75,8 +74,8 @@ function synonymGET(object){
     let synonyms = "";
     if(object.results[0].lexicalEntries[0].entries[0].senses[0].synonyms){
     
-        for (let k = 0; k < object.results[0].lexicalEntries[0].entries[0].senses[h].synonyms.length; k++) {
-            synonyms +=`${object.results[0].lexicalEntries[0].entries[0].senses[h].synonyms[0].text}, `;
+        for (let k = 0; k < object.results[0].lexicalEntries[0].entries[0].senses[0].synonyms.length; k++) {
+            synonyms +=`${object.results[0].lexicalEntries[0].entries[0].senses[0].synonyms[k].text}, `;
         }
         
     
