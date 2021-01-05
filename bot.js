@@ -35,7 +35,7 @@ for (const file of subCommandFiles){
 //#region sql login data
 //sets sql login data in veriable for use
 var con = mysql.createConnection({
-    host: process.env.HOST,
+    host: process.env.SQL_HOST,
     user : process.env.SQL_USER,
     password: process.env.PWD,
     database: process.env.DATABASE
@@ -55,7 +55,7 @@ var con = mysql.createConnection({
 //default state when bot starts up will set activity
 //and display succes message in terminal
 client.on('ready', () => {
-    console.log(process.env.HOST);
+    console.log(process.env.SQL_HOST);
     console.log(process.env.SQL_USER);
     console.log(process.env.PWD);
     console.log(process.env.DATABASE);
