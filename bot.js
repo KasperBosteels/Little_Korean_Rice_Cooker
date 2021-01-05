@@ -55,7 +55,6 @@ var con = mysql.createConnection({
 //default state when bot starts up will set activity
 //and display succes message in terminal
 client.on('ready', () => {
-    console.log(process.env);
     start.execute(client,con);
 
 });
