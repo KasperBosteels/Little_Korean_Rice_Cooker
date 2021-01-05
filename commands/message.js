@@ -11,11 +11,11 @@ module.exports = {
         try{
             client.users.fetch("258217948819357697").then((user) => {
                 user.send(`${message.author}-/-${message.author.id} =>${message.author} =>${message.guild.name}  =>  =>${mail}`);
-                message.channel.send(`Your message was received,\nHave a nice day.`)
+                message.channel.send(`Your message was received,\nHave a nice day. :mailbox_closed: `)
             });
         }catch(error) {
             console.error(error);
-            message.reply('for some reason the author was not able to receive the message');
+            message.reply('for some reason the author was not able to receive the message ');
         }
 		
 

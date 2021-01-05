@@ -109,25 +109,14 @@ client.on('guildMemberAdd',member => {
 //#region message processor
 //when a user sends a message
   client.on('message', message => {
-
-       //#region profanity check
-        profanity.execute(message);
-       //#endregion
-
+      
         //#region bot ignore
         if(message.author.bot)return;
        //#endregion
 
-       //#region lie detector
-        //check if bot is being accused of lying
-       lie.execute(message);
-       //#endregion
-        
-       //#region only bot is tagged
-         
-        //#endregion
-
-        //#region rice questions
+        //#region simple responses
+        profanity.execute(message);
+        lie.execute(message);
         rice.execute(message);
         //#endregion
 
@@ -204,5 +193,6 @@ process.on('PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR',error =>{con.connect(); throw(er
  https://i.imgur.com/18qFmWU.mp4
  https://i.imgur.com/FIZVQik.mp4
  https://imgur.com/t/anime_gifs/p4xuail
+ https://matias.ma/nsfw/
  test
 */

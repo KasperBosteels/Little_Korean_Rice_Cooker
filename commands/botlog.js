@@ -19,6 +19,20 @@ module.exports = {
         if (!channel)return console.log('no channel');
         if (!guild)return console.log('no guild');
 
+        if(args[0] && args[0].toLowerCase() == "no"){
+            con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
+                if(err){ console.log(err); message.channel.send("NO 2.1*");}
+                if(rows[0].exist != 0){
+                    con.query(`DELETE FROM logchannel WHERE guildID = "${guild}";`);
+                    message.channel.send('no more logs here');
+                }else {
+                return message.channel.send("There wasn't any log channel set, if there are still messages popping up try renaming it or sending me a message (-message <you message>).");
+                }
+            });
+        }else {
+
+
+
         //checks if database already exists if true update else insert
         con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
             if(err){ console.log(err); message.channel.send("2.1*");}
@@ -31,6 +45,7 @@ module.exports = {
             }
             return message.channel.send('i will send my log here now');
         });
+    }
     },
 };
 function permission(message){
