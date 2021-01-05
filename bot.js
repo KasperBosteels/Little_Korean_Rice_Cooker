@@ -36,7 +36,7 @@ for (const file of subCommandFiles){
 //sets sql login data in veriable for use
 var con = mysql.createConnection({
     host: process.env.HOST,
-    user : process.env.USER,
+    user : process.env.SQL_USER,
     password: process.env.PWD,
     database: process.env.DATABASE
 });
@@ -56,7 +56,7 @@ var con = mysql.createConnection({
 //and display succes message in terminal
 client.on('ready', () => {
     console.log(process.env.HOST);
-    console.log(process.env.USER);
+    console.log(process.env.SQL_USER);
     console.log(process.env.PWD);
     console.log(process.env.DATABASE);
     console.log(process.env.DISCORD_TOKEN);
