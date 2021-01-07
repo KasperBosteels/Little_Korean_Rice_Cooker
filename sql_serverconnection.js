@@ -1,5 +1,3 @@
-const { createPool } = require("mysql");
-
 module.exports = {
     async execute(con,member,functie,embed,message){
         switch (functie) {
@@ -16,7 +14,7 @@ module.exports = {
                 sqlconnect(con);
                 break;
             case 5:
-                embedlog(con,member,embed);
+                embedlog(con,member,embed,message);
                 break;
             case 6:
                 embedless(con,member,embed,message)
@@ -32,7 +30,7 @@ function sqlconnect(con) {
 
 }
 
- function embedlog(con,member,embed){
+ function embedlog(con,member,embed,message){
     //#region looks for bot-log channel
     con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${member.guild.id}")AS exist;`,(err,rows) =>{	
        let logchannel;

@@ -32,9 +32,9 @@ function proffilter(message) {
       //#endregion
       //if there are more than 0 swear words found be annoying
       if (amountswear != 0){
-          //message.delete();
+          message.delete();
           //message.channel.send(sentecUser);
-          message.channel.send("no profanity");
+          //message.channel.reply("no profanity");
           console.log(`profanity  ${message.author.tag}   \"${message.content}\"`)
       }
     }
