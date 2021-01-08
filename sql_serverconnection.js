@@ -49,7 +49,9 @@ function sqlconnect(con) {
                 break;	
             }	
         }	
-        if (!logchannel) {message.channel.send(embed);	
+        if (!logchannel) {
+            if(message.channel)return message.channel.send(embed);	
+            return;
         }else{  logchannel.send(embed); 	
         }}	
     });	

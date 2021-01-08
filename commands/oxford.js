@@ -88,6 +88,7 @@ function makeEmbed(author,word,object,Discord){
 let embed = new Discord.MessageEmbed();
 embed.setAuthor(author);
 embed.setTitle(word);
+embed.setImage("https://developer.oxforddictionaries.com/images/PBO_blue.png")
 if(!object){embed.setDescription("nothing found sorry"); return embed;}
 let derivative =derivativeGET(object);
 let synonyms =synonymGET(object);

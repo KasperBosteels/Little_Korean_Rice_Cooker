@@ -50,7 +50,7 @@ function makeEmbed(user,message,reason){
     return embed;
 }
 //advanced identifier for user to not ban the wrong person
-function getUserFromMention(mention) {
+function getUserFromMention(mention,client) {
     if (!mention) return;
     if (mention.startsWith('<@') && mention.endsWith('>')) {
         mention = mention.slice(2, -1);
