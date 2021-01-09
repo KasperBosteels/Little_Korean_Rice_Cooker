@@ -50,7 +50,7 @@ function sqlconnect(con) {
             }	
         }	
         if (!logchannel) {
-            if(message.channel)return message.channel.send(embed);	
+            if(message)message.channel.send(embed);	
             return;
         }else{  logchannel.send(embed); 	
         }}	

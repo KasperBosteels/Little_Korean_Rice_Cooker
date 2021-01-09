@@ -9,12 +9,12 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const config = require('./auth.json');
 const prefixcheck = require('./prefixcheck.js');
-const lie = require('./liedetector.js');
+const lie = require('./text responses/liedetector.js');
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const subCommandFiles = fs.readdirSync('./sub-commands').filter(file =>file.endsWith('.js'));
 const profanity = require("./profanityfilter.js");
 const level = require('./level.js');
-const rice = require("./rice.js");
+const rice = require("./text responses/rice.js");
 const { Console } = require('console');
 //#endregion
 

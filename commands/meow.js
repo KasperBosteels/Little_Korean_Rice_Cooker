@@ -1,11 +1,10 @@
 module.exports = {
-	name: 'Role',
-	description: 'assign or remove a role from a user',
+	name: 'meow',
+	description: 'catnip should be illegal',
 	cooldown: 1,
-	usage: '<role name> <@user>|| no <role n> <@user>',
+	usage: '',
 	category: "fun",
 	execute(client,message, args,con) {
-		
-
+		return message.channel.send('pspspspspspspsps');
 	},
 };
