@@ -72,7 +72,7 @@ fs.writeFileSync("./errors.json",JSON.stringify(Err,null,2),(err) => {
 //#region member leave 
 //member leaves guild will trigger logchannel check and sad message
 client.on('guildMemberRemove',member =>{
-    console.log(`member left ${member.displayName} ${member.guild}`)
+    console.log(`member left ${member.displayName} ${member.guild}`);
     var embed = new Discord.MessageEmbed()
    .setColor('#006400')
    .setTitle('oh no')
@@ -90,7 +90,7 @@ client.on('guildMemberRemove',member =>{
 //#region member join
 //member joins execute sql connection with parameters that correspondt with friendly message in logchannel
 client.on('guildMemberAdd',member => {
-    console.log("member joined");
+    console.log(`member joined ${member.displayName} ${member.guild}`);
     var embed = new Discord.MessageEmbed()
    .setColor('#006400')
    .setTitle('hello')
