@@ -25,6 +25,10 @@ module.exports = {
         var role = message.guild.roles.cache.find(role => role.name === 'Muted');
         if(!role)role = message.guild.roles.cache.find(role => role.name === 'Muted - Sx4');
         if(!role)role = message.guild.roles.cache.find(role => role.name === 'Muted-Ricefarmer');
+        if(!role)role = message.guild.roles.cache.find(role => role.name === 'mute');
+        if(!role)role = message.guild.roles.cache.find(role => role.name === 'muted');
+        message.guild.roles.create({data: {name: 'Muted',permissions : ['VIEW_CHANNEL','READ_MESSAGE_HISTORY']}});
+        var role = message.guild.roles.cache.find(role => role.name === 'Muted');
         if (!role)  return message.channel.send('no mute role, pls make a role named <Muted>(respect the capital letter!!)');
         
         //get requested time to mute if no time given return 

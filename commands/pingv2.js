@@ -16,8 +16,9 @@ module.exports = {
 							con.query(`DELETE FROM ching WHERE guildID = "${message.guild.id}";`);
 							message.channel.send("https://www.youtube.com/watch?v=oQYAETMEnc8");
 						}else{
-							 message.channel.send('chong: ' +( Date.now() -message.createdTimestamp ) + ' ms');
-	
+							 message.channel.send('ping...').then(sent =>{
+								 sent.edit(`roundtrip latency: ${sent.createdTimestamp - message.createdTimestamp} ms\nwebsocket heartbeat: ' ${client.ws.ping} ms`);
+							 });
 						}
 
 
@@ -27,7 +28,10 @@ module.exports = {
 			return;
 		}
 		//get current time and message recieved timestamp subtract and send back 
-	return message.channel.send('pong: ' +( Date.now() -message.createdTimestamp ) + ' ms');
+	 message.channel.send('ping...').then(sent =>{
+		sent.edit(`roundtrip latency: ${sent.createdTimestamp - message.createdTimestamp} ms \n websocket heartbeat: ${client.ws.ping} ms`);
+	});
+	return;
 	},
 };
  
