@@ -16,6 +16,7 @@ const profanity = require("./profanityfilter.js");
 const level = require('./level.js');
 const rice = require("./text responses/rice.js");
 const { Console } = require('console');
+const activeSongs = new Map();
 //#endregion
 
 //#region init bot as client
@@ -131,7 +132,9 @@ client.on('guildMemberAdd',member => {
         //makes sure command name is lowercase
         const commandName = args.shift().toLowerCase();
         //#endregion
-
+        let options = {
+            active: activeSongs
+        };
         //#region command lookup
         //checks if message containts a command name/alias if true then asign it to variable if false return to default state
         const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
@@ -159,7 +162,7 @@ client.on('guildMemberAdd',member => {
         //#region execute command
         //tries to perform the command if error occurs catch it and display on terminal
         try {
-            command.execute(client,message,args,con);
+            command.execute(client,message,args,con,options);
            logger.execute(message);
         } catch (error) {
             console.error(error);
