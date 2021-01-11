@@ -1,6 +1,6 @@
 const ytdl = require('ytdl-core');
 module.exports = {
-	name: 'singurl',
+	name: 'sing',
 	description: 'WIP non functional',
 	cooldown: 1,
 	usage: '',

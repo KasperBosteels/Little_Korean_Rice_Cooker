@@ -1,7 +1,7 @@
 const { Collection } = require('discord.js');
 const search = require('yt-search');
 module.exports = {
-	name: 'search',
+	name: 'searchsong',
 	description: 'i will look for some good tunes.',
 	cooldown: 1,
 	usage: '',
