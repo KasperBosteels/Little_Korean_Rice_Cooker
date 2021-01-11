@@ -1,6 +1,6 @@
 {
     "name": "little_korean_rice_cooker",
-    "version": "0.1.043",
+    "version": "0.1.055",
     "description": "a bot i made to see if i was even able to do it, turns out i was, now its a constant worry",
     "main": "bot.js",
     "author": "Kasper",
@@ -22,6 +22,7 @@
         "oxford-dictionaries-api": "^0.1.2",
         "oxford-dictionary": "^1.6.0",
         "urban-dictionary": "^2.2.1",
+        "yt-search": "^2.5.1",
         "ytdl-core": "^4.4.2"
     }
 }

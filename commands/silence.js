@@ -4,7 +4,7 @@ module.exports = {
 	description: 'leave the voice channel',
 	cooldown: 1,
 	usage: '',
-	category: "fun",
+	category: "music",
 	async execute(client,message, args,con) {
 
         if(!message.member.voice.channel)return message.channel.send('you are not connected to a voice channel.');

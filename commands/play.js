@@ -1,15 +1,15 @@
 const ytdl = require('ytdl-core');
 module.exports = {
-	name: 'sing',
+	name: 'singurl',
 	description: 'WIP non functional',
 	cooldown: 1,
 	usage: '',
-	category: "fun",
+	category: "music",
 	async execute(client,message, args,con,options) {
 
         if(!message.member.voice.channel)return message.channel.send('you are not connected to a voice channel.');
         //if(message.guild.me.voice.channel)return message.channel.send('already connected to a voice channel');
-        if(!args[0])return message.channel.send('you need to give me a song url');
+        if(!args[0])return message.channel.send('you need to give me a song url or name');
         let validate = await ytdl.validateURL(args[0]);
         if(!validate)return message.channel.send('url not found sorry.');
         let info = await ytdl.getInfo(args[0]);
@@ -50,7 +50,7 @@ if(fetchedDate.queue.length > 0){
     Play(c,o,fetchedDate);
 }else {
     o.active.delete(dispatcher.guildID);
-    let voicechannel = client.guild.cache.get(dispatcher.guildID).me.voice.channel;
+    let voicechannel = c.guilds.cache.get(dispatcher.guildID).me.voice.channel;
     if(voicechannel)voicechannel.leave();
 }
 }
