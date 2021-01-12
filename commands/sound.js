@@ -1,8 +1,8 @@
 module.exports = {
 	name: 'volume',
-	description: 'catnip should be illegal',
+	description: 'Change the music level of the song.',
 	cooldown: 1,
-	usage: '',
+	usage: '<number between 0 and 150>',
 	category: "music",
 	execute(client,message, args,con,options) {
         let guildData = options.active.get(message.guild.id);

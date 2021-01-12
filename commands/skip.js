@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'continue',
-	description: 'catnip should be illegal',
+	description: "Go to the next queue'ed song.",
 	cooldown: 1,
 	usage: '',
 	category: "music",

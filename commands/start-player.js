@@ -1,15 +1,15 @@
 const ytdl = require('ytdl-core');
 module.exports = {
 	name: 'sing',
-	description: 'WIP non functional',
+	description: 'I will sing you a song',
 	cooldown: 1,
-	usage: '',
+	usage: '<your url>',
 	category: "music",
 	async execute(client,message, args,con,options) {
 
         if(!message.member.voice.channel)return message.channel.send('you are not connected to a voice channel.');
-        //if(message.guild.me.voice.channel)return message.channel.send('already connected to a voice channel');
-        if(!args[0])return message.channel.send('you need to give me a song url or name');
+        if(message.guild.me.voice.channel)return message.channel.send('already connected to a voice channel');
+        if(!args[0])return message.channel.send('you need to give me a song url.');
         let validate = await ytdl.validateURL(args[0]);
         if(!validate)return message.channel.send('url not found sorry.');
         let info = await ytdl.getInfo(args[0]);
@@ -27,7 +27,8 @@ module.exports = {
         if(!data.dispatcher){
             Play(client,options,data);
         }else{
-            message.channel.send(`added to the queue: ${info.title} | requested by: ${message.author.tag}`);
+            console.log(info);
+            message.channel.send(`added to the queue: ${info.videoDetails.title} | requested by: ${message.author.tag}`);
         }
         options.active.set(message.guild.id,data);
     },

@@ -1,12 +1,12 @@
-const { Collection } = require('discord.js');
 const search = require('yt-search');
 module.exports = {
 	name: 'searchsong',
 	description: 'i will look for some good tunes.',
 	cooldown: 1,
-	usage: '',
+	usage: '<a title> When you get a list of songs press the number of the corresponding song u want.',
 	category: "music",
 	async execute(client,message, args,con,options) {
+        if(!args[0])return message.channel.send("U gotta give me a clue at least.");
     search(args.join(" "),function (err,result){
     if(err) return message.channel.send('Something went badly.');
     let videos = result.videos.slice(0,5);
@@ -24,8 +24,5 @@ module.exports = {
         commandFile.execute(client,message,[this.videos[parseInt(music.content )-1].url],con,options);
     });
     });
-
-    
-    
     },
 };

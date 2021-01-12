@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'queue',
-	description: 'catnip should be illegal',
+	description: 'Look at the queue for the music player.',
 	cooldown: 1,
 	usage: '',
 	category: "music",

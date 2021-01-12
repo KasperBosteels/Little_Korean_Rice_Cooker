@@ -30,6 +30,7 @@ module.exports = {
         var moderating = "\n**__MODERATING__**\n";
         var fun = "\n**__Fun__**\n";
         var debug ="\n**__Debug__**\n";
+        var music ="\n**__Music__**\n";
         var currency="\n**__currency__**\n";
         //for the every command in the commandlist add values to a string from its category
 for (let i = 0; i < commandlist.length; i++) {
@@ -42,6 +43,8 @@ for (let i = 0; i < commandlist.length; i++) {
         debug += `${prefix}${command['name']} - ${command["description"]}\n`;
     }else if (command['category'] == 'fun') {
         fun += `${prefix}${command['name']} - ${command["description"]}\n`;
+    }else if(command['category'] == 'music'){
+        music += `${prefix}${command['name']} - ${command["description"]}\n`;
     }else if(command['category'] == 'currency'){
         currency += `${prefix}${command['name']} - ${command['description']}\n`;
     }
@@ -51,6 +54,7 @@ response += general;
 response += moderating;
 response += debug;
 response += fun;
+response += music;
 response += currency;
 //dm the response string to the author if not possible send declined in channel
 message.author.send(response).then(() =>{message.channel.send(`i\'ve send you a dm with my commands :mailbox_with_mail:\ntip: you can also use ${botconfig.prefix}help <command name>   to get info about a specific command.`);

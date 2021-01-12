@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'resume',
-	description: 'catnip should be illegal',
+	description: 'Resume a paused song.',
 	cooldown: 1,
 	usage: '',
 	category: "music",
