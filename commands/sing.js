@@ -20,7 +20,7 @@ module.exports = {
     const collection = message.channel.createMessageCollector(filter);
     collection.videos = videos;
     collection.once("collect",function (music) {
-        let commandFile = require("../commands/play.js");
+        let commandFile = require("./start-player.js");
         commandFile.execute(client,message,[this.videos[parseInt(music.content )-1].url],con,options);
     });
     });
