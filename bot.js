@@ -32,7 +32,10 @@ for (const file of subCommandFiles){
     client.subcommands.set(subCommand.name,subCommand);
 }
 //#endregion
-
+console.log(process.env.HOST);
+console.log(process.env.USER);
+console.log(process.env.PWD);
+console.log(process.env.DATABASE);
 //#region sql login data
 //sets sql login data in veriable for use
 var con = mysql.createConnection({
