@@ -36,7 +36,7 @@ module.exports = {
     .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
     .setTitle(`**${message.author.tag}'s inventory**`);
     for (let e = 0; e < itemID.length; e++) {
-       bed.addField(`${icon[e]} ${itemName[e]}   amount: ${amount[e]}`,`${itemDesc[e]}`)
+       bed.addField(`${icon[e]} ${itemName[e]}   amount: ${amount[e]}`,`${itemDesc[e]}`);
     }
     return bed
 }
