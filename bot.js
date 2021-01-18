@@ -36,9 +36,9 @@ for (const file of subCommandFiles){
 //#region sql login data
 //sets sql login data in veriable for use
 var con = mysql.createConnection({
-    host: process.env.SQL_HOST,
-    user : process.env.SQL_USER,
-    password: process.env.SQL_PASSWORD,
+    host:process.env.HOST,
+    user : process.env.USER,
+    password: process.env.PWD,
     database: process.env.DATABASE
 });
 
