@@ -33,15 +33,15 @@ for (const file of subCommandFiles){
 }
 //#endregion
 console.log(process.env.HOST);
-console.log(process.env.USER);
-console.log(process.env.PWD);
+console.log(process.env.USERSQLSERVER);
+console.log(process.env.PASSWORDSQLSERVER);
 console.log(process.env.DATABASE);
 //#region sql login data
 //sets sql login data in veriable for use
 var con = mysql.createConnection({
     host:process.env.HOST,
-    user : process.env.USER,
-    password: process.env.PWD,
+    user : process.env.USERSQLSERVER,
+    password: process.env.PASSWORDSQLSERVER,
     database: process.env.DATABASE,
     port: 3306
 });
