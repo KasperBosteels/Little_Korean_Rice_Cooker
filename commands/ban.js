@@ -12,7 +12,7 @@ const sqlcon = require("../sql_serverconnection.js");
             if(!permissioncheck(message)) return message.reply('you have no permission to do that.');
 
             //check if a person was mentioned
-            const user = getUserFromMention(args[0]);
+            const user = getUserFromMention(args[0],client);
 	if (!user) {
 		return message.reply('Please use a proper mention if you want to ban someone.');
     }
@@ -29,7 +29,7 @@ const sqlcon = require("../sql_serverconnection.js");
 	 message.channel.send(`:man_police_officer: ${user.tag} has been successfully banned  :man_police_officer: `);
 
     //send message to logchannel
-    sqlcon.execute(con,member,5,makeEmbed(user,message,reason));
+    sqlcon.execute(con,user,5,makeEmbed(user,message,reason));
     }
 }
 function permissioncheck(message){
