@@ -3,7 +3,8 @@ module.exports = {
 	description: 'Change the music level of the song.',
 	cooldown: 1,
 	usage: '<number between 0 and 150>',
-	category: "music",
+        category: "music",
+        alias: ["v"],
 	execute(client,message, args,con,options) {
         let guildData = options.active.get(message.guild.id);
         if(!guildData)return message.channel.send("No music is being played atm.");

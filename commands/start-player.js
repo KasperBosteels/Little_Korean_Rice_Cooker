@@ -8,7 +8,6 @@ module.exports = {
 	async execute(client,message, args,con,options) {
 
         if(!message.member.voice.channel)return message.channel.send('you are not connected to a voice channel.');
-        if(message.guild.me.voice.channel)return message.channel.send('already connected to a voice channel');
         if(!args[0])return message.channel.send('you need to give me a song url.');
         let validate = await ytdl.validateURL(args[0]);
         if(!validate)return message.channel.send('url not found sorry.');
@@ -19,15 +18,15 @@ module.exports = {
         if(!data.queue)data.queue = [];
         data.guildID = message.guild.id;
         data.queue.push({
-            songTitle: info.title,
+            songTitle: info.videoDetails.title,
             requester: message.author.tag,
             url: args[0],
             announceChannel: message.channel.id
         });
         if(!data.dispatcher){
+            console.log(info.videoDetails.title);
             Play(client,options,data);
         }else{
-            console.log(info);
             message.channel.send(`added to the queue: ${info.videoDetails.title} | requested by: ${message.author.tag}`);
         }
         options.active.set(message.guild.id,data);
