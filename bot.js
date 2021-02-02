@@ -40,7 +40,8 @@ var con = mysql.createConnection({
     user : process.env.USERSQLSERVER,
     password: process.env.PASSWORDSQLSERVER,
     database: process.env.DATABASE,
-    port: 3306
+    port: 3306,
+    multipleStatements: true
 });
 
 
@@ -149,6 +150,12 @@ client.on('guildMemberAdd',member => {
         }
         //#endregion
 
+                  //#region level handler
+                  try{
+                    level.execute(message,con,args,Discord);
+                  }catch(error){message.channel.send(error.message);}
+                    //#endregion
+
         //#region argumant needed check
         //checks if the command needs an argument if true and no given error message and return to default state
         if (command.args && !args.length){
@@ -171,11 +178,7 @@ client.on('guildMemberAdd',member => {
         }
         //#endregion
          
-          //#region level handler
-          try{
-          level.execute(message,con,args,Discord);
-        }catch(error){message.channel.send(error.message);}
-          //#endregion
+
           
     });
 //#endregion

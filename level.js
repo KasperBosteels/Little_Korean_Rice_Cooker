@@ -3,9 +3,9 @@ module.exports = {
 	
 	execute(message,con,args,Discord) {
         var randomint;
-        randomint = Math.floor((Math.random()*20)+1);  
-    var userID = message.author.id;
-        con.query(`SELECT * FROM levels WHERE userID = "${userID}";`,(err,rows) =>{
+        randomint = Math.floor((Math.random()*args.length)+1);  
+        var userID = message.author.id;
+        con.query(`SELECT level FROM levels WHERE userID = "${userID}";`,(err,rows) =>{
         if(err)console.log(err);
         if(!rows.length){
         con.query(`INSERT INTO levels (userID,level,exp) VALUES ("${userID}",1,0)`);
@@ -14,8 +14,7 @@ module.exports = {
            if(err)return console.log(err);
            var LEV = rows[0].level;
            var EXP = rows[0].exp+randomint;
-           if(LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);
-           var nextlevel =(15 + 300)*(LEV * 1.1);
+           var nextlevel =(15 + 300)*LEV;
            if(EXP >= nextlevel){
             LEV++;
             EXP = 0;
