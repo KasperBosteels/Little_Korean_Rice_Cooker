@@ -12,7 +12,7 @@ module.exports = {
 		message.guild.me.voice.channel.leave();
 		let guildData = options.active.get(message.guild.id);
 		if(!guildData)return message.channel.send("No music is being played atm.");
-		return guildData.dispatcher.emit('finish'); 
+		return guildData.dispatcher.emit('finish');
 
     },
 };
