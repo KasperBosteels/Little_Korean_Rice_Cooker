@@ -23,6 +23,9 @@ module.exports = {
             url: args[0],
             announceChannel: message.channel.id
         });
+        for (let i = 0; i < data.queue.length; i++) {
+            console.log(data.queue[i].songTitle);      
+        }
         if(!data.dispatcher){
             console.log(info.videoDetails.title);
             Play(client,options,data);
@@ -35,7 +38,7 @@ module.exports = {
 };
 async function Play(client,o,data){
 client.channels.cache.get(data.queue[0].announceChannel).send(`PLAYING: ${data.queue[0].songTitle} - requested by: ${data.queue[0].requester}`);
-let options = {seek: 3,volume: 1,bitrate: 128000};
+let options = {seek: 3,volume: 0.7,bitrate: 128000,quality: 'highestaudio',highWaterMark: 1<<25};
 data.dispatcher = await data.connection.play(ytdl(data.queue[0].url,{filter: 'audioonly'}), options);
 data.dispatcher.guildID = data.guildID;
 data.dispatcher.once('finish',function () {
