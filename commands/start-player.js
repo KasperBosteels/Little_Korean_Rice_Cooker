@@ -1,4 +1,5 @@
 const ytdl = require('ytdl-core');
+const ytdlD = require('ytdl-core-discord');
 module.exports = {
 	name: 'sing',
 	description: 'I will sing you a song',
@@ -38,7 +39,7 @@ module.exports = {
 };
 async function Play(client,o,data){
 client.channels.cache.get(data.queue[0].announceChannel).send(`PLAYING: ${data.queue[0].songTitle} - requested by: ${data.queue[0].requester}`);
-let options = {seek: 3,volume: 0.7,bitrate: 128000,quality: 'highestaudio',highWaterMark: 1<<25};
+let options = {seek: 3,volume: 0.7,bitrate: 128000,quality: 'highestaudio',highWaterMark: 100};
 data.dispatcher = await data.connection.play(ytdl(data.queue[0].url,{filter: 'audioonly'}), options);
 data.dispatcher.guildID = data.guildID;
 data.dispatcher.once('finish',function () {
