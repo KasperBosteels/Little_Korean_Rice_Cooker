@@ -1,12 +1,12 @@
 {
     "name": "little_korean_rice_cooker",
-    "version": "0.1.055",
+    "version": "0.1.79",
     "description": "a bot i made to see if i was even able to do it, turns out i was, now its a constant worry",
     "main": "bot.js",
     "author": "Kasper",
     "license": "ISC",
     "scripts": {
-        "start": "nodemon",
+        "start": "nodemon --ignore prefix.json",
         "test": "echo \"error: no test specified\" && exit &"
     },
     "dependencies": {

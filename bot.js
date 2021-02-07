@@ -15,7 +15,7 @@ const subCommandFiles = fs.readdirSync('./sub-commands').filter(file =>file.ends
 const profanity = require("./profanityfilter.js");
 const level = require('./level.js');
 const rice = require("./text responses/rice.js");
-const { Console } = require('console');
+const getprefix = require('./getprefixData.js');
 const activeSongs = new Map();
 //#endregion
 
@@ -59,6 +59,7 @@ var con = mysql.createConnection({
 //and display succes message in terminal
 client.on('ready', () => {
     start.execute(client,con);
+    getprefix.execute(con);
 
 });
 //#endregion
@@ -80,7 +81,6 @@ client.on('guildMemberRemove',member =>{
    .setColor('#006400')
    .setTitle('oh no')
    .setTimestamp()
-   //.setThumbnail(warnuser.user.avatarURL({ dynamic: true, format: 'png', size: 32 }))
    .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
    .setThumbnail(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
    .setDescription(`${member.displayName} left`);
@@ -98,7 +98,6 @@ client.on('guildMemberAdd',member => {
    .setColor('#006400')
    .setTitle('hello')
    .setTimestamp()
-   //.setThumbnail(warnuser.user.avatarURL({ dynamic: true, format: 'png', size: 32 }))
    .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
    .setThumbnail(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
    .setDescription(`welcome, ${member.displayName}`);
@@ -123,6 +122,14 @@ client.on('guildMemberAdd',member => {
         rice.execute(message);
         //#endregion
 
+        if (message.mentions.has(client.user) && !prefixcheck.execute(message)){
+            let com = client.commands.get('help');
+            //let args = message.content.slice(config.prefix.length).trim().split(/ +/);
+            return com.execute(client,message,[]);
+        }
+
+
+
         //#region prefix check
         //check if messages contains the selected prefix
        if(!prefixcheck.execute(message))return;
@@ -130,7 +137,8 @@ client.on('guildMemberAdd',member => {
 
         //#region message slice and dice
         //removes prefix and puts arguments in variable
-        const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+        let usedprefix = getprefix.GET(message.guild.id);
+        const args = message.content.slice(usedprefix.length).trim().split(/ +/);
         //makes sure command name is lowercase
         const commandName = args.shift().toLowerCase();
         //#endregion

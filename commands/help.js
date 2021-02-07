@@ -1,5 +1,6 @@
 const botconfig = require('../auth.json');
 const content = require('../jsonFiles/swearwords.json');
+const getprefix = require('../getprefixData.js');
 module.exports = {
 
 	name: 'help',
@@ -12,7 +13,7 @@ module.exports = {
         //checks if a speciic command query was asked if not send dm withh all commmands
         if(!args.length){
         var commandlist = [];
-        var prefix = botconfig.prefix;
+        var prefix = this.guildprefix(message.guild.id);
         
         //for each command in commands folder get name description and category
         client.commands.forEach(command =>{
@@ -75,7 +76,7 @@ message.author.send(response).then(() =>{message.channel.send(`i\'ve send you a 
 
         //if there is no command found return 
 if (!command) {
-	return message.reply('that was not a valid command!'`\ntype: ${botconfig.prefix}help\n for all commands`);
+	return message.reply('that was not a valid command!'`\ntype: ${prefix}help\n for all commands`);
 }
 
 //push values to data array
@@ -102,4 +103,8 @@ message.channel.send(data, { split: true });
 
 }
 	},
+    guildprefix(guildID){
+        let p = getprefix.GET(guildID);
+        if(p){return p}else {return botconfig.prefix}
+    }
 };
