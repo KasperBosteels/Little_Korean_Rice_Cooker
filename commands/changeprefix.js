@@ -9,7 +9,7 @@ module.exports = {
     args: 'true',
     guildOnly: 'true',
 	async execute(client,message, args,con) {
-        //if(!message.author.hasPermission("KICK_MEMBERS"))return message.reply('permission denied, you are not a moderator.');
+        if(!permissioncheck(message))return message.reply('you do not have permission to do this, ask a mod.');
         con.query(`SELECT prefix FROM prefix WHERE guildID = "${message.guild.id}";`,(err,rows) =>{
         if(err)return console.error(err);
         if(rows.length){
@@ -22,3 +22,9 @@ module.exports = {
         return message.channel.send(`updated your prefix to: ${args[0]}`);
 	},
 };
+function permissioncheck(message){
+    //check perms
+    if (!message.member.hasPermission("BAN_MEMBERS")) return false;
+    if (!message.guild.me.hasPermission("BAN_MEMBERS"))return false;
+    return true;
+}
