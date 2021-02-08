@@ -1,5 +1,5 @@
 module.exports = {
-	name: 'invite me',
+	name: 'invite-me',
 	description: 'gives you a link to invite the bot to a different server',
 	cooldown: 1,
 	usage: ' ',
@@ -7,6 +7,6 @@ module.exports = {
 	aliases: ['link'],
 	execute(client,message, args) {
 		
-        message.author.send(`https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=805694518&scope=bot`);
+        message.author.send(`https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=8&scope=bot`);
 	},
 };
