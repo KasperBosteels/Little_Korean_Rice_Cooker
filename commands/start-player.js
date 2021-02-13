@@ -39,10 +39,10 @@ let options = {seek: 3,volume: 0.7,bitrate: 128000,quality: 'highestaudio',highW
 data.dispatcher = await data.connection.play(ytdl(data.queue[0].url,{filter: 'audioonly'}), options);
 data.dispatcher.guildID = data.guildID;
 data.dispatcher.once('finish',function () {
-    Finish(client,o,this);
+    finish(client,o,this);
 })
 }
-function Finish(c,o,dispatcher){
+function finish(c,o,dispatcher){
 let fetchedDate = o.active.get(dispatcher.guildID);
 fetchedDate.queue.shift();
 if(fetchedDate.queue.length > 0){

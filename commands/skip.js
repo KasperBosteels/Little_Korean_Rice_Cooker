@@ -12,16 +12,16 @@ module.exports = {
             message.channel.send('skipped');
             return guildData.dispatcher.emit('finish'); 
         }
-        let amountUsers = message.member.voice.channel.members.size;
-        let amountSkip = Math.ceil(amountUsers/2);
+        //let amountUsers = message.member.voice.channel.members.size;
+        //let amountSkip = Math.ceil(amountUsers/2);
         if(!guildData.queue[0].voteSkips) guildData.queue[0].voteSkips = [];
         if(guildData.queue[0].voteSkips.includes(message.member.id))return;
         guildData.queue[0].voteSkips.push(message.member.id);
         options.active.set(message.guild.id,guildData);
-        if(guildData.queue[0].voteSkips.length >= amountSkip){
+        //if(guildData.queue[0].voteSkips.length >= amountSkip){
             message.channel.send('skipped');
             return guildData.dispatcher.emit('finish');   
-        }
+        //}
         message.channel.send(`skip requested: ${guildData.voteSkips}/${amountSkip}`);
     },
 };

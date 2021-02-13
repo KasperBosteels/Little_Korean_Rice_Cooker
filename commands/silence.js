@@ -12,6 +12,12 @@ module.exports = {
 		message.guild.me.voice.channel.leave();
 		let guildData = options.active.get(message.guild.id);
 		if(!guildData)return message.channel.send("No music is being played atm.");
+		console.log(options.active);
+		for (let i = 0; i < options.active.length; i++) {
+			
+			options.active[i].delete(message.guild.id);			
+		}
+		console.log(options.active);
 		return guildData.dispatcher.emit('finish');
 
     },
