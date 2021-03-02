@@ -7,7 +7,7 @@ module.exports = {
 	description: 'kill someone',
 	cooldown: 1,
 	usage: ' <@user>',
-        aliases: ["ended","killed","assasinated","liquidated","exterminated","executed","slaughtered","ate","butchered","iced","zapped","smoked","terminated","commited live'nt on"],
+        aliases: ["end","assasinate","liquidate","exterminate","execute","slaughtere","eat","butcher","ice","zapp","smoke","terminate"],
 	category: "fun",
 	execute(client,message, args,con) {
         let coin = Math.floor(Math.random() * Math.floor(link.length));
