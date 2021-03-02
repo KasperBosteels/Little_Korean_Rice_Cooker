@@ -16,6 +16,7 @@ const profanity = require("./profanityfilter.js");
 const level = require('./level.js');
 const rice = require("./text responses/rice.js");
 const getprefix = require('./getprefixData.js');
+const { sub } = require('ffmpeg-static');
 const activeSongs = new Map();
 //#endregion
 
@@ -25,11 +26,13 @@ client.commands = new Discord.Collection();
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
     client.commands.set(command.name,command)
+    console.log(`command file loaded: ${command.name}`);
 }
 client.subcommands = new Discord.Collection();
 for (const file of subCommandFiles){
     const subCommand = require(`./sub-commands/${file}`);
     client.subcommands.set(subCommand.name,subCommand);
+    console.log(`sub-command file loaded: ${subCommand.name}`);
 }
 //#endregion
 
@@ -60,7 +63,7 @@ var con = mysql.createConnection({
 client.on('ready', () => {
     start.execute(client,con);
     getprefix.execute(con);
-
+    
 });
 //#endregion
 
