@@ -1,6 +1,6 @@
 {
     "name": "little_korean_rice_cooker",
-    "version": "0.1.79",
+    "version": "0.1.98",
     "description": "a bot i made to see if i was even able to do it, turns out i was, now its a constant worry",
     "main": "bot.js",
     "author": "Kasper",
@@ -21,7 +21,7 @@
         "ms": "^2.1.3",
         "mysql": "^2.18.1",
         "node-fetch": "^2.6.1",
-        "nvm": "0.0.4",
+        "nvm": "^0.0.4",
         "oxford-dictionaries-api": "^0.1.2",
         "oxford-dictionary": "^1.6.0",
         "urban-dictionary": "^2.2.1",
