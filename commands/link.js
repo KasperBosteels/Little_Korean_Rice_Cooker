@@ -7,6 +7,6 @@ module.exports = {
 	aliases: ['link'],
 	execute(client,message, args) {
 		
-        message.author.send(`https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=8&scope=bot`);
+        message.channel.send(`https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=8&scope=bot`);
 	},
 };

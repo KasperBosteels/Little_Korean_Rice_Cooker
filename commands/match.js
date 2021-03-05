@@ -10,7 +10,7 @@ module.exports = {
 	description: 'to find true happines is to find lewd people online',
 	cooldown: 1,
     usage: '<@user> or <@user> <@user> ',
-    aliases:['mm','marry'],
+    aliases:['mm','marry','match'],
 	category: "fun",
 	async execute(client,message, args) {
 		if (!args[0]) return message.channel.send(`pls give me a match\n if you dont know how to use this command try "-help matchmaker"`);

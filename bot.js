@@ -18,6 +18,7 @@ const rice = require("./text responses/rice.js");
 const getprefix = require('./getprefixData.js');
 const { sub } = require('ffmpeg-static');
 const activeSongs = new Map();
+const slash = require('./slash.js');
 //#endregion
 
 //#region init bot as client
@@ -74,6 +75,10 @@ fs.writeFileSync("./errors.json",JSON.stringify(Err,null,2),(err) => {
     if (err) console.log(err);
 });
 });
+//#endregion
+
+//#region slash command
+
 //#endregion
 
 //#region member leave 

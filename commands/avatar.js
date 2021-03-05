@@ -5,7 +5,8 @@ module.exports = {
 	cooldown: 1,
 	usage: ' <blank> / <@user>',
 	category: "fun",
-	execute(client,message, args,con) {
+	aliases: ['avatar','pfp'],
+        execute(client,message, args,con) {
         let member = message.guild.member(message.mentions.users.first() || client.users.cache.get(args[0]) || client.users.cache.find(user => user.username.toLowerCase() == args.join(" ").toLowerCase()) || 
          client.users.cache.find(user => user.tag.toLowerCase() == args.join(" ").toLowerCase()));
 
