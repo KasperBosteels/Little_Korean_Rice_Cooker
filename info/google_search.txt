@@ -1,0 +1,63 @@
+[
+  {
+    url: 'https://inhabitat.com/wp-content/blogs.dir/1/files/2018/11/overripe-bananas-lead.jpg',
+    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5O3MidrklR_wMDa1wKWEhsapbmb3VpZwO9x5B7b1RAE-sKrQsvLZubg&s',
+    snippet: '10 overripe banana recipes to help you fight food waste',        
+    context: 'https://news.google.com/articles/CAIiEM4LYN8BdkOhATtyZxVwIHMqFwgEKg8IACoHCAowpYXLATCYlHcw4Kww'
+  },
+  {
+    url: 'https://www.thekitchenmagpie.com/wp-content/uploads/images/2019/11/AdobeStock_170992136.png',
+    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfc2cY8-wkAMTZU2N8WMU68_0HxpUdIztwOxg1pe7TsYiajxua36Xm51Y&s',
+    snippet: 'How to Ripen Bananas | The Kitchen Magpie',
+    context: 'http://feedproxy.google.com/~r/kitchenmagpie/~3/HYUvJg32z3g/'    
+  },
+  {
+    url: 'https://i.redd.it/lpprnlebjts41.jpg',
+    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIuVz8SXnX90QU1vBUDT0PxZvEfkpftA4pijZzZYsGGEaLHBASxYlx3Q&s',
+    snippet: 'I bought some suspiciously perfect bananas yesterday ...',       
+    context: 'http://feedproxy.google.com/~r/Rushter/~3/9C2OXNaW2T4/'
+  },
+  {
+    url: 'https://www.thekitchenmagpie.com/wp-content/uploads/images/2020/08/oldfashionedbananasplits.jpg',
+    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe4LRaeK5k8hyHKKQPGfbgXMFNqQH9A7LtFlzTWPWH4xVo5zTx-mV_ZVw&s',
+    snippet: 'Old-Fashioned Ice Cream Banana Split | The Kitchen Magpie',      
+    context: 'http://feedproxy.google.com/~r/kitchenmagpie/~3/xzt6IssdUMI/'    
+  },
+  {
+    url: 'https://www.chilipeppermadness.com/wp-content/uploads/2019/09/Pickled-Banana-Peppers-Recipe1.jpg',
+    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNRZtsj4UEOD2ZPq7_yIy15DzQ9DMGXfFC5lb1RSPsrFgM49NYsxmrHsM&s',
+    snippet: 'Pickled Banana Peppers - Chili Pepper Madness',
+    context: 'http://feedproxy.google.com/~r/ChiliPepperMadness/~3/_hTRiLOUoqs/'
+  },
+  {
+    url: 'https://i2.wp.com/chilipeppermadness.com/wp-content/uploads/2019/09/Pickled-Banana-Peppers-JAR1.jpg',
+    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfLQ4yoQo8fhySksE8UavJ6TM8R_iVV1qpnDihlvFOdlKKAO6-NdARCw&s',
+    snippet: 'Pickled Banana Peppers - Chili Pepper Madness',
+    context: 'http://feedproxy.google.com/~r/ChiliPepperMadness/~3/_hTRiLOUoqs/'
+  },
+  {
+    url: 'https://api.time.com/wp-content/uploads/2019/08/banana-cocaine-safeway.jpg',
+    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAPRjBrDPVijHCJbBtILV_BkewNr0H48esSRiSrf95bA-zLWvIgwgRdA&s',
+    snippet: 'More Than $1 Million in Cocaine Found in Banana Shipments | Time',
+    context: 'http://feedproxy.google.com/~r/time/topstories/~3/qiCv1684sr0/'  
+  },
+  {
+    url: 'https://detoxinista.com/wp-content/uploads/2020/01/freeze-whole-bananas-500x500.jpg',
+    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6ntS5di5UgL1pvnBNbUSEzQYT4_YV5HFcCABfVjCuoeS4NVi732No7zQ&s',
+    snippet: 'How to Freeze Bananas (for smoothies & more!) - Detoxinista',    
+    context: 'http://feedproxy.google.com/~r/Detoxinista/~3/Xc3iAiFAqsk/'      
+  },
+  {
+    url: 'https://inhabitat.com/wp-content/blogs.dir/1/files/2018/11/overripe-bananas-1-600x480.jpg',
+    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvetLmmV9gNzUHNu4u0JTQ03nUYQDOOgJ5dS_qPuNF2OEtZ00cxS1PsSw&s',
+    snippet: '10 overripe banana recipes to help you fight food waste',        
+    context: 'https://news.google.com/articles/CAIiEM4LYN8BdkOhATtyZxVwIHMqFwgEKg8IACoHCAowpYXLATCYlHcw4Kww'
+  },
+  {
+    url: 'https://post.healthline.com/wp-content/uploads/2019/08/types-of-bananas-1200x628-facebook.jpg',
+    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9tcYhItzSMHjtFP7oE19ze7MsnUJJ14q2PnW9AdtPCNvEg9SUdbshnA&s',
+    snippet: '14 Unique Types of Bananas',
+    context: 'http://feedproxy.google.com/~r/quotnutritionCounterOnlinequot-GoogleNews/~3/b0qAdDsaGYk/types-of-bananas?utm_source=feedburner&utm_medium=email'  }  
+
+]
+
