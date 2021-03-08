@@ -39,7 +39,6 @@ module.exports = {
         let currency=[]
         //for the every command in the commandlist add values to a string from its category
 for (let i = 0; i < commandlist.length; i++) {
-    
     const command = commandlist[i];
     if(command['category'] == 'general'){
         general[i]=command;
@@ -49,7 +48,6 @@ for (let i = 0; i < commandlist.length; i++) {
         debug[i]=command;
     }else if (command['category'] == 'fun') {
         fun[i]=command;
-        console.log(fun[i]);
     }else if(command['category'] == 'music'){
         music[i]=command;
     }else if(command['category'] == 'currency'){
