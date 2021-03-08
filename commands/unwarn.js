@@ -2,10 +2,10 @@ const discord = require("discord.js");
 const sqlcon = require("../sql_serverconnection.js");
     module.exports = {
         name: 'unwarn',
-        description: 'resets a users warnings back to 0 (only the warnings in the current guild)',
+        description: 'resets a users warnings(within server)',
         usage: '<@ user>',
         guildOnly: 'true',
-        aliases: ['unwarn','uwarn','uw','unw','rw'],
+        aliases: ['uw','unw','rw'],
         category: "moderating",
         async execute(client,message, args,con) {
        //#region default check

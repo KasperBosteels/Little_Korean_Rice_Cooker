@@ -3,11 +3,10 @@ const Discord = require('discord.js');
 const sendembed = require('../sql_serverconnection.js');
 module.exports = {
     name: 'mute',
-    description: 'silence a user for a given time',
-    usage: `<@ user> <1-n>s/m/h\nbe aware that after you auto-complete a tag there is already a space so dont type in another space.\n(note: between the number and the consonant is no space)`,
+    description: 'mute user for a time',
+    usage: `<@ user> <1-n>s/m/h (note: between the number and the consonant is no space)`,
     guildOnly: 'true',
     args : 'true',
-    aliases:['mute','shhh'],
     category: "moderating",
     async execute(client,message,args,con) {
 

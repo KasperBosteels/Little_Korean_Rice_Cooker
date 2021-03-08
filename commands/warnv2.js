@@ -3,8 +3,8 @@ const sqlcon = require("../sql_serverconnection.js");
 const mute = require("../mutetimer.js");
 module.exports = {
         name: 'warn',
-        description: 'give a user a warning, after 3 warnings it wil mute the tagged user for the amount of warnings in minutes.',
-        usage: '<@ user> optional:<reason>',
+        description: 'warn user',
+        usage: '<@ user> (optional:<reason>)',
         guildOnly: 'true',
         aliases: ['w'],
         category: "moderating",

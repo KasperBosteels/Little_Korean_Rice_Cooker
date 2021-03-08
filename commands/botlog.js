@@ -1,9 +1,9 @@
 const sqlcon = require("../sql_serverconnection.js");
 module.exports = {
 	name: 'bot-log',
-	description: 'assign a channel where the logs go if for some reason it cant find the channel it will look for default channels named "bot-logs","bot-log","log" or "botllog"',
+	description: 'assign log channel, default channels: "bot-logs","bot-log","log" or "botllog"',
 	cooldown: 1,
-    usage: ' you just type the command in the channel u want the logs to go in. if you want to stop the logs from a certain non-default channel then add "no" after the command like <bot-log no>',
+    usage: '',
     guildOnly: "true",
     aliases:['btl'],
     category: "moderating",

@@ -2,10 +2,10 @@ const Discord = require("discord.io");
 var cringe = "https://cdn.discordapp.com/attachments/553714556669657101/744704134221135923/video0.mp4"
 module.exports = {
 	name: 'hassan',
-	description: 'chadboi hassan',
+	description: 'chadboi',
 	cooldown: 10,
     usage: ' ',
-    aliases:['hassan','has','mixedrace'],
+    aliases:['hassan','has'],
     category: "fun",
 	async execute(client,message, args) {
       

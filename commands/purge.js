@@ -2,9 +2,9 @@ const discord = require("discord.js");
 const sqlconnect = require('../sql_serverconnection.js');
 module.exports = {
 	name: 'purge',
-    description: 'delete messages, sadly not your mind',
+    description: 'delete multiple messages.',
     args: 'true',
-    usage:'<number to delete>',
+    usage:'<number>',
     aliases: ['delete','remove'],
     category: "moderating",
 	execute(client,message, args,con) {

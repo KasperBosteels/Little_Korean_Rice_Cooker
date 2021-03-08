@@ -1,9 +1,8 @@
 const love = require("../jsonFiles/love.json");
 module.exports = {
     name: 'love',
-    description: 'sends a loving message',
-    usage: 'empty or <@ user>',
-    aliases: ['ily'],
+    description: 'a loving message',
+    usage: 'empty or <@user>',
     cooldown: 1,
     category: "fun",
     async execute(client,message, args) {

@@ -2,10 +2,10 @@
 const discord = require("discord.js");
 const ms = require("ms");
         module.exports = {
-            name: 'role',
+            name: 'addrole',
             description: 'work in progress',
             args:'true',
-            usage: '<user> <role> if you want to add a role,\n<user> no <role> if you want to remove a role',
+            usage: '<user> <role>,\n<user> no <role> if you want to remove a role',
             guildOnly:'true',
             category: "moderating",
             execute(client,message, args,con) {

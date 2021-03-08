@@ -3,10 +3,9 @@ const discord = require("discord.js");
 const hug = require("../jsonFiles/bodily_affection.json");
 module.exports = {
 	name: 'hug',
-	description: 'hug someone that needs hugging',
+	description: 'hug someone',
 	cooldown: 1,
-    usage: '<@user> or <nothing>',
-    aliases:['h','cuddle','c'],
+    usage: '<@user> or <blank>',
 	category: "fun",
 	async execute(client,message, args) {
        

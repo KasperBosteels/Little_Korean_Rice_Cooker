@@ -2,10 +2,9 @@ const Discord = require("discord.io");
 const sqlcon = require("../sql_serverconnection.js");
     module.exports = {
         name: 'ban',
-        description: 'a final solution (only one person at a time)',
-        usage: '<@ user> optional <reason>',
+        description: 'ban user',
+        usage: '<@ user> (optional:<reason>)',
         guildOnly: 'true',
-        aliases: ['die','bye'],
         category: "moderating",
         async execute(client,message, args,con) {
             //check permissions of user 

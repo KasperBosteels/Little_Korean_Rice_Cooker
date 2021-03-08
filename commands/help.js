@@ -1,6 +1,9 @@
 const botconfig = require('../auth.json');
 const content = require('../jsonFiles/swearwords.json');
 const getprefix = require('../getprefixData.js');
+const {MessageEmbed} = require('discord.js');
+const recon = require('reconlx');
+const ReactionPages = recon.ReactionPages;
 module.exports = {
 
 	name: 'help',
@@ -15,54 +18,49 @@ module.exports = {
         var commandlist = [];
         var prefix = this.guildprefix(message.guild.id);
         
-        //for each command in commands folder get name description and category
+        //for each command in commands folder get name description and category and usage
         client.commands.forEach(command =>{
             var constructor = {
                 name: command.name,
                 description: command.description,
-                category: command.category
+                category: command.category,
+                usage: command.usage
             }
             //assign values to command list array 
             commandlist.push(constructor);
         });
         //default markup
-        var response = "**BOT COMMANDS**\n\n";
-        var general = "**__General__**\n";
-        var moderating = "\n**__MODERATING__**\n";
-        var fun = "\n**__Fun__**\n";
-        var debug ="\n**__Debug__**\n";
-        var music ="\n**__Music__**\n";
-        var currency="\n**__currency__**\n";
+        
+        let general = []
+        let moderating = []
+        let fun = []
+        let debug =[]
+        let music =[]
+        let currency=[]
         //for the every command in the commandlist add values to a string from its category
 for (let i = 0; i < commandlist.length; i++) {
+    
     const command = commandlist[i];
     if(command['category'] == 'general'){
-        general += `${prefix}${command['name']} - ${command["description"]}\n`;
+        general[i]=command;
     }else if (command['category'] == 'moderating') {
-        moderating += `${prefix}${command['name']} - ${command["description"]}\n`;
+        moderating[i]=command;
     }else if (command['category'] == 'debug') {
-        debug += `${prefix}${command['name']} - ${command["description"]}\n`;
+        debug[i]=command;
     }else if (command['category'] == 'fun') {
-        fun += `${prefix}${command['name']} - ${command["description"]}\n`;
+        fun[i]=command;
+        console.log(fun[i]);
     }else if(command['category'] == 'music'){
-        music += `${prefix}${command['name']} - ${command["description"]}\n`;
+        music[i]=command;
     }else if(command['category'] == 'currency'){
-        currency += `${prefix}${command['name']} - ${command['description']}\n`;
+        currency[i]=command;
     }
 }
-//put all category strings in response string
-response += general;
-response += moderating;
-response += debug;
-response += fun;
-response += music;
-response += currency;
+
+//put all category embeds in response array
+var response = [MakeEmbed(general),MakeEmbed(fun),MakeEmbed(music),MakeEmbed(currency),MakeEmbed(moderating),MakeEmbed(debug)];
 //dm the response string to the author if not possible send declined in channel
-message.author.send(response).then(() =>{message.channel.send(`i\'ve send you a dm with my commands :mailbox_with_mail:\ntip: you can also use ${botconfig.prefix}help <command name>   to get info about a specific command.`);
-}).catch((err)=>{
-    console.log(err);
-    message.channel.send('i could not dm you');
-});
+ReactionPages(message,response,true,["⏪", "⏩"],120000);
 
 
 
@@ -108,3 +106,12 @@ message.channel.send(data, { split: true });
         if(p){return p}else {return botconfig.prefix}
     }
 };
+function MakeEmbed(content,usage){
+let embed = new MessageEmbed()
+.setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
+.setColor('#00ff00');
+content.forEach(item => {
+    embed.addField(`${botconfig.prefix}${item.name} ${item.usage}`,item.description);
+});
+return embed;
+}

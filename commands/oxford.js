@@ -8,9 +8,8 @@ module.exports = {
 	name: 'oxford',
 	description: 'oxford dictionary',
 	cooldown: 1,
-	usage: '<a word> ',
+	usage: '<word> ',
     category: "fun",
-    aliases:["odefine","define"],
 	async execute(client,message, args,con) {
         if(!args[0])return;
         let word = "";

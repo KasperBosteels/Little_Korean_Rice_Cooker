@@ -1,6 +1,11 @@
-const discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const imageSearch = require('image-search-google');
-const {ReactionCollector} = require('discord.js-collector');
+const recon = require('reconlx');
+const ReactionPages = recon.ReactionPages;
+//const { ReactionCollector } = require('discord.js-collector');
+const TextPageChange = true;
+const emojis = ["⏪", "⏩"];
+const time = 60000;
 const GoogleClient = new imageSearch(process.env.CSE_ID,process.env.GOOGLE_API_KEY);
 const options = {page:1};
 module.exports = {
@@ -12,33 +17,24 @@ module.exports = {
 	async execute(client,message, args,con) {
     //#region google search
         let Q = args.join(" ");
-        const list = [];
+        var list = [];
         await GoogleClient.search(Q,options)
                 .then(images =>{
+                
                 for (let i = 0; i < images.length; i++) {
-                list[i] =MakeEmbed(images[i].url,message.member,i,images.length);
-            }  
+                list[i] = MakeEmbed(images[i].url,message.member,i,images.length);
+                }
+
         });
-        //#endregion
-        const botmessage = await message.reply(list[0]);
-        //construct the paginator    
-        ReactionCollector.paginator({
-        botmessage,
-        user: message.author,
-        pages: list,
-        collectorOptions: {
-            time: 6000
-        }
-        }).catch(error => { return console.log(error);});
+        ReactionPages(message,list,TextPageChange,emojis,time);    
+        
     },
 };
-function MakeEmbed(url,member,P,L){
-    const embed = new discord.MessageEmbed()
+
+function MakeEmbed(url,member){
+    let embed = new MessageEmbed()
     .setImage(url)
     .setAuthor(member.displayName,member.user.displayAvatarURL({dynamic: true, size: 4096}))
-    .setTimestamp()
-    .setDescription("google search result")
-    .setFooter(`Page ${P+1}/${L}`)
     .setColor('#00ff00');
-    return embed;
+    return embed
 }

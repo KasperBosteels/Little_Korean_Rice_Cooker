@@ -2,8 +2,8 @@ const Discord = require('discord.js');
 const sendembed = require("../sql_serverconnection.js");
     module.exports = {
         name: 'kick',
-        description: 'kick a tagged user',
-        usage: '<@ user>',
+        description: 'kick user',
+        usage: '<@user>',
         guildOnly: 'true',
         category: "moderating",
         execute(client,message, args,con) {

@@ -6,9 +6,9 @@ const nonsfw = require('../sub-commands/nudes.js');
 const choise = content.lewd;
 module.exports = {
 	name: 'lewd',
-	description: 'ever put a cat in a microwave ?',
+	description: 'Bonk',
 	cooldown: 1,
-	usage: ' optional: <your preference>',
+	usage: '(optional:<category>)',
 	category: "fun",
 	specifics: choise,
 	 async execute(client,message, args) {

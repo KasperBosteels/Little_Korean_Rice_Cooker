@@ -4,9 +4,8 @@ module.exports = {
 	name: 'urban',
 	description: 'urban dictionary',
 	cooldown: 1,
-	usage: '<a word> ',
+	usage: '<word> ',
     category: "fun",
-    aliases:["udefine","urban"],
 	 execute(client,message, args,con) {
         let word = " ";
         for (let i = 0; i < args.length; i++) {
