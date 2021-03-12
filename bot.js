@@ -130,12 +130,6 @@ client.on('guildMemberAdd',member => {
         rice.execute(message);
         //#endregion
 
-        if (message.mentions.has(client.user) && !prefixcheck.execute(message)){
-            let com = client.commands.get('help');
-            //let args = message.content.slice(config.prefix.length).trim().split(/ +/);
-            return com.execute(client,message,[]);
-        }
-
 
 
         //#region prefix check

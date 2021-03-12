@@ -16,18 +16,38 @@ module.exports = {
         receiverad = message.mentions.users.first();
         product = args[2];
         if(!args[2])return message.reply("pls use the help command to read  on how to use this command.");
+        if(args[2] == "money"){
+            con.query(`SELECT ballance FROM currency WHERE userID ="${userID}";`, (err,rows)=>{
+                //check error
+                if(err)return console.error(err);
+                if(!rows.length)return message.channel.send('You dont have any money.');
+                amount = rows[0].ballance;
+                
+            })
+
+
+
+        }else {
+
+        //get product information from server
         con.query(`SELECT * FROM items WHERE name = "${product}";`,(err,rows) =>{
         if(err)return console.error(err);
+        //check if item found (existance of it)
         if(!rows.length)return message.channel.send("item not found.");
+        //assign item parameters
             itemID = rows[0].itemID;
             name = rows[0].name;
             icon = rows[0].icon;
             itemDesc = rows[0].itemDesc;
+            //see if item is in users inventory
         con.query(`SELECT amount FROM inventory where itemID="${itemID}" AND userID = "${userID}";`,(err,rows) =>{
             if(err)return console.error(err);
+            //return if not
             if(!rows.length)return message.reply("you dont have this item sorry.");
+            //return if not enough
             if(!rows[0].amount >= amount)return message.channel.send('you dont have enough of this item.');
             itemamount = rows[0].amount;
+            //check if user has the item 
            con.query(`SELECT userID from inventory WHERE userID ="${receiver}" AND itemID ="${itemID}";`,(err,rows) =>{
             if(err)return console.error(err);
             if(!rows.length){
@@ -45,6 +65,7 @@ module.exports = {
            });
         });
         });
+    }
         
 
     }
