@@ -8,7 +8,7 @@ const ms = require("ms");
             usage: '<user> <role>,\n<user> no <role> if you want to remove a role',
             guildOnly:'true',
             category: "moderating",
-            execute(client,message, args,con) {
+           async  execute(client,message, args,con) {
         if(!permissioncheck(message))return message.reply('there is a conflict with the permissions')
         if(message.mentions.members.size){
             var users = message.mentions.members   
@@ -17,13 +17,13 @@ const ms = require("ms");
         }
         //var role = GetRole(args,message)
         var role  = GetRole(args,message);
-
         //remove or add the roles
         if(!remove(args)){
-           return removeRole(role,users);
+            await removeRole(role,users);
         }else{
-            return addRole(role,users);
+            await  addRole(role,users);
         }
+        
         ;
     },  
 };
@@ -38,12 +38,12 @@ for (let i = 0; i < users.length; i++) {
 }
 console.log('done');
 }
-
-function removeRole(role,users){
+ function removeRole(role,users){
     for (let i = 0; i < users.length; i++) {
         const user = users[i];
+        console.log(user);
         setTimeout(() =>{
-            user.roles.remove(role.id);
+              user.roles.remove(role.id);
             console.log('removed role to user');
         },ms(100))
     }
@@ -54,6 +54,7 @@ function remove(args){
     for (let i = 0; i < args.length; i++) {
         const item = args[i];
         if(item.toLowerCase() == 'no')value = false;
+        console.log(value);
     }
     return value;
 }
