@@ -7,15 +7,6 @@ module.exports = {
     category: "currency",
     aliases:["get"],
     async execute(client,message, args,con) {
-        /*
-        1. make variables asign desired buying amount, and asign producht name
-
-        2. get neccesary variables from database
-
-        3. check for enough money
-
-        4. if already in 
-        */
 
         //if nothing was given ask for more info
        if(!args[0])return message.channel.send('what would you like to buy ?');
@@ -24,8 +15,8 @@ module.exports = {
 
        //if no amout is given buy 1
        if(!args[1]){amount = 1;}else{amount = args[1];}
-       let product = args[0];
-       let ballance,itemID,cost,name,icon,inv;   
+       var product = args[0];
+       var ballance,itemID,cost,name,icon,inv;   
         await con.query(`SELECT bal.ballance,it.itemID,it.cost,it.name,it.icon, 
         EXISTS(SELECT * FROM inventory AS inv WHERE inv.userID = "${userID}" AND inv.itemID = (SELECT itemID FROM items WHERE NAME = "${product}")) exist FROM currency AS bal, items AS it WHERE userID = "${userID}" AND NAME = "${product}";`,(err,rows) =>{
             if(err)return console.log(err);
@@ -49,7 +40,9 @@ module.exports = {
             return purchased(message,ballance,name,icon,amount,cost);
         }
     });
-    },
+      
+},
+    
 };
 function purchased(message,ballance,name,icon,amount,cost){
     var bed = new Discord.MessageEmbed()
