@@ -26,7 +26,7 @@ module.exports = {
        if(!args[1]){amount = 1;}else{amount = args[1];}
        let product = args[0];
        let ballance,itemID,cost,name,icon,inv;   
-        con.query(`SELECT bal.ballance,it.itemID,it.cost,it.name,it.icon, 
+        await con.query(`SELECT bal.ballance,it.itemID,it.cost,it.name,it.icon, 
         EXISTS(SELECT * FROM inventory AS inv WHERE inv.userID = "${userID}" AND inv.itemID = (SELECT itemID FROM items WHERE NAME = "${product}")) exist FROM currency AS bal, items AS it WHERE userID = "${userID}" AND NAME = "${product}";`,(err,rows) =>{
             if(err)return console.log(err);
             if(!rows)return message.channel.send('i couldnt find that sorry');
