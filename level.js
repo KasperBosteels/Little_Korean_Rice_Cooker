@@ -5,12 +5,12 @@ module.exports = {
         let randomint;
         randomint = Math.floor((Math.random()*args.length)+1);  
         let userID = message.author.id;
-       await con.query(`SELECT level FROM levels WHERE userID = "${userID}";`,(err,rows) =>{
+        con.query(`SELECT level FROM levels WHERE userID = "${userID}";`,(err,rows) =>{
         if(err)console.log(err);
         if(!rows.length){
-        await con.query(`INSERT INTO levels (userID,level,exp) VALUES ("${userID}",1,0)`);
+         con.query(`INSERT INTO levels (userID,level,exp) VALUES ("${userID}",1,0)`);
         }else{
-        await con.query(`SELECT level ,exp FROM levels WHERE userID = "${userID}"`,(err,rows) =>{
+         con.query(`SELECT level ,exp FROM levels WHERE userID = "${userID}"`,(err,rows) =>{
            if(err)return console.log(err);
            var LEV = rows[0].level;
            var EXP = rows[0].exp+randomint;
@@ -30,16 +30,17 @@ module.exports = {
             //#endregion
             try{
                 sqlconnect.execute(con,mem,6,embed,message);
-                await con.query(`UPDATE levels SET level = ${LEV}, exp = 0 WHERE userID = "${userID}"`,(err)=>{
+                con.query(`UPDATE levels SET level = ${LEV}, exp = 0 WHERE userID = "${userID}"`,(err)=>{
                 if(err)console.log(err);
                 });
                 }catch(err){console.log(err);} 
             }
-            await con.query(`UPDATE levels SET level = ${LEV}, exp = ${EXP} WHERE userID = "${userID}"`)
-            if(LEV == 3){con.query(`INSERT INTO currency (userID,ballance) values ("${message.author.id}",100)`,(err)=>{if(err)throw(err);});
-        }else if(LEV > 4){con.query(`UPDATE currency SET ballance = ballance + 100 WHERE userID = "${message.channel.id}"`,(err)=>{if(err)throw(err);});}
-        });
-    }});
-    
-	},
+             con.query(`UPDATE levels SET level = ${LEV}, exp = ${EXP} WHERE userID = "${userID}"`);
+                if(LEV == 3){con.query(`INSERT INTO currency (userID,ballance) values ("${message.author.id}",100)`,(err)=>{if(err)throw(err);});
+                }else if(LEV >= 4){con.query(`UPDATE currency SET ballance = ballance + 100 WHERE userID = "${message.channel.id}"`,(err)=>{if(err)throw(err);});}
+            });
+        }
+    });
+
+},
 };
