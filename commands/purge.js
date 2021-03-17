@@ -9,8 +9,8 @@ module.exports = {
     category: "moderating",
 	execute(client,message, args,con) {
         //check parms
-        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm Denied');
-        if (!message.guild.me.hasPermission("KICK_MEMBERS")) return message.reply('perm2 Denied');
+        if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply('perm Denied');
+        if (!message.guild.me.hasPermission("MANAGE_MESSAGES")) return message.reply('perm2 Denied');
 
         //get amount to delete
         const amount = parseInt(args[0])+ 1;

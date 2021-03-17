@@ -4,6 +4,7 @@ module.exports = {
 	cooldown: 1,
 	usage: '',
 	category: "music",
+    aliases:['skip'],
 	execute(client,message, args,con,options) {
         let guildData = options.active.get(message.guild.id);
         if(!guildData)return message.channel.send("No music is being played atm.");
