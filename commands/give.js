@@ -48,7 +48,7 @@ module.exports = {
             if(!rows[0].amount >= amount)return message.channel.send('you dont have enough of this item.');
             itemamount = rows[0].amount;
             //check if user has the item 
-           con.query(`SELECT userID from inventory WHERE userID ="${receiver}" AND itemID ="${itemID}";`,(err,rows) =>{
+           con.query(`SELECT userID from inventory WHERE userID ="${receiver.id}" AND itemID ="${itemID}";`,(err,rows) =>{
             if(err)return console.error(err);
             if(!rows.length){
                 con.query(`INSERT INTO inventory (userID,itemID,amount) VALUES ("${receiver}",${itemID},${amount});`);

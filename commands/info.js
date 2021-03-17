@@ -9,7 +9,7 @@ module.exports = {
 	usage: ' ',
 	execute(client, message, args,con) {
         var connection = ':x:'
-        if(test.execute(con))connection = ':white_check_mark:';
+        if(test.execute(con)){connection = ':white_check_mark:'; console.log(`sql connection is ${connection}`);}        
         return message.channel.send(makeEmbed(connection));
         
     },

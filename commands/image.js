@@ -14,6 +14,7 @@ module.exports = {
 	cooldown: 1,
 	usage: '<your query>',
 	category: "fun",
+    aliases: ['img'],
 	async execute(client,message, args,con) {
     //#region google search
         let Q = args.join(" ");

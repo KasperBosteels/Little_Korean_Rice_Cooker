@@ -6,6 +6,7 @@ module.exports = {
 	cooldown: 1,
 	usage: ' ',
 	category: "fun",
+	irl:true,
 	async execute(client,message, args,con) {
 	return message.channel.send(await nsfw.wallpaper());
 	},
