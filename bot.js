@@ -64,8 +64,8 @@ var con = mysql.createConnection({
 //and display succes message in terminal
 client.on('ready', () => {
     start.execute(client,con);
-    insertslash.execute(client);
-    slash_Interactions.execute(client);
+    //insertslash.execute(client);
+    //slash_Interactions.execute(client);
     getprefix.execute(con);
     
 });
