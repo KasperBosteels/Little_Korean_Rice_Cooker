@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 const sendembed = require('../sql_serverconnection.js');
 module.exports = {
     name: 'mute',
-    description: 'mute user for a time',
+    description: 'Mute user for a time.',
     usage: `<@ user> <1-n>s/m/h (note: between the number and the consonant is no space)`,
     guildOnly: 'true',
     args : 'true',
@@ -12,8 +12,8 @@ module.exports = {
 
 
         //check perms
-        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('permission denied.');
-        if (!message.guild.me.hasPermission("MANAGE_ROLES")) return message.reply('I do not have the permission to manage roles.');
+        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('Permission denied.');
+        if (!message.guild.me.hasPermission("MANAGE_ROLES")) return message.reply('I do not have the permission to mute a person(i need role management).');
 
         //get mention and if found succesfully check for mod
         var muteperson = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
@@ -28,11 +28,11 @@ module.exports = {
         if(!role)role = message.guild.roles.cache.find(role => role.name === 'muted');
         if(!role)await message.guild.roles.create({data: {name: 'Muted',permissions : ['VIEW_CHANNEL','READ_MESSAGE_HISTORY']}});
         var role = message.guild.roles.cache.find(role => role.name === 'Muted');
-        if (!role)  return message.channel.send('no mute role, and i cant make one. Would you kindly make a role named "Muted" ?');
+        if (!role)  return message.channel.send('No mute role, and i cant make one. Would you kindly make a role named "Muted" ?');
         
         //get requested time to mute if no time given return 
         var muteTime = args[1];
-        if (!muteTime) return message.channel.send('no time input');
+        if (!muteTime) return message.channel.send('No time input.');
 
         //await giving muteperson the mute role
         await(muteperson.roles.add(role.id));
@@ -60,7 +60,7 @@ function makeEmbed(message,mute,time){
     .setColor('#ffa500')
     .setFooter(message.guild.me.displayName)
     .setTimestamp()
-    .setDescription(`**${mute.displayName}** has been muted for ${time}`);
+    .setDescription(`**${mute.displayName}** has been muted for ${time}.`);
 return embed
 }
 function lastembed(message,mute,time){

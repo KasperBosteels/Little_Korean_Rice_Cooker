@@ -29,7 +29,7 @@ module.exports = {
 			message.channel.send(await preference(Discord,link));
 		}catch (error){
 			console.log(error);
-			return message.channel.send('error occured');
+			return message.channel.send('An error occured.');
 		}
 		
 

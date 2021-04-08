@@ -2,7 +2,7 @@ const haiku = require('haiku-random');
 const discord = require('discord.js');
 module.exports = {
 	name: 'haiku',
-	description: 'receive a random haiku from a list of over 1500',
+	description: 'Receive a random haiku from a list of over 1500.',
 	cooldown: 1,
 	usage: ' (optional: <number>)',
 	category: "fun",

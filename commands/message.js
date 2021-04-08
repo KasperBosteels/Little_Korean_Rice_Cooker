@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'message',
-	description: 'message the author of the bot',
+	description: 'Message the author of the bot.',
 	cooldown: 10,
 	usage: '<you message>',
     category: "general",
@@ -15,7 +15,7 @@ module.exports = {
             });
         }catch(error) {
             console.error(error);
-            message.reply('for some reason the author was not able to receive the message ');
+            message.reply('For some reason the author was not able to receive the message.');
         }
 		
 

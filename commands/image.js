@@ -10,7 +10,7 @@ const GoogleClient = new imageSearch(process.env.CSE_ID,process.env.GOOGLE_API_K
 const options = {page:1};
 module.exports = {
 	name: 'google',
-	description: 'when the other bot is down.',
+	description: 'Search google for images.',
 	cooldown: 1,
 	usage: '<your query>',
 	category: "fun",

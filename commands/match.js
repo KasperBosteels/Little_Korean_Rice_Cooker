@@ -7,13 +7,13 @@ var lovemeter;
 //loading bar in here for use of other commands possible
 module.exports = {
 	name: 'matchmaker',
-	description: 'find lewd people online',
+	description: 'Find true love on discord (not a scam i swear).',
 	cooldown: 1,
     usage: '<@user> or <@user> <@user> ',
     aliases:['mm','match'],
 	category: "fun",
 	async execute(client,message, args) {
-		if (!args[0]) return message.channel.send(`pls give me a match\n if you dont know how to use this command try "-help matchmaker"`);
+		if (!args[0]) return message.channel.send(`Give me a match\n if you dont know how to use this command try "-help matchmaker"`);
 		/**
  * Create a text progress bar
  * @param {Number} value - The value to fill the bar

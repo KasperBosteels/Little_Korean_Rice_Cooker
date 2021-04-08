@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'ping',
-    description: 'gives you latency of the bot',
+    description: 'Gives you latency of the bot.',
 	cooldown : 100,
 	category: "debug",
 	aliases: ["ching"],

@@ -1,7 +1,7 @@
 const sqlcon = require("../sql_serverconnection.js");
 module.exports = {
 	name: 'bot-log',
-	description: 'assign log channel, default channels: "bot-logs","bot-log","log" or "botllog"',
+	description: 'Assign log channel, default channels: "bot-logs","bot-log","log" or "botllog."',
 	cooldown: 1,
     usage: '',
     guildOnly: "true",
@@ -11,7 +11,7 @@ module.exports = {
         //check perms
         if(!permission(message))return message.reply('you have no permission to do that.');
 
-        //asigns id to variables
+        //assigns id to variables
         var channel = message.channel.id;
         var guild = message.guild.id;
         
@@ -24,9 +24,9 @@ module.exports = {
                 if(err){ console.log(err); message.channel.send("NO 2.1*");}
                 if(rows[0].exist != 0){
                     con.query(`DELETE FROM logchannel WHERE guildID = "${guild}";`);
-                    message.channel.send('no more logs here');
+                    message.channel.send('I will not send any log messages here.');
                 }else {
-                return message.channel.send("There wasn't any log channel set, if there are still messages popping up try renaming it or sending me a message (-message <you message>).");
+                return message.channel.send("There wasn't any log channel set, if there are still messages popping up try renaming it or sending me a message (with the message command).");
                 }
             });
         }else {
@@ -35,15 +35,15 @@ module.exports = {
 
         //checks if database already exists if true update else insert
         con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
-            if(err){ console.log(err); message.channel.send("2.1*");}
+            if(err){ console.log(err); message.channel.send("Something broke, sorry.");}
             if(rows[0].exist != 0){
                 con.query(`UPDATE logchannel SET channelID = '${channel}' WHERE guildID = '${guild}';`);
             }else{
                 con.query(`INSERT INTO logchannel (guildID,channelID) VALUES("${guild}","${channel}");`,(err) =>{
-                    if(err){ console.log(err); message.channel.send("2.2");}
+                    if(err){ console.log(err); message.channel.send("Something broke, very sorry.");}
                 });
             }
-            return message.channel.send('i will send my log here now');
+            return message.channel.send('i will send my logs here now');
         });
     }
     },

@@ -6,7 +6,7 @@ const config={app_id : ID,app_key: KEY,source_lang:"en-gb"};
 const dict = new ox(config);
 module.exports = {
 	name: 'oxford',
-	description: 'oxford dictionary',
+	description: 'Oxford Dictionary.',
 	cooldown: 1,
 	usage: '<word> ',
     category: "fun",
@@ -80,7 +80,7 @@ function synonymGET(object){
     
         synonyms +=`\n`;
     
-    }else {synonyms = "no synonyms found."}
+    }else {synonyms = "No synonyms found."}
     return synonyms;
 }
 function makeEmbed(author,word,object,Discord){

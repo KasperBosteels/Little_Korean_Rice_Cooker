@@ -2,7 +2,7 @@ var tickleDatabase =["https://i.imgur.com/4LT8WJU.gif","https://i.imgur.com/K1Xm
 const discord = require('discord.js');
 module.exports = {
 	name: 'tickle',
-	description: 'tickle me this, tickle me that.',
+	description: 'Tickle me this, tickle me that.',
 	cooldown: 1,
 	usage: '<@user>',
 	category: "fun",

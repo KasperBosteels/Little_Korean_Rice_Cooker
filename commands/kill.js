@@ -4,7 +4,7 @@ const synonyms = ["ended","killed","assasinated","liquidated","exterminated","ex
 const discord = require('discord.js');
 module.exports = {
 	name: 'kill',
-	description: 'kill someone',
+	description: 'Kill someone.',
 	cooldown: 1,
 	usage: ' <@user>',
         aliases: ["end","assasinate","liquidate","exterminate","execute","slaughtere","eat","butcher","ice","zapp","smoke","terminate"],

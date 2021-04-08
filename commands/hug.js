@@ -3,7 +3,7 @@ const discord = require("discord.js");
 const hug = require("../jsonFiles/bodily_affection.json");
 module.exports = {
 	name: 'hug',
-	description: 'hug someone',
+	description: 'Hug someone.',
 	cooldown: 1,
     usage: '<@user> or <blank>',
 	category: "fun",

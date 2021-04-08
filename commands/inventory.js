@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 module.exports = {
 	name: 'inventory',
-	description: 'display inventory',
+	description: 'Display inventory.',
 	cooldown: 1,
 	usage: ' ',
     category: "currency",
@@ -15,7 +15,7 @@ module.exports = {
         con.query(`SELECT inventory.itemID,items.name,items.itemDesc,items.icon,inventory.amount FROM inventory,items WHERE userID = "${message.author.id}" AND inventory.itemID = items.itemID`,(err,rows) =>{
             if(err)console.log(err);
             if(!rows.length){
-            return message.channel.send('nothing in inventory yet');
+            return message.channel.send('Nothing in inventory yet.');
             }
             
             for (let i = 0; i < rows.length; i++) {

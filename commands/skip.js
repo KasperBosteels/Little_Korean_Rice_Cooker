@@ -8,7 +8,7 @@ module.exports = {
 	execute(client,message, args,con,options) {
         let guildData = options.active.get(message.guild.id);
         if(!guildData)return message.channel.send("No music is being played atm.");
-        if(message.member.voice.channel != message.guild.me.voice.channel)return message.channel.send('sorry the bot is not in the same channel as you');
+        if(message.member.voice.channel != message.guild.me.voice.channel)return message.channel.send('Sorry the bot is not in the same channel as you.');
         if(message.member.hasPermission('KICK_MEMBERS')){
             message.channel.send('skipped');
             return guildData.dispatcher.emit('finish'); 

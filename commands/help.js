@@ -72,7 +72,7 @@ ReactionPages(message,response,true,["⏪", "⏩"],120000);
 
         //if there is no command found return 
 if (!command) {
-	return message.reply('that was not a valid command!'`\ntype: ${prefix}help\n for all commands`);
+	return message.reply('That was not a valid command!'`\ntype: ${prefix}help\n for all commands.`);
 }
 
 //push values to data array

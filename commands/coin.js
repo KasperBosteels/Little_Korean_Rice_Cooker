@@ -1,7 +1,7 @@
 
     module.exports = {
         name: 'coin',
-        description: 'coinflip',
+        description: 'Coinflip',
         cooldown: 1,
         aliases: ['flip','coinflip','cf'],
         usage: ' ',

@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
 module.exports = {
 	name: 'ava',
-	description: 'display the pfp of a user',
+	description: 'Display the pfp of a user.',
 	cooldown: 1,
-	usage: ' <blank> / <@user>',
+	usage: ' <blank> or <@user>',
 	category: "fun",
 	aliases: ['avatar','pfp'],
         execute(client,message, args,con) {

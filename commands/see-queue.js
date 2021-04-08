@@ -6,7 +6,7 @@ module.exports = {
 	category: "music",
 	execute(client,message, args,con,options) {
 let guildData = options.active.get(message.guild.id);
-if(!guildData)return message.channel.send('no music is being played atm.');
+if(!guildData)return message.channel.send('No music is being played atm.');
 let queue = guildData.queue;
 let nowplaying = queue[0];
 let response = `playing: ${nowplaying.songTitle} || requested by: ${nowplaying.requester}. \n\n queue: \n`;

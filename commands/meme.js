@@ -3,7 +3,7 @@ const { codePointAt } = require('ffmpeg-static');
 const fetch = require('node-fetch');
 module.exports = {
 	name: 'meme',
-	description: 'cripsy memes',
+	description: 'Cripsy memes.',
 	cooldown: 1,
 	usage: ' ',
 	category: "fun",

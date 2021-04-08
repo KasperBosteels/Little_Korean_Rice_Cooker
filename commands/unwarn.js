@@ -2,16 +2,16 @@ const discord = require("discord.js");
 const sqlcon = require("../sql_serverconnection.js");
     module.exports = {
         name: 'unwarn',
-        description: 'resets a users warnings(within server)',
+        description: 'Resets a users warnings(within server).',
         usage: '<@ user>',
         guildOnly: 'true',
         aliases: ['uw','unw','rw'],
         category: "moderating",
         async execute(client,message, args,con) {
        //#region default check
-       if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm 1 denied');
+       if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('You do not have permission to do this.');
        if (!args[0]) return message.reply('no user tagged');
-       if (!message.guild.me.hasPermission('KICK_MEMBERS')) return message.reply('perm 2 denied');
+       if (!message.guild.me.hasPermission('KICK_MEMBERS')) return message.reply('I do not have permission to do this.');
        var unwarnuser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
        if (!unwarnuser) return message.reply('no user found');
        //#endregion

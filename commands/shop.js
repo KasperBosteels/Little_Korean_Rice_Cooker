@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 module.exports = {
 	name: 'shop',
-	description: 'display shop contents',
+	description: 'Display shop contents',
 	cooldown: 1,
 	usage: ' ',
     category: "currency",

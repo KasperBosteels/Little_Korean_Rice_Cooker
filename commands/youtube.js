@@ -2,7 +2,7 @@ const search = require('yt-search');
 const {MessageEmbed} = require('discord.js');
 module.exports = {
 	name: 'youtube',
-	description: 'i will look for some good videos.',
+	description: 'I will look for some good videos.',
 	cooldown: 1,
 	usage: '<title>',
     aliases: ['yt'],

@@ -1,7 +1,7 @@
 const love = require("../jsonFiles/love.json");
 module.exports = {
     name: 'love',
-    description: 'a loving message',
+    description: 'A loving message.',
     usage: 'empty or <@user>',
     cooldown: 1,
     category: "fun",

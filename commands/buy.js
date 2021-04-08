@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 module.exports = {
 	name: 'buy',
-	description: 'buy a product',
+	description: 'Buy a product.',
 	cooldown: 1,
 	usage: '<name>  optional: <amount>',
     category: "currency",
@@ -9,7 +9,7 @@ module.exports = {
     async execute(client,message, args,con) {
 
         //if nothing was given ask for more info
-       if(!args[0])return message.channel.send('what would you like to buy ?');
+       if(!args[0])return message.channel.send('You need to tell me what to buy.');
        var userID = message.author.id
        var amount;
         
@@ -20,8 +20,8 @@ module.exports = {
         con.query(`SELECT bal.ballance,it.itemID,it.cost,it.name,it.icon, 
         EXISTS(SELECT * FROM inventory AS inv WHERE inv.userID = "${userID}" AND inv.itemID = (SELECT itemID FROM items WHERE NAME = "${product}")) exist FROM currency AS bal, items AS it WHERE userID = "${userID}" AND NAME = "${product}";`,(err,rows) =>{
             if(err)return console.log(err);
-            if(rows[0] == undefined)return message.channel.send(`did you use the command correctly ? ( product amount ) `);
-            if(!rows[0].exist == 1 && rows[0] != undefined)return message.channel.send('i couldnt find that sorry');
+            if(rows[0] == undefined)return message.channel.send(`Did you use the command correctly ? ( product amount ) `);
+            if(!rows[0].exist == 1 && rows[0] != undefined)return message.channel.send('I couldnt find that sorry.');
              ballance = rows[0].ballance;
              itemID   = rows[0].itemID;
              cost     = rows[0].cost;

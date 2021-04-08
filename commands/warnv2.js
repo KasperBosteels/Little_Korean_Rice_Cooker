@@ -3,19 +3,19 @@ const sqlcon = require("../sql_serverconnection.js");
 const mute = require("../mutetimer.js");
 module.exports = {
         name: 'warn',
-        description: 'warn user',
+        description: 'Warn a user.',
         usage: '<@ user> (optional:<reason>)',
         guildOnly: 'true',
         aliases: ['w'],
         category: "moderating",
         async execute(client,message, args,con) {
        //#region default check
-       if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm 1 denied');
+       if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('You do not have permission to do this.');
        if (!args[0]) return message.reply('no user tagged');
-       if (!message.guild.me.hasPermission('KICK_MEMBERS')) return message.reply('perm 2 denied');
+       if (!message.guild.me.hasPermission('KICK_MEMBERS')) return message.reply('I do not have permission to do this.');
        var warnuser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
        var reason = args.slice(1).join(" ");
-       if (!warnuser) return message.reply('no user found');
+       if (!warnuser) return message.reply('No user found.');
        //#endregion
 //get data and insert into data base
  con.query(`INSERT INTO warnings (guildID,userID,warnings) VALUES("${message.guild.id}","${warnuser.id}","${reason}")`);
@@ -40,7 +40,7 @@ sqlcon.execute(con,warnuser,6,embed,message);
 if(amount > 3){
   //looks for mute role if not existing return console log
   var role = message.guild.roles.cache.find(role => role.name === 'Muted');
-  if (!role)  return message.channel.send('no mute role, pls make a role named <Muted>(respect the capital letter!!)');
+  if (!role)  return message.channel.send('No mute role, pls make a role named <Muted>(respect the capital letter!!).');
 
   //makes mute time variable and checks for null if not console log
   mute.execute(amount+'m',warnuser,role,message);

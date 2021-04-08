@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 module.exports = {
 	name: 'balance',
-	description: 'look at all that money',
+	description: 'Look at all that money.',
 	cooldown: 1,
 	usage: ' ',
     category: "currency",
@@ -11,7 +11,7 @@ module.exports = {
         //ask sql server for amount of money in users wallet
         con.query(`SELECT ballance FROM currency WHERE userID = "${message.author.id}"`,(err,rows) =>{
             if(err)console.log(err);
-            if(!rows.length)return message.channel.send('nothing in inventory yet');
+            if(!rows.length)return message.channel.send('You dont have a wallet.');
             //make and send embed
             return message.channel.send(makeEmbed(message,rows[0].ballance));
         });

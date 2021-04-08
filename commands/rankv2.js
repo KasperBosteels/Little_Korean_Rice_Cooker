@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const cavacord = require('canvacord');
 module.exports = {
 	name: 'level',
-	description: 'see the current level, rank and progression from a user',
+	description: 'See the current level, rank and progression from a user.',
 	cooldown: 1,
 	usage: '<optional: @user>',
     category: "General",
@@ -13,7 +13,7 @@ module.exports = {
     con.query(`SELECT * FROM levels WHERE userID = "${ID}";`,(err,rows) =>{
         if(err)console.log(err);
         if(!rows.length){
-        return message.channel.send('sorry bud, i didnt find that person');
+        return message.channel.send("I didn't find that user.");
         }else{
             
             con.query(`SELECT s.level,s.exp,s.number FROM ( SELECT userID,level,exp,(@ROW_NUMBER:=@ROW_NUMBER + 1 ) AS number FROM levels, (SELECT @ROW_NUMBER := 0) init_variable ORDER BY level DESC) AS s WHERE userID = "${ID}";`,(err,rows) =>{

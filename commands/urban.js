@@ -2,7 +2,7 @@ const ud = require('urban-dictionary');
 const discord = require('discord.js');
 module.exports = {
 	name: 'urban',
-	description: 'urban dictionary',
+	description: 'Urban Dictionary.',
 	cooldown: 1,
 	usage: '<word> ',
     category: "fun",

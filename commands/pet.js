@@ -2,7 +2,7 @@ const discord = require("discord.js");
 const hug = require("../jsonFiles/bodily_affection.json");
 module.exports = {
 	name: 'pet',
-	description: 'pat someone',
+	description: 'Pet someone.',
 	cooldown: 1,
     usage: '<@user> or <nothing>',
     aliases:['p','pat','pat'],

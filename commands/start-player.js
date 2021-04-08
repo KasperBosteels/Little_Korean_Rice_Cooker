@@ -2,14 +2,14 @@ const ytdl = require('ytdl-core');
 //const ytdl = require('ytdl-core-discord');
 module.exports = {
 	name: 'sing',
-	description: 'I will sing you a song',
+	description: 'I will sing you a song.',
 	cooldown: 1,
 	usage: '<your url>',
 	category: "music",
 	async execute(client,message, args,con,options) {
 
-        if(!message.member.voice.channel)return message.channel.send('you are not connected to a voice channel.');
-        if(!args[0])return message.channel.send('you need to give me a song url.');
+        if(!message.member.voice.channel)return message.channel.send('You are not connected to a voice channel.');
+        if(!args[0])return message.channel.send('You need to give me a song url.');
         let validate = await ytdl.validateURL(args[0]);
         if(!validate)return message.channel.send('url not found sorry.');
         let info = await  ytdl.getInfo(args[0]);

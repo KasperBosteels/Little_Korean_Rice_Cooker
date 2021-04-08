@@ -2,13 +2,13 @@ const Discord = require("discord.io");
 const sqlcon = require("../sql_serverconnection.js");
     module.exports = {
         name: 'ban',
-        description: 'ban user',
+        description: 'Ban user.',
         usage: '<@ user> (optional:<reason>)',
         guildOnly: 'true',
         category: "moderating",
         async execute(client,message, args,con) {
             //check permissions of user 
-            if(!permissioncheck(message)) return message.reply('you have no permission to do that.');
+            if(!permissioncheck(message)) return message.reply('You have no permission to do that.');
 
             //check if a person was mentioned
             const user = getUserFromMention(args[0],client);
@@ -17,7 +17,7 @@ const sqlcon = require("../sql_serverconnection.js");
     }
     //look if reason was given for ban from the server
     var Reason = args[1]
-    if(!Reason) Reason = "no given";
+    if(!Reason) Reason = "non given";
     try {
         //try to ban member with reason
 		await message.guild.members.ban(user, { reason: Reason});

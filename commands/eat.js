@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 var words = ["consumed","devoured","ingested","swallowed","chomped","ingurgitated",];
 module.exports = {
 	name: 'eat',
-	description: 'eat something',
+	description: 'Eat something.',
 	cooldown: 1,
 	usage: ' ',
     category: "currency",
@@ -16,7 +16,7 @@ module.exports = {
             product = args[0]
         }else{
         if(isNumeric(args[0])){amount = args[0]; product = args[1];
-        }else if(isNumeric(args[1])){amount = args[1]; product = args[0];}else{return message.channel.send('i didnt find that sorry');}
+        }else if(isNumeric(args[1])){amount = args[1]; product = args[0];}else{return message.channel.send('I didnt find that sorry.');}
         }
         let itemName=[];
         let itemicon=[];
@@ -24,7 +24,7 @@ module.exports = {
         if(err)return console.log(err);
             itemName = rows[0].name;
             itemicon = rows[0].icon;
-            if(amount> rows[0].amount)return message.channel.send(`you dont have enough ${itemName} ${itemicon}`);
+            if(amount> rows[0].amount)return message.channel.send(`You dont have enough ${itemName} ${itemicon}.`);
             con.query(`UPDATE inventory SET amount = amount - ${amount} WHERE userID = "${message.author.id}" AND itemID = ${rows[0].itemID};`,(err)=>{
             if(err)return console.log(err);
             });

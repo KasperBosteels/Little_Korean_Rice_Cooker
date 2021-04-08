@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'invite-me',
-	description: 'gives you a link to invite the bot to a different server',
+	description: 'Gives you a link to invite the bot to a different server.',
 	cooldown: 1,
 	usage: ' ',
 	category: "general",

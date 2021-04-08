@@ -1,21 +1,21 @@
 const Discord = require('discord.js');
 module.exports = {
 	name: 'give',
-	description: 'give an item to a user.',
+	description: 'Give an item to a user.',
 	cooldown: 1,
 	usage: '<@user> <amount> <item>',
     category: "currency",
     aliases:["gift"],
     async execute(client,message, args,con) {
         
-        if(!args[0])return message.channel.send('what would you like to buy ?');
+        if(!args[0])return message.channel.send('What would you like to buy ?');
         let userID = message.author.id
         var amount,product,receiver,itemID,name,icon,itemDesc,itemamount;
         amount = args[1];
         receiver = message.mentions.users.first().id;
         receiverad = message.mentions.users.first();
         product = args[2];
-        if(!args[2])return message.reply("pls use the help command to read  on how to use this command.");
+        if(!args[2])return message.reply("Pls use the help command to read  on how to use this command.");
         if(args[2] == "money"){
             con.query(`SELECT ballance FROM currency WHERE userID ="${userID}";`, (err,rows)=>{
                 //check error
@@ -33,7 +33,7 @@ module.exports = {
         con.query(`SELECT * FROM items WHERE name = "${product}";`,(err,rows) =>{
         if(err)return console.error(err);
         //check if item found (existance of it)
-        if(!rows.length)return message.channel.send("item not found.");
+        if(!rows.length)return message.channel.send("Item not found.");
         //assign item parameters
             itemID = rows[0].itemID;
             name = rows[0].name;
@@ -43,9 +43,9 @@ module.exports = {
         con.query(`SELECT amount FROM inventory where itemID="${itemID}" AND userID = "${userID}";`,(err,rows) =>{
             if(err)return console.error(err);
             //return if not
-            if(!rows.length)return message.reply("you dont have this item sorry.");
+            if(!rows.length)return message.reply("You dont have this item sorry.");
             //return if not enough
-            if(!rows[0].amount >= amount)return message.channel.send('you dont have enough of this item.');
+            if(!rows[0].amount >= amount)return message.channel.send('You dont have enough of this item.');
             itemamount = rows[0].amount;
             //check if user has the item 
            con.query(`SELECT userID from inventory WHERE userID ="${receiver.id}" AND itemID ="${itemID}";`,(err,rows) =>{
@@ -75,6 +75,6 @@ function sendembed(itemicon,itemname,amount,receiver,message){
     .setColor('#50C878')
     .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
     .setTitle("**gift completed**")
-    .addField('you gave',`${amount} ${itemname} ${itemicon}\nto: __${receiver}__`);
+    .addField('You gave',`${amount} ${itemname} ${itemicon}\nto: __${receiver}__.`);
     message.channel.send(bed);
 }
