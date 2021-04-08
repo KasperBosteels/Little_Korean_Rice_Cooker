@@ -18,8 +18,8 @@ const rice = require("./text responses/rice.js");
 const getprefix = require('./getprefixData.js');
 const { sub } = require('ffmpeg-static');
 const activeSongs = new Map();
-const insertslash = require('./slash command/slashstart.js');
-const slash_Interactions = require('./slash command/slash_Interactions.js');
+//const insertslash = require('./slash command/slashstart.js');
+//const slash_Interactions = require('./slash command/slash_Interactions.js');
 //#endregion
 
 //#region init bot as client
