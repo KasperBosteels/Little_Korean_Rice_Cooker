@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 module.exports = {
 	name: 'ava',
-	description: 'display pfp of a user',
+	description: 'display the pfp of a user',
 	cooldown: 1,
 	usage: ' <blank> / <@user>',
 	category: "fun",

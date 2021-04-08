@@ -18,7 +18,8 @@ const rice = require("./text responses/rice.js");
 const getprefix = require('./getprefixData.js');
 const { sub } = require('ffmpeg-static');
 const activeSongs = new Map();
-const slash = require('./slash.js');
+const insertslash = require('./slash command/slashstart.js');
+const slash_Interactions = require('./slash command/slash_Interactions.js');
 //#endregion
 
 //#region init bot as client
@@ -63,9 +64,18 @@ var con = mysql.createConnection({
 //and display succes message in terminal
 client.on('ready', () => {
     start.execute(client,con);
+    insertslash.execute(client);
+    slash_Interactions.execute(client);
     getprefix.execute(con);
     
 });
+async function CreateApiMessage(interactie,content){
+    let apiMessage = await Discord.APIMessage.create(client.channels.resolve(interactie.channel_id),content)
+    .resolveData()
+    .resolveFiles();
+    return {...apiMessage.data};
+
+}
 //#endregion
 
 //#region error handler
