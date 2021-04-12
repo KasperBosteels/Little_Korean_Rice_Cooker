@@ -29,10 +29,6 @@ module.exports = {
     args: 'true',
     category: "fun",
 	execute(client,message, args) {
-        //if arg is foo return bar
-         if (args[0] === 'foo') {
-            return message.channel.send('bar');
-        }
         //slice sentence and join them again with spaces for nice sentence
     sent = args.slice(0,args.length).join(' ');
     //get random from answers

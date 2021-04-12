@@ -5,17 +5,14 @@ module.exports = {
 	cooldown: 1,
     usage: '',
     guildOnly: "true",
-    aliases:['btl'],
+    aliases:['btl','botlog'],
     category: "moderating",
 	execute(client,message,args,con) {
         //check perms
         if(!permission(message))return message.reply('you have no permission to do that.');
-
-        //assigns id to variables
+        //assigns id to variables and check if received
         var channel = message.channel.id;
         var guild = message.guild.id;
-        
-        //undefined check
         if (!channel)return console.log('no channel');
         if (!guild)return console.log('no guild');
 
@@ -30,9 +27,6 @@ module.exports = {
                 }
             });
         }else {
-
-
-
         //checks if database already exists if true update else insert
         con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
             if(err){ console.log(err); message.channel.send("Something broke, sorry.");}
