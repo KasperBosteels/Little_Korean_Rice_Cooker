@@ -22,15 +22,15 @@ module.exports = {
         let explain = ["undefined","undefined"];
         
     ud.define(word).then((result)=>{
-        console.log(result[0]);
         explain[0] =result[0].definition
         explain[1] = result[0].example
         sendembed(makeEmbed(word,explain[0],explain[1],discord),channel).catch((error)=>{
             if(error.code = 50035)return channel.send('The definition of this word is too big for discord, sorry.');
         });
    }).catch((error)=>{
-       console.error(error.message);
-       if(error.code = 'ERR_WORD_UNDEFINED'){return channel.send('perhaps the archives are incomplete...');
+       if(error.code = 'ERR_WORD_UNDEFINED'){return channel.send('perhaps the archives are incomplete...')}else{
+        console.error(error.message);
+       
     }
     });
 
