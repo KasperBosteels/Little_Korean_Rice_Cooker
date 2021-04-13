@@ -3,6 +3,7 @@ module.exports = {
     description: 'Gives you latency of the bot.',
 	cooldown : 100,
 	category: "debug",
+	usage: ' ',
 	aliases: ["ching"],
 	async execute(client,message, args,con) {
 		if(message.content == "-ching"){

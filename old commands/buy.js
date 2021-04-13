@@ -12,7 +12,6 @@ module.exports = {
        if(!args[0])return message.channel.send('You need to tell me what to buy.');
        var userID = message.author.id
        var amount;
-        
        //if no amout is given buy 1
        if(!args[1]){amount = 1;}else{amount = args[1];}
        var product = args[0];

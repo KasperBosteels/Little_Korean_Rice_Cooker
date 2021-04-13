@@ -2,9 +2,9 @@ const ytdl = require('ytdl-core');
 //const ytdl = require('ytdl-core-discord');
 module.exports = {
 	name: 'sing',
-	description: 'I will sing you a song.',
+	description: 'sing a youtube video',
 	cooldown: 1,
-	usage: '<your url>',
+	usage: '<youtube url>',
 	category: "music",
 	async execute(client,message, args,con,options) {
 

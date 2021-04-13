@@ -9,27 +9,25 @@ const sqlcon = require("../sql_serverconnection.js");
         async execute(client,message, args,con) {
             //check permissions of user 
             if(!permissioncheck(message)) return message.reply('You have no permission to do that.');
-
             //check if a person was mentioned
             const user = getUserFromMention(args[0],client);
-	if (!user) {
-		return message.reply('Please use a proper mention if you want to ban someone.');
-    }
-    //look if reason was given for ban from the server
-    var Reason = args[1]
-    if(!Reason) Reason = "non given";
-    try {
-        //try to ban member with reason
-		await message.guild.members.ban(user, { reason: Reason});
-	} catch (error) {
-        //if unsucsessfull display failed message
-		return message.channel.send(`Failed to ban **${user.tag}**: ${error}`);
-	}
-	 message.channel.send(`:man_police_officer: ${user.tag} has been successfully banned  :man_police_officer: `);
-
-    //send message to logchannel
-    sqlcon.execute(con,user,5,makeEmbed(user,message,reason));
-    }
+	    if (!user) {
+		    return message.reply('Please use a proper mention if you want to ban someone.');
+        }
+        //look if reason was given for ban from the server
+        var Reason = args[1]
+        if(!Reason) Reason = "non given";
+            try {
+                //try to ban member with reason
+		        await message.guild.members.ban(user, { reason: Reason});
+	        } catch (error) {
+                //if unsucsessfull display failed message
+		    return message.channel.send(`Failed to ban **${user.tag}**: ${error}`);
+	        }
+	    message.channel.send(`:man_police_officer: ${user.tag} has been successfully banned  :man_police_officer: `);
+        //send message to logchannel
+        sqlcon.execute(con,user,5,makeEmbed(user,message,reason));
+        }
 }
 function permissioncheck(message){
     //check perms

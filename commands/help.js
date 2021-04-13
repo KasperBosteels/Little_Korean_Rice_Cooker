@@ -56,7 +56,7 @@ for (let i = 0; i < commandlist.length; i++) {
 }
 
 //put all category embeds in response array
-var response = [MakeEmbed(general),MakeEmbed(fun),MakeEmbed(music),MakeEmbed(currency),MakeEmbed(moderating),MakeEmbed(debug)];
+var response = [MakeEmbed(general),MakeEmbed(fun),MakeEmbed(music),MakeEmbed(moderating),MakeEmbed(debug)];
 //dm the response string to the author if not possible send declined in channel
 ReactionPages(message,response,true,["⏪", "⏩"],120000);
 

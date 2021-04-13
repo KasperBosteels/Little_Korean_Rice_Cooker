@@ -16,10 +16,7 @@ const profanity = require("./profanityfilter.js");
 const level = require('./level.js');
 const rice = require("./text responses/rice.js");
 const getprefix = require('./getprefixData.js');
-const { sub } = require('ffmpeg-static');
 const activeSongs = new Map();
-//const insertslash = require('./slash command/slashstart.js');
-//const slash_Interactions = require('./slash command/slash_Interactions.js');
 //#endregion
 
 //#region init bot as client
@@ -48,27 +45,16 @@ var con = mysql.createConnection({
     port: 3306,
     multipleStatements: true
 });
-
-
 //#endregion
-
-//#region un-used res
-//const cooldown = require('./cooldown.js');
-//const cooldowns = new Discord.Collection();
-//const winston = require('winston/lib/winston/config');
-//const prfilter = require('./profanityfilter.js');
-//#endregion 
 
 //#region bot ready
 //default state when bot starts up will set activity
 //and display succes message in terminal
 client.on('ready', () => {
     start.execute(client,con);
-    //insertslash.execute(client);
-    //slash_Interactions.execute(client);
-    getprefix.execute(con);
-    
+    getprefix.execute(con); 
 });
+
 async function CreateApiMessage(interactie,content){
     let apiMessage = await Discord.APIMessage.create(client.channels.resolve(interactie.channel_id),content)
     .resolveData()
@@ -80,7 +66,7 @@ async function CreateApiMessage(interactie,content){
 
 //#region error handler
 client.on('error', Err =>{
-console.log(`an error occured`)
+console.log(`An error occured, if problem persists inform devs pls.`)
 fs.writeFileSync("./errors.json",JSON.stringify(Err,null,2),(err) => {
     if (err) console.log(err);
 });
@@ -142,15 +128,25 @@ client.on('guildMemberAdd',member => {
 
 
 
-        //#region prefix check
-        //check if messages contains the selected prefix
-       if(!prefixcheck.execute(message))return;
-        //#endregion
+
 
         //#region message slice and dice
         //removes prefix and puts arguments in variable
         let usedprefix = getprefix.GET(message.guild.id);
         const args = message.content.slice(usedprefix.length).trim().split(/ +/);
+
+                          //#region level handler
+                          try{
+                            level.execute(message,con,args,Discord);
+                          }catch(error){console.error(error.message);}
+                            //#endregion
+
+
+        //#region prefix check
+        //check if messages contains the selected prefix
+        if(!prefixcheck.execute(message))return;
+        //#endregion
+
         //makes sure command name is lowercase
         const commandName = args.shift().toLowerCase();
         //#endregion
@@ -170,11 +166,7 @@ client.on('guildMemberAdd',member => {
         }
         //#endregion
 
-                  //#region level handler
-                  try{
-                    level.execute(message,con,args,Discord);
-                  }catch(error){message.channel.send(error.message);}
-                    //#endregion
+
 
         //#region argumant needed check
         //checks if the command needs an argument if true and no given error message and return to default state
@@ -214,6 +206,7 @@ process.on('uncaughtException',error => console.log('error',error));
 process.on('unhandledRejection', error => console.log('error', error));
 process.on('ECONNRESET',error => {con.destroy();con.connect(); console.error(error.message);});
 process.on('PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR',error =>{con.connect(); throw(error)});
+process.on('DiscordAPIError',error => {message.channel.send('Message was too big to send in discord, sorry.'); console.log(error);})
 //#endregion
 
 /*cool links

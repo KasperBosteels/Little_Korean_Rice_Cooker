@@ -1,9 +1,10 @@
 module.exports = {
-	name: 'hold',
+	name: 'pause',
 	description: 'Pause a song.',
 	cooldown: 1,
 	usage: '',
 	category: "music",
+    aliases:['brake'],
 	execute(client,message, args,con,options) {
         let guildData = options.active.get(message.guild.id);
         if(!guildData)return message.channel.send("No music is being played atm.");

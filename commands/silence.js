@@ -1,9 +1,10 @@
 module.exports = {
-	name: 'silence',
+	name: 'stop',
 	description: 'Make the voice chat silent and serene.',
 	cooldown: 1,
 	usage: '',
 	category: "music",
+	aliases:['leave','silence'],
 	async execute(client,message, args,con,options) {
 
         if(!message.member.voice.channel)return message.channel.send('You are not connected to a voice channel.');
@@ -12,13 +13,10 @@ module.exports = {
 		message.guild.me.voice.channel.leave();
 		let guildData = options.active.get(message.guild.id);
 		if(!guildData)return message.channel.send("No music is being played atm.");
-		console.log(options.active);
 		for (let i = 0; i < options.active.length; i++) {
 			
 			options.active[i].delete(message.guild.id);			
 		}
-		console.log(options.active);
 		return guildData.dispatcher.emit('finish');
-
     },
 };

@@ -36,8 +36,6 @@ module.exports = {
                 }catch(err){console.log(err);} 
             }
              con.query(`UPDATE levels SET level = ${LEV}, exp = ${EXP} WHERE userID = "${userID}"`);
-                if(LEV == 3){con.query(`INSERT INTO currency (userID,ballance) values ("${message.author.id}",100)`,(err)=>{if(err)throw(err);});
-                }else if(LEV >= 4){con.query(`UPDATE currency SET ballance = ballance + 100 WHERE userID = "${message.channel.id}"`,(err)=>{if(err)throw(err);});}
             });
         }
     });
