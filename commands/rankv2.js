@@ -6,6 +6,7 @@ module.exports = {
 	cooldown: 1,
 	usage: '<optional: @user>',
     category: "General",
+    aliases:['rank'],
 	 execute(client,message, args,con) {
         var member = getID(message,args,client);
         let ID = member.id
