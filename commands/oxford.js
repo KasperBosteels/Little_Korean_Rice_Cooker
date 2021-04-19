@@ -99,5 +99,6 @@ if(!etymology)etymology = 'none found';
 if(!definitions)definitions = 'none found';
 if(!examples)examples = 'none found';
 embed.setDescription(`**derivatives**: ${derivative}\n**etymologies**: ${etymology}\n**definitions**: ${definitions}\n**examples**: ${examples}\n**synonyms**: ${synonyms}`);
+console.log(derivative.length + synonyms.length + etymology.length + definitions.length + examples.length + 94 + word.length);   
 return embed
 }
