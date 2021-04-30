@@ -16,7 +16,11 @@ const profanity = require("./profanityfilter.js");
 const level = require('./level.js');
 const rice = require("./text responses/rice.js");
 const getprefix = require('./getprefixData.js');
+const birthdays = require('./verjaardag');
+const cronjob = require('cron').CronJob;
+const verjaardag = require('./verjaardag');
 const activeSongs = new Map();
+
 //#endregion
 
 //#region init bot as client
@@ -47,12 +51,23 @@ var con = mysql.createConnection({
 });
 //#endregion
 
+//#region daily birthday check
+let sheduleCheck = new cronjob('00 00 10 * * *',() =>{
+    let happyKidz = verjaardag.CONFIRM(client);
+    happyKidz.forEach(KID => {
+    KID.channel.send(`today's ${KID.user.displayName} birthday, wish him a happy one!!`);
+    });
+    });
+    //#endregion
+
 //#region bot ready
 //default state when bot starts up will set activity
 //and display succes message in terminal
 client.on('ready', () => {
     start.execute(client,con);
-    getprefix.execute(con); 
+    getprefix.execute(con);
+    birthdays.execute(con);
+    sheduleCheck.start();
 });
 
 async function CreateApiMessage(interactie,content){

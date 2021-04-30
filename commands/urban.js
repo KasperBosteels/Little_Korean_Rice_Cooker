@@ -29,7 +29,7 @@ module.exports = {
         });
    }).catch((error)=>{
        if(error.code = 'ERR_WORD_UNDEFINED'){return channel.send('perhaps the archives are incomplete...')}else{
-        console.error(error.message);
+        console.error(error);
        
     }
     });
