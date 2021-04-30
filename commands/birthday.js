@@ -11,8 +11,6 @@ module.exports = {
 	    let channelID = message.channel.id;
         let guildID = message.guild.id;
         
-        console.log(user.id,channelID,guildID);
-
         if (!user) {
 		    return message.reply('Please use a proper mention.');
         }
@@ -22,25 +20,26 @@ module.exports = {
             return message.reply('You need to give me a date (DD/MM/YYYY) or "remove".');
         }
         let data = verjaardag.GET(user.id);
-        
         console.log(data);
 
-        if(!regexTest(args[1].split('/').reverse().join('/')) && !args[1] == "remove"){
-        
+        if(!regexTest(args[1].split('/').reverse().join('/')) && args[1] != "remove"){
             return message.reply('DD/MM/YYYY is the right format.');
-        
-        } 
+        }
         if(args[1] == "remove"){
             if(data == false)return message.channel.send('I have no birthday date of this person.');
-            if (!message.member.hasPermission("BAN_MEMBERS") && message.author.id != user.id) return message.channel.send("Only moderators and the people this data is form are allowed to delete it.");
+            if (!message.member.hasPermission("BAN_MEMBERS") && message.author.id != user.id){ 
+                return message.channel.send("Only moderators and the people this data is form are allowed to delete it.");
+            }
 
             con.query(`DELETE FROM verjaardagen WHERE userID = '${user.id}';`,(err) =>{
                 if(err){
                     console.error(err);
                     return message.channel.send('An error occurred, try again later.');
                 }
+
             }
             );
+            verjaardag.execute(con);
             return message.reply('removed the birthday');
         }
         if(regexTest(args[1].split('/').reverse().join('/'))){
@@ -84,10 +83,10 @@ function getUserFromMention(mention,client) {
     function regexTest (datum){
         let RE = new RegExp('((?:19|20)[0-9][0-9])/(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])');
         if(RE.test(datum)){
-            console.log(datum, '<= valid');
+            console.log(datum, '<= valid date');
             return true;
         }else{
-            console.log(datum, '<= invalid');
+            console.log(datum, '<= invalid date');
             return false;
         }
     }
