@@ -39,27 +39,44 @@ module.exports = {
        }
        return false
     },
-    CONFIRM(client){
+    async CONFIRM(client){
         let datum = new Date();
-        let day = datum.getDay();
-        let month = datum.getMonth();
+        let day = datum.getUTCDate();
+        let month = datum.getUTCMonth()+1;
         let data = getAll();
-        let birthdayBoyStorage = []
         data.forEach(person => {
             if(person.dag == day && person.maand == month){
-                let happyboiData = {
-                    guild: client.guild.get(person.guildID),
-                    channel: client.cache.get(person.channelID),
-                    user: client.users.cache.get(person.userID)
-                }
-                birthdayBoyStorage.push(happyboiData);
+                console.log(person.userID);
+                var user = client.users.fetch(person.userID)
+                .then((user)=>{
+                console.log(user);
+                client.channels.fetch(person.channelID)
+                .then((channel=>{
+                    channel.send(`A warm and happy birthday to ${user.username} :partying_face:`);
+                })).catch(console.error);
+            });
             }
         });
-        return birthdayBoyStorage;
     }
 };
+
+/*
+guild.members.fetch({ user, cache: false })
+  .then(console.log)
+  .catch(console.error);
+
+guild.members.fetch('66564597481480192')
+  .then(console.log)
+  .catch(console.error);
+
+*/
+
+
 function getAll(){
     let rawData =fs.readFileSync('./jsonFiles/verjaardagen.json','utf-8');
         let file = JSON.parse(rawData);
         return file;
+}
+function MakeEmbed(user){
+
 }

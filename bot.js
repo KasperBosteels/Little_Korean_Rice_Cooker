@@ -53,10 +53,7 @@ var con = mysql.createConnection({
 
 //#region daily birthday check
 let sheduleCheck = new cronjob('00 00 10 * * *',() =>{
-    let happyKidz = verjaardag.CONFIRM(client);
-    happyKidz.forEach(KID => {
-    KID.channel.send(`today's ${KID.user.displayName} birthday, wish him a happy one!!`);
-    });
+    verjaardag.CONFIRM(client);
     });
     //#endregion
 
