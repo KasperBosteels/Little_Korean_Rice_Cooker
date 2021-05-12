@@ -46,7 +46,6 @@ module.exports = {
         let data = getAll();
         data.forEach(person => {
             if(person.dag == day && person.maand == month){
-                console.log(person.userID);
                 var user = client.users.fetch(person.userID)
                 .then((user)=>{
                 console.log(user);

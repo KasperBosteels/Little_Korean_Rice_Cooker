@@ -20,7 +20,6 @@ module.exports = {
             return message.reply('You need to give me a date (DD/MM/YYYY) or "remove".');
         }
         let data = verjaardag.GET(user.id);
-        console.log(data);
 
         if(!regexTest(args[1].split('/').reverse().join('/')) && args[1] != "remove"){
             return message.reply('DD/MM/YYYY is the right format.');
@@ -66,7 +65,6 @@ module.exports = {
             return message.channel.send('Its saved.');
         }
 
-        console.log('not supposed to be here');
     },
 };
 //advanced identifier for user to not ban the wrong person
