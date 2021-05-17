@@ -19,6 +19,7 @@ const getprefix = require('./getprefixData.js');
 const birthdays = require('./verjaardag');
 const cronjob = require('cron').CronJob;
 const verjaardag = require('./verjaardag');
+const disboard = require('./disboard');
 const activeSongs = new Map();
 
 //#endregion
@@ -57,6 +58,12 @@ let sheduleCheck = new cronjob('00 00 10 * * *',() =>{
     });
     //#endregion
 
+////#region hourly disboard check
+let disboardCheck = new cronjob('* 0 */2 * * *',() =>{
+    disboard.CONFIRM(client);
+});
+//#endregion
+
 //#region bot ready
 //default state when bot starts up will set activity
 //and display succes message in terminal
@@ -64,7 +71,9 @@ client.on('ready', () => {
     start.execute(client,con);
     getprefix.execute(con);
     birthdays.execute(con);
+    disboard.execute(con);
     sheduleCheck.start();
+    disboardCheck.start();
 });
 
 async function CreateApiMessage(interactie,content){

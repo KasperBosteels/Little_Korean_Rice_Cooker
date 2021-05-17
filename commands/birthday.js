@@ -27,7 +27,7 @@ module.exports = {
         if(args[1] == "remove"){
             if(data == false)return message.channel.send('I have no birthday date of this person.');
             if (!message.member.hasPermission("BAN_MEMBERS") && message.author.id != user.id){ 
-                return message.channel.send("Only moderators and the people this data is form are allowed to delete it.");
+                return message.channel.send("Only moderators and the people this data is form, are allowed to delete it.");
             }
 
             con.query(`DELETE FROM verjaardagen WHERE userID = '${user.id}';`,(err) =>{

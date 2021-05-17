@@ -6,7 +6,7 @@
     "author": "Kasper",
     "license": "ISC",
     "scripts": {
-        "start": "nodemon --ignore prefix.json --ignore verjaardagen.json",
+        "start": "nodemon --ignore prefix.json --ignore verjaardagen.json --ignore disboard.json",
         "test": "echo \"error: no test specified\" && exit &"
     },
     "dependencies": {

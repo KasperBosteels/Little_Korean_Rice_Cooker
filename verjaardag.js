@@ -1,4 +1,3 @@
-const data = require('canvacord/src/Plugins');
 const fs = require('fs');
 module.exports = {
 	execute(con) {
@@ -75,7 +74,4 @@ function getAll(){
     let rawData =fs.readFileSync('./jsonFiles/verjaardagen.json','utf-8');
         let file = JSON.parse(rawData);
         return file;
-}
-function MakeEmbed(user){
-
 }
