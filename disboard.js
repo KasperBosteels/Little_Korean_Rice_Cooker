@@ -13,8 +13,9 @@ module.exports = {
             if(err){
                 return console.error(err);
             }
-            console.log('disboard data saved');
         })
+        console.log('disboard data saved');
+
     },
     GET(guildID){
         let rawData =fs.readFileSync('./jsonFiles/disboard.json','utf-8');

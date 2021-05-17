@@ -13,8 +13,8 @@ module.exports = {
             if(err){
                 return console.error(err);
             }
-            console.log('DOB saved');
         })
+        console.log('DOB saved');
     },
     GET(userID){
         let rawData =fs.readFileSync('./jsonFiles/verjaardagen.json','utf-8');

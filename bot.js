@@ -59,7 +59,7 @@ let sheduleCheck = new cronjob('00 00 10 * * *',() =>{
     //#endregion
 
 ////#region hourly disboard check
-let disboardCheck = new cronjob('* 0 */2 * * *',() =>{
+let disboardCheck = new cronjob('0 0 */2 * * *',() =>{
     disboard.CONFIRM(client);
 });
 //#endregion
