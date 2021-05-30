@@ -19,16 +19,22 @@ module.exports = {
     //#region google search
         let Q = args.join(" ");
         var list = [];
+        try{
         await GoogleClient.search(Q,options)
                 .then(images =>{
                 
                 for (let i = 0; i < images.length; i++) {
                 list[i] = MakeEmbed(images[i].url,message.member,i,images.length);
                 }
+                
 
         });
         ReactionPages(message,list,TextPageChange,emojis,time);    
-        
+        }
+        catch(error){
+            message.channel.send(`an error occured \nmessage: ${error.statusMessage}\n code: ${error.statusCode}`)
+            console.log(error);
+        }
     },
 };
 
