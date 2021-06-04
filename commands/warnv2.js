@@ -33,9 +33,14 @@ var embed = new discord.MessageEmbed()
     .addField(`amount before mute: `,`${3 - amount}`,true)
 //#endregion
 
-//send embed message to logchannel
-sqlcon.execute(con,warnuser,6,embed,message);
-
+//send embed message to logchannel and channel where the command was given
+try {
+  sqlcon.execute(con,warnuser,6,embed,message);
+}catch(err){
+return console.log(err);
+}finally{
+  message.channel.send(embed);
+}
 // mute user if true +3 warns
 if(amount > 3){
   //looks for mute role if not existing return console log
