@@ -4,6 +4,7 @@ const getprefix = require('../getprefixData.js');
 const {MessageEmbed} = require('discord.js');
 const recon = require('reconlx');
 const ReactionPages = recon.ReactionPages;
+var prefix = "-";
 module.exports = {
 
 	name: 'help',
@@ -13,10 +14,10 @@ module.exports = {
     cooldown: 5,
     category: "general",
 	execute(client,message, args) {
-        //checks if a speciic command query was asked if not send dm withh all commmands
+        prefix = this.guildprefix(message.guild.id);
+        //checks if a specific command query was asked if not send dm withh all commmands
         if(!args.length){
         var commandlist = [];
-        const prefix = this.guildprefix(message.guild.id);
 
         //for each command in commands folder get name description and category and usage
         client.commands.forEach(command =>{
@@ -56,7 +57,7 @@ for (let i = 0; i < commandlist.length; i++) {
 }
 
 //put all category embeds in response array
-var response = [MakeEmbed(general),MakeEmbed(fun),MakeEmbed(music),MakeEmbed(moderating),MakeEmbed(debug)];
+var response = [MakeEmbed(general,prefix),MakeEmbed(fun,prefix),MakeEmbed(music,prefix),MakeEmbed(moderating,prefix),MakeEmbed(debug,prefix)];
 //dm the response string to the author if not possible send declined in channel
 ReactionPages(message,response,true,["⏪", "⏩"],120000);
 
@@ -104,12 +105,12 @@ message.channel.send(data, { split: true });
         if(p){return p}else {return botconfig.prefix}
     }
 };
-function MakeEmbed(content,usage){
+function MakeEmbed(content,prefix){
 let embed = new MessageEmbed()
 .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
 .setColor('#00ff00');
 content.forEach(item => {
-    embed.addField(`${botconfig.prefix}${item.name} ${item.usage}`,item.description);
+    embed.addField(`${prefix}${item.name} ${item.usage}`,item.description);
 });
 return embed;
 }
