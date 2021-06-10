@@ -1,10 +1,12 @@
 const fs = require('fs');
+const channel_alert = require('./profanity_alert_data_collector');
+const Discord = require('discord.js');
 module.exports = {
-    execute(message){
-        proffilter(message);
+    execute(message,client){
+        proffilter(message,client);
     }
 };
-function proffilter(message) {
+function proffilter(message,client) {
     let messageArray = message.content.split();
     let swear = getswearwords();
     let sentecUser = "";
@@ -32,10 +34,17 @@ function proffilter(message) {
       //#endregion
       //if there are more than 0 swear words found be annoying
       if (amountswear != 0){
-          message.delete();
+        try{  
+        sendMessageToChannel(message,client);
           //message.channel.send(sentecUser);
-          //message.channel.reply("no profanity");
+          message.channel.send(message.author.tag +" no profanity.");
+        }catch(err){
+            return console.log(err)
+        }finally{
           console.log(`profanity  ${message.author.tag}   \"${message.content}\"`)
+          
+          message.delete()
+        }
       }
     }
     //check if any of the characters are arabic if true replace with chiken soup
@@ -55,4 +64,25 @@ function getswearwords() {
 function HasArabicCharacters(text) {
     var arregex = /[\u0600-\u06FF]/;
     return arregex.test(text);
+}
+function sendMessageToChannel(message,client){
+
+    let alertChannel = channel_alert.GET(message.guild.id);
+    if (alertChannel != false){
+       client.channels.fetch(alertChannel)
+       .then((channel=>{
+        return channel.send(makeEmbed(message));
+       })).catch(console.error);
+    }else {
+        return;
+    }
+}
+function makeEmbed(message){
+let embed = new Discord.MessageEmbed()
+.setColor('#ff0000')
+.setFooter(message.member.displayName)
+.setTimestamp()
+.setDescription(`**this user has used profanity**\n
+"${message.content}"`);
+return embed
 }

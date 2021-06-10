@@ -1,12 +1,12 @@
 {
     "name": "little_korean_rice_cooker",
-    "version": "1.0.0",
+    "version": "1.0.15",
     "description": "A bot that loves you, and has a generous offer of commands.",
     "main": "bot.js",
     "author": "Kasper",
     "license": "ISC",
     "scripts": {
-        "start": "nodemon --ignore prefix.json --ignore verjaardagen.json --ignore disboard.json",
+        "start": "nodemon --ignore prefix.json --ignore verjaardagen.json --ignore disboard.json --ignore profanity_alert_channels.json",
         "test": "echo \"error: no test specified\" && exit &"
     },
     "dependencies": {

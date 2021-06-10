@@ -20,6 +20,7 @@ const birthdays = require('./verjaardag');
 const cronjob = require('cron').CronJob;
 const verjaardag = require('./verjaardag');
 const disboard = require('./disboard');
+const profanity_alert_data_collector = require('./profanity_alert_data_collector.js');
 const activeSongs = new Map();
 
 //#endregion
@@ -58,7 +59,7 @@ let sheduleCheck = new cronjob('00 00 10 * * *',() =>{
     });
     //#endregion
 
-////#region hourly disboard check
+//#region hourly disboard check
 let disboardCheck = new cronjob('0 0 */2 * * *',() =>{
     disboard.CONFIRM(client);
 });
@@ -72,10 +73,13 @@ client.on('ready', () => {
     getprefix.execute(con);
     birthdays.execute(con);
     disboard.execute(con);
+    profanity_alert_data_collector.execute(con);
     sheduleCheck.start();
     disboardCheck.start();
+    
 });
 
+//for slash commands
 async function CreateApiMessage(interactie,content){
     let apiMessage = await Discord.APIMessage.create(client.channels.resolve(interactie.channel_id),content)
     .resolveData()
@@ -142,7 +146,7 @@ client.on('guildMemberAdd',member => {
        //#endregion
 
         //#region simple responses
-        profanity.execute(message);
+        profanity.execute(message,client);
         lie.execute(message);
         rice.execute(message);
         //#endregion
