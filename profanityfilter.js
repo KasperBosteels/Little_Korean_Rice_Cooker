@@ -1,5 +1,6 @@
 const fs = require('fs');
 const channel_alert = require('./profanity_alert_data_collector');
+const profanity_enabled = require('./profanity_enabled');
 const Discord = require('discord.js');
 module.exports = {
     execute(message,client){
@@ -7,6 +8,11 @@ module.exports = {
     }
 };
 function proffilter(message,client) {
+    
+    //check if this guild is being filtered
+    if(!profanity_enabled.GET(message.guild.id))return;
+
+    //split content of message and get list of swear words
     let messageArray = message.content.split();
     let swear = getswearwords();
     let sentecUser = "";
@@ -83,6 +89,7 @@ let embed = new Discord.MessageEmbed()
 .setFooter(message.member.displayName)
 .setTimestamp()
 .setDescription(`**this user has used profanity**\n
-"${message.content}"`);
+location: ${message.channel.name}\n
+content: "${message.content}"`);
 return embed
 }

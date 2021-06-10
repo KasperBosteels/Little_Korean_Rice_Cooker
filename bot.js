@@ -21,6 +21,7 @@ const cronjob = require('cron').CronJob;
 const verjaardag = require('./verjaardag');
 const disboard = require('./disboard');
 const profanity_alert_data_collector = require('./profanity_alert_data_collector.js');
+const profanity_enabled = require('./profanity_enabled');
 const activeSongs = new Map();
 
 //#endregion
@@ -69,14 +70,18 @@ let disboardCheck = new cronjob('0 0 */2 * * *',() =>{
 //default state when bot starts up will set activity
 //and display succes message in terminal
 client.on('ready', () => {
+    try{
     start.execute(client,con);
     getprefix.execute(con);
     birthdays.execute(con);
     disboard.execute(con);
     profanity_alert_data_collector.execute(con);
+    profanity_enabled.execute(con);
     sheduleCheck.start();
     disboardCheck.start();
-    
+    }catch(err){
+        console.log(err)
+    }
 });
 
 //for slash commands
