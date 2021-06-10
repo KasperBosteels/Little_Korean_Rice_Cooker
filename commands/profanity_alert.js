@@ -5,6 +5,7 @@ module.exports = {
 	cooldown: 1,
 	usage: ' you use this command in the channel you want the message to apear, to stop message put "stop" after the command.',
 	category: "moderating",
+    aliases: ['profanityalert','pra'],
 	 execute(client,message, args,con) {
          //check perms
          if(!permission(message))return message.reply('you have no permission to do that.');
@@ -13,7 +14,7 @@ module.exports = {
          var guild = message.guild.id;
          if (!channel)return console.log('no channel');
          if (!guild)return console.log('no guild');
-         if(args[0] && args[0].toLowerCase() == "no"){
+         if(args[0] && args[0].toLowerCase() == "stop"){
               con.query(`SELECT EXISTS(SELECT * FROM profanity_alert_channel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
                 if(err){ console.log(err); message.channel.send("NO 2.1*");}
                 if(rows[0].exist != 0){
