@@ -1,5 +1,6 @@
 const haiku = require('haiku-random');
 const discord = require('discord.js');
+var hard_Haiku = [`You're a vast ocean,\nSo oddly terrifying\nSuch a strange comfort.\nby Achi`]
 module.exports = {
 	name: 'haiku',
 	description: 'Receive a random haiku from a list of over 1500.',
@@ -18,6 +19,9 @@ module.exports = {
         H.forEach(line => {
             smile +=`${line}\n`
         });
+        }
+        if (Math.floor(Math.random() * 10)+1 === 1){
+            smile = hard_Haiku[Math.floor(Math.random()*hard_Haiku.length)];
         }
         return embedmaker(smile,message);
     },
