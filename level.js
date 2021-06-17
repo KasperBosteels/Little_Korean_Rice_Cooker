@@ -1,7 +1,11 @@
 const sqlconnect = require('./sql_serverconnection.js');
+const leveling_enabled = require('./leveling_enabled');
 module.exports = {
 	
 	async execute(message,con,args,Discord) {
+        //if leveling is disabled then stop this command and return 
+        if(!leveling_enabled.CONFIRM(message.guild.id))return;
+
         let randomint;
         randomint = Math.floor((Math.random()*args.length)+1);  
         let userID = message.author.id;

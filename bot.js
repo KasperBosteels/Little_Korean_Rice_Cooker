@@ -22,8 +22,9 @@ const verjaardag = require('./verjaardag');
 const disboard = require('./disboard');
 const profanity_alert_data_collector = require('./profanity_alert_data_collector.js');
 const profanity_enabled = require('./profanity_enabled');
+const leveling_enabled = require('./leveling_enabled');
+const welcomeLeaveMessages = require('./welcome_leave_messages');
 const activeSongs = new Map();
-
 //#endregion
 
 //#region init bot as client
@@ -79,6 +80,8 @@ client.on('ready', () => {
     profanity_enabled.execute(con);
     sheduleCheck.start();
     disboardCheck.start();
+    leveling_enabled.execute(con);
+    welcomeLeaveMessages.execute(con);
     }catch(err){
         console.log(err)
     }
@@ -111,6 +114,7 @@ fs.writeFileSync("./errors.json",JSON.stringify(Err,null,2),(err) => {
 //member leaves guild will trigger logchannel check and sad message
 client.on('guildMemberRemove',member =>{
     console.log(`member left ${member.displayName} ${member.guild}`);
+    if(!welcomeLeaveMessages.CONFIRM(member.guild.id))return;
     var embed = new Discord.MessageEmbed()
    .setColor('#006400')
    .setTitle('oh no')
@@ -128,6 +132,7 @@ client.on('guildMemberRemove',member =>{
 //member joins execute sql connection with parameters that correspondt with friendly message in logchannel
 client.on('guildMemberAdd',member => {
     console.log(`member joined ${member.displayName} ${member.guild}`);
+    if(!welcomeLeaveMessages.CONFIRM(member.guild.id))return;
     var embed = new Discord.MessageEmbed()
    .setColor('#006400')
    .setTitle('hello')
