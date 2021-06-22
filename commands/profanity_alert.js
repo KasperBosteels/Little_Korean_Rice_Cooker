@@ -4,7 +4,7 @@ module.exports = {
 	description: 'sends a message when someone uses profanity',
 	cooldown: 1,
 	usage: ' you use this command in the channel you want the message to apear, to stop message put "stop" after the command.',
-	category: "moderating",
+	category: "config",
     aliases: ['profanityalert','pra'],
 	 execute(client,message, args,con) {
          //check perms

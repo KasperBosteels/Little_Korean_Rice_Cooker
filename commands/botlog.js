@@ -6,7 +6,7 @@ module.exports = {
     usage: '',
     guildOnly: "true",
     aliases:['btl','botlog'],
-    category: "moderating",
+    category: "config",
 	execute(client,message,args,con) {
         //check perms
         if(!permission(message))return message.reply('you have no permission to do that.');

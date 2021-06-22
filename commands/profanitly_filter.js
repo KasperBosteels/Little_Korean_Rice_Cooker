@@ -5,7 +5,7 @@ module.exports = {
 	description: 'enable or disable the profanity filter',
 	cooldown: 1,
 	usage: ' true / false',
-	category: "moderating",
+	category: "config",
     aliases: ['profanityfilter','prf'],
 	execute(client,message, args,con) {
         if(!permission(message))return message.reply('you have no permission to do that.');

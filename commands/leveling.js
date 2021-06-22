@@ -5,7 +5,7 @@ module.exports = {
 	description: 'Enable or disable the level system.',
 	cooldown: 1,
 	usage: ' enable / disable',
-	category: "moderating",
+	category: "config",
     aliases: ['leveling','level_system'],
 	execute(client,message, args,con) {
         if(!permission(message))return message.reply('You have no permission to do that.');

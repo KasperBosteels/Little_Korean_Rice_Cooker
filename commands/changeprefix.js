@@ -5,7 +5,7 @@ module.exports = {
 	description: 'Change the prefix for this server(note: that the prefix cannot have a space).',
 	cooldown: 1,
 	usage: ' <your prefix>',
-	category: "moderating",
+	category: "config",
     args: 'true',
     guildOnly: 'true',
 	async execute(client,message, args,con) {

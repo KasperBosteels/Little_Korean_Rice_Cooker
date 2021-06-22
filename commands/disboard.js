@@ -4,7 +4,7 @@ module.exports = {
 	description: 'Start a disboard timer (sends a message every 2 hours, only one alert per server.)',
 	cooldown: 1,
 	usage: ' (to remove <@user> remove)',
-	category: "moderating",
+	category: "config",
     aliases: ['disboard','disb'],
 	execute(client,message, args,con) {
         //get needed variables

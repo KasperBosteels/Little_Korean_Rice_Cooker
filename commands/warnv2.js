@@ -30,7 +30,6 @@ var embed = new discord.MessageEmbed()
     **warned by:** ${message.author}
     **reason:** ${reason}`)
     .addField(`warnings: `,`${amount}`,true)
-    .addField(`amount before mute: `,`${3 - amount}`,true)
 //#endregion
 
 //send embed message to logchannel and channel where the command was given

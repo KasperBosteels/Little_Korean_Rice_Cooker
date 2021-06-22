@@ -2,7 +2,7 @@ module.exports = {
 	name: 'ping',
     description: 'Gives you latency of the bot.',
 	cooldown : 100,
-	category: "debug",
+	category: "config",
 	usage: ' ',
 	aliases: ["ching"],
 	async execute(client,message, args,con) {
