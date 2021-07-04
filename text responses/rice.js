@@ -6,6 +6,7 @@ const fs = require("fs");
             var swear = getswearwords();
             Rice(message,messageArray,swear);
             Good(message,messageArray,swear);
+            bad(message,messageArray,swear);
         },
     };
 //get swear words from json file
@@ -13,9 +14,6 @@ function getswearwords() {
     return JSON.parse(fs.readFileSync("./jsonFiles/swearwords.json")); 
     }
 
-function Bad(message,messageArray,swear){
-    
-}
 function Good(message,messageArray,swear){
     var amountswear = 0;
 
@@ -44,6 +42,22 @@ function Rice(message,messageArray,swear){
         }
         if(amountswear != 0){
             message.channel.send("here you go, :rice:");
+        } 
+        
+    }
+}
+function bad(message,messageArray,swear){
+    var amountswear = 0;
+
+    for (let A = 0; A < messageArray.length; A++) {
+        const word = messageArray[A].toLowerCase();
+        for (let U = 0; U < swear["bad"].length; U++) {
+            if (word.includes(swear["bad"][U])){
+                amountswear++;
+            }
+        }
+        if(amountswear != 0){
+            message.channel.send("Yeah, you're rubbing off on me.");
         } 
         
     }
