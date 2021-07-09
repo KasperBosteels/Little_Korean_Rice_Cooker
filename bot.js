@@ -25,6 +25,7 @@ const profanity_enabled = require('./profanity_enabled');
 const leveling_enabled = require('./leveling_enabled');
 const welcomeLeaveMessages = require('./welcome_leave_messages');
 const activeSongs = new Map();
+const power = require('./powerButton');
 //#endregion
 
 //#region init bot as client
@@ -151,9 +152,14 @@ client.on('guildMemberAdd',member => {
 //when a user sends a message
   client.on('message', message => {
 
+
         //#region bot ignore
         if(message.author.bot)return;
        //#endregion
+
+        //#region reboot
+        power.execute(message)
+        //#endregion
 
         //#region simple responses
         profanity.execute(message,client);
