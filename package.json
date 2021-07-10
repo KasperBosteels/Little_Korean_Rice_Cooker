@@ -1,6 +1,6 @@
 {
     "name": "little_korean_rice_cooker",
-    "version": "1.0.24",
+    "version": "1.0.31",
     "description": "A bot that loves you, and has a generous offer of commands.",
     "main": "bot.js",
     "author": "Kasper",

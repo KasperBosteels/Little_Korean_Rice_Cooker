@@ -1,6 +1,7 @@
 const fs = require('fs');
 const channel_alert = require('./profanity_alert_data_collector');
 const profanity_enabled = require('./profanity_enabled');
+const score = require('./socalCredit');
 const Discord = require('discord.js');
 module.exports = {
     execute(message,client){
@@ -50,6 +51,7 @@ function proffilter(message,client) {
           console.log(`profanity  ${message.author.tag}   \"${message.content}\"`)
           
           message.delete()
+          score.SUBTRACT(con,300,message.author.id);
         }
       }
     }

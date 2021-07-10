@@ -1,4 +1,5 @@
 const love = require("../jsonFiles/love.json");
+const score = require('../socalCredit');
 module.exports = {
     name: 'love',
     description: 'A loving message.',
@@ -17,6 +18,7 @@ module.exports = {
             return message.reply(` ${love.answer[coin]}`);
 
         }else {
+            score.ADD(con,200,message.author.id)
             //argument given, assign mention to variable
             var member= message.mentions.members.first();
             if (member.id == "397286381883359232" && message.author.id == "258217948819357697"){

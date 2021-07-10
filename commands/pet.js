@@ -1,5 +1,6 @@
 const discord = require("discord.js");
 const hug = require("../jsonFiles/bodily_affection.json");
+const score = require('../socalCredit');
 module.exports = {
 	name: 'pet',
 	description: 'Pet someone.',
@@ -26,6 +27,7 @@ module.exports = {
         .setImage(huggif)
 
         }else {
+            score.ADD(con,100,message.author.id)
             //argument given, assign mention to variable
             var member= message.mentions.members.first();
 

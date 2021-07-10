@@ -1,4 +1,6 @@
 const Discord = require('discord.js');
+const { GETSCORE } = require('../socalCredit');
+const score = require('../socalCredit');
 module.exports = {
 	name: 'whois',
 	description: 'get acount details',
@@ -6,10 +8,11 @@ module.exports = {
 	usage: ' ',
 	category: "moderating",
 	execute(client,message, args,con) {
-        let user
+        let user,score
+        
         user = getUserFromMention(args[0],client)
-        console.log(user)
-        message.channel.send(makeEmbed(user,message))
+        score = GETSCORE(con,user.id)
+        message.channel.send(makeEmbed(user,message,score))
     },
 };
 function getUserFromMention(mention,client) {
@@ -22,7 +25,7 @@ function getUserFromMention(mention,client) {
         return client.users.cache.get(mention);
         }
     }
-    function makeEmbed(user,message){
+    function makeEmbed(user,message,score){
         const embed = new Discord.MessageEmbed()
         .setColor('#00ff00')
         .setFooter(message.author.username,message.author.displayAvatarURL)
@@ -38,7 +41,8 @@ function getUserFromMention(mention,client) {
         }
         embed.addField("bot",user.bot,inline=true);
         embed.addField("creation date",user.createdAt,inline=true);
-        embed.setThumbnail(user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
+        embed.setThumbnail(user.avatarURL({ dynamic: true, format: 'png', size: 64 }));
+        embed.addField("social Credit",score,inline=true);
 
         return embed;
     }

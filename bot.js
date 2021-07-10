@@ -26,6 +26,8 @@ const leveling_enabled = require('./leveling_enabled');
 const welcomeLeaveMessages = require('./welcome_leave_messages');
 const activeSongs = new Map();
 const power = require('./powerButton');
+const SocialCredit = require('./socalCredit');
+const socalCredit = require('./socalCredit');
 //#endregion
 
 //#region init bot as client
@@ -144,7 +146,8 @@ client.on('guildMemberAdd',member => {
     
    try{
     sqlconnect.execute(con,member,5,embed);
-    }catch(err){console.log(err);} 
+    }catch(err){console.log(err);}
+    socalCredit.ADDUSER(con,member.id)
   });
   //#endregion
   
