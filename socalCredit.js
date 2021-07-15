@@ -24,14 +24,22 @@ module.exports = {
         })
     },
     ADDUSER(con,userID){
-        con.query(`INSERT INTO score (userID,socialScore) VALUES ("${userID}",10000);`)
-    },
-    GETSCORE(con,userID){
-        var userscore = "not found";
-        con.query(`SELECT socialScore FROM score WHERE userID=${userID}`,(err,score)=>{
-                userscore = score[0].socialScore;  
+        con.query(`INSERT INTO score (userID,socialScore) VALUES ("${userID}",10000);`,(err,score)=>{
+            if(err)return console.error(err)
             
         })
-    return userscore
+    },
+    GETSCORE(con,userID){
+        let SCS
+         con.query(`SELECT socialScore FROM score WHERE userID="${userID}";`,(err,score)=>{
+            if(err)return console.error(err);
+            if(score.length){
+                SCS =  score[0].socialScore;
+            }else{
+                SCS = "no credit granted";
+            }
+        });
+        console.log(SCS)
+        return SCS;
     }
 };

@@ -9,7 +9,7 @@ module.exports = {
     category: "config",
 	execute(client,message,args,con) {
         //check perms
-        if(!permission(message))return message.reply('you have no permission to do that.');
+        if(!permission(message))return message.reply('Either you or i do not have the permission to do that.');
         //assigns id to variables and check if received
         var channel = message.channel.id;
         var guild = message.guild.id;
@@ -44,7 +44,7 @@ module.exports = {
 };
 function permission(message){
 //check perms
-if (!message.member.hasPermission("BAN_MEMBERS")) return false;
-if (!message.guild.me.hasPermission("BAN_MEMBERS"))return false;
+if (!message.member.hasPermission("KICK_MEMBERS")) return false;
+if (!message.guild.me.hasPermission("KICK_MEMBERS"))return false;
 return true;
 }

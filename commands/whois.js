@@ -1,19 +1,30 @@
 const Discord = require('discord.js');
-const { GETSCORE } = require('../socalCredit');
-const score = require('../socalCredit');
+const credit = require('../socalCredit');
 module.exports = {
 	name: 'whois',
 	description: 'get acount details',
 	cooldown: 1,
 	usage: ' ',
 	category: "moderating",
-	execute(client,message, args,con) {
-        let user,score
-        
+	async execute(client,message, args,con) {
+        let user,SCS
+
         user = getUserFromMention(args[0],client)
-        score = GETSCORE(con,user.id)
-        message.channel.send(makeEmbed(user,message,score))
-    },
+
+        //query data base score tabel
+        con.query(`SELECT socialScore FROM score WHERE userID="${user.id}";`,(err,score)=>{
+            if(err)return console.error(err);
+            if(score.length){
+                SCS =  score[0].socialScore;
+            }else{
+                SCS = "no credit granted";
+            }
+
+            //return with embed message
+        return message.channel.send(makeEmbed(user,message,SCS))
+        });
+    }
+    
 };
 function getUserFromMention(mention,client) {
     if (!mention) return;
@@ -43,6 +54,5 @@ function getUserFromMention(mention,client) {
         embed.addField("creation date",user.createdAt,inline=true);
         embed.setThumbnail(user.avatarURL({ dynamic: true, format: 'png', size: 64 }));
         embed.addField("social Credit",score,inline=true);
-
         return embed;
     }

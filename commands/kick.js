@@ -8,8 +8,8 @@ const sendembed = require("../sql_serverconnection.js");
         category: "moderating",
         execute(client,message, args,con) {
            //check perms or if there is a mention 
-            if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('perm Denied');
-            if (!message.guild.me.hasPermission("KICK_MEMBERS"))return message.reply('perm 2 Denied');
+            if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('You need the permission to kick members.');
+            if (!message.guild.me.hasPermission("KICK_MEMBERS"))return message.reply('I need the permission to kick members.');
             if (!message.mentions.users.size) {
                 return message.reply(`You need to tag a user in order to make em walk the plank ARRRR!\nlike this <-kick @user>`);
             }

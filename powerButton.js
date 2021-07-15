@@ -1,5 +1,5 @@
 module.exports = {
-     execute(message){
+     execute(message,con){
         if(message.author.id != '258217948819357697')return;
         if(message.content.includes("shutdown")){
         message.channel.send('Pressing the power button...')
@@ -10,6 +10,7 @@ module.exports = {
             console.error(err)
         })
         .finally(()=>{
+            con.end();
             process.exit()
         })     
     }

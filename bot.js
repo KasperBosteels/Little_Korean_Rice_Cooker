@@ -161,7 +161,7 @@ client.on('guildMemberAdd',member => {
        //#endregion
 
         //#region reboot
-        power.execute(message)
+        power.execute(message,con)
         //#endregion
 
         //#region simple responses
