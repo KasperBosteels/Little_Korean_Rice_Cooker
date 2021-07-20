@@ -13,7 +13,6 @@ module.exports = {
         let memeURL = `https://www.reddit.com${permalink}`;
         let memetitle = responsomgv[0].data.children[0].data.title;
         let memefoto = responsomgv[0].data.children[0].data.url;
-        console.log(`${permalink} \n ${memeURL}\n${memetitle}\n${memefoto}`);
         return message.channel.send(makeEmbed(memefoto,memetitle,memeURL));
     }).catch('error',(err)=>{
         console.log(err);
@@ -33,7 +32,6 @@ function makeEmbed(foto,title,url){
 function getRandom(){
 let sources = ['https://www.reddit.com/r/memes/random/.json','https://www.reddit.com/r/surrealmemes/random/.json','https://www.reddit.com/r/dankmemes/random/.json'];
 let coin = Math.floor((Math.random() * sources.length));
-console.log(coin);
 return sources[coin];
 }
 async function fallbackfunction(message) {
@@ -42,7 +40,6 @@ async function fallbackfunction(message) {
         let memeURL = `https://www.reddit.com${permalink}`;
         let memetitle = responsomgv[0].data.children[0].data.title;
         let memefoto = responsomgv[0].data.children[0].data.url;
-        console.log(`${permalink} \n ${memeURL}\n${memetitle}\n${memefoto}`);
         return message.channel.send(makeEmbed(memefoto,memetitle,memeURL));
     }).catch('error',(err)=>{
         return console.log(err);

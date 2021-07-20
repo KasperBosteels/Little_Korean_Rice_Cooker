@@ -4,8 +4,8 @@ const profanity_enabled = require('./profanity_enabled');
 const score = require('./socalCredit');
 const Discord = require('discord.js');
 module.exports = {
-    execute(message,client){
-        proffilter(message,client);
+    execute(message,client,con){
+        proffilter(message,client,con);
     }
 };
 function proffilter(message,client) {

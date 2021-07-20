@@ -165,7 +165,7 @@ client.on('guildMemberAdd',member => {
         //#endregion
 
         //#region simple responses
-        profanity.execute(message,client);
+        profanity.execute(message,client,con);
         lie.execute(message);
         rice.execute(message);
         //#endregion
