@@ -8,7 +8,7 @@ module.exports = {
         proffilter(message,client,con);
     }
 };
-function proffilter(message,client) {
+function proffilter(message,client,con) {
     
     //check if this guild is being filtered
     if(!profanity_enabled.GET(message.guild.id))return;
