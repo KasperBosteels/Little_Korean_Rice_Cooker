@@ -17,7 +17,9 @@ module.exports = {
             if(score.length){
                 SCS =  score[0].socialScore;
             }else{
-                SCS = "no credit granted";
+
+                SCS = 10000;
+                credit.ADDUSER(con,user.id);
             }
 
             //return with embed message
