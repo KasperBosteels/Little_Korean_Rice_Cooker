@@ -191,5 +191,6 @@ function firstPage(prefix){
         embed.addField(":notes: music",`\`\`\`${prefix}help music\`\`\``, inline=true)
         embed.addField(":eyes: moderating",`\`\`\`${prefix}help moderating\`\`\``, inline=true)
         embed.addField(":screwdriver: config",`\`\`\`${prefix}help config\`\`\``, inline=true)
+        embed.addField(":books: quick guide",`\`\`\`${prefix}command name\nFor extra information about a command.\`\`\``);
         return embed;
 }

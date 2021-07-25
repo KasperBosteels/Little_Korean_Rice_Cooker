@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
 module.exports = {
-	name: 'ava',
+	name: 'pfp',
 	description: 'Display the pfp of a user.',
 	cooldown: 1,
 	usage: ' <blank> or <@user>',
 	category: "fun",
-	aliases: ['avatar','pfp'],
+	aliases: ['avatar','ava'],
         execute(client,message, args,con) {
         let member = message.guild.member(message.mentions.users.first() || client.users.cache.get(args[0]) || client.users.cache.find(user => user.username.toLowerCase() == args.join(" ").toLowerCase()) || 
          client.users.cache.find(user => user.tag.toLowerCase() == args.join(" ").toLowerCase()));

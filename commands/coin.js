@@ -12,6 +12,6 @@
             
             //if 1 = tails else ...
             if (coin <= 1){coin = 'tails';}else coin = 'heads';
-            message.channel.send(`${coin}`);
+            message.channel.send(`:coin: ${coin} :coin: `);
         },
     };

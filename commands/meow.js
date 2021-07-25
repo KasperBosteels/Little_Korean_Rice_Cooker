@@ -6,7 +6,7 @@ module.exports = {
 	usage: ' ',
 	category: "fun",
 	execute(client,message, args,con) {
-		score.ADD(con,100,message.author.id)
+		score.ADD(con,1,message.author.id)
 		return message.channel.send('pspspspspspspsps');
 	},
 };

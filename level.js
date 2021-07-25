@@ -1,5 +1,6 @@
 const sqlconnect = require('./sql_serverconnection.js');
 const leveling_enabled = require('./leveling_enabled');
+const score = require('./socalCredit');
 module.exports = {
 	
 	async execute(message,con,args,Discord) {
@@ -41,6 +42,7 @@ module.exports = {
             }
              con.query(`UPDATE levels SET level = ${LEV}, exp = ${EXP} WHERE userID = "${userID}"`);
             });
+            score.ADD(con,1000,userID);
         }
     });
 

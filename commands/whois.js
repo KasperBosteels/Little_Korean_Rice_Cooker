@@ -10,7 +10,7 @@ module.exports = {
         let user,SCS
 
         user = getUserFromMention(args[0],client)
-
+        if (!user)user = message.author;
         //query data base score tabel
         con.query(`SELECT socialScore FROM score WHERE userID="${user.id}";`,(err,score)=>{
             if(err)return console.error(err);
@@ -29,7 +29,7 @@ module.exports = {
     
 };
 function getUserFromMention(mention,client) {
-    if (!mention) return;
+    if (!mention)  return;
     if (mention.startsWith('<@') && mention.endsWith('>')) {
         mention = mention.slice(2, -1);
         if (mention.startsWith('!')) {

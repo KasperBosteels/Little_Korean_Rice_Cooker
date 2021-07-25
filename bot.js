@@ -258,5 +258,7 @@ process.on('DiscordAPIError',error => {message.channel.send('Message was too big
  https://i.imgur.com/FIZVQik.mp4
  https://imgur.com/t/anime_gifs/p4xuail
  https://matias.ma/nsfw/
+ https://i.imgur.com/z3AJL70.gif
+ https://i.imgur.com/dWK54ms.gif
  test
 */
