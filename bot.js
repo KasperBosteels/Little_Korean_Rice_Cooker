@@ -26,12 +26,17 @@ const leveling_enabled = require('./leveling_enabled');
 const welcomeLeaveMessages = require('./welcome_leave_messages');
 const activeSongs = new Map();
 const power = require('./powerButton');
-const SocialCredit = require('./socalCredit');
 const socalCredit = require('./socalCredit');
 //#endregion
 
 //#region init bot as client
 const client = new Discord.Client();
+//#region discord buttons
+require('discord-buttons')(client);
+
+
+
+
 client.commands = new Discord.Collection();
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
@@ -75,6 +80,8 @@ let disboardCheck = new cronjob('0 0 */2 * * *',() =>{
 //and display succes message in terminal
 client.on('ready', () => {
     try{
+//enable discord buttons
+    
     start.execute(client,con);
     getprefix.execute(con);
     birthdays.execute(con);
@@ -111,6 +118,12 @@ fs.writeFileSync("./errors.json",JSON.stringify(Err,null,2),(err) => {
 
 //#region slash command
 
+//#endregion
+
+//#region bot join
+client.on('guildCreate',guild =>{
+//nothing yet
+});
 //#endregion
 
 //#region member leave 
@@ -261,4 +274,6 @@ process.on('DiscordAPIError',error => {message.channel.send('Message was too big
  https://i.imgur.com/z3AJL70.gif
  https://i.imgur.com/dWK54ms.gif
  test
+ don't forget reconlx (google images thingy old)
+     is still in package maybe do something with it
 */
