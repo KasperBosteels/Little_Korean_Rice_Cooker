@@ -1,4 +1,5 @@
 const { MessageButton, MessageActionRow} = require('discord-buttons');
+const discord = require('discord.js');
 module.exports = {
 	name: 'message',
 	description: 'Message the author of the bot.',
@@ -9,6 +10,7 @@ module.exports = {
 	async execute(client,message,args,con,options,button) {
         //258217948819357697
         let mail =message.content;
+        let user = message.author;
         var button1 = new MessageButton()
         .setStyle('green')
         .setLabel('send')
@@ -19,7 +21,11 @@ module.exports = {
         .setID('discord_email')
         var row = new MessageActionRow()
         .addComponents(button1,button2);
-        message.reply(`Are you sure you want to send this message?\n"${mail}"`,row);
+        let embed = new discord.MessageEmbed()
+        .setColor('#008000')
+        .setTitle(':postbox: Are you sure you want so send this message?')
+        .setDescription(mail);
+        message.channel.send(embed,row);
         client.on('clickButton', async (button)=>{
             if(button.id === 'send'){
                 let response = await send_Mail(mail,message,client,con);
@@ -36,7 +42,7 @@ module.exports = {
 function send_Mail(mail,message,client,con){
     try{
         client.users.fetch("258217948819357697").then((user) => {
-            user.send(`user: ${message.author}\n\`\`\`id: ${message.author.id}\nguild: ${message.guild.name}\nchannel: ${message.channel.name}\nmessage: ${mail}\`\`\``);
+            user.send(`user: ${message.author.username}\n\`\`\`id: ${message.author.id}\nguild: ${message.guild.name}\nchannel: ${message.channel.name}\nmessage: ${mail}\`\`\``);
         });
         con.query(`INSERT INTO user_messages (userID,userName,guildID,channelID,guildName,channelName,message) VALUES ("${message.author.id}","${message.author.username}","${message.guild.id}","${message.channel.id}","${message.guild.name}","${message.channel.name}","${mail}");`)
     }catch(error) {
@@ -44,6 +50,6 @@ function send_Mail(mail,message,client,con){
         return 'For some reason the author was not able to receive the message.';
 
     }
-    return response =`Your message was received, Have a nice day. :mailbox_closed: `
+    return `Your message was received, Have a nice day. :mailbox_with_mail:`
 
 }
