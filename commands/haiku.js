@@ -1,5 +1,6 @@
 const haiku = require('haiku-random');
 const discord = require('discord.js');
+const score = require('../socalCredit');
 var hard_Haiku = [`You're a vast ocean,\nSo oddly terrifying\nSuch a strange comfort.\nby Achi`]
 module.exports = {
 	name: 'haiku',
@@ -23,7 +24,12 @@ module.exports = {
         if (Math.floor(Math.random() * 10)+1 === 1){
             smile = hard_Haiku[Math.floor(Math.random()*hard_Haiku.length)];
         }
-        return embedmaker(smile,message);
+        embedmaker(smile,message);
+        try{
+            score.ADD(con,10,message.author.id)
+        }catch(err){
+            console.log(err);
+        }
     },
 };
 function embedmaker(haiku,message){

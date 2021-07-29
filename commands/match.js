@@ -1,5 +1,6 @@
 const discord = require("discord.js");
 const gif = require("../jsonFiles/bodily_affection.json");
+const score = require('../socalCredit');
 var chosen = " ";
 var value = 0;
 var users = [];
@@ -12,7 +13,7 @@ module.exports = {
     usage: '<@user> or <@user> <@user> ',
     aliases:['mm','match'],
 	category: "fun",
-	async execute(client,message, args) {
+	async execute(client,message, args,con) {
 		if (!args[0]) return message.channel.send(`Give me a match\n if you dont know how to use this command try "-help matchmaker"`);
 		/**
  * Create a text progress bar
@@ -76,6 +77,11 @@ global.progressBar = (value, maxValue, size) => {
 			.setImage(chosen)
 		}
 		message.channel.send(embed);
+		try{
+			score.ADD(con,100,message.author.id);
+		}catch(err){
+			console.error(err);
+		}
     },
 };
 function getUserFromMention(client,mention)
@@ -90,8 +96,8 @@ function getUserFromMention(client,mention)
 }
 function getGif(value){
 	var percent = value;
-	if (percent<1)return gif.zero[Math.floor(Math.random() * Math.random(gif.zero.length))];
-	if(percent<=25 && percent>1)return gif.lower[Math.floor(Math.random() * Math.floor(gif.lower.length))];
+	if (percent<2)return gif.zero[Math.floor(Math.random() * Math.floor(gif.zero.length))];
+	if(percent<=25 && percent>2)return gif.lower[Math.floor(Math.random() * Math.floor(gif.lower.length))];
 	if(percent<=50 && percent>25)return gif.low[Math.floor(Math.random() * Math.floor(gif.low.length))];
 	if(percent<=75 && percent>50)return gif.med[Math.floor(Math.random() * Math.floor(gif.med.length))];
 	if(percent<100 && percent>75)return gif.high[Math.floor(Math.random() * Math.floor(gif.high.length))];

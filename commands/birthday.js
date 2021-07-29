@@ -14,7 +14,7 @@ module.exports = {
         if (!user) {
 		    return message.reply('Please use a proper mention.');
         }
-        if(!channelID && !guildID) return message.reply("something went badly.");
+        if(!channelID && !guildID) return message.reply("Something went badly.");
         if(!args[1]){
         
             return message.reply('You need to give me a date (DD/MM/YYYY) or "remove".');
@@ -39,7 +39,7 @@ module.exports = {
             }
             );
             verjaardag.execute(con);
-            return message.reply('removed the birthday');
+            return message.reply('Removed the birthday.');
         }
         if(regexTest(args[1].split('/').reverse().join('/'))){
             

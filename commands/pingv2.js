@@ -1,3 +1,4 @@
+const discord = require('discord.js');
 module.exports = {
 	name: 'ping',
     description: 'Gives you latency of the bot.',
@@ -30,7 +31,8 @@ module.exports = {
 		}
 		//get current time and message recieved timestamp subtract and send back 
 	 message.channel.send('ping...').then(sent =>{
-		sent.edit(`roundtrip latency: ${sent.createdTimestamp - message.createdTimestamp} ms \n websocket heartbeat: ${client.ws.ping} ms\n${uptimeGET(client)}`);
+		sent.edit(makeEmbed(sent.createdTimestamp - message.createdTimestamp,client.ws.ping,uptimeGET(client)));
+		//sent.edit(`roundtrip latency: ${sent.createdTimestamp - message.createdTimestamp} ms \n websocket heartbeat: ${client.ws.ping} ms\n${uptimeGET(client)}`);
 	});
 	return;
 	},
@@ -43,6 +45,14 @@ module.exports = {
 	 totalSeconds %=3600;
 	 let totalminutes = Math.floor(totalSeconds/60);
 	 let seconds = Math.floor(totalSeconds%60);
-	 return `total uptime: ${days}:${hours}:${totalminutes}:${seconds}`;
+	 return `${days}:${hours}:${totalminutes}:${seconds}`;
 
+ }
+ function makeEmbed(roundtrip,heartbeat,uptime){
+	let embed = new discord.MessageEmbed()
+	.setTitle('**PING**')
+	.addField('*roundtrip latency:*',`\`\`\` ${roundtrip} ms \`\`\``)
+	.addField('*websocket heartbeat:*',`\`\`\` ${heartbeat} ms \`\`\``)
+	.addField('*uptime:*',`\`\`\` ${uptime} \`\`\``);
+	return embed;
  }

@@ -2,23 +2,27 @@ const botconfig = require('../auth.json');
 const content = require('../jsonFiles/swearwords.json');
 const getprefix = require('../getprefixData.js');
 const {MessageEmbed} = require('discord.js');
-const recon = require('reconlx');
-const ReactionPages = recon.ReactionPages;
+const { Menu } = require('discord.js-menu')
 var prefix = "-";
+//page settings 
+const emojis = ["⏪", "⏩"];
+const time = 120000;
 module.exports = {
 
 	name: 'help',
 	description: 'List all of my commands or info about a specific command.',
 	aliases: ['commands'],
-	usage: 'optional: [command name]',
+	usage: 'optional: [command name]\n optional: [category]',
     cooldown: 5,
     category: "general",
-	execute(client,message, args) {
+	async execute(client,message, args,con,options,button) {
         prefix = this.guildprefix(message.guild.id);
+        
+        
+        
         //checks if a specific command query was asked if not send dm withh all commmands
         if(!args.length && message.guild.me.hasPermission("ADD_REACTIONS","MANAGE_MESSAGES")){
         var commandlist = [];
-
         //for each command in commands folder get name description and category and usage
         client.commands.forEach(command =>{
             var constructor = {
@@ -31,7 +35,6 @@ module.exports = {
             commandlist.push(constructor);
         });
         //default markup
-        
         let general = []
         let moderating = []
         let fun = []
@@ -45,7 +48,7 @@ for (let i = 0; i < commandlist.length; i++) {
         general[i]=command;
     }else if (command['category'] == 'moderating') {
         moderating[i]=command;
-    }else if (command['category'] == 'debug') {
+    }else if (command['category'] == 'config') {
         debug[i]=command;
     }else if (command['category'] == 'fun') {
         fun[i]=command;
@@ -56,11 +59,55 @@ for (let i = 0; i < commandlist.length; i++) {
     }
 }
 
-//put all category embeds in response array
-var response = [firstPage(prefix),MakeEmbed(general,prefix),MakeEmbed(fun,prefix),MakeEmbed(music,prefix),MakeEmbed(moderating,prefix),MakeEmbed(debug,prefix)];
-//dm the response string to the author if not possible send declined in channel
-ReactionPages(message,response,true,["⏪", "⏩"],120000);
-
+let helpmenu = new Menu(message.channel,message.author.id,[
+{
+    name: 'main',
+    content: firstPage(prefix),
+    reactions: {
+        '⏪': 'previous',
+        '⏩': 'next'
+    }
+},{
+    name: 'general',
+    content: MakeEmbed(general,prefix,2),
+    reactions: {
+        '⏪': 'previous',
+        '⏩': 'next'
+    }
+},{
+    name:'fun',
+    content:MakeEmbed(fun,prefix,3),
+    reactions: {
+        '⏪': 'previous',
+        '⏩': 'next'
+    }
+},{
+    name:'music',
+    content:MakeEmbed(music,prefix,4),
+    reactions: {
+        '⏪': 'previous',
+        '⏩': 'next'
+    }
+},{
+    name:'moderating',
+    content:MakeEmbed(moderating,prefix,5),
+    reactions: {
+        '⏪': 'previous',
+        '⏩': 'next'
+    }
+},{
+    name:'config',
+    content:MakeEmbed(debug,prefix,6),
+    reactions: {
+        '⏪': 'previous',
+        '⏩': 'next'
+    }
+}
+],time);
+helpmenu.start();
+helpmenu.on('pageChange',destination=>{
+//nothing here for now
+});
 
 
 //if specific command was asked
@@ -104,7 +151,7 @@ for (let i = 0; i < commandlist.length; i++) {
         currency[i]=command;
     }
 }
-var response = [MakeEmbed(general,prefix),MakeEmbed(fun,prefix),MakeEmbed(music,prefix),MakeEmbed(moderating,prefix),MakeEmbed(debug,prefix)];
+var response = [MakeEmbed(general,prefix,2),MakeEmbed(fun,prefix,3),MakeEmbed(music,prefix,4),MakeEmbed(moderating,prefix,5),MakeEmbed(debug,prefix,6)];
 response.unshift(firstPage(prefix));
 if(!args.length){
     return message.channel.send(response[0]);
@@ -137,7 +184,7 @@ if(!args.length){
 
         //if there is no command found return 
 if (!command) {
-	return message.channel.send(`That was not a valid command!\ntype: ${prefix}help\n for all commands.`);
+	return message.channel.send(`That was not a valid command!\ntype: "${prefix}help" for all commands.`);
 }
 
 //push values to data array
@@ -171,18 +218,19 @@ return message.channel.send(embed);
         if(p){return p}else {return botconfig.prefix}
     }
 };
-function MakeEmbed(content,prefix){
+function MakeEmbed(content,prefix,i){
 let embed = new MessageEmbed()
 .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
 .setColor('#00ff00');
 content.forEach(item => {
     embed.addField(`${prefix}${item.name} ${item.usage}`,item.description);
 });
-embed.setFooter(`You can find more info about a command by using: ${prefix}help <command name>`)
+embed.setFooter(`You can find more info about a command by using: ${prefix}help <command name>\npage: ${i}/6`)
 return embed;
 }
 function firstPage(prefix){
         let embed = new MessageEmbed()
+        .setTitle('Little Korean Rice Cooker guide')
         .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
         .setColor('#00ff00');
         embed.addField(":bookmark: index",`\`\`\`${prefix}help \`\`\``, inline=true)
@@ -191,5 +239,8 @@ function firstPage(prefix){
         embed.addField(":notes: music",`\`\`\`${prefix}help music\`\`\``, inline=true)
         embed.addField(":eyes: moderating",`\`\`\`${prefix}help moderating\`\`\``, inline=true)
         embed.addField(":screwdriver: config",`\`\`\`${prefix}help config\`\`\``, inline=true)
+        embed.addField(":books: quick guide",`\`\`\`${prefix}help "command name"\nFor extra information about a command.\`\`\``)
+        embed.setFooter('page: 1/6')
+        
         return embed;
 }

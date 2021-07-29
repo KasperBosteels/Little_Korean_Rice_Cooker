@@ -25,10 +25,18 @@ const profanity_enabled = require('./profanity_enabled');
 const leveling_enabled = require('./leveling_enabled');
 const welcomeLeaveMessages = require('./welcome_leave_messages');
 const activeSongs = new Map();
+const power = require('./powerButton');
+const socalCredit = require('./socalCredit');
 //#endregion
 
 //#region init bot as client
 const client = new Discord.Client();
+//#region discord buttons
+require('discord-buttons')(client);
+
+
+
+
 client.commands = new Discord.Collection();
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
@@ -45,7 +53,7 @@ for (const file of subCommandFiles){
 
 //#region sql login data
 //sets sql login data in veriable for use
-var con = mysql.createConnection({
+const con = mysql.createConnection({
     host:process.env.HOST,
     user : process.env.USERSQLSERVER,
     password: process.env.PASSWORDSQLSERVER,
@@ -72,6 +80,8 @@ let disboardCheck = new cronjob('0 0 */2 * * *',() =>{
 //and display succes message in terminal
 client.on('ready', () => {
     try{
+//enable discord buttons
+    
     start.execute(client,con);
     getprefix.execute(con);
     birthdays.execute(con);
@@ -110,6 +120,12 @@ fs.writeFileSync("./errors.json",JSON.stringify(Err,null,2),(err) => {
 
 //#endregion
 
+//#region bot join
+client.on('guildCreate',guild =>{
+//nothing yet
+});
+//#endregion
+
 //#region member leave 
 //member leaves guild will trigger logchannel check and sad message
 client.on('guildMemberRemove',member =>{
@@ -143,7 +159,8 @@ client.on('guildMemberAdd',member => {
     
    try{
     sqlconnect.execute(con,member,5,embed);
-    }catch(err){console.log(err);} 
+    }catch(err){console.log(err);}
+    socalCredit.ADDUSER(con,member.id)
   });
   //#endregion
   
@@ -151,12 +168,17 @@ client.on('guildMemberAdd',member => {
 //when a user sends a message
   client.on('message', message => {
 
+
         //#region bot ignore
         if(message.author.bot)return;
        //#endregion
 
+        //#region reboot
+        power.execute(message,con)
+        //#endregion
+
         //#region simple responses
-        profanity.execute(message,client);
+        profanity.execute(message,client,con);
         lie.execute(message);
         rice.execute(message);
         //#endregion
@@ -249,5 +271,9 @@ process.on('DiscordAPIError',error => {message.channel.send('Message was too big
  https://i.imgur.com/FIZVQik.mp4
  https://imgur.com/t/anime_gifs/p4xuail
  https://matias.ma/nsfw/
+ https://i.imgur.com/z3AJL70.gif
+ https://i.imgur.com/dWK54ms.gif
  test
+ don't forget reconlx (google images thingy old)
+     is still in package maybe do something with it
 */

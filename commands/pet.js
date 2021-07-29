@@ -1,5 +1,6 @@
 const discord = require("discord.js");
 const hug = require("../jsonFiles/bodily_affection.json");
+const score = require('../socalCredit');
 module.exports = {
 	name: 'pet',
 	description: 'Pet someone.',
@@ -7,7 +8,7 @@ module.exports = {
     usage: '<@user> or <nothing>',
     aliases:['p','pat','pat'],
 	category: "fun",
-	async execute(client,message, args) {
+	async execute(client,message, args,con) {
        
         coin = Math.floor(Math.random() * Math.floor(hug.pats.length));
         var manualinput = " ";
@@ -58,8 +59,12 @@ module.exports = {
             }
 
         }
-        
-        return message.channel.send(embed);
-    
+
+         message.channel.send(embed);
+         try{
+             score.ADD(con,50,message.author.id)
+         }catch(err){
+             console.error(err);
+         }
     }
 }

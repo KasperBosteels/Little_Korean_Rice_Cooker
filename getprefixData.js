@@ -13,8 +13,8 @@ module.exports = {
             if(err){
                 return console.error(err);
             }
-            console.log('prefixes saved into file');
         })
+        console.log('prefix data saved');
     },
     GET(guildID){
         let rawData =fs.readFileSync('./jsonFiles/prefix.json','utf-8');

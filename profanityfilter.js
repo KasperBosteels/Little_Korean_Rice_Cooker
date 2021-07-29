@@ -1,13 +1,14 @@
 const fs = require('fs');
 const channel_alert = require('./profanity_alert_data_collector');
 const profanity_enabled = require('./profanity_enabled');
+const score = require('./socalCredit');
 const Discord = require('discord.js');
 module.exports = {
-    execute(message,client){
-        proffilter(message,client);
+    execute(message,client,con){
+        proffilter(message,client,con);
     }
 };
-function proffilter(message,client) {
+function proffilter(message,client,con) {
     
     //check if this guild is being filtered
     if(!profanity_enabled.GET(message.guild.id))return;
@@ -50,6 +51,7 @@ function proffilter(message,client) {
           console.log(`profanity  ${message.author.tag}   \"${message.content}\"`)
           
           message.delete()
+          score.SUBTRACT(con,300,message.author.id);
         }
       }
     }
