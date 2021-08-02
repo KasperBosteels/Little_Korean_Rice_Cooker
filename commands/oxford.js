@@ -7,7 +7,7 @@ const dict = new ox(config);
 module.exports = {
 	name: 'oxford',
 	description: 'Oxford Dictionary.',
-	cooldown: 1,
+	cooldown: 3,
 	usage: '<word> ',
     category: "fun",
 	async execute(client,message, args,con) {

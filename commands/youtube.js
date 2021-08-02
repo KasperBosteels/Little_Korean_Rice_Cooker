@@ -3,7 +3,7 @@ const {MessageEmbed} = require('discord.js');
 module.exports = {
 	name: 'youtube',
 	description: 'I will look for some good videos.',
-	cooldown: 1,
+	cooldown: 2,
 	usage: '<title>',
     aliases: ['yt'],
 	category: "fun",

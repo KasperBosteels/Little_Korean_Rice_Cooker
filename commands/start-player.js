@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core');
 module.exports = {
 	name: 'sing',
 	description: 'sing a youtube video',
-	cooldown: 1,
+	cooldown: 2,
 	usage: '<youtube url>',
 	category: "music",
 	async execute(client,message, args,con,options) {

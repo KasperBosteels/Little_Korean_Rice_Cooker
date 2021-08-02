@@ -24,9 +24,13 @@ const profanity_alert_data_collector = require('./profanity_alert_data_collector
 const profanity_enabled = require('./profanity_enabled');
 const leveling_enabled = require('./leveling_enabled');
 const welcomeLeaveMessages = require('./welcome_leave_messages');
-const activeSongs = new Map();
 const power = require('./powerButton');
 const socalCredit = require('./socalCredit');
+
+const activeSongs = new Map();
+const cooldowns = new Map();
+
+
 //#endregion
 
 //#region init bot as client
@@ -235,7 +239,31 @@ client.on('guildMemberAdd',member => {
          return message.channel.send(reply);
         }
         //#endregion
-    
+        
+        //#region cooldown
+        //if command is not in map put it in
+        if(!cooldowns.has(command.name)){
+            cooldowns.set(command.name,new Discord.Collection());
+
+        }
+        //get current time, get timestamp from command, get cooldown time of command
+        let currentTime = Date.now();
+        let timeStamps = cooldowns.get(command.name);
+        let cooldownTime = command.cooldown*1000;
+
+        if(timeStamps.has(message.author.id)){
+            let exeperationTime = timeStamps.get(message.author.id) + cooldownTime;
+            if(currentTime < exeperationTime){
+                let timeLeft = (exeperationTime - currentTime)/1000;
+                return message.reply(`Please wait ${timeLeft.toFixed(1)} seconds before using this command again.`);
+            }else{
+                timeStamps.delete(message.author.id);
+            }
+        }
+        timeStamps.set(message.author.id,currentTime);
+
+        //#endregion
+
         //#region execute command
         //tries to perform the command if error occurs catch it and display on terminal
         try {

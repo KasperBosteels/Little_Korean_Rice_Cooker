@@ -7,6 +7,7 @@ module.exports = {
     usage:'<number>',
     aliases: ['delete','remove'],
     category: "moderating",
+    cooldown:2,
 	execute(client,message, args,con) {
         //check parms
         if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply('You do not have permission to do this.');

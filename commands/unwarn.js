@@ -7,6 +7,7 @@ const sqlcon = require("../sql_serverconnection.js");
         guildOnly: 'true',
         aliases: ['uw','unw','rw'],
         category: "moderating",
+        cooldown:5,
         async execute(client,message, args,con) {
        //#region default check
        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('You do not have permission to do this.');

@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'skip',
 	description: "Go to the next queue'ed song.",
-	cooldown: 1,
+	cooldown: 2,
 	usage: '',
 	category: "music",
     aliases:['next'],

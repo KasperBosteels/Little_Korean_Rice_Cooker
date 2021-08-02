@@ -2,7 +2,7 @@ const { MessageButton, MessageActionRow} = require('discord-buttons');
 const discord = require('discord.js');
 module.exports = {
 	name: 'message',
-	description: 'Message the author of the bot.',
+	description: 'Message the author of the bot. __abuse will result in removal of acces to commands__',
 	cooldown: 10,
 	usage: '<you message>',
     category: "general",

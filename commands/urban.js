@@ -3,7 +3,7 @@ const discord = require('discord.js');
 module.exports = {
 	name: 'urban',
 	description: 'Urban Dictionary.',
-	cooldown: 1,
+	cooldown: 2,
 	usage: '<word> ',
     category: "fun",
 	 execute(client,message, args,con) {

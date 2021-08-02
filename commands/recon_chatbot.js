@@ -1,9 +1,9 @@
 const score = require('../socalCredit');
 const { chatBot } = require("reconlx");
 module.exports = {
-	name: 'talk',
+	name: 'chatbot1',
 	description: '*microwave noises*',
-	cooldown: 1,
+	cooldown: 2,
 	usage: ' ',
 	category: "fun",
 	async execute(client,message, args,con) {

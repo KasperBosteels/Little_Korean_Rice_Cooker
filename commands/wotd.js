@@ -3,7 +3,7 @@ const discord = require('discord.js');
 module.exports = {
 	name: 'wotd',
 	description: 'word of the day',
-	cooldown: 1,
+	cooldown: 3,
 	usage: ' ',
     category: "fun",
 	 async execute(client,message, args,con) {

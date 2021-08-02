@@ -2,7 +2,7 @@ const discord = require('discord.js');
 module.exports = {
 	name: 'ping',
     description: 'Gives you latency of the bot.',
-	cooldown : 100,
+	cooldown : 5,
 	category: "config",
 	usage: ' ',
 	aliases: ["ching"],

@@ -7,7 +7,7 @@ const choise = content.lewd;
 module.exports = {
 	name: 'lewd',
 	description: 'Bonk',
-	cooldown: 1,
+	cooldown: 2,
 	usage: '(optional:<category>)',
 	category: "fun",
 	specifics: choise,

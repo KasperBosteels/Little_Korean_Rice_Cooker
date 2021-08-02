@@ -3,7 +3,7 @@ const FS = require('fs');
 module.exports = {
 	name: 'prefix',
 	description: 'Change the prefix for this server(note: that the prefix cannot have a space).',
-	cooldown: 1,
+	cooldown: 2,
 	usage: ' <your prefix>',
 	category: "config",
     args: 'true',

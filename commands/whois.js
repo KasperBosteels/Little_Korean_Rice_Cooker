@@ -3,7 +3,7 @@ const credit = require('../socalCredit');
 module.exports = {
 	name: 'whois',
 	description: 'get acount details',
-	cooldown: 1,
+	cooldown: 2,
 	usage: ' ',
 	category: "moderating",
 	async execute(client,message, args,con) {

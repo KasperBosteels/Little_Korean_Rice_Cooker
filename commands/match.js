@@ -9,7 +9,7 @@ var lovemeter;
 module.exports = {
 	name: 'matchmaker',
 	description: 'Find true love on discord (not a scam i swear).',
-	cooldown: 1,
+	cooldown: 3,
     usage: '<@user> or <@user> <@user> ',
     aliases:['mm','match'],
 	category: "fun",

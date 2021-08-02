@@ -6,6 +6,7 @@ module.exports = {
         guildOnly: 'true',
         aliases: ['warning'],
         category: "moderating",
+        cooldown:1,
         async execute(client,message, args,con) {
        //#region default check
        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('You do not have permission to do this.');

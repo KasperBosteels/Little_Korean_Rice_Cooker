@@ -3,7 +3,7 @@ const profanity = require('../profanity_enabled');
 module.exports = {
 	name: 'profanity',
 	description: 'enable or disable the profanity filter',
-	cooldown: 1,
+	cooldown: 3,
 	usage: ' true / false',
 	category: "config",
     aliases: ['profanityfilter','prf'],

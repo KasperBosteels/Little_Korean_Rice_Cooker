@@ -2,7 +2,7 @@ const search = require('yt-search');
 module.exports = {
 	name: 'searchsong',
 	description: 'I will look for some good tunes.',
-	cooldown: 1,
+	cooldown: 3,
 	usage: '<a title> When you get a list of songs press the number of the corresponding song u want.',
 	category: "music",
 	async execute(client,message, args,con,options) {

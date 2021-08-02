@@ -8,7 +8,7 @@ const options = {page:1};
 module.exports = {
 	name: 'google',
 	description: 'Search google for images.',
-	cooldown: 1,
+	cooldown: 5,
 	usage: '<your query>',
 	category: "fun",
     aliases: ['img'],

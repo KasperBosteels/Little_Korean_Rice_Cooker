@@ -2,7 +2,7 @@ const save_channels = require('../profanity_alert_data_collector');
 module.exports = {
 	name: 'profanity_alert',
 	description: 'sends a message when someone uses profanity',
-	cooldown: 1,
+	cooldown: 3,
 	usage: ' you use this command in the channel you want the message to apear, to stop message put "stop" after the command.',
 	category: "config",
     aliases: ['profanityalert','pra'],

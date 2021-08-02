@@ -3,7 +3,7 @@ const cavacord = require('canvacord');
 module.exports = {
 	name: 'level',
 	description: 'See the current level, rank and progression from a user.',
-	cooldown: 1,
+	cooldown: 3,
 	usage: '<optional: @user>',
     category: "General",
     aliases:['rank'],

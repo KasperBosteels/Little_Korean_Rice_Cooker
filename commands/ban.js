@@ -6,6 +6,7 @@ const sqlcon = require("../sql_serverconnection.js");
         usage: '<@ user> (optional:<reason>)',
         guildOnly: 'true',
         category: "moderating",
+        cooldown:1,
         async execute(client,message, args,con) {
             //check permissions of user 
             if(!permissioncheck(message)) return message.reply('You have no permission to do that.');

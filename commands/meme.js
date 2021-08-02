@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 module.exports = {
 	name: 'meme',
 	description: 'Cripsy memes.',
-	cooldown: 1,
+	cooldown: 2,
 	usage: ' ',
 	category: "fun",
 	async execute(client,message, args,con) {
