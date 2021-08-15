@@ -18,7 +18,7 @@ module.exports = {
         //get mention and if found succesfully check for mod
         var muteperson = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
         if (!muteperson) return message.reply('Unable to find this person.');
-        if (muteperson.hasPermission('BAN_MEMBERS')) return message.reply('This person is possibly a mod.');
+        if (muteperson.hasPermission('KICK_MEMBERS')) return message.reply('This person is possibly a mod.');
 
         //check if a Muted role is reachable in this server
         var role = message.guild.roles.cache.find(role => role.name === 'Muted');
