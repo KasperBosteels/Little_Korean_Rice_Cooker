@@ -10,8 +10,10 @@ module.exports = {
   
         //sets time out
         setTimeout(() => {
+        if(member.roles.has(role.id)){
             member.roles.remove(role.id);
-        message.channel.send(`${member} has been unmuted.`)
+            message.channel.send(`${member} has been unmuted.`)
+            }
         }, 
      ms(time));
     }

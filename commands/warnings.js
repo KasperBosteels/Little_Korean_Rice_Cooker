@@ -4,9 +4,9 @@ module.exports = {
         description: 'see the warnings against a user',
         usage: '<@ user> (optional:<reason>)',
         guildOnly: 'true',
-        aliases: ['warning'],
+        aliases: ['warning',"warns"],
         category: "moderating",
-        cooldown:1,
+        cooldown:5,
         async execute(client,message, args,con) {
        //#region default check
        if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('You do not have permission to do this.');
