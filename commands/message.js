@@ -18,7 +18,7 @@ module.exports = {
         var button2 = new MessageButton()
         .setStyle('red')
         .setLabel('discard')
-        .setID('discord_email')
+        .setID('discard_email')
         var row = new MessageActionRow()
         .addComponents(button1,button2);
         let embed = new discord.MessageEmbed()
@@ -30,8 +30,10 @@ module.exports = {
             if(button.id === 'send'){
                 let response = await send_Mail(mail,message,client,con);
                 await button.reply.send(response);
-            }else{
+            }else if (button.id === 'discard_email'){
                 await button.reply.send('...discarding email.');
+            }else{
+                return;
             }
         })
       

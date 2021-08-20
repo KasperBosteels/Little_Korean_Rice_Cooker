@@ -8,18 +8,31 @@ module.exports = {
 	usage: '<@user>',
 	category: "fun",
 	execute(client,message, args,con) {
-        if(message.mentions.members.first()){
+        try{
+                score.ADD(con,100,message.author.id)
+        }catch(err){
+                console.error(err);
+        }finally{
+                return message.channel.send(createEmbed(message,tickleDatabase,args));
+        }
+        },
+};
+function createEmbed(message,tickleDatabase,args){
         let coin = Math.floor(Math.random() * Math.floor(tickleDatabase.length));
+        let msg = "";
+        if(!message.mentions.members.first() && args.length == 0){
+                msg = `${message.client.user} tickles you.`; 
+        }else if(args.length > 0 && !message.mentions.members.first()){
+                msg = `${message.author} tickles ${args.join(' ')}`
+        }
+        else{
+            msg = `${message.author} tickles ${message.mentions.members.first()}`;    
+        }
         let embed = new discord.MessageEmbed()
         .setColor('#00ff00')
-        .setDescription(`${message.author} tickles ${message.mentions.members.first()}`)
+        .setDescription(msg)
         .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
         .setImage(tickleDatabase[coin]);
         console.log("responded with " + tickleDatabase[coin]);
-        score.ADD(con,100,message.author.id)
-        return message.channel.send(embed);
-        }else{
-                message.channel.send('You need to @ a user.')
-        }
-	},
-};
+        return embed
+}
