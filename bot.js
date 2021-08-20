@@ -26,7 +26,7 @@ const leveling_enabled = require('./leveling_enabled');
 const welcomeLeaveMessages = require('./welcome_leave_messages');
 const power = require('./powerButton');
 const socalCredit = require('./socalCredit');
-
+const leave = require('./leave');
 const activeSongs = new Map();
 const cooldowns = new Map();
 
@@ -185,6 +185,7 @@ client.on('guildMemberAdd',member => {
         profanity.execute(message,client,con);
         lie.execute(message);
         rice.execute(message);
+        leave.execute(message,client);
         //#endregion
 
 

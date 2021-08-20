@@ -4,7 +4,7 @@ module.exports = {
 	cooldown: 1,
 	usage: '',
 	category: "music",
-	aliases:['leave','silence'],
+	aliases:['silence'],
 	async execute(client,message, args,con,options) {
 
         if(!message.member.voice.channel)return message.channel.send('You are not connected to a voice channel.');
