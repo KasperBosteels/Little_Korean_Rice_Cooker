@@ -6,7 +6,7 @@ module.exports = {
     guildOnly: 'true',
     args : 'true',
     category: "moderating",
-    aliases:['speak','unm','talk'],
+    aliases:[,'unm',],
     async execute(client,message, args) {
 
         //control for perms

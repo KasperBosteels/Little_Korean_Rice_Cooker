@@ -8,6 +8,6 @@ module.exports = {
 	category: "fun",
 	async execute(client,message, args,con) {
 		score.ADD(con,1,message.author.id)
-        await chatBot(message,args.join(" "));	
+        await chatBot(message,args.join(" "),message.author.id);	
 },
 };
