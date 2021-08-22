@@ -5,7 +5,7 @@ module.exports = {
         con.query(`SELECT socialScore FROM score WHERE userID="${userID}"`,(err,score)=>{
             if(score.length){
                 userScore = score[0].socialScore
-                con.query(`UPDATE score set socialScore=${userScore + points} WHERE userID = ${userID};`)
+                con.query(`UPDATE score set socialScore=${userScore + points} WHERE userID = '${userID}';`)
             }else{
                 con.query(`INSERT INTO score (userID,socialScore) VALUES ("${userID}",${10000 + points});`)
             }
@@ -17,7 +17,7 @@ module.exports = {
         con.query(`SELECT socialScore FROM score WHERE userID="${userID}"`,(err,score)=>{
             if(score.length){
                 userScore = score[0].socialScore
-                con.query(`UPDATE score set socialScore=${userScore - points} WHERE userID = ${userID};`)
+                con.query(`UPDATE score set socialScore=${userScore - points} WHERE userID = '${userID}';`)
             }else{
                 con.query(`INSERT INTO score (userID,socialScore) VALUES ("${userID}",${10000 - points});`)
             }
