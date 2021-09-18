@@ -17,6 +17,7 @@ module.exports = {
         }else{
          con.query(`SELECT level ,exp FROM levels WHERE userID = "${userID}"`,(err,rows) =>{
            if(err)return console.log(err);
+           if(!rows)return;
            var LEV = rows[0].level;
            var EXP = rows[0].exp+randomint;
            var nextlevel =(15 + 300)*LEV;

@@ -8,7 +8,7 @@ module.exports = {
 	async execute(client,message, args,con) {
         let id = message.author.id;
         let data_removed_string = " ";
-        try{
+        if(!id)return console.log('no ID found from message.');
         await con.query(`DELETE FROM levels WHERE userID = "${id}";`,(err)=>{
             if(err){
                 data_removed_string = "unable to remove level data, please contact dev using the message command.";
@@ -25,7 +25,7 @@ module.exports = {
                 data_removed_string += "\nsocial score data removed."
             }
         })
-        await con.query(`DELETE FROM verjaardage WHERE userID = "${id}";`,(err)=>{
+        await con.query(`DELETE FROM verjaardagen WHERE userID = "${id}";`,(err)=>{
             if(err){
                 console.log(err)
                 data_removed_string +="\nunable to remove birthday data(if set),contact dev using the message command.";
@@ -39,8 +39,8 @@ module.exports = {
                 data_removed_string += "\nunable to delete warnings data, contact dev using the message command.";
             }
         })
-        }finally{
-            return message.reply(data_removed_string);
-        }
+        
+        return message.reply(data_removed_string);
+        
 	},
 };
