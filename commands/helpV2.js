@@ -240,6 +240,7 @@ function firstPage(prefix){
         embed.addField(":eyes: moderating",`\`\`\`${prefix}help moderating\`\`\``, inline=true)
         embed.addField(":screwdriver: config",`\`\`\`${prefix}help config\`\`\``, inline=true)
         embed.addField(":books: quick guide",`\`\`\`${prefix}help "command name"\nFor extra information about a command.\`\`\``)
+        embed.addField(":bar_chart: GDPR",`\`\`\`Use the "${prefix}remove-my-data" command"\nto erase any data collected on your acount(any message after this command will result in collection of data).\nno data is given to third parties or used for commerial purposes, any collected data will only be used for 'leveling','warnings',...\`\`\``)
         embed.setFooter('page: 1/6')
         
         return embed;
