@@ -24,9 +24,8 @@ module.exports = {
             con.query(`DELETE FROM leveling_enabled WHERE guildID = '${guildID}';`,(err) =>{
                 if(err){
                     console.error(err);
-                    return message.channel.send('An error occurred, try again later.\nPS. is this pproblem keeps occuring notify me with the message command.');
+                    return message.channel.send('An error occurred, try again later.\nerror: '+err.name+'\nPS. is this pproblem keeps occuring notify me with the message command.');
                 }
-
             }
             );
             leveling.execute(con);

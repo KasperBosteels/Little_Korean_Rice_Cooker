@@ -17,7 +17,7 @@ const sqlcon = require("../sql_serverconnection.js");
         }
         //look if reason was given for ban from the server
         var Reason = args[1]
-        if(!Reason) Reason = "non given";
+        if(!Reason) Reason = `${message.author.name} has given no reasons.`;
             try {
                 //try to ban member with reason
 		        await message.guild.members.ban(user, { reason: Reason});

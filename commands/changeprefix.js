@@ -2,7 +2,7 @@ const pr = require('../getprefixData.js');
 const FS = require('fs');
 module.exports = {
 	name: 'prefix',
-	description: 'Change the prefix for this server(note: that the prefix cannot have a space).',
+	description: 'Change the prefix for this server(The prefix cannot have a space).',
 	cooldown: 2,
 	usage: ' <your prefix>',
 	category: "config",
@@ -10,16 +10,18 @@ module.exports = {
     guildOnly: 'true',
 	async execute(client,message, args,con) {
         if(!permissioncheck(message))return message.reply('You do not have permission to do this, ask a mod.');
+        
         con.query(`SELECT prefix FROM prefix WHERE guildID = "${message.guild.id}";`,(err,rows) =>{
-        if(err)return console.error(err);
-        if(rows.length){
-             con.query(`UPDATE prefix SET prefix ="${args[0]}" WHERE guildID = "${message.guild.id}";`);
-        }else {
-             con.query(`INSERT INTO prefix (guildID,prefix) VALUES ("${message.guild.id}","${args[0]}");`)
+            if(err)return console.error(err);
+        
+            if(rows.length){
+                con.query(`UPDATE prefix SET prefix ="${args[0]}" WHERE guildID = "${message.guild.id}";`);
+            }else {
+                con.query(`INSERT INTO prefix (guildID,prefix) VALUES ("${message.guild.id}","${args[0]}");`)
         }
         pr.execute(con);
     });
-        return message.channel.send(`Updated your prefix to: "${args[0]}".`);
+    return message.channel.send(`Updated your prefix to: "${args[0]}".`);
 	},
 };
 function permissioncheck(message){

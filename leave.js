@@ -12,6 +12,6 @@ module.exports = {
        .finally(()=>{
         message.guild.leave();            
         })     
-   }
+    }
    }
 };

@@ -105,7 +105,7 @@ module.exports = {
         })
         }
         catch(error){
-            message.channel.send(`an error occured \nmessage: ${error.statusMessage}\n code: ${error.statusCode}`)
+            message.channel.send(`An error occured \nmessage: ${error.statusMessage}\n code: ${error.statusCode}`)
             console.log(error);
         }
     },

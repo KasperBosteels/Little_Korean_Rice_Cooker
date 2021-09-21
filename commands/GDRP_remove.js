@@ -5,7 +5,7 @@ module.exports = {
 	cooldown: 1,
 	usage: ' ',
 	category: "config",
-	async execute(client,message, args,con) {
+	async execute(client,message,args,con) {
         let id = message.author.id;
         let data_removed_string = " ";
         if(!id)return console.log('no ID found from message.');
@@ -39,8 +39,6 @@ module.exports = {
                 data_removed_string += "\nunable to delete warnings data, contact dev using the message command.";
             }
         })
-        
-        return message.reply(data_removed_string);
-        
+        return message.channel.send(`${data_removed_string}`);
 	},
 };

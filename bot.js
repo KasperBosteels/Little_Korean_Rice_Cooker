@@ -27,6 +27,7 @@ const welcomeLeaveMessages = require('./welcome_leave_messages');
 const power = require('./powerButton');
 const socalCredit = require('./socalCredit');
 const leave = require('./leave');
+const illegaluser = require('./removeAcces');
 const activeSongs = new Map();
 const cooldowns = new Map();
 
@@ -104,8 +105,8 @@ client.on('ready', () => {
 //for slash commands
 async function CreateApiMessage(interactie,content){
     let apiMessage = await Discord.APIMessage.create(client.channels.resolve(interactie.channel_id),content)
-    .resolveData()
-    .resolveFiles();
+        .resolveData()
+        .resolveFiles();
     return {...apiMessage.data};
 
 }
@@ -136,14 +137,14 @@ client.on('guildMemberRemove',member =>{
     console.log(`member left ${member.displayName} ${member.guild}`);
     if(!welcomeLeaveMessages.CONFIRM(member.guild.id))return;
     var embed = new Discord.MessageEmbed()
-   .setColor('#006400')
-   .setTitle('oh no')
-   .setTimestamp()
-   .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
-   .setThumbnail(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
-   .setDescription(`${member.displayName} left`);
-   try{
-    sqlconnect.execute(con,member,5,embed);
+        .setColor('#006400')
+        .setTitle('oh no')
+        .setTimestamp()
+        .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
+        .setThumbnail(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
+        .setDescription(`${member.displayName} left`);
+    try{
+        sqlconnect.execute(con,member,5,embed);
     }catch(err){console.log(err);}  
   });
   //#endregion
@@ -154,16 +155,19 @@ client.on('guildMemberAdd',member => {
     console.log(`member joined ${member.displayName} ${member.guild}`);
     if(!welcomeLeaveMessages.CONFIRM(member.guild.id))return;
     var embed = new Discord.MessageEmbed()
-   .setColor('#006400')
-   .setTitle('hello')
-   .setTimestamp()
-   .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
-   .setThumbnail(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
-   .setDescription(`welcome, ${member.displayName}`);
+        .setColor('#006400')
+        .setTitle('hello')
+        .setTimestamp()
+        .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
+        .setThumbnail(member.user.avatarURL({ dynamic: true, format: 'png', size: 64 }))
+        .setDescription(`welcome, ${member.displayName}`);
     
-   try{
-    sqlconnect.execute(con,member,5,embed);
-    }catch(err){console.log(err);}
+    try{
+        sqlconnect.execute(con,member,5,embed);
+    }catch(err)
+    {
+        console.log(err);
+    }
     socalCredit.ADDUSER(con,member.id)
   });
   //#endregion
@@ -172,9 +176,9 @@ client.on('guildMemberAdd',member => {
 //when a user sends a message
   client.on('message', message => {
 
-
         //#region bot ignore
         if(message.author.bot)return;
+        if(illegaluser.GET(message.author.id))return;
        //#endregion
 
         //#region reboot
@@ -186,10 +190,8 @@ client.on('guildMemberAdd',member => {
         lie.execute(message);
         rice.execute(message);
         leave.execute(message,client);
+        illegaluser.execute(message)
         //#endregion
-
-
-
 
 
         //#region message slice and dice
@@ -197,11 +199,11 @@ client.on('guildMemberAdd',member => {
         let usedprefix = getprefix.GET(message.guild.id);
         const args = message.content.slice(usedprefix.length).trim().split(/ +/);
 
-                          //#region level handler
-                          try{
-                            level.execute(message,con,args,Discord);
-                          }catch(error){console.error(error.message);}
-                            //#endregion
+        //#region level handler
+          try{
+            level.execute(message,con,args,Discord);
+          }catch(error){console.error(error.message);}
+          //#endregion
 
 
         //#region prefix check
@@ -245,8 +247,8 @@ client.on('guildMemberAdd',member => {
         //if command is not in map put it in
         if(!cooldowns.has(command.name)){
             cooldowns.set(command.name,new Discord.Collection());
-
         }
+
         //get current time, get timestamp from command, get cooldown time of command
         let currentTime = Date.now();
         let timeStamps = cooldowns.get(command.name);
@@ -275,9 +277,6 @@ client.on('guildMemberAdd',member => {
             message.reply('there was an error trying to execute that command!');
         }
         //#endregion
-         
-
-          
     });
 //#endregion
 

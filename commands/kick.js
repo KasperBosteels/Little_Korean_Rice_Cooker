@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const sendembed = require("../sql_serverconnection.js");
+const prefixGET = require('../getprefixData');
     module.exports = {
         name: 'kick',
         description: 'Kick a user.',
@@ -7,11 +8,12 @@ const sendembed = require("../sql_serverconnection.js");
         guildOnly: 'true',
         category: "moderating",
         execute(client,message, args,con) {
+            let prefix = prefixGET.GET(message.guild.id);
            //check perms or if there is a mention 
             if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('You need the permission to kick members.');
             if (!message.guild.me.hasPermission("KICK_MEMBERS"))return message.reply('I need the permission to kick members.');
             if (!message.mentions.users.size) {
-                return message.reply(`You need to tag a user in order to make em walk the plank ARRRR!\nlike this <-kick @user>`);
+                return message.reply(`You need to tag a user in order to make em walk the plank ARRRR!\nlike this <${prefix}kick @user>`);
             }
 
             //get mention and check if user wass succesfully found

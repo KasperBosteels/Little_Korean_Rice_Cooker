@@ -37,7 +37,7 @@ module.exports = {
                     if(err){ console.log(err); message.channel.send("Something broke, very sorry.");}
                 });
             }
-            return message.channel.send('i will send my logs here now');
+            return message.channel.send('I will send my logs here now.');
         });
     }
     },

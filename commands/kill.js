@@ -29,17 +29,21 @@ function makeEmbed(message,args){
         let coin = Math.floor(Math.random() * Math.floor(link.length));
         let coin2 = Math.floor(Math.random() * Math.floor(synonyms.length));
         let placeholder1,placeholder2;
+        
         placeholder1 = synonyms[coin2];
         placeholder2 = message.mentions.members.first();
+        
         if(!args[0]){placeholder2 = "the VOID";}
         if(args.length > 0 && !message.mentions.members.first()){
                 placeholder2 = args.join(' ')
         }
+        
         let embed = new discord.MessageEmbed()
         .setColor('#00ff00')
         .setDescription(`${message.author} ${placeholder1} ${placeholder2}`)
         .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
         .setImage(link[coin]);
+        
         console.log("responded with " + link[coin]);
         return embed;
 }
