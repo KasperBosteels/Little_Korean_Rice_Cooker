@@ -1,4 +1,5 @@
 const discord = require("discord.js");
+const {Permissions} = require('discord.js');
 const sqlcon = require("../sql_serverconnection.js");
 const mute = require("../mutetimer.js");
 module.exports = {
@@ -11,12 +12,11 @@ module.exports = {
         cooldown:10,
         async execute(client,message, args,con) {
        //#region default check
-       if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('You do not have permission to do this.');
-       if (!args[0]) return message.reply('no user tagged');
-       if (!message.guild.me.hasPermission('KICK_MEMBERS')) return message.reply('I do not have permission to do this.');
-       var warnuser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+       if(!permissioncheck(message))return message.reply("Either you or i do not have the permission to look at this(kick members permission).");
+       if (!args[0]) return message.reply({content:'no user tagged'});
+       var warnuser = getUserFromMention(args[0],client)
        var reason = args.slice(1).join(" ");
-       if (!warnuser) return message.reply('No user found.');
+       if (!warnuser) return message.reply({content:'No user found.'});
        //#endregion
 //get data and insert into data base
  con.query(`INSERT INTO warnings (guildID,userID,warnings) VALUES("${message.guild.id}","${warnuser.id}","${reason}")`);
@@ -39,13 +39,13 @@ try {
 }catch(err){
 return console.log(err);
 }finally{
-  message.channel.send(embed);
+  message.channel.send({embeds:[embed]});
 }
 // mute user if true +3 warns
 if(amount > 3){
   //looks for mute role if not existing return console log
   var role = message.guild.roles.cache.find(role => role.name === 'Muted');
-  if (!role)  return message.channel.send('No mute role, pls make a role named <Muted>(respect the capital letter!!).');
+  if (!role)  return message.channel.send({content:'No mute role, pls make a role named <Muted>(respect the capital letter!!).'});
 
   //makes mute time variable and checks for null if not console log
   mute.execute(amount+'m',warnuser,role,message);
@@ -54,3 +54,19 @@ if(amount > 3){
  }));
  },
 };
+function getUserFromMention(mention,client) {
+  if (!mention) return;
+  if (mention.startsWith('<@') && mention.endsWith('>')) {
+      mention = mention.slice(2, -1);
+      if (mention.startsWith('!')) {
+      mention = mention.slice(1);
+      }
+      return client.users.cache.get(mention);
+      }
+  }
+function permissioncheck(message){
+  //check perms
+  if (!message.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) return false;
+  if (!message.guild.me.permissions.has(Permissions.FLAGS.KICK_MEMBERS))return false;
+  return true;
+}

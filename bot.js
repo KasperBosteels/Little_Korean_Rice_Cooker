@@ -7,11 +7,11 @@ const sqlconnect = require('./sql_serverconnection.js');
 const mysql = require("mysql");
 const fs = require('fs');
 const Discord = require('discord.js');
+const {Intents} = require('discord.js')
 const config = require('./auth.json');
 const prefixcheck = require('./prefixcheck.js');
 const lie = require('./text responses/liedetector.js');
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-const subCommandFiles = fs.readdirSync('./sub-commands').filter(file =>file.endsWith('.js'));
 const profanity = require("./profanityfilter.js");
 const level = require('./level.js');
 const rice = require("./text responses/rice.js");
@@ -19,7 +19,6 @@ const getprefix = require('./getprefixData.js');
 const birthdays = require('./verjaardag');
 const cronjob = require('cron').CronJob;
 const verjaardag = require('./verjaardag');
-const disboard = require('./disboard');
 const profanity_alert_data_collector = require('./profanity_alert_data_collector.js');
 const profanity_enabled = require('./profanity_enabled');
 const leveling_enabled = require('./leveling_enabled');
@@ -27,16 +26,27 @@ const welcomeLeaveMessages = require('./welcome_leave_messages');
 const power = require('./powerButton');
 const socalCredit = require('./socalCredit');
 const leave = require('./leave');
-const activeSongs = new Map();
 const cooldowns = new Map();
 
 
 //#endregion
-
+//
 //#region init bot as client
-const client = new Discord.Client();
+let intents = [Intents.FLAGS.GUILDS,
+               Intents.FLAGS.GUILD_MEMBERS,
+               Intents.FLAGS.GUILD_BANS,
+               Intents.FLAGS.GUILD_VOICE_STATES,
+               Intents.FLAGS.GUILD_MESSAGES,
+               Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+               Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+               Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
+               Intents.FLAGS.GUILD_WEBHOOKS,
+               Intents.FLAGS.GUILD_MESSAGE_TYPING,
+               Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+               Intents.FLAGS.DIRECT_MESSAGE_TYPING
+            ]
+const client = new Discord.Client({intents: intents});
 //#region discord buttons
-require('discord-buttons')(client);
 
 
 
@@ -47,14 +57,6 @@ for (const file of commandFiles){
     client.commands.set(command.name,command)
     console.log(`command file loaded: ${command.name}`);
 }
-client.subcommands = new Discord.Collection();
-for (const file of subCommandFiles){
-    const subCommand = require(`./sub-commands/${file}`);
-    client.subcommands.set(subCommand.name,subCommand);
-    console.log(`sub-command file loaded: ${subCommand.name}`);
-}
-//#endregion
-
 //#region sql login data
 //sets sql login data in veriable for use
 const con = mysql.createConnection({
@@ -72,13 +74,6 @@ let sheduleCheck = new cronjob('00 00 10 * * *',() =>{
     verjaardag.CONFIRM(client);
     });
     //#endregion
-
-//#region hourly disboard check
-let disboardCheck = new cronjob('0 0 */2 * * *',() =>{
-    disboard.CONFIRM(client);
-});
-//#endregion
-
 //#region bot ready
 //default state when bot starts up will set activity
 //and display succes message in terminal
@@ -89,11 +84,9 @@ client.on('ready', () => {
     start.execute(client,con);
     getprefix.execute(con);
     birthdays.execute(con);
-    disboard.execute(con);
     profanity_alert_data_collector.execute(con);
     profanity_enabled.execute(con);
     sheduleCheck.start();
-    disboardCheck.start();
     leveling_enabled.execute(con);
     welcomeLeaveMessages.execute(con);
     }catch(err){
@@ -170,74 +163,71 @@ client.on('guildMemberAdd',member => {
   
 //#region message processor
 //when a user sends a message
-  client.on('message', message => {
-
+  client.on('messageCreate', async Interaction => {
 
         //#region bot ignore
-        if(message.author.bot)return;
+        if(Interaction.author.bot)return;
        //#endregion
 
         //#region reboot
-        power.execute(message,con)
+        power.execute(Interaction,con)
         //#endregion
 
         //#region simple responses
-        profanity.execute(message,client,con);
-        lie.execute(message);
-        rice.execute(message);
-        leave.execute(message,client);
+        profanity.execute(Interaction,client,con);
+        lie.execute(Interaction);
+        rice.execute(Interaction);
+        leave.execute(Interaction,client);
         //#endregion
 
 
 
 
 
-        //#region message slice and dice
+        //#region Interaction slice and dice
         //removes prefix and puts arguments in variable
-        let usedprefix = getprefix.GET(message.guild.id);
-        const args = message.content.slice(usedprefix.length).trim().split(/ +/);
+        let usedprefix = getprefix.GET(Interaction.guild.id);
+        const args = Interaction.content.slice(usedprefix.length).trim().split(/ +/);
 
                           //#region level handler
                           try{
-                            level.execute(message,con,args,Discord);
+                            level.execute(Interaction,con,args,Discord);
                           }catch(error){console.error(error.message);}
                             //#endregion
 
 
         //#region prefix check
         //check if messages contains the selected prefix
-        if(!prefixcheck.execute(message))return;
+        if(!prefixcheck.execute(Interaction))return;
         //#endregion
 
         //makes sure command name is lowercase
         const commandName = args.shift().toLowerCase();
         //#endregion
-        let options = {
-            active: activeSongs
-        };
+
         //#region command lookup
-        //checks if message containts a command name/alias if true then asign it to variable if false return to default state
+        //checks if Interaction containts a command name/alias if true then asign it to variable if false return to default state
         const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
         if (!command) return;
         //#endregion
 
         //#region dm applicable check
         //checks if the command is applciable for dm's
-        if (command.guildOnly && message.channel.type === 'dm'){
-            return message.reply('i can\'t perform this action in personal chat')
+        if (command.guildOnly && Interaction.channel.type === 'dm'){
+            return Interaction.reply({content:'i can\'t perform this action in direct message chat'})
         }
         //#endregion
 
 
 
         //#region argumant needed check
-        //checks if the command needs an argument if true and no given error message and return to default state
+        //checks if the command needs an argument if true and no given error Interaction and return to default state
         if (command.args && !args.length){
-         let reply = `you didnt provide any arguments, ${message.author}!`;
+         let reply = `you didnt provide any arguments, ${Interaction.author}!`;
          if (command.usage){
             reply += `\nThe correct way to use this is:\n\`${command.usage}\`\n for more help type:  \`${config.prefix}help\` or  \`${config.prefix}help ${command.name}\``;
             }
-         return message.channel.send(reply);
+         return Interaction.channel.send({content:reply});
         }
         //#endregion
         
@@ -252,27 +242,27 @@ client.on('guildMemberAdd',member => {
         let timeStamps = cooldowns.get(command.name);
         let cooldownTime = command.cooldown*1000;
 
-        if(timeStamps.has(message.author.id)){
-            let exeperationTime = timeStamps.get(message.author.id) + cooldownTime;
+        if(timeStamps.has(Interaction.author.id)){
+            let exeperationTime = timeStamps.get(Interaction.author.id) + cooldownTime;
             if(currentTime < exeperationTime){
                 let timeLeft = (exeperationTime - currentTime)/1000;
-                return message.reply(`Please wait ${timeLeft.toFixed(1)} seconds before using this command again.`);
+                return Interaction.reply({content:`Please wait ${timeLeft.toFixed(1)} seconds before using this command again.`});
             }else{
-                timeStamps.delete(message.author.id);
+                timeStamps.delete(Interaction.author.id);
             }
         }
-        timeStamps.set(message.author.id,currentTime);
+        timeStamps.set(Interaction.author.id,currentTime);
 
         //#endregion
 
         //#region execute command
         //tries to perform the command if error occurs catch it and display on terminal
         try {
-            command.execute(client,message,args,con,options);
-           logger.execute(message);
+            command.execute(client,Interaction,args,con);
+           logger.execute(Interaction);
         } catch (error) {
             console.error(error);
-            message.reply('there was an error trying to execute that command!');
+            Interaction.reply({content:'there was an error trying to execute that command!'});
         }
         //#endregion
          
@@ -292,7 +282,7 @@ process.on('uncaughtException',error => console.log('error',error));
 process.on('unhandledRejection', error => console.log('error', error));
 process.on('ECONNRESET',error => {con.destroy();con.connect(); console.error(error.message);});
 process.on('PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR',error =>{con.connect(); throw(error)});
-process.on('DiscordAPIError',error => {message.channel.send('Message was too big to send in discord, sorry.'); console.log(error);})
+process.on('DiscordAPIError',error => {Interaction.channel.send({content:'Message was too big to send in discord, sorry.'}); console.log(error);})
 //#endregion
 
 /*cool links

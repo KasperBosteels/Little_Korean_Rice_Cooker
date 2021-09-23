@@ -6,13 +6,13 @@ module.exports = {
 	usage: ' <blank> or <@user>',
 	category: "fun",
 	aliases: ['avatar','ava'],
-        execute(client,message, args,con) {
-        let member = message.guild.member(message.mentions.users.first() || client.users.cache.get(args[0]) || client.users.cache.find(user => user.username.toLowerCase() == args.join(" ").toLowerCase()) || 
+        async execute(client,message, args,con) {
+        let member =await message.guild.members.fetch(message.mentions.users.first() || client.users.cache.get(args[0]) || client.users.cache.find(user => user.username.toLowerCase() == args.join(" ").toLowerCase()) || 
          client.users.cache.find(user => user.tag.toLowerCase() == args.join(" ").toLowerCase()));
          
-         if(!member) member = message.member;
+         if(!member) member =await message.member;
         
-         return message.channel.send(makeEmbed(member));
+         return message.channel.send({embeds:[makeEmbed(member)]});
 
 
 

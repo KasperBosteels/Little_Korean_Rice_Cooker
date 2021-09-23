@@ -16,10 +16,10 @@ module.exports = {
 						
 						if(amount >= 10){
 							con.query(`DELETE FROM ching WHERE guildID = "${message.guild.id}";`);
-							message.channel.send("https://www.youtube.com/watch?v=oQYAETMEnc8");
+							message.channel.send({content:"https://www.youtube.com/watch?v=oQYAETMEnc8"});
 						}else{
-							 message.channel.send('ping...').then(sent =>{
-								 sent.edit(`roundtrip latency: ${sent.createdTimestamp - message.createdTimestamp} ms\nwebsocket heartbeat: ' ${client.ws.ping} ms`);
+							 message.channel.send({content:'ping...'}).then(send =>{
+								 send.edit({content:`roundtrip latency: ${sent.createdTimestamp - message.createdTimestamp} ms\nwebsocket heartbeat: ' ${client.ws.ping} ms`});
 							 });
 						}
 
@@ -30,8 +30,8 @@ module.exports = {
 			return;
 		}
 		//get current time and message recieved timestamp subtract and send back 
-	 message.channel.send('ping...').then(sent =>{
-		sent.edit(makeEmbed(sent.createdTimestamp - message.createdTimestamp,client.ws.ping,uptimeGET(client)));
+	 message.channel.send({content:'ping...'}).then(sent =>{
+		sent.edit({embeds:[makeEmbed(sent.createdTimestamp - message.createdTimestamp,client.ws.ping,uptimeGET(client))]});
 		//sent.edit(`roundtrip latency: ${sent.createdTimestamp - message.createdTimestamp} ms \n websocket heartbeat: ${client.ws.ping} ms\n${uptimeGET(client)}`);
 	});
 	return;

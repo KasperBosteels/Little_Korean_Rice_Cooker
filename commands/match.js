@@ -14,7 +14,7 @@ module.exports = {
     aliases:['mm','match'],
 	category: "fun",
 	async execute(client,message, args,con) {
-		if (!args[0]) return message.channel.send(`Give me a match\n if you dont know how to use this command try "-help matchmaker"`);
+		if (!args[0]) return message.channel.send({content:`Give me a match\nif you dont know how to use this command try "-help matchmaker"`});
 		/**
  * Create a text progress bar
  * @param {Number} value - The value to fill the bar
@@ -76,7 +76,7 @@ global.progressBar = (value, maxValue, size) => {
 			**measured love**\n${lovemeter}`)
 			.setImage(chosen)
 		}
-		message.channel.send(embed);
+		message.channel.send({embeds:[embed]});
 		try{
 			score.ADD(con,100,message.author.id);
 		}catch(err){

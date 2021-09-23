@@ -20,10 +20,10 @@ module.exports = {
            var LEV = rows[0].level;
            var EXP = rows[0].exp+randomint;
            var nextlevel =(15 + 300)*LEV;
-           if(EXP >= nextlevel){
+           if(EXP >= nextlevel){258217948819357697
             LEV++;
             EXP = 0;
-            var mem = message.guild.member(message.author)
+            var mem = message.member;
             //#region embed
             var embed = new Discord.MessageEmbed()
             .setColor('#006400')
@@ -31,7 +31,7 @@ module.exports = {
             .setTimestamp()
             .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
             .setImage("https://i.imgur.com/Uyw52SY.gif")
-            .setDescription(`YEAH!! ${mem.displayName} reached level ${LEV}\nTO THE STARS AND BEYOND!!`)
+            .setDescription(`YEAH!! ${mem.nickname} reached level ${LEV}\nTO THE STARS AND BEYOND!!`)
             //#endregion
             try{
                 sqlconnect.execute(con,mem,6,embed,message);

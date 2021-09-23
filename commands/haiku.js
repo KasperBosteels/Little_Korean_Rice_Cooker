@@ -38,5 +38,5 @@ var bed = new discord.MessageEmbed()
 .setAuthor('Little_Korean_Rice_Cooker','https://i.imgur.com/A2SSxSE.png')
 .setTitle("a haiku for you")
 .setDescription(haiku);
-message.channel.send(bed);
+message.channel.send({embeds:[bed]});
 }

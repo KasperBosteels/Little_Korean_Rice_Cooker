@@ -1,4 +1,5 @@
 const discord = require("discord.js");
+const {Permissions} = require('discord.js');
 const sqlcon = require("../sql_serverconnection.js");
     module.exports = {
         name: 'unwarn',
@@ -10,11 +11,11 @@ const sqlcon = require("../sql_serverconnection.js");
         cooldown:5,
         async execute(client,message, args,con) {
        //#region default check
-       if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply('You do not have permission to do this.');
+       if (!message.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) return message.reply({content:'You do not have permission to do this.'});
        if (!args[0]) return message.reply('no user tagged');
-       if (!message.guild.me.hasPermission('KICK_MEMBERS')) return message.reply('I do not have permission to do this.');
-       var unwarnuser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-       if (!unwarnuser) return message.reply('no user found');
+       if (!message.guild.me.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) return message.reply({content:'I do not have permission to do this.'});
+       var unwarnuser = getUserFromMention(args[0],client);
+       if (!unwarnuser) return message.reply({content:'no user found'});
        //#endregion
 
     //delete warnings from sql server
@@ -25,7 +26,7 @@ const sqlcon = require("../sql_serverconnection.js");
     //#endregion
     try{let embed =makeEmbed(message,unwarnuser,amount)
     sqlcon.execute(con,unwarnuser,6,embed,message);
-    return message.channel.send(embed);
+    return message.channel.send({embeds:[embed]});
 
     }catch(err){
     return console.log(err);
@@ -40,6 +41,15 @@ function makeEmbed(message,unwarnuser,amount){
     .setTimestamp()
     .setDescription(`**warn reset** ${unwarnuser}\n
     **reset by:** ${message.author}`)
-    .addField(`amount of warns:`,amount,true)
 return embed
 }
+function getUserFromMention(mention,client) {
+    if (!mention) return;
+    if (mention.startsWith('<@') && mention.endsWith('>')) {
+        mention = mention.slice(2, -1);
+        if (mention.startsWith('!')) {
+        mention = mention.slice(1);
+        }
+        return client.users.cache.get(mention);
+        }
+    }

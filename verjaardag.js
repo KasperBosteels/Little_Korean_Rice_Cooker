@@ -50,26 +50,13 @@ module.exports = {
                 console.log(user);
                 client.channels.fetch(person.channelID)
                 .then((channel=>{
-                    channel.send(`A warm and happy birthday to ${user.username} :partying_face:`);
+                    channel.send({content:`A warm and happy birthday to ${user.username} :partying_face:`});
                 })).catch(console.error);
             });
             }
         });
     }
 };
-
-/*
-guild.members.fetch({ user, cache: false })
-  .then(console.log)
-  .catch(console.error);
-
-guild.members.fetch('66564597481480192')
-  .then(console.log)
-  .catch(console.error);
-
-*/
-
-
 function getAll(){
     let rawData =fs.readFileSync('./jsonFiles/verjaardagen.json','utf-8');
         let file = JSON.parse(rawData);

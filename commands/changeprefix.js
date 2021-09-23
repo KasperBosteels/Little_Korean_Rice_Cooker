@@ -1,5 +1,5 @@
 const pr = require('../getprefixData.js');
-const FS = require('fs');
+const {Permissions} = require('discord.js')
 module.exports = {
 	name: 'prefix',
 	description: 'Change the prefix for this server(note: that the prefix cannot have a space).',
@@ -9,7 +9,7 @@ module.exports = {
     args: 'true',
     guildOnly: 'true',
 	async execute(client,message, args,con) {
-        if(!permissioncheck(message))return message.reply('You do not have permission to do this, ask a mod.');
+        if(!permissioncheck(message))return message.reply({content:'You do not have permission to do this, ask a mod.'});
         con.query(`SELECT prefix FROM prefix WHERE guildID = "${message.guild.id}";`,(err,rows) =>{
         if(err)return console.error(err);
         if(rows.length){
@@ -19,12 +19,12 @@ module.exports = {
         }
         pr.execute(con);
     });
-        return message.channel.send(`Updated your prefix to: "${args[0]}".`);
+        return message.channel.send({content:`Updated your prefix to: "${args[0]}".`});
 	},
 };
 function permissioncheck(message){
     //check perms
-    if (!message.member.hasPermission("BAN_MEMBERS")) return false;
-    if (!message.guild.me.hasPermission("BAN_MEMBERS"))return false;
+    if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return false;
+    if (!message.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS))return false;
     return true;
 }

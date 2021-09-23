@@ -59,7 +59,7 @@ module.exports = {
 
         }
 
-         message.channel.send(embed);
+         message.channel.send({embeds:[embed]});
          try{
              score.ADD(con,50,message.author.id)
          }catch(err){

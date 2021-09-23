@@ -13,7 +13,7 @@ module.exports = {
         let memeURL = `https://www.reddit.com${permalink}`;
         let memetitle = responsomgv[0].data.children[0].data.title;
         let memefoto = responsomgv[0].data.children[0].data.url;
-        return message.channel.send(makeEmbed(memefoto,memetitle,memeURL));
+        return message.channel.send({embeds:[makeEmbed(memefoto,memetitle,memeURL)]});
     }).catch('error',(err)=>{
         console.log(err);
         return fallbackfunction(message);
@@ -40,7 +40,7 @@ async function fallbackfunction(message) {
         let memeURL = `https://www.reddit.com${permalink}`;
         let memetitle = responsomgv[0].data.children[0].data.title;
         let memefoto = responsomgv[0].data.children[0].data.url;
-        return message.channel.send(makeEmbed(memefoto,memetitle,memeURL));
+        return message.channel.send({embeds:[makeEmbed(memefoto,memetitle,memeURL)]});
     }).catch('error',(err)=>{
         return console.log(err);
     });

@@ -25,10 +25,10 @@ module.exports = {
         explain[0] =result[0].definition
         explain[1] = result[0].example
         sendembed(makeEmbed(word,explain[0],explain[1],discord),channel).catch((error)=>{
-            if(error.code = 50035)return channel.send('The definition of this word is too big for discord, sorry.');
+            if(error.code = 50035)return channel.send({content:'The definition of this word is too big for discord, sorry.'});
         });
    }).catch((error)=>{
-       if(error.code = 'ERR_WORD_UNDEFINED'){return channel.send('perhaps the archives are incomplete...')}else{
+       if(error.code = 'ERR_WORD_UNDEFINED'){return channel.send({content:'perhaps the archives are incomplete...'})}else{
         console.error(error);
        
     }
@@ -46,5 +46,5 @@ module.exports = {
 
 }
 function sendembed(embed,channel){
-    return channel.send(embed);
+    return channel.send({embeds:[embed]});
 }

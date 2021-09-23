@@ -21,7 +21,7 @@ module.exports = {
         }catch(err){
                 console.error(err);
         }finally{
-                message.channel.send(makeEmbed(message,args));
+                message.channel.send({embeds:[makeEmbed(message,args)]});
         }
 	},
 };

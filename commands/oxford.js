@@ -27,7 +27,7 @@ module.exports = {
             let author =res.metadata.provider;
             let data=(JSON.stringify(res,null,4));
             let object = JSON.parse(data);
-            return message.channel.send(makeEmbed(author,word,object,Discord));
+            return message.channel.send({embeds:[makeEmbed(author,word,object,Discord)]});
         },
         function(err){
             console.error(err.message);

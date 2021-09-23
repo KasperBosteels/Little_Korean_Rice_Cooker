@@ -44,7 +44,7 @@ function proffilter(message,client,con) {
         try{  
         sendMessageToChannel(message,client);
           //message.channel.send(sentecUser);
-          message.channel.send(message.author.tag +" no profanity.");
+          message.channel.send({content:message.author.tag +" no profanity."});
         }catch(err){
             return console.log(err)
         }finally{
@@ -79,7 +79,7 @@ function sendMessageToChannel(message,client){
     if (alertChannel != false){
        client.channels.fetch(alertChannel)
        .then((channel=>{
-        return channel.send(makeEmbed(message));
+        return channel.send({embeds:[makeEmbed(message)]});
        })).catch(console.error);
     }else {
         return;

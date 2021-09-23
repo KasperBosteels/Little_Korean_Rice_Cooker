@@ -60,7 +60,7 @@ module.exports = {
 
         }
         score.ADD(con,100,message.author.id);
-        return message.channel.send(embed);
+        return message.channel.send({embeds:[embed]});
     
     }
 }

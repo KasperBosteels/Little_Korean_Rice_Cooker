@@ -1,14 +1,16 @@
 const botconfig = require('../auth.json');
 const content = require('../jsonFiles/swearwords.json');
 const getprefix = require('../getprefixData.js');
-const {MessageEmbed} = require('discord.js');
+const {MessageEmbed,Permissions} = require('discord.js');
 const { Menu } = require('discord.js-menu')
+const {DiscordEmbedMenu} = require('discord.js-embed-menu');
+const discorddropmenu = require('../dropdown');
+const dropdown = require('../dropdown');
 var prefix = "-";
 //page settings 
 const emojis = ["⏪", "⏩"];
 const time = 120000;
 module.exports = {
-
 	name: 'help',
 	description: 'List all of my commands or info about a specific command.',
 	aliases: ['commands'],
@@ -21,8 +23,12 @@ module.exports = {
         
         
         //checks if a specific command query was asked if not send dm withh all commmands
-        if(!args.length && message.guild.me.hasPermission("ADD_REACTIONS","MANAGE_MESSAGES")){
-        var commandlist = [];
+        if(!args.length && message.guild.me.permissions.has([Permissions.FLAGS.ADD_REACTIONS,Permissions.FLAGS.MANAGE_MESSAGES,Permissions.FLAGS.EMBED_LINKS])){
+            console.log(`reactions: ${Permissions.FLAGS.ADD_REACTIONS}, manage:${Permissions.FLAGS.MANAGE_MESSAGES}, links: ${Permissions.FLAGS.EMBED_LINKS}`);
+
+
+           //#region create command list in strings 
+            var commandlist = [];
         //for each command in commands folder get name description and category and usage
         client.commands.forEach(command =>{
             var constructor = {
@@ -58,58 +64,11 @@ for (let i = 0; i < commandlist.length; i++) {
         currency[i]=command;
     }
 }
+var response = [await MakeEmbed(general,prefix,2),await MakeEmbed(fun,prefix,3),await MakeEmbed(music,prefix,4),await MakeEmbed(moderating,prefix,5),await MakeEmbed(debug,prefix,6)];
+response.unshift(await firstPage(prefix));
 
-let helpmenu = new Menu(message.channel,message.author.id,[
-{
-    name: 'main',
-    content: firstPage(prefix),
-    reactions: {
-        '⏪': 'previous',
-        '⏩': 'next'
-    }
-},{
-    name: 'general',
-    content: MakeEmbed(general,prefix,2),
-    reactions: {
-        '⏪': 'previous',
-        '⏩': 'next'
-    }
-},{
-    name:'fun',
-    content:MakeEmbed(fun,prefix,3),
-    reactions: {
-        '⏪': 'previous',
-        '⏩': 'next'
-    }
-},{
-    name:'music',
-    content:MakeEmbed(music,prefix,4),
-    reactions: {
-        '⏪': 'previous',
-        '⏩': 'next'
-    }
-},{
-    name:'moderating',
-    content:MakeEmbed(moderating,prefix,5),
-    reactions: {
-        '⏪': 'previous',
-        '⏩': 'next'
-    }
-},{
-    name:'config',
-    content:MakeEmbed(debug,prefix,6),
-    reactions: {
-        '⏪': 'previous',
-        '⏩': 'next'
-    }
-}
-],time);
-helpmenu.start();
-helpmenu.on('pageChange',destination=>{
-//nothing here for now
-});
-
-
+dropdown.execute(client,message,response)
+//END UNSPECIFIED HELP RECUEST
 //if specific command was asked
 }else if(!args.length ||args[0] == "index"||args[0] == "general"|| args[0] == "fun"|| args[0] == "music"|| args[0] == "config"|| args[0] == "moderating"){
 //#region repeated code
@@ -151,24 +110,24 @@ for (let i = 0; i < commandlist.length; i++) {
         currency[i]=command;
     }
 }
-var response = [MakeEmbed(general,prefix,2),MakeEmbed(fun,prefix,3),MakeEmbed(music,prefix,4),MakeEmbed(moderating,prefix,5),MakeEmbed(debug,prefix,6)];
-response.unshift(firstPage(prefix));
+var response = [await MakeEmbed(general,prefix,2),await MakeEmbed(fun,prefix,3),await MakeEmbed(music,prefix,4),await MakeEmbed(moderating,prefix,5),await MakeEmbed(debug,prefix,6)];
+response.unshift(await firstPage(prefix));
 if(!args.length){
-    return message.channel.send(response[0]);
+    return message.channel.send({embeds:response[0]});
 }else{
     switch (args[0]) {
         case "general":
-            return message.channel.send(response[1]);
+            return message.channel.send({ephemereal:true,embeds:[response[1]]});
         case "fun":
-            return message.channel.send(response[2]);
+            return message.channel.send({ephemereal:true,embeds:[response[2]]});
         case "music":
-            return message.channel.send(response[3]);
+            return message.channel.send({ephemereal:true,embeds:[response[3]]});
         case "moderating":
-            return message.channel.send(response[4]);
+            return message.channel.send({ephemereal:true,embeds:[response[4]]});
         case "config":
-            return message.channel.send(response[5]);
+            return message.channel.send({ephemereal:true,embeds:[response[5]]});
         default:
-            return message.channel.send(response[0]);
+            return message.channel.send({ephemereal:true,embeds:[response[0]]});
 
     }
 }
@@ -184,7 +143,7 @@ if(!args.length){
 
         //if there is no command found return 
 if (!command) {
-	return message.channel.send(`That was not a valid command!\ntype: "${prefix}help" for all commands.`);
+	return message.channel.send({content:`That was not a valid command!\ntype: "${prefix}help" for all commands.`});
 }
 
 //push values to data array
@@ -209,7 +168,7 @@ if(args[0] == 'lewd'){
 
 }
 //send
-return message.channel.send(embed);
+return message.channel.send({embeds:[embed]});
 
 }
 	},
@@ -240,6 +199,7 @@ function firstPage(prefix){
         embed.addField(":eyes: moderating",`\`\`\`${prefix}help moderating\`\`\``, inline=true)
         embed.addField(":screwdriver: config",`\`\`\`${prefix}help config\`\`\``, inline=true)
         embed.addField(":books: quick guide",`\`\`\`${prefix}help "command name"\nFor extra information about a command.\`\`\``)
+        embed.addField(":bar_chart: GDPR",`\`\`\`Your data is in no way traded or handed to third parties.\nyou can delete any stored data with the "${prefix}remove-my-data" command(be aware after this command any new message will result in collection of information).\`\`\``)
         embed.setFooter('page: 1/6')
         
         return embed;

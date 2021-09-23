@@ -35,5 +35,5 @@ module.exports = {
 
 }
 function sendembed(embed,channel){
-    return channel.send(embed);
+    return channel.send({embeds:[embed]});
 }

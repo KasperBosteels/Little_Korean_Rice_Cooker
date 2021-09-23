@@ -23,7 +23,7 @@ module.exports = {
             }
 
             //return with embed message
-        return message.channel.send(makeEmbed(user,message,SCS))
+        return message.channel.send({embeds:[makeEmbed(user,message,SCS)]})
         });
     }
     
@@ -57,13 +57,13 @@ async function getuserfromID(arg,client){
         .setColor('#00ff00')
         .setFooter(message.author.username,message.author.displayAvatarURL)
         .setTimestamp();
-        embed.addField("username",user.username,inline=true);
-        embed.addField("discriminator",user.discriminator,inline=true);
-        embed.addField("id",user.id,inline=true);
-        embed.addField("avatar",user.avatar,inline=true);
-        embed.addField("bot",user.bot,inline=true);
-        embed.addField("creation date",user.createdAt,inline=true);
+        embed.addField("username",`${user.username}`,inline=true);
+        embed.addField("discriminator",`${user.discriminator}`,inline=true);
+        embed.addField("id",`${user.id}`,inline=true);
+        embed.addField("avatar",`${user.avatar}`,inline=true);
+        embed.addField("bot",`${user.bot}`,inline=true);
+        embed.addField("creation date",`${user.createdAt}`,inline=true);
         embed.setThumbnail(user.avatarURL({ dynamic: true, format: 'png', size: 64 }));
-        embed.addField("social Credit",score,inline=true);
+        embed.addField("social Credit",`${score}`,inline=true);
         return embed;
     }

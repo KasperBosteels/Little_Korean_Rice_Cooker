@@ -14,7 +14,7 @@ module.exports = {
                 return console.error(err);
             }
         })
-        console.log('profanity_filter_enabler data saved');
+        console.log('profanity data saved');
 
     },
     GET(guildID){

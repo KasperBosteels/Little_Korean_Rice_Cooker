@@ -6,7 +6,7 @@ module.exports = {
     usage: 'empty or <@user>',
     cooldown: 1,
     category: "fun",
-    async execute(client,message, args) {
+    async execute(client,message, args,con) {
         coin = Math.floor(Math.random() * Math.floor(love.answer.length));
         var manualinput = " ";
 
@@ -15,14 +15,14 @@ module.exports = {
         if (!args[0])
         {
             //no arguments reply command
-            return message.reply(` ${love.answer[coin]}`);
+            return message.reply({content:` ${love.answer[coin]}`});
 
         }else {
             score.ADD(con,200,message.author.id)
             //argument given, assign mention to variable
             var member= message.mentions.members.first();
             if (member.id == "397286381883359232" && message.author.id == "258217948819357697"){
-            return message.channel.send(`${member}\nhttps://tenor.com/biAHU.gif`);
+            return message.channel.send({content:`${member}\nhttps://tenor.com/biAHU.gif`});
             }
             //if variable == undefined 
             if(!member){
@@ -35,10 +35,10 @@ module.exports = {
                    
                 }}
                 //return string with text
-                return message.channel.send(`${manualinput}\n${love.answer[coin]}`);
+                return message.channel.send({content:`${manualinput}\n${love.answer[coin]}`});
             }else{
                 //return member and text
-                return message.channel.send(`${member}\n${love.answer[coin]}`);
+                return message.channel.send({content:`${member}\n${love.answer[coin]}`});
             }
         }
     },

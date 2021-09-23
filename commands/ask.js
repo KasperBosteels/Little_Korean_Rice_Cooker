@@ -33,7 +33,7 @@ module.exports = {
     sent = args.slice(0,args.length).join(' ');
     //get random from answers
     coin = Math.floor(Math.random() * Math.floor(answers.length));
-    message.channel.send(makeEmbed(sent,answers[coin],message))
+    return message.channel.send({embeds:[makeEmbed(sent,answers[coin],message)]})
     //reply
     //message.channel.send(`${sent}\n ${answers[coin]}`);
 	},

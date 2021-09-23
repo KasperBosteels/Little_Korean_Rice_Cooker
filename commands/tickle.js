@@ -13,7 +13,7 @@ module.exports = {
         }catch(err){
                 console.error(err);
         }finally{
-                return message.channel.send(createEmbed(message,tickleDatabase,args));
+                return message.channel.send({embeds:[createEmbed(message,tickleDatabase,args)]});
         }
         },
 };
