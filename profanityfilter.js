@@ -51,7 +51,7 @@ function proffilter(message,client,con) {
           console.log(`profanity  ${message.author.tag}   \"${message.content}\"`)
           
           message.delete()
-          score.SUBTRACT(con,300,message.author.id);
+          score.SUBTRACT(con,5000,message.author.id);
         }
       }
     }
