@@ -20,11 +20,11 @@ module.exports = {
         //check if the request was to remove alert
         if(args[0].toLowerCase() == "disable"){
             //stop if no data found
-            if(enable == 0)return message.channel.send({content:'Leveling is disabled in this server.'});
-            con.query(`DELETE FROM leveling_enabled WHERE guildID = '${guildID}';`,(err) =>{
+            if(enable == 0)return message.channel.send({content:'Leveling is already disabled in this server.'});
+            con.query(`UPDATE guild set level_system = 0 WHERE guildID = '${guildID}';`,(err) =>{
                 if(err){
                     console.error(err);
-                    return message.channel.send({content:'An error occurred, try again later.\nPS. is this pproblem keeps occuring notify me with the message command.'});
+                    return message.channel.send({content:'An error occurred, try again later.\nPS. is this problem keeps occuring notify me with the message command.'});
                 }
 
             }
@@ -32,8 +32,8 @@ module.exports = {
             leveling.execute(con);
             return message.channel.send({content:'Leveling system is disabled.'});
         }else if (args[0].toLowerCase() == "enable"){            
-            if(enable == true)return message.channel.send({content:'Leveling is already enabled in this server.'});
-            con.query(`INSERT INTO leveling_enabled (guildID,enabled) VALUES("${guildID}",1)`,(err)=>{
+            if(enable == 1)return message.channel.send({content:'Leveling is already enabled in this server.'});
+            con.query(`UPDATE guild SET level_system = 1 WHERE guildID="${message.guild.id}"`,(err)=>{
             if(err){
                 console.log(err);
                 return message.channel.send({content:'An error occurred, try again later.'});

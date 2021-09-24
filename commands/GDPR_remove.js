@@ -26,14 +26,6 @@ module.exports = {
                 data_removed_string += "\nsocial score data removed."
             }
         })
-        await con.query(`DELETE FROM verjaardagen WHERE userID = "${id}";`,(err)=>{
-            if(err){
-                console.log(err)
-                data_removed_string +="\nunable to remove birthday data(if set),contact dev using the message command.";
-            }else{
-                data_removed_string +="\nbirthday data removed(if set).";
-            }
-        })
         await con.query(`DELETE FROM warnings WHERE userID = "${id}";`,(err)=>{
             if(err){
                 console.log(err)

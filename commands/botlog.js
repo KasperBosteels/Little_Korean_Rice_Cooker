@@ -18,10 +18,10 @@ module.exports = {
         if (!guild)return console.log('no guild');
 
         if(args[0] && args[0].toLowerCase() == "no"){
-            con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
+            con.query(`SELECT EXISTS(SELECT log_channel FROM guild WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
                 if(err){ console.log(err); message.channel.send("NO 2.1*");}
                 if(rows[0].exist != 0){
-                    con.query(`DELETE FROM logchannel WHERE guildID = "${guild}";`);
+                    con.query(`UPDATE guild SET log_channel = NULL WHERE guildID = "${guild}";`);
                     message.channel.send({content:'I will not send any log messages here.'});
                 }else {
                 return message.channel.send({content:"There wasn't any log channel set, if there are still messages popping up try renaming it or sending me a message (with the message command)."});
@@ -29,12 +29,12 @@ module.exports = {
             });
         }else {
         //checks if database already exists if true update else insert
-        con.query(`SELECT EXISTS(SELECT * FROM logchannel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
+        con.query(`SELECT EXISTS(SELECT log_channel FROM guild WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
             if(err){ console.log(err); message.channel.send({content:"Something broke, sorry."});}
             if(rows[0].exist != 0){
-                con.query(`UPDATE logchannel SET channelID = '${channel}' WHERE guildID = '${guild}';`);
+                con.query(`UPDATE guild SET log_channel = '${channel}' WHERE guildID = '${guild}';`);
             }else{
-                con.query(`INSERT INTO logchannel (guildID,channelID) VALUES("${guild}","${channel}");`,(err) =>{
+                con.query(`INSERT INTO guild (guildID,log_channel) VALUES("${guild}","${channel}");`,(err) =>{
                     if(err){ console.log(err); message.channel.send({content:"Something broke, very sorry."});}
                 });
             }

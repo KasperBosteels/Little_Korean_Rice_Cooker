@@ -2,7 +2,7 @@ const fs = require('fs');
 module.exports = {
 	execute(con) {
 		var data;
-        con.query('SELECT guildID,prefix FROM prefix;',(err,rows)=>{
+        con.query('SELECT guildID,prefix FROM guild;',(err,rows)=>{
             if(err)console.error(err);
             data = JSON.stringify(rows)
             this.SAVE(data);

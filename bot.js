@@ -16,9 +16,7 @@ const profanity = require("./profanityfilter.js");
 const level = require('./level.js');
 const rice = require("./text responses/rice.js");
 const getprefix = require('./getprefixData.js');
-const birthdays = require('./verjaardag');
 const cronjob = require('cron').CronJob;
-const verjaardag = require('./verjaardag');
 const profanity_alert_data_collector = require('./profanity_alert_data_collector.js');
 const profanity_enabled = require('./profanity_enabled');
 const leveling_enabled = require('./leveling_enabled');
@@ -26,6 +24,7 @@ const welcomeLeaveMessages = require('./welcome_leave_messages');
 const power = require('./powerButton');
 const socalCredit = require('./socalCredit');
 const leave = require('./leave');
+const join = require('./server_create');
 const cooldowns = new Map();
 
 
@@ -69,11 +68,7 @@ const con = mysql.createConnection({
 });
 //#endregion
 
-//#region daily birthday check
-let sheduleCheck = new cronjob('00 00 10 * * *',() =>{
-    verjaardag.CONFIRM(client);
-    });
-    //#endregion
+
 //#region bot ready
 //default state when bot starts up will set activity
 //and display succes message in terminal
@@ -83,10 +78,8 @@ client.on('ready', () => {
     
     start.execute(client,con);
     getprefix.execute(con);
-    birthdays.execute(con);
     profanity_alert_data_collector.execute(con);
     profanity_enabled.execute(con);
-    sheduleCheck.start();
     leveling_enabled.execute(con);
     welcomeLeaveMessages.execute(con);
     }catch(err){
@@ -119,7 +112,7 @@ fs.writeFileSync("./errors.json",JSON.stringify(Err,null,2),(err) => {
 
 //#region bot join
 client.on('guildCreate',guild =>{
-//nothing yet
+join.execute(guild,con);
 });
 //#endregion
 

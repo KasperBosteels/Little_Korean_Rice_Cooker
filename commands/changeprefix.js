@@ -10,12 +10,12 @@ module.exports = {
     guildOnly: 'true',
 	async execute(client,message, args,con) {
         if(!permissioncheck(message))return message.reply({content:'You do not have permission to do this, ask a mod.'});
-        con.query(`SELECT prefix FROM prefix WHERE guildID = "${message.guild.id}";`,(err,rows) =>{
+        con.query(`SELECT prefix FROM guild WHERE guildID = "${message.guild.id}";`,(err,rows) =>{
         if(err)return console.error(err);
         if(rows.length){
-             con.query(`UPDATE prefix SET prefix ="${args[0]}" WHERE guildID = "${message.guild.id}";`);
+             con.query(`UPDATE guild SET prefix ="${args[0]}" WHERE guildID = "${message.guild.id}";`);
         }else {
-             con.query(`INSERT INTO prefix (guildID,prefix) VALUES ("${message.guild.id}","${args[0]}");`)
+             con.query(`INSERT INTO guild (guildID,prefix) VALUES ("${message.guild.id}","${args[0]}");`)
         }
         pr.execute(con);
     });

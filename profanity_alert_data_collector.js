@@ -2,7 +2,7 @@ const fs = require('fs');
 module.exports = {
 	execute(con) {
 		var data;
-        con.query('SELECT guildID,channelID FROM profanity_alert_channel;',(err,rows)=>{
+        con.query('SELECT guildID,profanity_channel FROM guild;',(err,rows)=>{
             if(err)console.error(err);
             data = JSON.stringify(rows)
             this.SAVE(data);
@@ -20,7 +20,7 @@ module.exports = {
         let rawData =fs.readFileSync('./jsonFiles/profanity_alert_channels.json','utf-8');
         let file = JSON.parse(rawData);
         for (let i = 0; i < file.length; i++) {
-         if(file[i].guildID == guildID){return file[i].channelID;}
+         if(file[i].guildID == guildID){return file[i].profanity_channel;}
        }
        return false;
     }

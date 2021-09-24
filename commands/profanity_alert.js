@@ -4,7 +4,7 @@ module.exports = {
 	name: 'profanity-alert',
 	description: 'sends a message when someone uses profanity',
 	cooldown: 3,
-	usage: ' you use this command in the channel you want the message to apear, to stop message put "stop" after the command.',
+	usage: ' you use this command in the channel you want the message to apear.\nTo stop the alerts type "stop" after the command.',
 	category: "config",
     aliases: ['profanityalert','pra'],
 	 execute(client,message, args,con) {
@@ -16,10 +16,10 @@ module.exports = {
          if (!channel)return console.log('no channel');
          if (!guild)return console.log('no guild');
          if(args[0] && args[0].toLowerCase() == "stop"){
-              con.query(`SELECT EXISTS(SELECT * FROM profanity_alert_channel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
+              con.query(`SELECT EXISTS(SELECT profanity_channel FROM guild WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
                 if(err){ console.log(err); message.channel.send({content:"NO 2.1*"});}
-                if(rows[0].exist != 0){
-                      con.query(`DELETE FROM profanity_alert_channel WHERE guildID = "${guild}";`);
+                if(rows[0].exist != null){
+                      con.query(`UPDATE guild set profanity_channel = NULL WHERE guildID = "${guild}";`);
                     message.channel.send({content:'I will not send any profanity alert messages here.'});
                 }else {
                 return message.channel.send({content:"There wasn't any profanity alert channel set, if there are still messages popping up, send me a message (with the message command)."});
@@ -27,12 +27,12 @@ module.exports = {
             });
         }else {
         //checks if database already exists if true update else insert
-          con.query(`SELECT EXISTS(SELECT * FROM profanity_alert_channel WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
+          con.query(`SELECT EXISTS(SELECT profanity_channel FROM guild WHERE guildID = "${guild}")AS exist;`,(err,rows) =>{
             if(err){ console.log(err); message.channel.send({content:"Something broke, i'm sorry. error: 5"});}
-            if(rows[0].exist != 0){
-                  con.query(`UPDATE profanity_alert_channel SET channelID = '${channel}' WHERE guildID = '${guild}';`);
+            if(rows[0].exist != null){
+                  con.query(`UPDATE guild SET profanity_channel = '${channel}' WHERE guildID = '${guild}';`);
             }else{
-                  con.query(`INSERT INTO profanity_alert_channel (guildID,channelID) VALUES("${guild}","${channel}");`,(err) =>{
+                  con.query(`INSERT INTO guild (guildID,profanity_channel) VALUES("${guild}","${channel}");`,(err) =>{
                     if(err){ console.log(err); message.channel.send({content:"Something broke, very sorry. error: 6"});}
                 });
             }

@@ -2,7 +2,7 @@ const fs = require('fs');
 module.exports = {
 	execute(con) {
 		var data;
-        con.query('SELECT guildID,filtered FROM profanity_enabled;',(err,rows)=>{
+        con.query('SELECT guildID,profanity FROM guild',(err,rows)=>{
             if(err)console.error(err);
             data = JSON.stringify(rows)
             this.SAVE(data);
@@ -23,7 +23,7 @@ module.exports = {
         for (let i = 0; i < file.length; i++) {
     
          if(file[i].guildID == guildID){
-             if(file[i].filtered == 1)return true;
+             if(file[i].profanity == 1)return true;
             }
        }
        return false

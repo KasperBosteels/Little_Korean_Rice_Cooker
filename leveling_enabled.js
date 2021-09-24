@@ -2,7 +2,7 @@ const fs = require('fs');
 module.exports = {
 	execute(con) {
 		var data;
-        con.query('SELECT guildID,enabled FROM leveling_enabled;',(err,rows)=>{
+        con.query('SELECT guildID,level_system FROM guild;',(err,rows)=>{
             if(err)console.error(err);
             data = JSON.stringify(rows)
             this.SAVE(data);
@@ -22,8 +22,8 @@ module.exports = {
         let rawData =fs.readFileSync('./jsonFiles/leveling_enabled.json','utf-8');
         let file = JSON.parse(rawData);
         file.forEach(guilddata => {
-            if(guilddata.guildID == guildID && guilddata.enabled == 1)value =  true;
-            if(guilddata.guildID == guildID && guilddata.enabled == 0)value =  false;
+            if(guilddata.guildID == guildID && guilddata.level_system == 1)value =  true;
+            if(guilddata.guildID == guildID && guilddata.level_system == 0)value =  false;
 
         });  
         return value;
@@ -32,7 +32,7 @@ module.exports = {
         let rawData =fs.readFileSync('./jsonFiles/leveling_enabled.json','utf-8');
         let file = JSON.parse(rawData);
         for (let i = 0; i < file.length; i++) {
-         if(file[i].guildID == guildID && file[i].enabled == true){return true;}
+         if(file[i].guildID == guildID && file[i].level_system == true){return true;}
        }
        return false;
     }
