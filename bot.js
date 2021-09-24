@@ -24,7 +24,7 @@ const welcomeLeaveMessages = require('./welcome_leave_messages');
 const power = require('./powerButton');
 const socalCredit = require('./socalCredit');
 const leave = require('./leave');
-const join = require('./server_create');
+const server = require('./server_events');
 const cooldowns = new Map();
 
 
@@ -112,7 +112,10 @@ fs.writeFileSync("./errors.json",JSON.stringify(Err,null,2),(err) => {
 
 //#region bot join
 client.on('guildCreate',guild =>{
-join.execute(guild,con);
+server.join(guild,con);
+});
+client.on('guildDelete',guild=>{
+server.leave(guild,con);
 });
 //#endregion
 
