@@ -1,4 +1,5 @@
 const music = require('@koenie06/discord.js-music');
+const { parse } = require('dotenv');
 const score = require('../socalCredit');
 module.exports = {
 	name: 'volume',
@@ -7,10 +8,11 @@ module.exports = {
 	usage: ' a number between 0 and 100',
 	category: "fun",
 	async execute(client,message, args,con) {
-        if(args[0]>0 || args[0]< 100 || !args[0])return message.reply('You forgot to tell me how loud i should set it(0-100).');
+		let volume = parseInt(args[0])
+		if(volume<0 || volume>100 || !args[0])return message.reply("Don't forget you need to give me a number between 0 and 100.");
 
 		music.volume({interaction:message,
-        volume:args[0]})
+        volume:parseInt(args[0])})
 		score.ADD(con,1,message.author.id)
 	},
 };

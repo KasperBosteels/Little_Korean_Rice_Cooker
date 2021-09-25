@@ -1,8 +1,8 @@
   
-const score = require('../socalCredit');
+const ignoreusers = require('../ignored_users');
 module.exports = {
-	name: 'remove-my-data',
-	description: 'Remove all your data from the server (after this command if you do not manually remove the bot it will gather data again).',
+	name: 'ignore-me',
+	description: 'I will remove all you data, and ignore you.',
 	cooldown: 1,
 	usage: ' ',
 	category: "config",
@@ -32,7 +32,12 @@ module.exports = {
                 data_removed_string += "\nunable to delete warnings data, contact dev using the message command.";
             }
         })
-        
+        await con.query(`INSERT INTO ignoredUsers (userID) VALUES ("${message.author.id}");`,(err)=>{
+            if(err){
+                console.log(err)
+            }
+        })
+        await ignoreusers.execute();
         return message.reply({content:`${data_removed_string}`});
         
 	},

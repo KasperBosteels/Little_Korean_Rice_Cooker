@@ -25,6 +25,7 @@ const power = require('./powerButton');
 const socalCredit = require('./socalCredit');
 const leave = require('./leave');
 const server = require('./server_events');
+const ignoreusers = require('./ignored_users');
 const cooldowns = new Map();
 
 
@@ -162,7 +163,7 @@ client.on('guildMemberAdd',member => {
   client.on('messageCreate', async Interaction => {
 
         //#region bot ignore
-        if(Interaction.author.bot)return;
+        if(Interaction.author.bot || ignoreusers.GET(Interaction.author.id) != false)return;
        //#endregion
 
         //#region reboot

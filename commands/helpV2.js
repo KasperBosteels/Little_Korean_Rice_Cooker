@@ -199,8 +199,7 @@ function firstPage(prefix){
         embed.addField(":eyes: moderating",`\`\`\`${prefix}help moderating\`\`\``, inline=true)
         embed.addField(":screwdriver: config",`\`\`\`${prefix}help config\`\`\``, inline=true)
         embed.addField(":books: quick guide",`\`\`\`${prefix}help "command name"\nFor extra information about a command.\`\`\``)
-        embed.addField(":bar_chart: GDPR",`\`\`\`Your data is in no way traded or handed to third parties.\nyou can delete any stored data with the "${prefix}remove-my-data" command(be aware after this command any new message will result in collection of information).\`\`\``)
+        embed.addField(":remove my data/ignore me",`\`\`\`Your data is in no way traded or handed to third parties.\nyou can delete any stored data with the "${prefix}ignore-me" command(the bot will ignore you from this point on.).\`\`\``)
         embed.setFooter('page: 1/6')
-        
         return embed;
 }

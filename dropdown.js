@@ -7,7 +7,7 @@ const riws = new MessageActionRow()
 .addComponents(
     new MessageSelectMenu()
 .setCustomId('select')
-.setPlaceholder('Select help section')
+.setPlaceholder('Select help topic')
 .addOptions([
     {
         label:'general',
