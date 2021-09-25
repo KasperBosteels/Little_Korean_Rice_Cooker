@@ -29,12 +29,3 @@ module.exports = {
     
 };
 
-events.on('playList',async(channel,playlist,songInfo,requester)=>{
-    channel.send({content:`Starting: ${songInfo.title} - by: ${songInfo.author}\nplaylist: ${playlist.title}\nrequested by: ${requester.tag}`});      
-});
-events.on('addList',async(channel,playlist,requester)=>{
-    channel.send({content:`added playlist to the queue: ${playlist.title}\n videos: ${playlist.videos.length} by: ${songInfo.author}\n requested by: ${requester.tag}`});      
-});
-events.on('finish',async(channel)=>{
-    channel.send({content:`I am now playing: silence`});      
-});

@@ -16,15 +16,10 @@ module.exports = {
             interaction:message,
             channel:Vchannel,
             song:song, 
+            requester:message.author
         });
 
 		score.ADD(con,1,message.author.id)
 	},
     
 };
-events.on('playsong',async(channel,songInfo,requester)=>{
-    channel.send({content:`starting: ${songInfo.title} - by: ${songInfo.author}\n requested by: ${requester.tag}`});      
-});
-events.on('addSong',async(channel,songInfo,requester)=>{
-    channel.send({content:`added song to the queue: ${songInfo.title} - by: ${songInfo.author}\nrequested by: ${requester.tag}`});      
-});

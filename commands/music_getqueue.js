@@ -1,5 +1,6 @@
 const music = require('@koenie06/discord.js-music');
 const score = require('../socalCredit');
+const Discord = require('discord.js');
 module.exports = {
 	name: 'queue',
 	description: "look at the queue'd songs",
@@ -9,11 +10,16 @@ module.exports = {
 	async execute(client,message, args,con) {
         
 
-		console.log(await music.getQueue({interaction:message}));
-        let Q = array.forEach(element => {
-            
-        });
-
+		let list = await music.getQueue({interaction:message});
+        let embed = new Discord.MessageEmbed()
+		.setTitle('QUEUE')
+		.setDescription('The queue for this PARTAY!')
+		.setColor('RANDOM');
+		for (let i = 0; i < list.length; i++) {
+			embed.addField(`${list[i].info.title}`,`duration: ${list[i].info.duration}  author: ${list[i].info.author} requested by:${message.author}`)
+			
+		}
+		message.channel.send({embeds:[embed]});
 		score.ADD(con,1,message.author.id)
 	},
 };
