@@ -16,7 +16,6 @@ const profanity = require("./profanityfilter.js");
 const level = require('./level.js');
 const rice = require("./text responses/rice.js");
 const getprefix = require('./getprefixData.js');
-const cronjob = require('cron').CronJob;
 const profanity_alert_data_collector = require('./profanity_alert_data_collector.js');
 const profanity_enabled = require('./profanity_enabled');
 const leveling_enabled = require('./leveling_enabled');
@@ -271,7 +270,7 @@ client.on('guildMemberAdd',member => {
 //#endregion
 
 //#region   MUSIC EVENT TRIGGERS
-
+/*
 events.on('playsong',async(channel,songInfo,requester)=>{
     console.log(requester,channel,songInfo);
     channel.send({content:`starting: ${songInfo.title} - by: ${songInfo.author}\n requested by: ${requester.tag}`});      
@@ -296,7 +295,7 @@ events.on('finish',async(channel)=>{
 
     channel.send({content:`I am now playing: silence`});      
 });
-
+*/
 //#endregion
 
 
@@ -324,4 +323,15 @@ process.on('DiscordAPIError',error => {Interaction.channel.send({content:'Messag
  test
  don't forget reconlx (google images thingy old)
      is still in package maybe do something with it
+
+
+---------------------------------------------------------------------------------------
+koenie audioplayer 
+my settings seem to work:
+
+    let resource = await createAudioResource(ytdl(data.queue[0].url, { filter: 'audioonly',highWaterMark:1<<25,quality:'highestaudio'}), { 
+        inputType: StreamType.Arbitrary,
+        inlineVolume: true,
+    });
+
 */
