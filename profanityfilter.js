@@ -55,7 +55,7 @@ function proffilter(message, client, con) {
         sendMessageToChannel(message, client);
         //message.channel.send(sentecUser);
         message.channel.send({
-          content: message.author + `\n${threats[coin]}`,
+          content: `${message.author}` + `\n${threats[coin]}`,
         });
       } catch (err) {
         return console.log(err);
