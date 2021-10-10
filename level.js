@@ -8,7 +8,7 @@ module.exports = {
 
     let randomint;
     randomint = Math.floor(Math.random() * args.length + 1);
-    let userID = message.author.id;
+    let userID = await message.author.id;
     con.query(
       `SELECT level FROM levels WHERE userID = "${userID}";`,
       (err, rows) => {
@@ -26,10 +26,18 @@ module.exports = {
               var EXP = rows[0].exp + randomint;
               var nextlevel = (15 + 300) * LEV;
               if (EXP >= nextlevel) {
-                258217948819357697;
+                //258217948819357697;
                 LEV++;
                 EXP = 0;
                 var mem = message.member;
+                var name;
+                if (!mem) {
+                  return;
+                } else if (mem.nickname) {
+                  name = mem.nickname;
+                } else {
+                  name = mem.displayName;
+                }
                 //#region embed
                 var embed = new Discord.MessageEmbed()
                   .setColor("#006400")
@@ -55,13 +63,14 @@ module.exports = {
                 } catch (err) {
                   console.log(err);
                 }
+                console.log(`mem`);
               }
               con.query(
                 `UPDATE levels SET level = ${LEV}, exp = ${EXP} WHERE userID = "${userID}"`
               );
             }
           );
-          score.ADD(con, 1000, userID);
+          score.ADD(con, 100, userID);
         }
       }
     );

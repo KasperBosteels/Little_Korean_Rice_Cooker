@@ -3,6 +3,17 @@ const channel_alert = require("./profanity_alert_data_collector");
 const profanity_enabled = require("./profanity_enabled");
 const score = require("./socalCredit");
 const Discord = require("discord.js");
+const threats = [
+  "Profanity detected!",
+  "I have detected profanity in your message, i will report this.",
+  "You have activated my trap card and allowed me to report your profanity.",
+  "Your messages contained unnaceptable words and was deleted.",
+  "Profanity like this is not allowed, your message was deleted.",
+  "No bad words allowed here.",
+  "Maybe take a breather before sending any more messages like that.",
+  "I cannot allow that kind of language.",
+  "Calm down that language please.",
+];
 module.exports = {
   execute(message, client, con) {
     proffilter(message, client, con);
@@ -40,10 +51,11 @@ function proffilter(message, client, con) {
     //if there are more than 0 swear words found be annoying
     if (amountswear != 0) {
       try {
+        let coin = Math.floor(Math.random() * Math.floor(threats.length));
         sendMessageToChannel(message, client);
         //message.channel.send(sentecUser);
         message.channel.send({
-          content: message.author.tag + " no profanity.",
+          content: message.author + `\n${threats[coin]}`,
         });
       } catch (err) {
         return console.log(err);
