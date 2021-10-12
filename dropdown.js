@@ -14,28 +14,28 @@ module.exports = {
         .setPlaceholder("Select help topic")
         .addOptions([
           {
-            label: "general",
-            description: "index of the menu",
+            label: "General",
+            description: "1. General information.",
             value: "general",
           },
           {
-            label: "fun",
-            description: "index of the menu",
+            label: "Fun",
+            description: "2. Funny commands.",
             value: "fun",
           },
           {
-            label: "music",
-            description: "index of the menu",
+            label: "Music",
+            description: "3. Musical commands.",
             value: "music",
           },
           {
-            label: "moderating",
-            description: "index of the menu",
+            label: "Moderating",
+            description: "4. Commands for moderation purposes.",
             value: "moderating",
           },
           {
-            label: "config",
-            description: "index of the menu",
+            label: "Config",
+            description: "5. Configuration of the bot?",
             value: "config",
           },
         ])
