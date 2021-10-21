@@ -35,7 +35,8 @@ module.exports = {
                   return;
                 } else if (mem.nickname) {
                   name = mem.nickname;
-                } else {
+                }
+                if (name == null) {
                   name = mem.displayName;
                 }
                 //#region embed
