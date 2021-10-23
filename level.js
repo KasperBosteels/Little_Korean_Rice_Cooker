@@ -65,13 +65,13 @@ module.exports = {
                   console.log(err);
                 }
                 console.log(`mem`);
+                score.ADD(con, 100, userID);
               }
               con.query(
                 `UPDATE levels SET level = ${LEV}, exp = ${EXP} WHERE userID = "${userID}"`
               );
             }
           );
-          score.ADD(con, 100, userID);
         }
       }
     );

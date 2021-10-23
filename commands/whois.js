@@ -7,11 +7,15 @@ module.exports = {
   usage: " blank, user-id or @ user",
   category: "moderating",
   async execute(client, message, args, con) {
-    let user, SCS;
+    let user, member, SCS;
 
     user = getUserFromMention(args[0], client);
+    member = message.mentions.members.first();
     if (!user) user = await getuserfromID(args[0], client);
-    if (!args[0]) user = message.author;
+    if (!args[0]) {
+      user = message.author;
+      member = message.member;
+    }
     //query data base score tabel
     con.query(
       `SELECT socialScore FROM score WHERE userID="${user.id}";`,
@@ -26,7 +30,7 @@ module.exports = {
 
         //return with embed message
         return message.channel.send({
-          embeds: [makeEmbed(user, message, SCS)],
+          embeds: [makeEmbed(user, member, message, SCS)],
         });
       }
     );
@@ -56,20 +60,36 @@ function regexCheck(text) {
     return false;
   }
 }
-function makeEmbed(user, message, score) {
+function makeEmbed(user, member, message, score) {
   const embed = new Discord.MessageEmbed()
     .setColor("#00ff00")
     .setFooter(message.author.username, message.author.displayAvatarURL)
     .setTimestamp();
-  embed.addField("username", `${user.username}`, (inline = true));
-  embed.addField("discriminator", `${user.discriminator}`, (inline = true));
-  embed.addField("id", `${user.id}`, (inline = true));
-  embed.addField("avatar", `${user.avatar}`, (inline = true));
+  embed.addField(
+    "user",
+    `\`\`\`${user.username}#${user.discriminator}\`\`\``,
+    (inline = true)
+  );
+  embed.addField("id", `\`\`\`${user.id}\`\`\``, (inline = true));
   embed.addField("bot", `${user.bot}`, (inline = true));
   embed.addField("creation date", `${user.createdAt}`, (inline = true));
+  embed.addField("join date", `${member.joinedAt}`);
   embed.setThumbnail(
     user.avatarURL({ dynamic: true, format: "png", size: 64 })
   );
-  embed.addField("social Credit", `${score}`, (inline = true));
+  let socialcreditlevel = "normal";
+  if (score < 1000) socialcreditlevel = "bad";
+  if (score >= 1500 && score <= 1999) socialcreditlevel = "good";
+  if (score >= 2000 && score <= 2999) socialcreditlevel = "very good";
+  if (score >= 3000 && score <= 3999) socialcreditlevel = "outstanding!";
+  if (score >= 4000) socialcreditlevel = "**PERFECt**";
+  embed.addField(
+    "social Credit",
+    `${score} this score is ${socialcreditlevel}`,
+    (inline = true)
+  );
+  if (user.system) {
+    embed.addField(`**OFFICIAL DISCORD SYSTEM USER**`, "TRUE");
+  }
   return embed;
 }

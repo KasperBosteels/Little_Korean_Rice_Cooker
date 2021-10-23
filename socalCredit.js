@@ -1,5 +1,5 @@
 module.exports = {
-  ADD(con, score, userID) {
+  ADD(con, score = 1, userID) {
     var userScore, points;
     points = score;
     con.query(
@@ -15,14 +15,19 @@ module.exports = {
         } else {
           con.query(
             `INSERT INTO score (userID,socialScore) VALUES ("${userID}",${
-              10000 + points
+              1000 + points
             });`
+          );
+          console.log(
+            `added new user to social credit database ${userID} ${
+              1000 + points
+            }`
           );
         }
       }
     );
   },
-  SUBTRACT(con, score, userID) {
+  SUBTRACT(con, score = -1, userID) {
     var userScore, points;
     points = score;
     con.query(
@@ -38,8 +43,13 @@ module.exports = {
         } else {
           con.query(
             `INSERT INTO score (userID,socialScore) VALUES ("${userID}",${
-              10000 - points
+              1000 - points
             });`
+          );
+          console.log(
+            `added new user to social credit database ${userID} ${
+              1000 - points
+            }`
           );
         }
       }
@@ -47,7 +57,7 @@ module.exports = {
   },
   ADDUSER(con, userID) {
     con.query(
-      `INSERT INTO score (userID,socialScore) VALUES ("${userID}",10000);`,
+      `INSERT INTO score (userID,socialScore) VALUES ("${userID}",1000);`,
       (err, score) => {
         if (err) return console.error(err);
       }

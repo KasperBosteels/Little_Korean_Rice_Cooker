@@ -1,5 +1,6 @@
 const search = require("yt-search");
 const { MessageEmbed } = require("discord.js");
+const social = require("../socalCredit");
 module.exports = {
   name: "youtube",
   description: "I will look for some good videos.",
@@ -22,5 +23,6 @@ module.exports = {
       let videos = result.videos.slice(0, 5);
       message.channel.send(videos[0].url);
     });
+    social.ADD(con, 1, message.author.id);
   },
 };

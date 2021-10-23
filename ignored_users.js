@@ -26,4 +26,10 @@ module.exports = {
     }
     return false;
   },
+  //need to funish this
+  GETLOWSCOREUSERS(con) {
+    con.query(`call low_score_users();`, (err, rows) => {
+      if (err) console.log(err);
+    });
+  },
 };

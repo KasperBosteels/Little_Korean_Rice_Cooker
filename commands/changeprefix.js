@@ -15,7 +15,7 @@ module.exports = {
         content: "You do not have permission to do this, ask a mod.",
       });
     con.query(
-      `SELECT prefix FROM guild WHERE guildID = "${message.guild.id}";`,
+      `CALL get_server_prefix("${message.guild.id}",@prefix); SELECT @prefix;`,
       (err, rows) => {
         if (err) return console.error(err);
         if (rows.length) {

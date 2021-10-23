@@ -23,6 +23,7 @@ const profanity_enabled = require("./profanity_enabled");
 const leveling_enabled = require("./leveling_enabled");
 const welcomeLeaveMessages = require("./welcome_leave_messages");
 const power = require("./powerButton");
+const changesocial = require("./change socialcreditcommand");
 const socalCredit = require("./socalCredit");
 const leave = require("./leave");
 const server = require("./server_events");
@@ -32,7 +33,7 @@ const events = music.event;
 const cooldowns = new Map();
 
 //#endregion
-//
+
 //#region init bot as client
 let intents = [
   Intents.FLAGS.GUILDS,
@@ -49,6 +50,9 @@ let intents = [
   Intents.FLAGS.DIRECT_MESSAGE_TYPING,
 ];
 const client = new Discord.Client({ intents: intents });
+
+//#endregion
+
 //#region discord buttons
 
 client.commands = new Discord.Collection();
@@ -57,6 +61,9 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
   console.log(`command file loaded: ${command.name}`);
 }
+
+//#endregion
+
 //#region sql login data
 //sets sql login data in veriable for use
 const con = mysql.createConnection({
@@ -177,6 +184,10 @@ client.on("messageCreate", async (Interaction) => {
 
   //#region reboot
   power.execute(Interaction, con);
+  //#endregion
+
+  //#region social credit change command
+  changesocial.execute(client, Interaction, con);
   //#endregion
 
   //#region simple responses

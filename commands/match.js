@@ -1,6 +1,7 @@
 const discord = require("discord.js");
 const gif = require("../jsonFiles/bodily_affection.json");
 const score = require("../socalCredit");
+const prefixGET = require("../getprefixData").GET;
 var chosen = " ";
 var value = 0;
 var users = [];
@@ -16,7 +17,9 @@ module.exports = {
   async execute(client, message, args, con) {
     if (!args[0])
       return message.channel.send({
-        content: `Give me a match\nif you dont know how to use this command try "-help matchmaker"`,
+        content: `Give me a match\nif you dont know how to use this command try "${prefixGET(
+          message.guild.id
+        )}help matchmaker"`,
       });
     /**
      * Create a text progress bar

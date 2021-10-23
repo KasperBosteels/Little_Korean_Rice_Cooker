@@ -275,7 +275,7 @@ function firstPage(prefix) {
     `\`\`\`${prefix}help "command name"\nFor extra information about a command.\`\`\``
   );
   embed.addField(
-    ":remove my data/ignore me",
+    ":file_cabinet: remove my data/ignore me",
     `\`\`\`Your data is in no way traded or handed to third parties.\nyou can delete any stored data with the "${prefix}ignore-me" command(the bot will ignore you from this point on.).\`\`\``
   );
   embed.setFooter("page: 1/6");

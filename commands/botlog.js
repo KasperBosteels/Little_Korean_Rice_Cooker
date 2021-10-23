@@ -1,9 +1,7 @@
-const sqlcon = require("../sql_serverconnection.js");
 const { Permissions } = require("discord.js");
 module.exports = {
   name: "bot-log",
-  description:
-    'Assign log channel, default channels: "bot-logs","bot-log","log" or "botllog."',
+  description: "Assign log channel",
   cooldown: 1,
   usage: "",
   guildOnly: "true",
@@ -27,7 +25,7 @@ module.exports = {
         (err, rows) => {
           if (err) {
             console.log(err);
-            message.channel.send("NO 2.1*");
+            message.channel.send("ERROR N.2.1*");
           }
           if (rows[0].exist != 0) {
             con.query(

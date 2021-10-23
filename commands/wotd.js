@@ -1,5 +1,6 @@
 const ud = require("urban-dictionary");
 const discord = require("discord.js");
+const social = require("../socalCredit");
 module.exports = {
   name: "wotd",
   description: "word of the day",
@@ -8,6 +9,7 @@ module.exports = {
   category: "fun",
   async execute(client, message, args, con) {
     await term(message);
+    social.ADD(con, 1, message.author.id);
     return;
   },
 };
