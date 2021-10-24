@@ -24,7 +24,7 @@ module.exports = {
         if (score.length) {
           SCS = score[0].socialScore;
         } else {
-          SCS = 10000;
+          SCS = 1000;
           credit.ADDUSER(con, user.id);
         }
 
