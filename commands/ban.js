@@ -20,7 +20,8 @@ module.exports = {
       });
     }
     //look if reason was given for ban from the server
-    var Reason = args[1];
+    args.shift();
+    var Reason = args.join(" ");
     if (!Reason) Reason = `no reason given by ${message.author.name}`;
     try {
       //try to ban member with reason
