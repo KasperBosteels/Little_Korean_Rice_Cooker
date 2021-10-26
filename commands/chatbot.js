@@ -3,7 +3,7 @@ const chatbot = require("smartestchatbot");
 module.exports = {
   name: "chat",
   description: "talk to me.",
-  cooldown: 1,
+  cooldown: 2,
   usage: " <something funny you want to tell me.>",
   category: "fun",
   alsiases: ["ch", "talk"],
