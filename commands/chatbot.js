@@ -1,5 +1,5 @@
 const score = require("../socalCredit");
-const chatbot = require("smartestchatbot");
+const korean = require("korean-random-words");
 module.exports = {
   name: "chat",
   description: "talk to me.",
@@ -17,6 +17,13 @@ module.exports = {
       user: message.author.id,
       language: "auto",
     });
-    message.channel.send({ content: reply });
+
+    if (reply.includes("https://acobot.ai/pricing")) {
+      let phrasegen = new korean();
+      let text = phrasegen.generatePhrase();
+      text = text.split("").join(" ");
+      return message.channel.send({ content: text });
+    }
+    return message.channel.send({ content: reply });
   },
 };
