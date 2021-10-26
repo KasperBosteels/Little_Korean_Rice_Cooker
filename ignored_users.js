@@ -1,19 +1,23 @@
 const fs = require("fs");
 module.exports = {
   execute(con) {
-    var data;
+    var data, lowdata;
     con.query("SELECT * FROM ignoredUsers;", (err, rows) => {
       if (err) console.error(err);
       data = JSON.stringify(rows);
+      lowdata = this.GETLOWSCOREUSERS(con);
+      console.log(data, lowdata);
       this.SAVE(data);
     });
   },
   SAVE(data) {
+    console.log(data);
     fs.writeFileSync("./jsonFiles/ignore.json", data, (err) => {
       if (err) {
         return console.error(err);
+      } else {
+        return console.log("ignored users data saved.");
       }
-      console.log("ignored users channels saved into file");
     });
   },
   GET(userID) {
@@ -28,8 +32,15 @@ module.exports = {
   },
   //need to funish this
   GETLOWSCOREUSERS(con) {
-    con.query(`call low_score_users();`, (err, rows) => {
-      if (err) console.log(err);
-    });
+    var data;
+    con.query(
+      `SELECT userID from score where socialScore < 500;`,
+      (err, rows) => {
+        if (err) console.log(err);
+        data = JSON.stringify(rows);
+        console.log(data);
+        return data;
+      }
+    );
   },
 };

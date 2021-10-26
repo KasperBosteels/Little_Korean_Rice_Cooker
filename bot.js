@@ -31,7 +31,8 @@ const ignoreusers = require("./ignored_users");
 const music = require("@koenie06/discord.js-music");
 const events = music.event;
 const cooldowns = new Map();
-
+const chatBot = require("smartestchatbot");
+const chatClient = new chatBot.Client();
 //#endregion
 
 //#region init bot as client
@@ -89,6 +90,7 @@ client.on("ready", () => {
     profanity_enabled.execute(con);
     leveling_enabled.execute(con);
     welcomeLeaveMessages.execute(con);
+    ignoreusers.execute(con);
   } catch (err) {
     console.log(err);
   }
@@ -279,7 +281,7 @@ client.on("messageCreate", async (Interaction) => {
   //#region execute command
   //tries to perform the command if error occurs catch it and display on terminal
   try {
-    command.execute(client, Interaction, args, con);
+    command.execute(client, Interaction, args, con, chatClient);
     logger.execute(Interaction);
   } catch (error) {
     console.error(error);
