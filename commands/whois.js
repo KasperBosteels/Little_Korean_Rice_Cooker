@@ -82,7 +82,7 @@ function makeEmbed(user, member, message, score) {
   if (score >= 1500 && score <= 1999) socialcreditlevel = "good";
   if (score >= 2000 && score <= 2999) socialcreditlevel = "very good";
   if (score >= 3000 && score <= 3999) socialcreditlevel = "outstanding!";
-  if (score >= 4000) socialcreditlevel = "**PERFECt**";
+  if (score >= 4000) socialcreditlevel = "**PERFECT**";
   embed.addField(
     "social Credit",
     `${score} this score is ${socialcreditlevel}`,
