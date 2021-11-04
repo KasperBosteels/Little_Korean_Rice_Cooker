@@ -32,12 +32,13 @@ module.exports = {
                 var mem = message.member;
                 var name;
                 if (!mem) {
-                  return;
+                  return console.log(mem);
                 } else if (mem.nickname) {
-                  name = mem.nickname;
+                  name = mem.displayName;
                 }
                 if (name == null) {
                   name = mem.displayName;
+                } else if (name == null) {
                 }
                 //#region embed
                 var embed = new Discord.MessageEmbed()
