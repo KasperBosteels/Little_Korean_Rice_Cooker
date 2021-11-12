@@ -49,6 +49,7 @@ let intents = [
   Intents.FLAGS.GUILD_MESSAGE_TYPING,
   Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
   Intents.FLAGS.DIRECT_MESSAGE_TYPING,
+  Intents.FLAGS.GUILD_PRESENCES,
 ];
 const client = new Discord.Client({ intents: intents });
 

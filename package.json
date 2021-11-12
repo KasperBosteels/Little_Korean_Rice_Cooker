@@ -13,6 +13,7 @@
     "@discordjs/opus": "^0.5.0",
     "@discordjs/voice": "^0.6.0",
     "@koenie06/discord.js-music": "^1.2.4",
+    "canvacord": "^5.2.3",
     "cron": "^1.8.2",
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
     "discord.js": "^13.1.0",

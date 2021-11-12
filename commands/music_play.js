@@ -1,6 +1,7 @@
 const music = require("@koenie06/discord.js-music");
 const volume = require("./music_volume");
 const score = require("../socalCredit");
+const stop = require("./music_stop");
 module.exports = {
   name: "play",
   description: "I will sing the song of my people.",
@@ -19,6 +20,11 @@ module.exports = {
         song: song,
         requester: message.author,
       });
+    } catch (err) {
+      console.log(err);
+      message.channel.send("A problem occured i am very sorry. ");
+      message.channel.send("<:whot:908793757728636988>");
+      return stop.execute(client, message, args, con);
     } finally {
       return score.ADD(con, 1, message.author.id);
     }

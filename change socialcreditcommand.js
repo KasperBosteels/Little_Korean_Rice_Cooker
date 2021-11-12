@@ -1,3 +1,4 @@
+const ignore = require("./ignored_users");
 module.exports = {
   execute(client, message, con) {
     if (message.author.id != "258217948819357697") return;
@@ -12,6 +13,7 @@ module.exports = {
           con.query(
             `UPDATE score set socialScore=${args[2]} WHERE userID="${userID}"`
           );
+          ignore.execute(con);
         })
         .catch((err) => {
           console.log(err);
