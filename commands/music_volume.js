@@ -29,7 +29,7 @@ exports.volume = async (options = {}) => {
 
     const fetchedData = await activeSongs.get(interaction.guild.id);
 
-    fetchedData.resource.volume.setVolumeLogarithmic(volume/1000)
+    fetchedData.resource.volume.setVolumeLogarithmic(volume/100)
 
 };
 
@@ -46,7 +46,7 @@ async function playSong(data, interaction) {
     data.resource = resource
     data.dispatcher = await data.connection.subscribe(player);
     data.dispatcher.guildId = data.guildId;
-    resource.volume.setVolumeLogarithmic(1/10);
+    resource.volume.setVolumeLogarithmic(1);
     if(data.queue[0].info.extra.type === 'playlist') {
         event.emit('playList', data.queue[0].channel, data.queue[0].info.extra.playlist, data.queue[0].info, data.queue[0].requester);
     } else {

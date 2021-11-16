@@ -78,8 +78,10 @@ function makeEmbed(user, member, message, score) {
     user.avatarURL({ dynamic: true, format: "png", size: 64 })
   );
   let socialcreditlevel = "normal";
-  if (score < 1000) socialcreditlevel = "bad";
-  if (score >= 1500 && score <= 1999) socialcreditlevel = "good";
+  if (score < 1000)
+    socialcreditlevel = "bad <:sadgeCooker:910210761136148581>  ";
+  if (score >= 1500 && score <= 1999)
+    socialcreditlevel = "good <:Cooker:910220565955104818>  ";
   if (score >= 2000 && score <= 2999) socialcreditlevel = "very good";
   if (score >= 3000 && score <= 3999) socialcreditlevel = "outstanding!";
   if (score >= 4000) socialcreditlevel = "**PERFECT**";

@@ -4,12 +4,12 @@ const profanity_enabled = require("./profanity_enabled");
 const score = require("./socalCredit");
 const Discord = require("discord.js");
 const threats = [
-  "Profanity detected!",
-  "I have detected profanity in your message, i will report this.",
+  "Profanity detected! <:angryCooker:910235812334022746>  ",
+  "I have detected profanity in your message, i will report this. <:angryCooker:910235812334022746>  ",
   "You have activated my trap card and allowed me to report your profanity.",
-  "Your messages contained unnaceptable words and was deleted.",
-  "Profanity like this is not allowed, your message was deleted.",
-  "No bad words allowed here.",
+  "Your messages contained unnaceptable words and was deleted. <:angryCooker:910235812334022746>  ",
+  "Profanity like this is not allowed, your message was deleted. <:angryCooker:910235812334022746>  ",
+  "No bad words allowed here. <:angryCooker:910235812334022746>  ",
   "Maybe take a breather before sending any more messages like that.",
   "I cannot allow that kind of language.",
   "Calm down that language please.",

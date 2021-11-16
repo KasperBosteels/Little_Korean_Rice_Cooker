@@ -22,7 +22,9 @@ module.exports = {
           if (err) {
             message.channel.send({ content: err.message });
           }
-          message.channel.send({ content: "credit changed." });
+          message.channel.send({
+            content: "credit changed. <:Cooker:910220565955104818>            ",
+          });
           return console.log(
             `force changed ${userID} social credit to ${args[2]}`
           );

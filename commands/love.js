@@ -37,12 +37,12 @@ module.exports = {
         }
         //return string with text
         return message.channel.send({
-          content: `${manualinput}\n${love.answer[coin]}`,
+          content: `${manualinput}\n${love.answer[coin]} <:Cooker:910220565955104818>          `,
         });
       } else {
         //return member and text
         return message.channel.send({
-          content: `${member}\n${love.answer[coin]}`,
+          content: `${member}\n${love.answer[coin]} <:Cooker:910220565955104818>          `,
         });
       }
     }

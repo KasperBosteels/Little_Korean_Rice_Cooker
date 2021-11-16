@@ -11,13 +11,15 @@ module.exports = {
   async execute(client, message, args, con, options) {
     if (!args[0])
       return message.channel.send({
-        content: "U gotta give me a clue at least.",
+        content:
+          "<:whot:800083736682823711> you gotta give me a clue at least.",
       });
     search(args.join(" "), function (err, result) {
       if (err) {
         console.log(err);
         return message.channel.send({
-          content: "Something went badly. error: 7",
+          content:
+            "Something went badly. error: 7 <:sadgeCooker:910210761136148581>          ",
         });
       }
       let videos = result.videos.slice(0, 5);

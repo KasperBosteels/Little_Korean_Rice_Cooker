@@ -6,7 +6,8 @@ module.exports = {
       return console.log({ content: "Not able to determine mutetime." });
     if (member.hasPermission("KICK_MEMBERS"))
       return message.reply({
-        content: "This person is possibly a moderator and cannot be muted.",
+        content:
+          "This person is possibly a moderator and cannot be muted. <:whot:800083736682823711>        ",
       });
 
     //adds mute role to user

@@ -10,20 +10,28 @@ module.exports = {
   async execute(client, message, args, con, chatClient) {
     if (!args) return;
     score.ADD(con, 1, message.author.id);
-    let reply = await chatClient.chat({
-      message: args.join(" "),
-      name: "Little Korean Rice Cooker",
-      owner: "korean_rice_farmer",
-      user: message.author.id,
-      language: "auto",
-    });
+    try {
+      let reply = await chatClient.chat({
+        message: args.join(" "),
+        name: "Little Korean Rice Cooker",
+        owner: "korean_rice_farmer",
+        user: message.author.id,
+        language: "auto",
+      });
 
-    if (reply.includes("https://acobot.ai/pricing")) {
-      let phrasegen = new korean();
-      let text = phrasegen.generatePhrase();
-      text = text.split("").join(" ");
-      return message.channel.send({ content: text });
+      if (reply.includes("https://acobot.ai/pricing")) {
+        let phrasegen = new korean();
+        let text = phrasegen.generatePhrase();
+        text = text.split("").join(" ");
+        return message.channel.send({ content: text });
+      }
+      return message.channel.send({ content: reply });
+    } catch (err) {
+      if (err.status == 404) {
+        message.channel
+          .send(`Sorry, i am being rate limited. <:sadgeCooker:910210761136148581>
+        `);
+      }
     }
-    return message.channel.send({ content: reply });
   },
 };

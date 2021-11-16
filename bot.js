@@ -351,7 +351,8 @@ process.on("PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR", (error) => {
 });
 process.on("DiscordAPIError", (error) => {
   Interaction.channel.send({
-    content: "Message was too big to send in discord, sorry.",
+    content:
+      "Message was too big to send in discord, sorry. <:sadgeCooker:910210761136148581>",
   });
   console.log(error);
 });
