@@ -61,8 +61,11 @@ function makeCard(lev, exp, nextlevel, rank, mem, message) {
     .setCurrentXP(exp)
     .setLevel(lev)
     .setRank(rank)
-    .setRequiredXP(nextlevel)
-    .setStatus(mem.presence.status)
+    .setRequiredXP(nextlevel);
+  if (mem.presence != null) {
+    card.setStatus(mem.presence.status);
+  }
+  card
     .setProgressBar("#149414", "COLOR")
     .setUsername(mem.user.username)
     .setDiscriminator(mem.user.discriminator);

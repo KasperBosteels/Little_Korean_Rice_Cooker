@@ -16,18 +16,20 @@ module.exports = {
       if (err) {
         return console.error(err);
       } else {
-        return console.log("ignored users data saved.");
+        console.log("ignored users data saved.");
+        return;
       }
     });
   },
   GET(userID) {
+    let Ignore = false;
     let rawData = fs.readFileSync("./jsonFiles/ignore.json", "utf-8");
     let file = JSON.parse(rawData);
-    for (let i = 0; i < file.length; i++) {
-      if (file[i].guildID == userID) {
-        return file[i].userID;
+    for (const iterator of file) {
+      if (iterator.userID == userID) {
+        Ignore = true;
       }
     }
-    return false;
+    return Ignore;
   },
 };

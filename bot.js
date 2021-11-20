@@ -181,8 +181,7 @@ client.on("guildMemberAdd", (member) => {
 //when a user sends a message
 client.on("messageCreate", async (Interaction) => {
   //#region bot ignore
-  if (Interaction.author.bot || ignoreusers.GET(Interaction.author.id) != false)
-    return;
+  if (Interaction.author.bot) return;
   //#endregion
 
   //#region reboot
@@ -195,6 +194,7 @@ client.on("messageCreate", async (Interaction) => {
 
   //#region simple responses
   profanity.execute(Interaction, client, con);
+  if (ignoreusers.GET(Interaction.author.id) == true) return;
   lie.execute(Interaction);
   rice.execute(Interaction);
   leave.execute(Interaction, client);
