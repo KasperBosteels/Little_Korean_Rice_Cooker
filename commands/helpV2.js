@@ -228,7 +228,10 @@ function MakeEmbed(content, prefix, i) {
     .setAuthor("Little_Korean_Rice_Cooker", "https://i.imgur.com/A2SSxSE.png")
     .setColor("#00ff00");
   content.forEach((item) => {
-    embed.addField(`${prefix}${item.name} ${item.usage}`, item.description);
+    embed.addField(
+      `${item.name}`,
+      `\`\`\`${prefix}${item.name}\n${item.description}\n${prefix}${item.name} ${item.usage}\`\`\``
+    );
   });
   embed.setFooter(
     `You can find more info about a command by using: ${prefix}help <command name>\npage: ${i}/6`
@@ -276,7 +279,11 @@ function firstPage(prefix) {
   );
   embed.addField(
     ":file_cabinet: remove my data/ignore me",
-    `\`\`\`Your data is in no way traded or handed to third parties.\nyou can delete any stored data with the "${prefix}ignore-me" command(the bot will ignore you from this point on.).\`\`\``
+    `\`\`\`Your data is in no way traded or handed to third parties.\nyou can delete any stored data with the "${prefix}ignore-me" command(the bot will ignore you from this point on).\`\`\``
+  );
+  embed.addField(
+    "<:whot:800083736682823711> support",
+    `If you need Furter help you can join [the support server](https://discord.gg/7dWt3xA6Ck). `
   );
   embed.setFooter("page: 1/6");
   return embed;

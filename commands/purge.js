@@ -6,7 +6,7 @@ module.exports = {
   name: "purge",
   description: "Delete multiple messages.",
   args: "true",
-  usage: "<number>",
+  usage: "<number(1-99)>",
   aliases: ["delete", "remove"],
   category: "moderating",
   cooldown: 2,
@@ -20,17 +20,18 @@ module.exports = {
       return message.reply({ content: "I do not have permission to do this." });
 
     //get amount to delete
-    const amount = parseInt(args[0]) + 1;
+    let amount = parseInt(args[0]);
     //if no args given or if hte number is between 1 and 100
     if (isNaN(amount)) {
       return message.reply({
         content: "That doesn't seem to be a valid option.",
       });
-    } else if (amount <= 1 || amount >= 99) {
+    } else if (amount < 1 || amount > 99) {
       return message.reply({
         content: "You need to input a number between 1 and 99.",
       });
     }
+    amount++;
     //delete messages
     message.channel.bulkDelete(amount, true);
     sqlconnect.execute(

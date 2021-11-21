@@ -16,7 +16,7 @@ module.exports = {
   name: "tickle",
   description: "Tickle me this, tickle me that.",
   cooldown: 1,
-  usage: "<@user>",
+  usage: "<@user> / <blank> / <something you like>",
   category: "fun",
   execute(client, message, args, con) {
     try {

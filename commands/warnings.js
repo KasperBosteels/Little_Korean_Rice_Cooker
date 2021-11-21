@@ -3,7 +3,7 @@ const { Permissions } = require("discord.js");
 module.exports = {
   name: "warnings",
   description: "see the warnings against a user",
-  usage: "<@ user> (optional:<reason>)",
+  usage: "<@user>",
   guildOnly: "true",
   aliases: ["warning", "warns"],
   category: "moderating",

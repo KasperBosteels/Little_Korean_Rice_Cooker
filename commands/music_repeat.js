@@ -4,7 +4,7 @@ module.exports = {
   name: "repeat",
   description: "Repeat the song over and over and over...",
   cooldown: 1,
-  usage: " true/false",
+  usage: "<true/false>",
   category: "music",
   async execute(client, message, args, con) {
     if (args[0] != "false" && args[0] != "true")

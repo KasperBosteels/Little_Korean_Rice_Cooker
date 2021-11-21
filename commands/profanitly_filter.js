@@ -4,7 +4,7 @@ module.exports = {
   name: "profanity-filter",
   description: "enable or disable the profanity filter",
   cooldown: 3,
-  usage: " enable / disable",
+  usage: "<enable> / <disable>",
   category: "config",
   aliases: ["profanityfilter", "prf"],
   execute(client, message, args, con) {

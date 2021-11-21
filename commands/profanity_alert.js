@@ -3,9 +3,9 @@ const { Permissions } = require("discord.js");
 module.exports = {
   name: "profanity-alert",
   description:
-    ' you use this command in the channel you want the message to apear.\nTo stop the alerts type "stop" after the command.',
+    'Use this command in the channel you want the message to apear. To stop the alerts type "disable" after the command.',
   cooldown: 3,
-  usage: " ",
+  usage: "(optinal): <disable>",
   category: "config",
   aliases: ["profanityalert", "pra"],
   execute(client, message, args, con) {
@@ -17,7 +17,7 @@ module.exports = {
     var guild = message.guild.id;
     if (!channel) return console.log("no channel");
     if (!guild) return console.log("no guild");
-    if (args[0] && args[0].toLowerCase() == "stop") {
+    if (args[0] && args[0].toLowerCase() == "disable") {
       con.query(
         `SELECT EXISTS(SELECT profanity_channel FROM guild WHERE guildID = "${guild}")AS exist;`,
         (err, rows) => {

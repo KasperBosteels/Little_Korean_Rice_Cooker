@@ -4,7 +4,7 @@ module.exports = {
   name: "whois",
   description: "get acount details",
   cooldown: 2,
-  usage: " blank, user-id or @ user",
+  usage: "<blank> / <user-id or @user>",
   category: "moderating",
   async execute(client, message, args, con) {
     let user, member, SCS;

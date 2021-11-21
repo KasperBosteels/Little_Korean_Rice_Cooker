@@ -5,7 +5,7 @@ const mute = require("../mutetimer.js");
 module.exports = {
   name: "warn",
   description: "Warn a user.",
-  usage: "<@ user> (optional:<reason>)",
+  usage: "<@user>",
   guildOnly: "true",
   aliases: ["w"],
   category: "moderating",

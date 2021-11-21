@@ -45,7 +45,7 @@ module.exports = {
   name: "kill",
   description: "Kill someone.",
   cooldown: 1,
-  usage: " <@user>",
+  usage: "<@user> / <blank> / <something you don't like>",
   aliases: [
     "end",
     "assasinate",

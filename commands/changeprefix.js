@@ -5,7 +5,7 @@ module.exports = {
   description:
     "Change the prefix for this server(note: that the prefix cannot have a space).",
   cooldown: 2,
-  usage: " <your prefix>",
+  usage: "<your new prefix>",
   category: "config",
   args: "true",
   guildOnly: "true",

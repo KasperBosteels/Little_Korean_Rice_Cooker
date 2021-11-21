@@ -5,7 +5,7 @@ module.exports = {
   name: "hug",
   description: "Hug someone.",
   cooldown: 1,
-  usage: "<@user> or <blank>",
+  usage: "<@user> / <blank> / <something you like>",
   category: "fun",
   async execute(client, message, args, con) {
     coin = Math.floor(Math.random() * Math.floor(hug.hugs.length));

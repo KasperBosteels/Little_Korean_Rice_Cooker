@@ -6,7 +6,7 @@ module.exports = {
   name: "play",
   description: "I will sing the song of my people.",
   cooldown: 1,
-  usage: " [name of the song]",
+  usage: "<name of the song>",
   category: "music",
   async execute(client, message, args, con) {
     let Vchannel, song;

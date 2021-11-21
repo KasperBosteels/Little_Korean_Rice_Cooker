@@ -5,7 +5,7 @@ module.exports = {
   name: "pet",
   description: "Pet someone.",
   cooldown: 1,
-  usage: "<@user> or <nothing>",
+  usage: "<@user> / <blank> / <something you like>",
   aliases: ["p", "pat", "pat"],
   category: "fun",
   async execute(client, message, args, con) {

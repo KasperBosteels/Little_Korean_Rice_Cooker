@@ -2,7 +2,7 @@ const messages = require("../welcome_leave_messages");
 
 module.exports = {
   name: "welcome_leave_messages",
-  description: "Enable or disable the level system.",
+  description: "Enable or disable the level system.(UNDER CONSTRUCTION)",
   cooldown: 1,
   usage: " enable or disable",
   category: "config",

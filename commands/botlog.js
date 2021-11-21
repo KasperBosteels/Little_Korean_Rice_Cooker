@@ -1,9 +1,10 @@
 const { Permissions } = require("discord.js");
 module.exports = {
   name: "bot-log",
-  description: "Assign log channel",
+  description:
+    "Use this command in the channel you want logs to be posted, if you want to stop logs use false after the command.",
   cooldown: 1,
-  usage: "",
+  usage: "(optional): <false>",
   guildOnly: "true",
   aliases: ["btl", "botlog"],
   category: "config",
@@ -19,7 +20,7 @@ module.exports = {
     if (!channel) return console.log("no channel");
     if (!guild) return console.log("no guild");
 
-    if (args[0] && args[0].toLowerCase() == "no") {
+    if (args[0] && args[0].toLowerCase() == "false") {
       con.query(
         `SELECT EXISTS(SELECT log_channel FROM guild WHERE guildID = "${guild}")AS exist;`,
         (err, rows) => {

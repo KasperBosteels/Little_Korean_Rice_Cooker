@@ -1,10 +1,10 @@
 const leveling = require("../leveling_enabled");
 const { Permissions } = require("discord.js");
 module.exports = {
-  name: "level_system",
+  name: "level-system",
   description: "Enable or disable the level system.",
   cooldown: 1,
-  usage: " enable / disable",
+  usage: " <enable> / <disable>",
   category: "config",
   aliases: ["leveling", "level_system"],
   execute(client, message, args, con) {

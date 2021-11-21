@@ -3,9 +3,9 @@ const eat = require("../jsonFiles/bodily_affection.json");
 const score = require("../socalCredit");
 module.exports = {
   name: "eat",
-  description: "Pet someone.",
+  description: "eat someone.",
   cooldown: 3,
-  usage: "<@user> or <nothing>",
+  usage: "<@user> / <blank> / <something you like>",
   category: "fun",
   async execute(client, message, args, con) {
     coin = Math.floor(Math.random() * Math.floor(eat.eating.length));

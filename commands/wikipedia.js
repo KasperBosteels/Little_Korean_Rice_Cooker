@@ -5,7 +5,7 @@ module.exports = {
   name: "wikipedia",
   description: "find a wikipedia article",
   cooldown: 1,
-  usage: " ",
+  usage: "<something you want to learn about>",
   category: "fun",
   aliases: ["wiki"],
   async execute(client, message, args, con) {

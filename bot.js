@@ -177,6 +177,28 @@ client.on("guildMemberAdd", (member) => {
 });
 //#endregion
 
+//#region guild ban
+client.on("guildBanAdd", (member) => {
+  console.log(`member banned ${member.displayName} ${member.guild}`);
+  let embed = new Discord.MessageEmbed()
+    .setColor("#FF0000")
+    .setTitle("user banned")
+    .setTimestamp()
+    .setAuthor("Little_Korean_Rice_Cooker", "https://i.imgur.com/A2SSxSE.png")
+    .setThumbnail(
+      member.user
+        .avatarURL({ dynamic: true, format: "png", size: 64 })
+        .setDescription(`${member.displayName} won't be missed.`)
+    );
+  try {
+    sqlconnect.execute(con, member, 5, embed);
+  } catch (err) {
+    console.log(err);
+  }
+  socalCredit.SUBTRACT(con, 0, member.id);
+});
+//#endregion
+
 //#region message processor
 //when a user sends a message
 client.on("messageCreate", async (Interaction) => {
