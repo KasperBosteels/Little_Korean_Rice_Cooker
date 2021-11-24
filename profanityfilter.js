@@ -2,6 +2,7 @@ const fs = require("fs");
 const channel_alert = require("./profanity_alert_data_collector");
 const profanity_enabled = require("./profanity_enabled");
 const score = require("./socalCredit");
+const warn = require("./commands/warnv2.js");
 const Discord = require("discord.js");
 const threats = [
   "Profanity detected! <:angryCooker:910235812334022746>  ",
@@ -28,7 +29,8 @@ function proffilter(message, client, con) {
   let swear = getswearwords();
   let sentecUser = "";
   let amountswear = 0;
-
+  let userID = message.author.id;
+  let channel = message.channel;
   //for every word in message check if it is in the swearwords list
   for (let Y = 0; Y < messageArray.length; Y++) {
     const word = messageArray[Y].toLowerCase();
@@ -65,7 +67,9 @@ function proffilter(message, client, con) {
         );
 
         message.delete();
-        score.SUBTRACT(con, 300, message.author.id);
+        score.SUBTRACT(con, 125, message.author.id);
+        if (score.GETSCORE(con, userID) <= 500) {
+        }
       }
     }
   }
