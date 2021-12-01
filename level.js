@@ -29,16 +29,21 @@ module.exports = {
                 //258217948819357697;
                 LEV++;
                 EXP = 0;
-                var mem = message.member;
-                var name;
-                if (!mem) {
+                let mem = message.member;
+                let name = null;
+
+                if (mem.nickname || mem.user.username) {
+                  if (
+                    mem.nickname != undefined &&
+                    mem.nickname != null &&
+                    mem.nickname != ""
+                  ) {
+                    name = mem.nickname;
+                  } else {
+                    name = mem.user.username;
+                  }
+                } else {
                   return console.log(mem);
-                } else if (mem.nickname) {
-                  name = mem.displayName;
-                }
-                if (name == null) {
-                  name = mem.displayName;
-                } else if (name == null) {
                 }
                 //#region embed
                 var embed = new Discord.MessageEmbed()
@@ -51,7 +56,7 @@ module.exports = {
                   )
                   .setImage("https://i.imgur.com/Uyw52SY.gif")
                   .setDescription(
-                    `YEAH!! ${mem.nickname} reached level ${LEV}\nTO THE STARS AND BEYOND!!`
+                    `YEAH!! ${name} reached level ${LEV}\nTO THE STARS AND BEYOND!!`
                   );
                 //#endregion
                 try {
@@ -65,7 +70,6 @@ module.exports = {
                 } catch (err) {
                   console.log(err);
                 }
-                console.log(`mem`);
                 score.ADD(con, 100, userID);
               }
               con.query(

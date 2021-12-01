@@ -60,13 +60,48 @@ module.exports = {
           if (!role)
             return message.channel.send({
               content:
-                "No mute role, pls make a role named <Muted>(respect the capital letter!!).",
+                "No mute role, pls make a role named <Muted>(case sensitive!).",
             });
 
           //makes mute time variable and checks for null if not console log
           mute.execute(amount + "m", warnuser, role, message);
         }
         //#endregion
+      }
+    );
+  },
+  async aleternateWarn(con, guildID, userID, input, memberName) {
+    //insert warning.
+    await con.query(
+      `INSERT INTO warnings (guildID,userID,warnings) VALUES("${guildID}","${userID}","${input}")`
+    );
+
+    //create warning embed
+    await con.query(
+      `SELECT COUNT(*) AS number FROM warnings where userID = '${userID}' AND guildID = '${guildID}';`,
+      (err, rows, fields) => {
+        amount = rows[0].number;
+        //#region embed
+        var embed = new discord.MessageEmbed()
+          .setColor("#ff0000")
+          .setTimestamp()
+          .setDescription(
+            `\`\`\`automatic warning\`\`\`\n\`\`\`${memberName} has been automatically warned for profanity\`\`\``
+          )
+          .addField(`warnings: `, `${amount}`, true)
+          .setFooter(
+            "Due to poor social credit(less than 500) this user was warned."
+          );
+        //#endregion
+
+        //send embed message to logchannel and channel where the command was given
+        try {
+          sqlcon.execute(con, warnuser, 6, embed, message);
+        } catch (err) {
+          return console.log(err);
+        } finally {
+          message.channel.send({ embeds: [embed] });
+        }
       }
     );
   },

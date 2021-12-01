@@ -32,6 +32,7 @@ module.exports = {
           .send(`Sorry, i am being rate limited. <:sadgeCooker:910210761136148581>
         `);
       }
+      console.log(err);
     }
   },
 };

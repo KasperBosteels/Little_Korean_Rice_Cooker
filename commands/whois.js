@@ -16,6 +16,7 @@ module.exports = {
       user = message.author;
       member = message.member;
     }
+    console.log(member);
     //query data base score tabel
     con.query(
       `SELECT socialScore FROM score WHERE userID="${user.id}";`,
@@ -60,6 +61,12 @@ function regexCheck(text) {
     return false;
   }
 }
+function rolesMap(member, guildID) {
+  let roles = member.roles.cache
+    .filter((roles) => roles.id !== guildID)
+    .map((role) => role.toString());
+  return roles;
+}
 function makeEmbed(user, member, message, score) {
   const embed = new Discord.MessageEmbed()
     .setColor("#00ff00")
@@ -71,6 +78,13 @@ function makeEmbed(user, member, message, score) {
     (inline = true)
   );
   embed.addField("id", `\`\`\`${user.id}\`\`\``, (inline = true));
+  if (member.nickname != null && member.nickname != undefined) {
+    embed.addField(
+      "nickname",
+      `\`\`\`${member.nickname}\`\`\``,
+      (inline = true)
+    );
+  }
   embed.addField("bot", `${user.bot}`, (inline = true));
   embed.addField("creation date", `${user.createdAt}`, (inline = true));
   embed.addField("join date", `${member.joinedAt}`);
@@ -93,5 +107,7 @@ function makeEmbed(user, member, message, score) {
   if (user.system) {
     embed.addField(`**OFFICIAL DISCORD SYSTEM USER**`, "TRUE");
   }
+  embed.addField("Roles", `${rolesMap(member, message.guild.id)}`, true);
+
   return embed;
 }
