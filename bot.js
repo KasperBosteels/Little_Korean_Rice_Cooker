@@ -387,6 +387,7 @@ process.on("DiscordAPIError", (error) => {
  https://matias.ma/nsfw/
  https://i.imgur.com/z3AJL70.gif
  https://i.imgur.com/dWK54ms.gif
+ https://i.gifer.com/3lAO.gif
  test
  don't forget reconlx (google images thingy old)
      is still in package maybe do something with it

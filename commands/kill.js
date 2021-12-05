@@ -22,6 +22,8 @@ const link = [
   "https://i.imgur.com/l8Pm6fy.gif",
   "https://i.imgur.com/bmhrRnf.gif",
   "https://i.imgur.com/kBhJV6G.gif",
+  "https://i.imgur.com/hyQjs9p.gif",
+  "https://i.imgur.com/l4AIO2o.gif",
 ];
 const synonyms = [
   "ended",
