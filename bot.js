@@ -32,6 +32,7 @@ const music = require("@koenie06/discord.js-music");
 const events = music.event;
 const cooldowns = new Map();
 const chatBot = require("smartestchatbot");
+const { request } = require("http");
 const chatClient = new chatBot.Client();
 //#endregion
 
@@ -318,36 +319,57 @@ client.on("messageCreate", async (Interaction) => {
 
 //#region   MUSIC EVENT TRIGGERS
 
-events.on("playsong", async (channel, songInfo, requester) => {
-  console.log(requester, channel, songInfo);
+function QuickEmbed(title, songinfo = null, playlist = null, requester) {
+  let embed = new Discord.MessageEmbed();
+  embed
+    .setColor("RANDOM")
+    .setAuthor("Little_Korean_Rice_Cooker", "https://i.imgur.com/A2SSxSE.png")
+    .setTitle(title);
+  if (songinfo != null && playlist == null) {
+    embed.addField(
+      songinfo.title,
+      `\`\`\`by: ${songinfo.author}\nrequested by: ${requester.user.username} \`\`\``
+    );
+    embed.setThumbnail(songinfo.thumbnail);
+  } else if (playlist != null && songinfo != null) {
+    embed.addField(
+      songinfo.title,
+      `\`\`\`by: ${songinfo.author}\nplaylist: ${playlist.title}\nrequested by: ${requester.user.username} \`\`\``
+    );
+    embed.setThumbnail(songinfo.thumbnail);
+  } else {
+    embed.addField(
+      playlist.title,
+      `\`\`\`videos: ${playlist.videos.length}\nrequested by: ${requester.user.username} \`\`\``
+    );
+  }
+  return embed;
+}
+
+events.on("playSong", async (channel, songInfo, requester) => {
   channel.send({
-    content: `starting: ${songInfo.title} - by: ${songInfo.author}\n requested by: ${requester}`,
+    embeds: [QuickEmbed("playing", songInfo, null, requester)],
   });
 });
 events.on("addSong", async (channel, songInfo, requester) => {
-  console.log(requester, channel, songInfo);
-
+  console.log(requester);
   channel.send({
-    content: `added song to the queue: ${songInfo.title} - by: ${songInfo.author}\nrequested by: ${requester}`,
+    embeds: [QuickEmbed("added song to the queue", songInfo, null, requester)],
   });
 });
 events.on("playList", async (channel, playlist, songInfo, requester) => {
-  console.log(requester, channel, songInfo, playlist);
-
   channel.send({
-    content: `Starting: ${songInfo.title} - by: ${songInfo.author}\nplaylist: ${playlist.title}\nrequested by: ${requester}`,
+    embeds: [QuickEmbed("starting playlist", songInfo, playlist, requester)],
   });
 });
 events.on("addList", async (channel, playlist, requester) => {
-  console.log(requester, channel, playlist);
-
   channel.send({
-    content: `added playlist to the queue: ${playlist.title}\n videos: ${playlist.videos.length} by: ${songInfo.author}\n requested by: ${requester}`,
+    embeds: [
+      QuickEmbed("added playlist to the queue", null, playlist, requester),
+    ],
   });
 });
 events.on("finish", async (channel) => {
-  console.log(channel);
-
   channel.send({ content: `I am now playing: silence` });
 });
 
