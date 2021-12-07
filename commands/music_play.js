@@ -18,7 +18,7 @@ module.exports = {
         interaction: message,
         channel: Vchannel,
         song: song,
-        requester: message.author,
+        requester: message.user,
       });
     } catch (err) {
       console.log(err);

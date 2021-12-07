@@ -9,6 +9,7 @@ module.exports = {
   category: "music",
   async execute(client, message, args, con) {
     let list = await music.getQueue({ interaction: message });
+    console.log(list);
     let embed = new Discord.MessageEmbed()
       .setTitle("QUEUE")
       .setDescription("The queue for this PARTAY!")
@@ -16,7 +17,7 @@ module.exports = {
     for (let i = 0; i < list.length; i++) {
       embed.addField(
         `${list[i].info.title}`,
-        `duration: ${list[i].info.duration}  author: ${list[i].info.author} requested by:${message.author}`
+        `duration: ${list[i].info.duration}  author: ${list[i].info.author} requested by:${list[i].requester}`
       );
     }
     message.channel.send({ embeds: [embed] });
