@@ -1,7 +1,5 @@
 const { MessageEmbed } = require("discord.js");
 const imageSearch = require("image-search-google");
-const { Menu } = require("discord.js-menu");
-const emojis = ["⏪", "⏩"];
 const paginationEmbed = require("discordjs-button-pagination");
 const { MessageButton } = require("discord.js");
 const time = 60000;
@@ -52,6 +50,6 @@ function MakeEmbed(url, member, i, l) {
       member.user.displayAvatarURL({ dynamic: true, size: 4096 })
     )
     .setColor("#00ff00")
-    .setFooter(`page: ${i + 1}/${l}`);
+    .setFooter(`page: ${i + 1}/${l}    Enhanced by Google`);
   return embed;
 }

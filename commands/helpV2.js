@@ -2,9 +2,6 @@ const botconfig = require("../auth.json");
 const content = require("../jsonFiles/swearwords.json");
 const getprefix = require("../getprefixData.js");
 const { MessageEmbed, Permissions } = require("discord.js");
-const { Menu } = require("discord.js-menu");
-const { DiscordEmbedMenu } = require("discord.js-embed-menu");
-const discorddropmenu = require("../dropdown");
 const dropdown = require("../dropdown");
 var prefix = "-";
 //page settings

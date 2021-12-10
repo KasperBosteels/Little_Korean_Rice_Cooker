@@ -27,7 +27,7 @@ module.exports = {
     if (!Reason) Reason = `no reason given by ${message.author.name}`;
     try {
       //try to ban member with reason
-      await message.guild.members.ban(user, { reason: Reason });
+      await message.guild.members.ban(user, { days: 7, reason: Reason });
     } catch (error) {
       //if unsucsessfull display failed message
       return message.channel.send({

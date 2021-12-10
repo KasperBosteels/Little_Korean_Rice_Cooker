@@ -27,7 +27,7 @@ module.exports = {
     let lookup = dict.find(word);
     lookup.then(
       function (res) {
-        let author = res.metadata.provider;
+        let author = "Powered by Oxford Languages";
         let data = JSON.stringify(res, null, 4);
         let object = JSON.parse(data);
         return message.channel.send({
@@ -133,9 +133,6 @@ function makeEmbed(author, word, object, Discord) {
   let embed = new Discord.MessageEmbed();
   embed.setAuthor(author);
   embed.setTitle(word);
-  embed.setImage(
-    "https://developer.oxforddictionaries.com/images/PBO_blue.png"
-  );
   if (!object) {
     embed.setDescription("nothing found sorry");
     return embed;
