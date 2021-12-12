@@ -6,20 +6,21 @@ module.exports = {
   cooldown: 2,
   usage: "<word> ",
   category: "fun",
-  execute(client, message, args, con) {
+  async execute(client, message, args, con) {
     let word = " ";
     for (let i = 0; i < args.length; i++) {
       word += `${args[i]} `;
     }
     if (word) {
-      return term(word, message.channel);
+      return await term(word, message.channel);
     }
   },
 };
-function term(word, channel) {
+async function term(word, channel) {
   let explain = ["undefined", "undefined"];
 
-  ud.define(word)
+  await ud
+    .define(word)
     .then((result) => {
       explain[0] = result[0].definition;
       explain[1] = result[0].example;

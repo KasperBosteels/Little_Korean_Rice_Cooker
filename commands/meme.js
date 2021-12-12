@@ -43,7 +43,7 @@ function getRandom() {
   return sources[coin];
 }
 async function fallbackfunction(message) {
-  await fetch(getRandom())
+  fetch(await getRandom())
     .then((resp) => resp.json())
     .then((responsomgv) => {
       let permalink = responsomgv[0].data.children[0].data.permalink;

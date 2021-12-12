@@ -20,7 +20,7 @@ module.exports = {
     proffilter(message, client, con);
   },
 };
-function proffilter(message, client, con) {
+async function proffilter(message, client, con) {
   //check if this guild is being filtered
   if (!profanity_enabled.GET(message.guild.id)) return;
 
@@ -65,11 +65,17 @@ function proffilter(message, client, con) {
         console.log(
           `profanity  ${message.author.tag}   \"${message.content}\"`
         );
-
-        message.delete();
         score.SUBTRACT(con, 125, message.author.id);
-        if (score.GETSCORE(con, userID) <= 500) {
+        if ((await score.GETSCORE(con, userID)) <= 500) {
+          warn.aleternateWarn(
+            con,
+            message.guild.id,
+            message.author.id,
+            "automatic profanity warning",
+            message.member.displayName
+          );
         }
+        message.delete();
       }
     }
   }

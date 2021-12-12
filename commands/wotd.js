@@ -13,8 +13,9 @@ module.exports = {
     return;
   },
 };
-function term(message) {
-  ud.wordsOfTheDay()
+async function term(message) {
+  await ud
+    .wordsOfTheDay()
     .then((results, error) => {
       if (error) return console.error(error.message);
       let coin = Math.floor(Math.random() * Math.floor(results.length));

@@ -6,9 +6,9 @@ module.exports = {
   aliases: ["flip", "coinflip", "cf"],
   usage: " ",
   category: "fun",
-  execute(client, message, args, con) {
+  async execute(client, message, args, con) {
     //randil 1 or 2
-    let coin = Math.floor(Math.random() * 2 + 1);
+    let coin = await Math.floor(Math.random() * 2 + 1);
 
     //if 1 = tails else ...
     if (coin <= 1) {

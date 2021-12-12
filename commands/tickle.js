@@ -19,14 +19,14 @@ module.exports = {
   cooldown: 1,
   usage: "<@user> / <blank> / <something you like>",
   category: "fun",
-  execute(client, message, args, con) {
+  async execute(client, message, args, con) {
     try {
       score.ADD(con, 100, message.author.id);
     } catch (err) {
       console.error(err);
     } finally {
       return message.channel.send({
-        embeds: [createEmbed(message, tickleDatabase, args)],
+        embeds: [await createEmbed(message, tickleDatabase, args)],
       });
     }
   },

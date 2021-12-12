@@ -7,7 +7,7 @@ module.exports = {
   usage: " <enable> / <disable>",
   category: "config",
   aliases: ["leveling", "level_system"],
-  execute(client, message, args, con) {
+  async execute(client, message, args, con) {
     if (!permission(message))
       return message.reply({ content: "You have no permission to do that." });
 
@@ -16,7 +16,7 @@ module.exports = {
     if (!guildID) return message.reply({ content: "Something went badly." });
 
     //get data from local database
-    let enable = leveling.GET(guildID);
+    let enable = await leveling.GET(guildID);
 
     //check if the request was to remove alert
     if (args[0].toLowerCase() == "disable") {
@@ -37,7 +37,7 @@ module.exports = {
           }
         }
       );
-      leveling.execute(con);
+      await leveling.execute(con);
       return message.channel.send({ content: "Leveling system is disabled." });
     } else if (args[0].toLowerCase() == "enable") {
       if (enable == 1)
@@ -55,7 +55,7 @@ module.exports = {
           }
         }
       );
-      leveling.execute(con);
+      await leveling.execute(con);
       return message.channel.send({ content: "Leveling is enabled." });
     } else {
       return message.channel.send({

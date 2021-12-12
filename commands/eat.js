@@ -8,7 +8,7 @@ module.exports = {
   usage: "<@user> / <blank> / <something you like>",
   category: "fun",
   async execute(client, message, args, con) {
-    coin = Math.floor(Math.random() * Math.floor(eat.eating.length));
+    coin = await Math.floor(Math.random() * Math.floor(eat.eating.length));
     var manualinput = " ";
     var huggif = eat.eating[coin];
     //looks for given arguments

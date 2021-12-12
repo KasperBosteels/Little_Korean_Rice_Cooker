@@ -46,7 +46,7 @@ const score = require("../socalCredit");
 module.exports = {
   name: "kill",
   description: "Kill someone.",
-  cooldown: 1,
+  cooldown: 2,
   usage: "<@user> / <blank> / <something you don't like>",
   aliases: [
     "end",
@@ -63,19 +63,19 @@ module.exports = {
     "terminate",
   ],
   category: "fun",
-  execute(client, message, args, con) {
+  async execute(client, message, args, con) {
     try {
       score.ADD(con, 50, message.author.id);
     } catch (err) {
       console.error(err);
     } finally {
-      message.channel.send({ embeds: [makeEmbed(message, args)] });
+      message.channel.send({ embeds: [await makeEmbed(message, args)] });
     }
   },
 };
-function makeEmbed(message, args) {
-  let coin = Math.floor(Math.random() * Math.floor(link.length));
-  let coin2 = Math.floor(Math.random() * Math.floor(synonyms.length));
+async function makeEmbed(message, args) {
+  let coin = await Math.floor(Math.random() * Math.floor(link.length));
+  let coin2 = await Math.floor(Math.random() * Math.floor(synonyms.length));
   let placeholder1, placeholder2;
   placeholder1 = synonyms[coin2];
   placeholder2 = message.mentions.members.first();

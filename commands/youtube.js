@@ -14,7 +14,7 @@ module.exports = {
         content:
           "<:whot:800083736682823711> you gotta give me a clue at least.",
       });
-    search(args.join(" "), function (err, result) {
+    await search(args.join(" "), function (err, result) {
       if (err) {
         console.log(err);
         return message.channel.send({

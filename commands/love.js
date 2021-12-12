@@ -7,7 +7,7 @@ module.exports = {
   cooldown: 1,
   category: "fun",
   async execute(client, message, args, con) {
-    coin = Math.floor(Math.random() * Math.floor(love.answer.length));
+    coin = await Math.floor(Math.random() * Math.floor(love.answer.length));
     var manualinput = " ";
 
     //looks for given arguments

@@ -5,7 +5,7 @@ const stop = require("./music_stop");
 module.exports = {
   name: "play",
   description: "I will sing the song of my people.",
-  cooldown: 1,
+  cooldown: 5,
   usage: "<name of the song>",
   category: "music",
   async execute(client, message, args, con) {

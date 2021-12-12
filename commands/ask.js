@@ -28,13 +28,14 @@ module.exports = {
   name: "ask",
   description: "ask a question",
   usage: "<question>",
+  cooldown: 1,
   args: "true",
   category: "fun",
-  execute(client, message, args) {
+  async execute(client, message, args) {
     //slice sentence and join them again with spaces for nice sentence
     sent = args.slice(0, args.length).join(" ");
     //get random from answers
-    coin = Math.floor(Math.random() * Math.floor(answers.length));
+    coin = await Math.floor(Math.random() * Math.floor(answers.length));
     return message.channel.send({
       embeds: [makeEmbed(sent, answers[coin], message)],
     });

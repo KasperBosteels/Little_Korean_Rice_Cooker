@@ -16,7 +16,6 @@ module.exports = {
       user = message.author;
       member = message.member;
     }
-    console.log(member);
     //query data base score tabel
     con.query(
       `SELECT socialScore FROM score WHERE userID="${user.id}";`,

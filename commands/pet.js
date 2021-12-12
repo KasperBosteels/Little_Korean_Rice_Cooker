@@ -9,7 +9,7 @@ module.exports = {
   aliases: ["p", "pat", "pat"],
   category: "fun",
   async execute(client, message, args, con) {
-    coin = Math.floor(Math.random() * Math.floor(hug.pats.length));
+    coin = await Math.floor(Math.random() * Math.floor(hug.pats.length));
     var manualinput = " ";
     var huggif = hug.pats[coin];
     //looks for given arguments

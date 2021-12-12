@@ -64,7 +64,7 @@ module.exports = {
     );
   },
   GETSCORE(con, userID) {
-    let SCS;
+    let SCS = 1000;
     con.query(
       `SELECT socialScore FROM score WHERE userID="${userID}";`,
       (err, score) => {
@@ -76,7 +76,6 @@ module.exports = {
         }
       }
     );
-    console.log(SCS);
     return SCS;
   },
 };

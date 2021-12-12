@@ -7,7 +7,7 @@ module.exports = {
   usage: "<optional: @user>",
   category: "General",
   aliases: ["rank"],
-  execute(client, message, args, con) {
+  async execute(client, message, args, con) {
     var member = getID(message, args, client);
     let ID = member.id;
     con.query(`SELECT * FROM levels WHERE userID = "${ID}";`, (err, rows) => {

@@ -47,7 +47,7 @@ module.exports = {
       return bar;
     };
 
-    value = Math.floor(Math.random() * 100 + 1);
+    value = await Math.floor(Math.random() * 100 + 1);
     //#region ott's, afterhours and iced's request
     if (!args[1] && message.author == message.mentions.users.first()) {
       value = 0;

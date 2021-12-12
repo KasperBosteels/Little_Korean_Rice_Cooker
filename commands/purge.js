@@ -1,6 +1,5 @@
 const discord = require("discord.js");
 const { Permissions } = require("discord.js");
-
 const sqlconnect = require("../sql_serverconnection.js");
 module.exports = {
   name: "purge",
@@ -10,7 +9,7 @@ module.exports = {
   aliases: ["delete", "remove"],
   category: "moderating",
   cooldown: 2,
-  execute(client, message, args, con) {
+  async execute(client, message, args, con) {
     //check parms
     if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
       return message.reply({
@@ -33,8 +32,8 @@ module.exports = {
     }
     amount++;
     //delete messages
-    message.channel.bulkDelete(amount, true);
-    sqlconnect.execute(
+    await message.channel.bulkDelete(amount, true);
+    await sqlconnect.execute(
       con,
       message,
       6,

@@ -15,7 +15,7 @@ module.exports = {
   cooldown: 5,
   category: "general",
   async execute(client, message, args, con, options, button) {
-    prefix = this.guildprefix(message.guild.id);
+    prefix = await this.guildprefix(message.guild.id);
 
     //checks if a specific command query was asked if not send dm withh all commmands
     if (
