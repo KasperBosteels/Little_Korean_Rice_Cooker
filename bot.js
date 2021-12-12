@@ -124,19 +124,19 @@ client.on("error", (Err) => {
 //#endregion
 
 //#region bot join
-client.on("guildCreate", (guild) => {
-  server.join(guild, con);
+client.on("guildCreate", async (guild) => {
+  await server.join(guild, con);
 });
-client.on("guildDelete", (guild) => {
-  server.leave(guild, con);
+client.on("guildDelete", async (guild) => {
+  await server.leave(guild, con);
 });
 //#endregion
 
 //#region member leave
 //member leaves guild will trigger logchannel check and sad message
-client.on("guildMemberRemove", (member) => {
+client.on("guildMemberRemove", async (member) => {
   console.log(`member left ${member.displayName} ${member.guild}`);
-  if (!welcomeLeaveMessages.CONFIRM(member.guild.id)) return;
+  if (!(await welcomeLeaveMessages.CONFIRM(member.guild.id))) return;
   var embed = new Discord.MessageEmbed()
     .setColor("#006400")
     .setTitle("oh no")
@@ -147,7 +147,7 @@ client.on("guildMemberRemove", (member) => {
     )
     .setDescription(`${member.displayName} left`);
   try {
-    sqlconnect.execute(con, member, 5, embed);
+    await sqlconnect.execute(con, member, 5, embed);
   } catch (err) {
     console.log(err);
   }
@@ -156,9 +156,9 @@ client.on("guildMemberRemove", (member) => {
 
 //#region member join
 //member joins execute sql connection with parameters that correspondt with friendly message in logchannel
-client.on("guildMemberAdd", (member) => {
+client.on("guildMemberAdd", async (member) => {
   console.log(`member joined ${member.displayName} ${member.guild}`);
-  if (!welcomeLeaveMessages.CONFIRM(member.guild.id)) return;
+  if (!(await welcomeLeaveMessages.CONFIRM(member.guild.id))) return;
   var embed = new Discord.MessageEmbed()
     .setColor("#006400")
     .setTitle("hello")
@@ -170,7 +170,7 @@ client.on("guildMemberAdd", (member) => {
     .setDescription(`welcome, ${member.displayName}`);
 
   try {
-    sqlconnect.execute(con, member, 5, embed);
+    await sqlconnect.execute(con, member, 5, embed);
   } catch (err) {
     console.log(err);
   }
@@ -179,7 +179,7 @@ client.on("guildMemberAdd", (member) => {
 //#endregion
 
 //#region guild ban
-client.on("guildBanAdd", (member) => {
+client.on("guildBanAdd", async (member) => {
   console.log(`member banned ${member.displayName} ${member.guild}`);
   let embed = new Discord.MessageEmbed()
     .setColor("#FF0000")
@@ -192,7 +192,7 @@ client.on("guildBanAdd", (member) => {
         .setDescription(`${member.displayName} won't be missed.`)
     );
   try {
-    sqlconnect.execute(con, member, 5, embed);
+    await sqlconnect.execute(con, member, 5, embed);
   } catch (err) {
     console.log(err);
   }
@@ -305,7 +305,7 @@ client.on("messageCreate", async (Interaction) => {
   //#region execute command
   //tries to perform the command if error occurs catch it and display on terminal
   try {
-    command.execute(client, Interaction, args, con, chatClient);
+    await command.execute(client, Interaction, args, con, chatClient);
     logger.execute(Interaction);
   } catch (error) {
     console.error(error);
