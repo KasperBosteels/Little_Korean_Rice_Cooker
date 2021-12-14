@@ -28,17 +28,19 @@ module.exports = {
     try {
       //try to ban member with reason
       await message.guild.members.ban(user, { days: 7, reason: Reason });
+      let embedforlog = makeEmbed(user, message, reason);
     } catch (error) {
       //if unsucsessfull display failed message
       return message.channel.send({
         content: `Failed to ban **${user.tag}**: ${error}`,
       });
+    } finally {
+      message.channel.send({
+        content: `:man_police_officer: ${user.tag} has been successfully banned :man_police_officer: `,
+      });
+      //send message to logchannel
+      sqlcon.execute(con, user, 5, embedforlog);
     }
-    message.channel.send({
-      content: `:man_police_officer: ${user.tag} has been successfully banned :man_police_officer: `,
-    });
-    //send message to logchannel
-    sqlcon.execute(con, user, 5, makeEmbed(user, message, reason));
   },
 };
 function permissioncheck(message) {

@@ -187,10 +187,9 @@ client.on("guildBanAdd", async (member) => {
     .setTimestamp()
     .setAuthor("Little_Korean_Rice_Cooker", "https://i.imgur.com/A2SSxSE.png")
     .setThumbnail(
-      member.user
-        .avatarURL({ dynamic: true, format: "png", size: 64 })
-        .setDescription(`${member.displayName} won't be missed.`)
-    );
+      member.user.avatarURL({ dynamic: true, format: "png", size: 64 })
+    )
+    .setDescription(`${member.displayName} won't be missed.`);
   try {
     await sqlconnect.execute(con, member, 5, embed);
   } catch (err) {
