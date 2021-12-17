@@ -52,22 +52,18 @@ module.exports = {
     if (!args[1] && message.author == message.mentions.users.first()) {
       value = 0;
     }
-    if (!args[1] && message.author.id == "284553236864827392") {
-      if (value > 75) value = value / 2;
-    }
-    if (message.author.id == "550024839063404559") {
-      value = 100;
-    }
     //#endregion
 
     if (args[0]) {
-      for (let i = 0; i < args.length; i++) {
+      let argument_length = args.length;
+      for (let i = 0; i < argument_length; i++) {
         users[i] = getUserFromMention(client, args[i]);
       }
       if (users[1] && users[0] == users[1]) {
         value = 0;
       }
-      for (let o = 0; o < users.length; o++) {
+      let users_length = users.length;
+      for (let o = 0; o < users_length; o++) {
         if (users[o].id == "284553236864827392") {
           if (value > 75) value = value / 2;
         }

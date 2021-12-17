@@ -37,6 +37,7 @@ async function term(word, channel) {
     })
     .catch((error) => {
       if ((error.code = "ERR_WORD_UNDEFINED")) {
+        console.log(error);
         return channel.send({
           content: "perhaps the archives are incomplete...",
         });

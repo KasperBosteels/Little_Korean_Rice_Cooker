@@ -1,4 +1,4 @@
-const love = require("../jsonFiles/love.json");
+const love = require("../jsonFiles/love.json").answer;
 const score = require("../socalCredit");
 module.exports = {
   name: "love",
@@ -7,13 +7,13 @@ module.exports = {
   cooldown: 1,
   category: "fun",
   async execute(client, message, args, con) {
-    coin = await Math.floor(Math.random() * Math.floor(love.answer.length));
+    coin = await Math.floor(Math.random() * Math.floor(love.length));
     var manualinput = " ";
 
     //looks for given arguments
     if (!args[0]) {
       //no arguments reply command
-      return message.reply({ content: ` ${love.answer[coin]}` });
+      return message.reply({ content: ` ${love[coin]}` });
     } else {
       score.ADD(con, 200, message.author.id);
       //argument given, assign mention to variable
@@ -29,7 +29,8 @@ module.exports = {
       //if variable == undefined
       if (!member) {
         //assign args array to string
-        for (let i = 0; i < args.length; i++) {
+        let arguments_length = args.length;
+        for (let i = 0; i < arguments_length; i++) {
           if (args[i] == undefined) {
           } else {
             manualinput += ` ${args[i]}`;

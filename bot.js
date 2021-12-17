@@ -324,7 +324,11 @@ function QuickEmbed(title, songinfo = null, playlist = null, requester) {
     .setColor("RANDOM")
     .setAuthor("Little_Korean_Rice_Cooker", "https://i.imgur.com/A2SSxSE.png")
     .setTitle(title);
-  if (songinfo != null && playlist == null) {
+  if (
+    title != "Paused this song for you" &&
+    songinfo != null &&
+    playlist == null
+  ) {
     embed.addField(
       songinfo.title,
       `\`\`\`by: ${songinfo.author}\nrequested by: ${requester.user.username} \`\`\``
@@ -334,6 +338,12 @@ function QuickEmbed(title, songinfo = null, playlist = null, requester) {
     embed.addField(
       songinfo.title,
       `\`\`\`by: ${songinfo.author}\nplaylist: ${playlist.title}\nrequested by: ${requester.user.username} \`\`\``
+    );
+    embed.setThumbnail(songinfo.thumbnail);
+  } else if (title == "Paused this song for you") {
+    embed.addField(
+      songinfo.title,
+      `\`\`\`by: ${songinfo.author}\nrequested by: ${requester.user.username} \`\`\``
     );
     embed.setThumbnail(songinfo.thumbnail);
   } else {
@@ -365,6 +375,19 @@ events.on("addList", async (channel, playlist, requester) => {
   channel.send({
     embeds: [
       QuickEmbed("added playlist to the queue", null, playlist, requester),
+    ],
+  });
+});
+events.on("paused_song", async (channel, songdata, requester) => {
+  console.log(channel);
+  channel.send({
+    embeds: [
+      QuickEmbed(
+        "Paused this song for you",
+        songdata.queue[0].info,
+        null,
+        requester
+      ),
     ],
   });
 });

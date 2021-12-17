@@ -1,17 +1,26 @@
 const music = require("@koenie06/discord.js-music");
-const volume = require("./music_volume");
 const score = require("../socalCredit");
 const stop = require("./music_stop");
+const pause = require("./music_pause.js");
 module.exports = {
   name: "play",
   description: "I will sing the song of my people.",
   cooldown: 5,
   usage: "<name of the song>",
   category: "music",
+  aliases: ["p"],
   async execute(client, message, args, con) {
     let Vchannel, song;
     Vchannel = message.member.voice.channel;
     if (!Vchannel) return message.reply("You are not in a voice channel.");
+    if (!args.length) {
+      if (!(await music.isConnected({ interaction: message }))) {
+        return message.reply({
+          content: "I'm not connected to VC or not playing any music.",
+        });
+      }
+      return await pause.execute(null, message, null, con);
+    }
     song = args.join(" ");
     try {
       music.play({

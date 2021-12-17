@@ -1,5 +1,5 @@
 const discord = require("discord.js");
-const hug = require("../jsonFiles/bodily_affection.json");
+const hug = require("../jsonFiles/bodily_affection.json").hugs;
 const score = require("../socalCredit");
 module.exports = {
   name: "hug",
@@ -8,9 +8,9 @@ module.exports = {
   usage: "<@user> / <blank> / <something you like>",
   category: "fun",
   async execute(client, message, args, con) {
-    coin = await Math.floor(Math.random() * Math.floor(hug.hugs.length));
+    coin = await Math.floor(Math.random() * Math.floor(hug.length));
     var manualinput = " ";
-    var huggif = hug.hugs[coin];
+    var huggif = hug[coin];
     //looks for given arguments
     if (!args[0]) {
       //no arguments reply command
@@ -37,7 +37,6 @@ module.exports = {
           }
         }
         //return string with text
-
         var embed = new discord.MessageEmbed()
           .setColor("#ff69b4")
           .setFooter(message.member.displayName, message.author.displaAvatarUrl)

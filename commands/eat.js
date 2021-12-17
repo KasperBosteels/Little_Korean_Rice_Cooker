@@ -1,5 +1,5 @@
 const discord = require("discord.js");
-const eat = require("../jsonFiles/bodily_affection.json");
+const eat = require("../jsonFiles/bodily_affection.json").eating;
 const score = require("../socalCredit");
 module.exports = {
   name: "eat",
@@ -8,9 +8,9 @@ module.exports = {
   usage: "<@user> / <blank> / <something you like>",
   category: "fun",
   async execute(client, message, args, con) {
-    coin = await Math.floor(Math.random() * Math.floor(eat.eating.length));
-    var manualinput = " ";
-    var huggif = eat.eating[coin];
+    coin = await Math.floor(Math.random() * Math.floor(eat.length));
+    let manualinput = " ";
+    let eating_gif = eat[coin];
     //looks for given arguments
     if (!args[0]) {
       //no arguments reply command
@@ -22,7 +22,7 @@ module.exports = {
         .setDescription(
           `${message.client.user} **takes a bite out of** ${message.author}`
         )
-        .setImage(huggif);
+        .setImage(eating_gif);
     } else {
       //argument given, assign mention to variable
       var member = message.mentions.members.first();
@@ -43,7 +43,7 @@ module.exports = {
           .setFooter(message.member.displayName, message.author.displaAvatarUrl)
           .setTimestamp()
           .setDescription(`${message.author} **eats** ${manualinput}`)
-          .setImage(huggif);
+          .setImage(eating_gif);
       } else {
         var embed = new discord.MessageEmbed()
           .setColor("#ff69b4")
@@ -52,7 +52,7 @@ module.exports = {
           .setDescription(
             `${message.author} **eats** ${message.mentions.members.first()}`
           )
-          .setImage(huggif);
+          .setImage(eating_gif);
       }
     }
 

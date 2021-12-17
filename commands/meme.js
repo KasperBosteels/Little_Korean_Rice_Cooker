@@ -1,5 +1,4 @@
 const discord = require("discord.js");
-const { codePointAt } = require("ffmpeg-static");
 const fetch = require("node-fetch");
 module.exports = {
   name: "meme",

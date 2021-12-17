@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const { Permissions } = require("discord.js");
-const sendembed = require("../sql_serverconnection.js");
+const sendembed = require("../sql_serverconnection.js").execute;
 module.exports = {
   name: "kick",
   description: "Kick a user.",
@@ -48,7 +48,7 @@ module.exports = {
       });
     var reason = "No reason given.";
     if (args[1]) reason = args[1];
-    sendembed.execute(con, member, 5, MakeEmbed(member, reason), message);
+    sendembed(con, member, 5, MakeEmbed(member, reason), message);
   },
 };
 function MakeEmbed(reason, member) {

@@ -1,12 +1,9 @@
 const botconfig = require("../auth.json");
-const content = require("../jsonFiles/swearwords.json");
 const getprefix = require("../getprefixData.js");
 const { MessageEmbed, Permissions } = require("discord.js");
 const dropdown = require("../dropdown");
 var prefix = "-";
 //page settings
-const emojis = ["⏪", "⏩"];
-const time = 120000;
 module.exports = {
   name: "help",
   description: "List all of my commands or info about a specific command.",
@@ -195,18 +192,6 @@ module.exports = {
       embed.addField("**Description:**", `${command.description}`);
       embed.addField("**usage:**", `${prefix}${command.name} ${command.usage}`);
       embed.addField("**cooldown:**", `${command.cooldown || 3} second(s)`);
-      if (args[0] == "lewd") {
-        let ci = "";
-        let cd = "";
-        for (let u = 0; u < content.irl.length; u++) {
-          ci += ` ${content.irl[u]},`;
-        }
-        for (let v = 0; v < content.drawn.length; v++) {
-          cd += ` ${content.drawn[v]},`;
-        }
-        embed.addField("**IRL:**", ci);
-        embed.addField("**DRAWN:**", cd);
-      }
       //send
       return message.channel.send({ embeds: [embed] });
     }

@@ -1,46 +1,5 @@
-const link = [
-  "https://i.imgur.com/dfceOYg.gif",
-  "https://i.imgur.com/m8ZtlNO.gif",
-  "https://i.imgur.com/umCms9c.gif",
-  "https://i.pinimg.com/originals/d4/2d/90/d42d9087479ee3be31ef438e90027c36.gif",
-  "https://i.pinimg.com/originals/27/3f/2d/273f2de245154f68ff1f3ff87dd9c929.gif",
-  "https://i.pinimg.com/originals/b9/b8/55/b9b8553852804a8ccae9ea607b62fffc.gif",
-  "https://i.imgur.com/TR5VGpf.gif",
-  "https://i.imgur.com/BOqZAR6.gif",
-  "https://i.imgur.com/VGDuDg6.gif",
-  "https://i.imgur.com/e5lme8B.gif",
-  "https://i.imgur.com/u5yZhkT.gif",
-  "https://i.imgur.com/0RAHC18.gif",
-  "https://i.imgur.com/JuNDh4h.gif",
-  "https://i.imgur.com/tcxHbmc.gif",
-  "https://i.imgur.com/iiul7kI.gif",
-  "https://i.imgur.com/wvdhs78.gif",
-  "https://i.imgur.com/ZW2FqDE.gif",
-  "https://i.imgur.com/jTG9qf1.gif",
-  "https://i.imgur.com/5EoYHo5.gif",
-  "https://i.imgur.com/BHzRxD4.gif",
-  "https://i.imgur.com/l8Pm6fy.gif",
-  "https://i.imgur.com/bmhrRnf.gif",
-  "https://i.imgur.com/kBhJV6G.gif",
-  "https://i.imgur.com/hyQjs9p.gif",
-  "https://i.imgur.com/l4AIO2o.gif",
-];
-const synonyms = [
-  "ended",
-  "killed",
-  "assasinated",
-  "liquidated",
-  "exterminated",
-  "executed",
-  "slaughtered",
-  "ate",
-  "butchered",
-  "iced",
-  "zapped",
-  "smoked",
-  "terminated",
-  "commited live'nt on",
-];
+const link = require("../jsonFiles/bodily_affection.json").kill;
+const synonyms = require("../jsonFiles/bodily_affection.json").killsynonyms;
 const discord = require("discord.js");
 const score = require("../socalCredit");
 module.exports = {

@@ -16,7 +16,8 @@ module.exports = {
     if (!args[1]) {
       word = args[0];
     } else {
-      for (let i = 0; i < args.length; i++) {
+      let argument_length = args.length;
+      for (let i = 0; i < argument_length; i++) {
         if (!args[i + 1]) {
           word += args[i];
         } else {
@@ -52,11 +53,10 @@ module.exports = {
 function derivativeGET(object) {
   if (object.results[0].lexicalEntries[0].derivatives) {
     let derivative = " ";
-    for (
-      let i = 0;
-      i < object.results[0].lexicalEntries[0].derivatives.length;
-      i++
-    ) {
+    const derivative_length =
+      object.results[0].lexicalEntries[0].derivatives.length;
+    console.log(derivative_length);
+    for (let i = 0; i < derivative_length; i++) {
       derivative += `\n${object.results[0].lexicalEntries[0].derivatives[i].id}`;
     }
     return derivative;
@@ -65,11 +65,9 @@ function derivativeGET(object) {
 function etymologyGet(object) {
   if (object.results[0].lexicalEntries[0].entries[0].etymologies) {
     let etymology = " ";
-    for (
-      let o = 0;
-      o < object.results[0].lexicalEntries[0].entries[0].etymologies.length;
-      o++
-    ) {
+    const etymology_length =
+      object.results[0].lexicalEntries[0].entries[0].etymologies.length;
+    for (let o = 0; o < etymology_length; o++) {
       etymology += `\n${object.results[0].lexicalEntries[0].entries[0].etymologies[o]}.`;
     }
     return etymology;
@@ -78,13 +76,10 @@ function etymologyGet(object) {
 function defenitionGET(object) {
   if (object.results[0].lexicalEntries[0].entries[0].senses[0].definitions) {
     let definitions = " ";
-    for (
-      let u = 0;
-      u <
+    const definitions_length =
       object.results[0].lexicalEntries[0].entries[0].senses[0].definitions
         .length;
-      u++
-    ) {
+    for (let u = 0; u < definitions_length; u++) {
       definitions += `\n${object.results[0].lexicalEntries[0].entries[0].senses[0].definitions[u]}.`;
     }
     return definitions;
@@ -93,12 +88,9 @@ function defenitionGET(object) {
 function exampleGET(object) {
   if (object.results[0].lexicalEntries[0].entries[0].senses[0].examples) {
     let examples = `\n${object.results[0].lexicalEntries[0].entries[0].senses[0].examples[0].text}.`;
-    for (
-      let h = 1;
-      h <
+    const examples_length =
       object.results[0].lexicalEntries[0].entries[0].senses[0].examples.length;
-      h++
-    ) {
+    for (let h = 1; h < examples_length; h++) {
       if (
         object.results[0].lexicalEntries[0].entries[0].senses[0].examples[h]
           .notes
@@ -114,15 +106,11 @@ function exampleGET(object) {
 function synonymGET(object) {
   let synonyms = "";
   if (object.results[0].lexicalEntries[0].entries[0].senses[0].synonyms) {
-    for (
-      let k = 0;
-      k <
+    const synonyms_length =
       object.results[0].lexicalEntries[0].entries[0].senses[0].synonyms.length;
-      k++
-    ) {
+    for (let k = 0; k < synonyms_length; k++) {
       synonyms += `${object.results[0].lexicalEntries[0].entries[0].senses[0].synonyms[k].text}, `;
     }
-
     synonyms += `\n`;
   } else {
     synonyms = "No synonyms found.";
