@@ -189,13 +189,13 @@ client.on("guildBanAdd", async (member) => {
     .setThumbnail(
       member.user.avatarURL({ dynamic: true, format: "png", size: 64 })
     )
-    .setDescription(`${member.displayName} won't be missed.`);
+    .setDescription(`${member.user.username} won't be missed.`);
   try {
     await sqlconnect.execute(con, member, 5, embed);
   } catch (err) {
     console.log(err);
   }
-  socalCredit.SUBTRACT(con, 0, member.id);
+  socalCredit.SUBTRACT(con, 500, member.id);
 });
 //#endregion
 
