@@ -1,4 +1,4 @@
-const Discord = require("discord.io");
+const Discord = require("discord.js");
 const { Permissions } = require("discord.js");
 const sqlcon = require("../sql_serverconnection.js");
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
         content: "You or i don't have permission to do that.",
       });
     //check if a person was mentioned
-    const user = getUserFromMention(args[0], client);
+    const user = await getUserFromMention(args[0], client, message);
     if (!user) {
       return message.reply({
         content: "Please use a proper mention if you want to ban someone.",
@@ -24,22 +24,19 @@ module.exports = {
     //look if reason was given for ban from the server
     args.shift();
     var Reason = args.join(" ");
-    if (!Reason) Reason = `no reason given by ${message.author.name}`;
+    if (!Reason) Reason = `no reason given by ${message.author.username}`;
     try {
       //try to ban member with reason
       await message.guild.members.ban(user, { days: 7, reason: Reason });
-      let embedforlog = makeEmbed(user, message, reason);
     } catch (error) {
       //if unsucsessfull display failed message
       return message.channel.send({
-        content: `Failed to ban **${user.tag}**: ${error}`,
+        content: `Failed to ban **${user.username}**: ${error}`,
       });
     } finally {
       message.channel.send({
-        content: `:man_police_officer: ${user.tag} has been successfully banned :man_police_officer: `,
+        content: `:man_police_officer: ${user.username} has been successfully banned :man_police_officer: `,
       });
-      //send message to logchannel
-      sqlcon.execute(con, user, 5, embedforlog);
     }
   },
 };
@@ -55,6 +52,7 @@ function permissioncheck(message) {
 function makeEmbed(user, message, reason) {
   const embed = new Discord.MessageEmbed()
     .setColor("#ff0000")
+    .setFooter(message.author.username)
     .setFooter(user.tag, message.author.displayAvatarURL)
     .setTimestamp().setDescription(`**BANNED:** ${user.tag}\n
                     Banned by: ${message.author}\n
@@ -62,7 +60,7 @@ function makeEmbed(user, message, reason) {
   return embed;
 }
 //advanced identifier for user to not ban the wrong person
-function getUserFromMention(mention, client) {
+function getUserFromMention(mention, client, message) {
   if (!mention) return;
   if (mention.startsWith("<@") && mention.endsWith(">")) {
     mention = mention.slice(2, -1);
@@ -70,5 +68,9 @@ function getUserFromMention(mention, client) {
       mention = mention.slice(1);
     }
     return client.users.cache.get(mention);
+  } else if (!isNaN(parseInt(mention))) {
+    return message.guild.members.fetch(
+      message.guild.members.cache.get(mention)
+    );
   }
 }

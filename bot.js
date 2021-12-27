@@ -183,7 +183,7 @@ client.on("guildBanAdd", async (member) => {
   console.log(`member banned ${member.displayName} ${member.guild}`);
   let embed = new Discord.MessageEmbed()
     .setColor("#FF0000")
-    .setTitle("user banned")
+    .setTitle("BANNED")
     .setTimestamp()
     .setAuthor("Little_Korean_Rice_Cooker", "https://i.imgur.com/A2SSxSE.png")
     .setThumbnail(
@@ -263,7 +263,7 @@ client.on("messageCreate", async (Interaction) => {
   }
   //#endregion
 
-  //#region argumant needed check
+  //#region argument needed check
   //checks if the command needs an argument if true and no given error Interaction and return to default state
   if (command.args && !args.length) {
     let reply = `you didnt provide any arguments, ${Interaction.author}!`;

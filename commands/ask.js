@@ -9,6 +9,7 @@ module.exports = {
   cooldown: 1,
   args: "true",
   category: "fun",
+  guildOnly: "false",
   async execute(client, message, args) {
     //slice sentence and join them again with spaces for nice sentence
     sent = args.slice(0, args.length).join(" ");
