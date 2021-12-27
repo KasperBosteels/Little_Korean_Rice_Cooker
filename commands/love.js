@@ -7,7 +7,7 @@ module.exports = {
   cooldown: 1,
   category: "fun",
   async execute(client, message, args, con) {
-    coin = await Math.floor(Math.random() * Math.floor(love.length));
+    const coin = await Math.floor(Math.random() * Math.floor(love.length));
     var manualinput = " ";
 
     //looks for given arguments
@@ -38,12 +38,12 @@ module.exports = {
         }
         //return string with text
         return message.channel.send({
-          content: `${manualinput}\n${love.answer[coin]} <:Cooker:910220565955104818>          `,
+          content: `${manualinput}\n${love[coin]} <:Cooker:910220565955104818>          `,
         });
       } else {
         //return member and text
         return message.channel.send({
-          content: `${member}\n${love.answer[coin]} <:Cooker:910220565955104818>          `,
+          content: `${member}\n${love[coin]} <:Cooker:910220565955104818>          `,
         });
       }
     }
