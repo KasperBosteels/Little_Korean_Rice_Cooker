@@ -23,7 +23,6 @@ const profanity_enabled = require("./profanity_enabled");
 const leveling_enabled = require("./leveling_enabled");
 const welcomeLeaveMessages = require("./welcome_leave_messages");
 const power = require("./powerButton");
-const changesocial = require("./change socialcreditcommand");
 const socalCredit = require("./socalCredit");
 const leave = require("./leave");
 const server = require("./server_events");
@@ -32,7 +31,6 @@ const music = require("@koenie06/discord.js-music");
 const events = music.event;
 const cooldowns = new Map();
 const chatBot = require("smartestchatbot");
-const { request } = require("http");
 const chatClient = new chatBot.Client();
 //#endregion
 
@@ -208,10 +206,6 @@ client.on("messageCreate", async (Interaction) => {
 
   //#region reboot
   power.execute(Interaction, con);
-  //#endregion
-
-  //#region social credit change command
-  changesocial.execute(client, Interaction, con);
   //#endregion
 
   //#region simple responses

@@ -9,8 +9,8 @@ module.exports = {
   async execute(client, message, args, con) {
     let user, member, SCS;
 
-    user = getUserFromMention(args[0], client);
-    member = message.mentions.members.first();
+    user = await getUserFromMention(args[0], client, message);
+    member = await getMember(args[0], message);
     if (!user) user = await getuserfromID(args[0], client);
     if (!args[0]) {
       user = message.author;
@@ -36,7 +36,7 @@ module.exports = {
     );
   },
 };
-function getUserFromMention(mention, client) {
+function getUserFromMention(mention, client, message) {
   if (!mention) return;
   if (mention.startsWith("<@") && mention.endsWith(">")) {
     mention = mention.slice(2, -1);
@@ -44,7 +44,22 @@ function getUserFromMention(mention, client) {
       mention = mention.slice(1);
     }
     return client.users.cache.get(mention);
+  } else if (!isNaN(parseInt(mention))) {
+    return message.guild.members.fetch(
+      message.guild.members.cache.get(mention)
+    );
   }
+}
+function getMember(mention, message) {
+  let member = undefined;
+  if (!isNaN(parseInt(mention))) {
+    member = message.guild.members.fetch(
+      message.guild.members.cache.get(mention)
+    );
+  } else {
+    member = message.mentions.members.first();
+  }
+  return member;
 }
 async function getuserfromID(arg, client) {
   if (!regexCheck(arg)) {
@@ -69,11 +84,11 @@ function rolesMap(member, guildID) {
 function makeEmbed(user, member, message, score) {
   const embed = new Discord.MessageEmbed()
     .setColor("#00ff00")
-    .setFooter(message.author.username, message.author.displayAvatarURL)
+    .setFooter(message.author.username)
     .setTimestamp();
   embed.addField(
     "user",
-    `\`\`\`${user.username}#${user.discriminator}\`\`\``,
+    `\`\`\`${member.user.username}#${member.user.discriminator}\`\`\``,
     (inline = true)
   );
   embed.addField("id", `\`\`\`${user.id}\`\`\``, (inline = true));
@@ -84,8 +99,8 @@ function makeEmbed(user, member, message, score) {
       (inline = true)
     );
   }
-  embed.addField("bot", `${user.bot}`, (inline = true));
-  embed.addField("creation date", `${user.createdAt}`, (inline = true));
+  embed.addField("bot", `${member.user.bot}`, (inline = true));
+  embed.addField("creation date", `${member.user.createdAt}`, (inline = true));
   embed.addField("join date", `${member.joinedAt}`);
   embed.setThumbnail(
     user.avatarURL({ dynamic: true, format: "png", size: 64 })
@@ -106,7 +121,8 @@ function makeEmbed(user, member, message, score) {
   if (user.system) {
     embed.addField(`**OFFICIAL DISCORD SYSTEM USER**`, "TRUE");
   }
-  embed.addField("Roles", `${rolesMap(member, message.guild.id)}`, true);
-
+  if (rolesMap(member, message.guild.id).length > 0) {
+    embed.addField("Roles", `${rolesMap(member, message.guild.id)}`, true);
+  }
   return embed;
 }

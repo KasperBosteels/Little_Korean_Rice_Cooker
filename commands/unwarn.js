@@ -4,7 +4,7 @@ const sqlcon = require("../sql_serverconnection.js");
 module.exports = {
   name: "unwarn",
   description: "Resets a users warnings(within server).",
-  usage: "<@ user>",
+  usage: "<@user>",
   guildOnly: "true",
   aliases: ["uw", "unw", "rw"],
   category: "moderating",
