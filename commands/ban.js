@@ -4,7 +4,7 @@ const sqlcon = require("../sql_serverconnection.js");
 module.exports = {
   name: "ban",
   description: "Ban user.",
-  usage: "<@user> (optional:<reason>)",
+  usage: "<@user> <reason (optional)>",
   guildOnly: "true",
   category: "moderating",
   cooldown: 1,
@@ -12,7 +12,7 @@ module.exports = {
     //check permissions of user
     if (!permissioncheck(message))
       return message.reply({
-        content: "You or i don't have permission to do that.",
+        content: "You or i don't have the right permissions to do that.",
       });
     //check if a person was mentioned
     const user = await getUserFromMention(args[0], client, message);

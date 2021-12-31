@@ -10,12 +10,14 @@ module.exports = {
   category: "moderating",
   async execute(client, message, args, con) {
     //check perms
-    if (!message.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS))
-      return message.reply({ content: "Permission denied." });
-    if (!message.guild.me.permissions.has(Permissions.FLAGS.MANAGE_ROLES))
+    if (!message.member.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS))
+      return message.reply({
+        content: "Permission denied(moderate members).)",
+      });
+    if (!message.guild.me.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS))
       return message.reply({
         content:
-          "I do not have the permission to mute a person(i need role management).",
+          "I do not have the permission to mute a person(moderate members).",
       });
 
     var muteperson = await message.guild.members.fetch(
