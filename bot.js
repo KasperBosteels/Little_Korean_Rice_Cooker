@@ -32,6 +32,8 @@ const events = music.event;
 const cooldowns = new Map();
 const chatBot = require("smartestchatbot");
 const chatClient = new chatBot.Client();
+const slashCommandsCreate = require("./slashCommandsCreate");
+const { Interaction } = require("discord.js");
 //#endregion
 
 //#region init bot as client
@@ -80,7 +82,7 @@ const con = mysql.createConnection({
 //#region bot ready
 //default state when bot starts up will set activity
 //and display succes message in terminal
-client.on("ready", () => {
+client.once("ready", () => {
   try {
     //enable discord buttons
 
@@ -94,9 +96,14 @@ client.on("ready", () => {
   } catch (err) {
     console.log(err);
   }
+
+  //#region slash command
+  slashCommandsCreate.execute(client);
+  //#endregion
 });
 
 //for slash commands
+
 async function CreateApiMessage(interactie, content) {
   let apiMessage = await Discord.APIMessage.create(
     client.channels.resolve(interactie.channel_id),
@@ -115,10 +122,6 @@ client.on("error", (Err) => {
     if (err) console.log(err);
   });
 });
-//#endregion
-
-//#region slash command
-
 //#endregion
 
 //#region bot join
@@ -308,6 +311,21 @@ client.on("messageCreate", async (Interaction) => {
   }
   //#endregion
 });
+
+//#endregion
+
+//#region interactionCreate
+client.on("interactionCreate", (interaction) => {
+  if (!interaction.isCommand()) return;
+  const { commandName, options } = interaction;
+  if (commandName === "ping") {
+    interaction.reply({
+      content: "pong",
+      ephemeral: true,
+    });
+  }
+});
+
 //#endregion
 
 //#region   MUSIC EVENT TRIGGERS
@@ -355,7 +373,6 @@ events.on("playSong", async (channel, songInfo, requester) => {
   });
 });
 events.on("addSong", async (channel, songInfo, requester) => {
-  console.log(requester);
   channel.send({
     embeds: [QuickEmbed("added song to the queue", songInfo, null, requester)],
   });
@@ -373,7 +390,6 @@ events.on("addList", async (channel, playlist, requester) => {
   });
 });
 events.on("paused_song", async (channel, songdata, requester) => {
-  console.log(channel);
   channel.send({
     embeds: [
       QuickEmbed(

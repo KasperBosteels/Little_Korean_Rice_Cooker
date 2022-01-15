@@ -32,22 +32,12 @@ async function proffilter(message, client, con) {
   let userID = message.author.id;
   let channel = message.channel;
   //for every word in message check if it is in the swearwords list
-  for (let Y = 0; Y < messageArray.length; Y++) {
-    const word = messageArray[Y].toLowerCase();
-
-    var changeword = "";
-
+  const messageLength = messageArray.length;
+  for (let Y = 0; Y < messageLength; Y++) {
     for (let i = 0; i < swear["vloekwoorden"].length; i++) {
-      //#region replace word with ***** disabled for now
-      if (word.includes(swear["vloekwoorden"][i])) {
-        changeword = word.replace(swear["vloekwoorden"][i], "******");
-        sentecUser += " " + changeword;
+      if (messageArray[Y].toLowerCase().includes(swear["vloekwoorden"][i])) {
         amountswear++;
       }
-    }
-    //glue message togheter again
-    if (!changeword) {
-      sentecUser += " " + messageArray[Y];
     }
     //#endregion
     //if there are more than 0 swear words found be annoying
@@ -75,7 +65,7 @@ async function proffilter(message, client, con) {
             message.member.displayName
           );
         }
-        message.delete();
+        await message.delete();
       }
     }
   }

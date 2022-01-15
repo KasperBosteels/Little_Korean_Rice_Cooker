@@ -56,9 +56,15 @@ function getUserFromMention(mention, client) {
 }
 function permissioncheck(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS))
+  if (
+    !message.member.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS) ||
+    !message.member.permissions.has(Permissions.FLAGS.BAN_MEMBER)
+  )
     return false;
-  if (!message.guild.me.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS))
+  if (
+    !message.guild.me.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS) ||
+    !message.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBER)
+  )
     return false;
   return true;
 }
