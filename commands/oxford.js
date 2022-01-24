@@ -31,7 +31,7 @@ module.exports = {
         let author = "Powered by Oxford Languages";
         let data = JSON.stringify(res, null, 4);
         let object = JSON.parse(data);
-        return message.channel.send({
+        return message.reply({
           embeds: [makeEmbed(author, word, object, Discord)],
         });
       },

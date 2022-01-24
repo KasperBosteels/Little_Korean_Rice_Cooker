@@ -180,8 +180,9 @@ module.exports = {
 
       //if there is no command found return
       if (!command) {
-        return message.channel.send({
+        return message.reply({
           content: `That was not a valid command!\ntype: "${prefix}help" for all commands.`,
+          ephemeral: true,
         });
       }
 
@@ -193,7 +194,7 @@ module.exports = {
       embed.addField("**usage:**", `${prefix}${command.name} ${command.usage}`);
       embed.addField("**cooldown:**", `${command.cooldown || 3} second(s)`);
       //send
-      return message.channel.send({ embeds: [embed] });
+      return message.reply({ embeds: [embed], ephemeral: true });
     }
   },
   guildprefix(guildID) {
@@ -264,7 +265,7 @@ function firstPage(prefix) {
     `\`\`\`Your data is in no way traded or handed to third parties.\nyou can delete any stored data with the "${prefix}ignore-me" command(the bot will ignore you from this point on).\`\`\``
   );
   embed.addField(
-    "<:whot:800083736682823711> support",
+    ":question: support",
     `If you need Furter help you can join [the support server](https://discord.gg/7dWt3xA6Ck). `
   );
   embed.setFooter("page: 1/6");

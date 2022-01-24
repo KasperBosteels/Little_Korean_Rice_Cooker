@@ -14,33 +14,38 @@ module.exports = {
         .setPlaceholder("Select help topic")
         .addOptions([
           {
+            label: "Home",
+            description: "1. Home",
+            value: "home",
+          },
+          {
             label: "General",
-            description: "1. General information.",
+            description: "2. General information.",
             value: "general",
           },
           {
             label: "Fun",
-            description: "2. Funny commands.",
+            description: "3. Funny commands.",
             value: "fun",
           },
           {
             label: "Music",
-            description: "3. Musical commands.",
+            description: "4. Musical commands.",
             value: "music",
           },
           {
             label: "Moderating",
-            description: "4. Commands for moderation purposes.",
+            description: "5. Commands for moderation purposes.",
             value: "moderating",
           },
           {
             label: "Config",
-            description: "5. Configuration of the bot?",
+            description: "6. Configuration of the bot?",
             value: "config",
           },
         ])
     );
-    let sendmsg = await message.channel.send({
+    await message.reply({
       content: "ㅤ",
       ephemeral: true,
       embeds: [embeds[0]],
@@ -52,6 +57,9 @@ module.exports = {
     collector.on("collect", async (collected) => {
       const value = collected.values[0];
       switch (value) {
+        case "home":
+          await collected.update({ embeds: [embeds[0]], ephemeral: true });
+          break;
         case "general":
           await collected.update({ embeds: [embeds[1]], ephemeral: true });
           break;

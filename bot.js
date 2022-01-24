@@ -14,6 +14,9 @@ const lie = require("./text responses/liedetector.js");
 const commandFiles = fs
   .readdirSync("./commands")
   .filter((file) => file.endsWith(".js"));
+const slashCommandsFiles = fs
+  .readdirSync("./SlashCommands")
+  .filter((file) => file.endsWith(".js"));
 const profanity = require("./profanityfilter.js");
 const level = require("./level.js");
 const rice = require("./text responses/rice.js");
@@ -32,9 +35,8 @@ const events = music.event;
 const cooldowns = new Map();
 const chatBot = require("smartestchatbot");
 const chatClient = new chatBot.Client();
-const slashCommandsCreate = require("./slashCommandsCreate");
+const slashCommandsUpload = require("./uploadSlashCommand");
 const { Interaction } = require("discord.js");
-//#endregion
 
 //#region init bot as client
 let intents = [
@@ -56,13 +58,26 @@ const client = new Discord.Client({ intents: intents });
 
 //#endregion
 
-//#region discord buttons
+//#region load commands
 
 client.commands = new Discord.Collection();
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
   console.log(`command file loaded: ${command.name}`);
+}
+
+//#endregion
+
+//#region  load slash commands
+
+client.slashCommands = new Discord.Collection();
+const slashCommandsArray = [];
+for (const slashfile of slashCommandsFiles) {
+  const commandslash = require(`./SlashCommands/${slashfile}`);
+  client.slashCommands.set(commandslash.data.name, commandslash);
+  slashCommandsArray.push(commandslash.data.toJSON());
+  console.log(`slash command file loaded: ${commandslash.data.name}`);
 }
 
 //#endregion
@@ -98,22 +113,9 @@ client.once("ready", () => {
   }
 
   //#region slash command
-  slashCommandsCreate.execute(client);
+  slashCommandsUpload.execute(slashCommandsArray, process.env.DISCORD_TOKEN);
   //#endregion
 });
-
-//for slash commands
-
-async function CreateApiMessage(interactie, content) {
-  let apiMessage = await Discord.APIMessage.create(
-    client.channels.resolve(interactie.channel_id),
-    content
-  )
-    .resolveData()
-    .resolveFiles();
-  return { ...apiMessage.data };
-}
-//#endregion
 
 //#region error handler
 client.on("error", (Err) => {
@@ -315,14 +317,14 @@ client.on("messageCreate", async (Interaction) => {
 //#endregion
 
 //#region interactionCreate
-client.on("interactionCreate", (interaction) => {
+client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
-  const { commandName, options } = interaction;
-  if (commandName === "ping") {
-    interaction.reply({
-      content: "pong",
-      ephemeral: true,
-    });
+  const slashcommand = client.slashCommands.get(interaction.commandName);
+  if (!slashcommand) return;
+  try {
+    await slashcommand.execute(client, interaction);
+  } catch (error) {
+    await interaction.reply({ content: error.message, ephermeral: true });
   }
 });
 
