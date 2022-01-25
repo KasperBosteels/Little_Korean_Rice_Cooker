@@ -7,7 +7,7 @@ module.exports = {
     .addStringOption((option) =>
       option.setName("word").setDescription("The word you want to look up.")
     ),
-  async execute(client, interaction) {
+  async execute(client, interaction, con) {
     await oxford.execute(
       null,
       interaction,

@@ -322,9 +322,11 @@ client.on("interactionCreate", async (interaction) => {
   const slashcommand = client.slashCommands.get(interaction.commandName);
   if (!slashcommand) return;
   try {
-    await slashcommand.execute(client, interaction);
+    await slashcommand.execute(client, interaction, con);
   } catch (error) {
-    await interaction.reply({ content: error.message, ephermeral: true });
+    if (error.code == 10062) return;
+
+    await interaction.reply({ content: error.message, ephemeral: true });
   }
 });
 

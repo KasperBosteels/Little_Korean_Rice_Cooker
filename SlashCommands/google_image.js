@@ -7,7 +7,7 @@ module.exports = {
     .addStringOption((option) =>
       option.setName("google").setDescription("Something you want to look up.")
     ),
-  async execute(client, interaction) {
+  async execute(client, interaction, con) {
     await google.execute(
       null,
       interaction,

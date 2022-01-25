@@ -39,7 +39,6 @@ function makeEmbed(word, def, example, link, discord) {
   embed.setTitle(`word of the day: ${word}`);
   embed.setDescription(def);
   embed.addField("example", example);
-  embed.setAuthor("Urban Dictionary");
   embed.setURL(link);
   return embed;
 }

@@ -9,9 +9,10 @@ module.exports = {
   category: "moderating",
   asliases: ["credit", "socialcredit"],
   execute(client, message, args, con) {
-    if (!permissioncheck(message)) {
-      return message.channel.send({
-        content: "sorry you do not have permission to do this.",
+    let permission = permissioncheck(message);
+    if (permission != true) {
+      return message.reply({
+        content: permission,
       });
     }
     if (isNaN(parseInt(args[1]))) {
@@ -56,15 +57,9 @@ function getUserFromMention(mention, client) {
 }
 function permissioncheck(message) {
   //check perms
-  if (
-    !message.member.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS) ||
-    !message.member.permissions.has(Permissions.FLAGS.BAN_MEMBER)
-  )
-    return false;
-  if (
-    !message.guild.me.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS) ||
-    !message.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBER)
-  )
-    return false;
+  if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR))
+    return "You need to be an administrator to be able to use this command";
+  if (!message.guild.me.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS))
+    return "I need the 'moderate members' permission for this command.";
   return true;
 }

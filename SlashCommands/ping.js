@@ -4,7 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("ping")
     .setDescription("ping pong ping"),
-  async execute(client, interaction) {
+  async execute(client, interaction, con) {
     await interaction.reply({
       content: " ",
       embeds: [makeEmbed(client.ws.ping, uptimeGET(client))],

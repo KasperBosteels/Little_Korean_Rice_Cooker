@@ -25,7 +25,7 @@ module.exports = {
     } catch (err) {
       console.error(err);
     } finally {
-      return message.channel.send({
+      return message.reply({
         embeds: [await createEmbed(message, tickleDatabase, args)],
       });
     }

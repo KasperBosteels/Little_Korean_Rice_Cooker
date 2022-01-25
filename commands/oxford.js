@@ -11,6 +11,7 @@ module.exports = {
   usage: "<word> ",
   category: "fun",
   async execute(client, message, args, con) {
+    message.deferReply();
     if (!args[0]) return;
     let word = "";
     if (!args[1]) {
@@ -31,7 +32,7 @@ module.exports = {
         let author = "Powered by Oxford Languages";
         let data = JSON.stringify(res, null, 4);
         let object = JSON.parse(data);
-        return message.reply({
+        return message.editReply({
           embeds: [makeEmbed(author, word, object, Discord)],
         });
       },
