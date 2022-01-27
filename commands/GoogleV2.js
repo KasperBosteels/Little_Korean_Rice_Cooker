@@ -15,6 +15,8 @@ module.exports = {
   usage: "<your query>",
   category: "fun",
   aliases: ["img"],
+  perms: ["SEND_MESSAGES", "MANAGE_MESSAGES", "EMBED_LINKS"],
+  userperms: [],
   async execute(client, message, args, con) {
     //#region google search
     let Q = args.join(" ");

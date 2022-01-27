@@ -10,6 +10,8 @@ module.exports = {
   cooldown: 3,
   usage: "<word> ",
   category: "fun",
+  perms: ["SEND_MESSAGES"],
+  userperms: [],
   async execute(client, message, args, con) {
     message.deferReply();
     if (!args[0]) return;
@@ -27,16 +29,19 @@ module.exports = {
       }
     }
     let lookup = dict.find(word);
-    lookup.then(
-      function (res) {
+    lookup
+      .then(function (res) {
         let author = "Powered by Oxford Languages";
         let data = JSON.stringify(res, null, 4);
         let object = JSON.parse(data);
         return message.editReply({
           embeds: [makeEmbed(author, word, object, Discord)],
         });
-      },
-      function (err) {
+      })
+      .catch((err) => {
+        message.editReply({
+          content: "I tried looking really hard but i didn't find that, sorry.",
+        });
         console.error(err.message);
         console.log(
           derivative.length +
@@ -47,8 +52,7 @@ module.exports = {
             94 +
             word.length
         );
-      }
-    );
+      });
   },
 };
 function derivativeGET(object) {

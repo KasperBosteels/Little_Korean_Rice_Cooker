@@ -9,6 +9,8 @@ module.exports = {
   usage: "<name of the song>",
   category: "music",
   aliases: ["p"],
+  perms: ["SEND_MESSAGES", "CONNECT", "SPEAK"],
+  userperms: ["CONNECT"],
   async execute(client, message, args, con) {
     let Vchannel, song;
     Vchannel = message.member.voice.channel;

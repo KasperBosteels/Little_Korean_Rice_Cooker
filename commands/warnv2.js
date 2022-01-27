@@ -10,6 +10,8 @@ module.exports = {
   aliases: ["w"],
   category: "moderating",
   cooldown: 10,
+  perms: ["SEND_MESSAGES"],
+  userperms: ["MODERATE_MEMBERS"],
   async execute(client, message, args, con) {
     //#region default check
     if (!permissioncheck(message))

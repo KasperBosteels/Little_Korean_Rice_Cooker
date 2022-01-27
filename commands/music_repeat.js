@@ -6,6 +6,8 @@ module.exports = {
   cooldown: 1,
   usage: " ",
   category: "music",
+  perms: ["SEND_MESSAGES", "CONNECT", "SPEAK"],
+  userperms: ["CONNECT"],
   async execute(client, message, args, con) {
     if (!(await music.isRepeated({ interaction: message }))) {
       music.repeat({ interaction: message, value: true });

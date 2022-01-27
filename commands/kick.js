@@ -7,6 +7,8 @@ module.exports = {
   usage: "<@user>",
   guildOnly: "true",
   category: "moderating",
+  perms: ["SEND_MESSAGES", "KICK_MEMBERS"],
+  userperms: ["KICK_MEMBERS"],
   execute(client, message, args, con) {
     //check perms or if there is a mention
     if (!message.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS))

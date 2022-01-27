@@ -6,6 +6,8 @@ module.exports = {
   usage: "empty or <@user>",
   cooldown: 1,
   category: "fun",
+  perms: ["SEND_MESSAGES"],
+  userperms: [],
   async execute(client, message, args, con) {
     const coin = await Math.floor(Math.random() * Math.floor(love.length));
     var manualinput = " ";

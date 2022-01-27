@@ -7,6 +7,8 @@ module.exports = {
   cooldown: 1,
   usage: " ",
   category: "music",
+  perms: ["SEND_MESSAGES"],
+  userperms: ["CONNECT"],
   async execute(client, message, args, con) {
     let list = await music.getQueue({ interaction: message });
     console.log(list);

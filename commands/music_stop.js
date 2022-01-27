@@ -6,6 +6,8 @@ module.exports = {
   cooldown: 1,
   usage: " ",
   category: "music",
+  perms: ["SEND_MESSAGES", "CONNECT", "SPEAK"],
+  userperms: ["CONNECT"],
   async execute(client, message, args, con) {
     music.stop({ interaction: message });
     score.ADD(con, 1, message.author.id);

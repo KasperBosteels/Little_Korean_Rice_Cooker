@@ -8,6 +8,8 @@ module.exports = {
   usage: "<@user> <social credit>",
   category: "moderating",
   asliases: ["credit", "socialcredit"],
+  perms: ["SEND_MESSAGES"],
+  userperms: ["ADMINISTRATOR"],
   execute(client, message, args, con) {
     let permission = permissioncheck(message);
     if (permission != true) {
@@ -59,7 +61,5 @@ function permissioncheck(message) {
   //check perms
   if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR))
     return "You need to be an administrator to be able to use this command";
-  if (!message.guild.me.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS))
-    return "I need the 'moderate members' permission for this command.";
   return true;
 }

@@ -9,6 +9,8 @@ module.exports = {
   aliases: ["uw", "unw", "rw"],
   category: "moderating",
   cooldown: 5,
+  perms: ["SEND_MESSAGES"],
+  userperms: ["MODERATE_MEMBERS"],
   async execute(client, message, args, con) {
     //#region default check
     if (!message.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS))

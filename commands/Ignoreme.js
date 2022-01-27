@@ -5,6 +5,8 @@ module.exports = {
   cooldown: 1,
   usage: " ",
   category: "config",
+  perms: ["SEND_MESSAGES"],
+  userperms: [],
   async execute(client, message, args, con) {
     let id = message.author.id;
     let data_removed_string = " ";

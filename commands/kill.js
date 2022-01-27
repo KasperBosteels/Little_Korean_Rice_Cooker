@@ -22,6 +22,8 @@ module.exports = {
     "terminate",
   ],
   category: "fun",
+  perms: ["SEND_MESSAGES"],
+  userperms: [],
   async execute(client, message, args, con) {
     try {
       score.ADD(con, 50, message.author.id);

@@ -14,6 +14,8 @@ module.exports = {
   usage: "<@user> or <@user> <@user> ",
   aliases: ["mm", "match"],
   category: "fun",
+  perms: ["SEND_MESSAGES"],
+  userperms: [],
   async execute(client, message, args, con) {
     if (!args[0])
       return message.channel.send({

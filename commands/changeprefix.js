@@ -9,10 +9,12 @@ module.exports = {
   category: "config",
   args: "true",
   guildOnly: "true",
+  persm: ["SEND_MESSAGES"],
+  userperms: ["ADMINISTRATOR"],
   async execute(client, message, args, con) {
     if (!permissioncheck(message))
       return message.reply({
-        content: "You do not have permission to do this, ask a mod.",
+        content: "You need to be an administrator to do this.",
       });
     con.query(
       `CALL get_server_prefix("${message.guild.id}",@prefix); SELECT @prefix;`,
@@ -37,9 +39,7 @@ module.exports = {
 };
 function permissioncheck(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS))
-    return false;
-  if (!message.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS))
+  if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTATOR))
     return false;
   return true;
 }

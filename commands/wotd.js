@@ -7,6 +7,8 @@ module.exports = {
   cooldown: 3,
   usage: " ",
   category: "fun",
+  perms: ["SEND_MESSAGES"],
+  userperms: [],
   async execute(client, message, args, con) {
     await term(message);
     social.ADD(con, 1, message.author.id);

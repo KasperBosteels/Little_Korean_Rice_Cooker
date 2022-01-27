@@ -6,6 +6,8 @@ module.exports = {
   aliases: ["flip", "coinflip", "cf"],
   usage: " ",
   category: "fun",
+  perms: ["SEND_MESSAGES"],
+  userperms: [],
   async execute(client, message, args, con) {
     //randil 1 or 2
     let coin = await Math.floor(Math.random() * 2 + 1);

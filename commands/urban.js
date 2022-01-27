@@ -6,6 +6,8 @@ module.exports = {
   cooldown: 2,
   usage: "<word> ",
   category: "fun",
+  perms: ["SEND_MESSAGES"],
+  userperms: [],
   async execute(client, message, args, con) {
     let word = " ";
     for (let i = 0; i < args.length; i++) {

@@ -7,9 +7,13 @@ module.exports = {
   usage: " <enable> / <disable>",
   category: "config",
   aliases: ["leveling", "level_system"],
+  perms: ["SEND_MESSAGES"],
+  userperms: ["ADMINISTRATOR"],
   async execute(client, message, args, con) {
     if (!permission(message))
-      return message.reply({ content: "You have no permission to do that." });
+      return message.reply({
+        content: "You need to be an administator to do this.",
+      });
 
     let guildID = message.guild.id;
     //check if needed variables are present
@@ -68,8 +72,6 @@ module.exports = {
 function permission(message) {
   let mem = message.member;
   //check perms
-  if (!mem.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return false;
-  if (!message.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS))
-    return false;
+  if (!mem.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return false;
   return true;
 }

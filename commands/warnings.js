@@ -8,6 +8,8 @@ module.exports = {
   aliases: ["warning", "warns"],
   category: "moderating",
   cooldown: 5,
+  perms: ["SEND_MESSAGES"],
+  userperms: ["MODERATE_MEMBERS"],
   async execute(client, message, args, con) {
     //#region default check
     if (!permissioncheck(message))
@@ -50,9 +52,7 @@ function getUserFromMention(mention, client) {
 }
 function permissioncheck(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS))
-    return false;
-  if (!message.guild.me.permissions.has(Permissions.FLAGS.KICK_MEMBERS))
+  if (!message.member.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS))
     return false;
   return true;
 }

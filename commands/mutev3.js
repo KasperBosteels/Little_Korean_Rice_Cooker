@@ -8,6 +8,8 @@ module.exports = {
   guildOnly: "true",
   args: "true",
   category: "moderating",
+  perms: ["SEND_MESSAGES", "MODATE_MEMBERS"],
+  userperms: ["MODERATE_MEMBERS"],
   async execute(client, message, args, con) {
     //check perms
     if (!message.member.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS))

@@ -9,6 +9,8 @@ module.exports = {
   aliases: ["delete", "remove"],
   category: "moderating",
   cooldown: 2,
+  perms: ["SEND_MESSAGES", "MANAGE_MESSAGES"],
+  userperms: ["MODERATE_MEMBERS", "MANAGE_MESSAGES"],
   async execute(client, message, args, con) {
     //check parms
     if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))

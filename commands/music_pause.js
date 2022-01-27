@@ -7,6 +7,8 @@ module.exports = {
   cooldown: 1,
   usage: " ",
   category: "music",
+  perms: ["SEND_MESSAGES", "CONNECT", "SPEAK"],
+  userperms: ["CONNECT", "SPEAK"],
   async execute(client, message, args, con) {
     if (!(await music.isPaused({ interaction: message }))) {
       music.pause({ interaction: message });

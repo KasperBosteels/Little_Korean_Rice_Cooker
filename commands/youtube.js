@@ -8,6 +8,8 @@ module.exports = {
   usage: "<title>",
   aliases: ["yt"],
   category: "fun",
+  perms: ["SEND_MESSAGES", "EMBED_LINKS"],
+  userperms: [],
   async execute(client, message, args, con, options) {
     message.deferReply();
     if (!args[0])

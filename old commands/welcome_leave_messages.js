@@ -7,6 +7,8 @@ module.exports = {
   usage: " enable or disable",
   category: "config",
   aliases: ["welcome/leave_messages", "w/lmessages", "wlmessages"],
+  perms: ["SEND_MESSAGES"],
+  userperms: ["MODERATE_MEMBERS"],
   execute(client, message, args, con) {
     if (!permission(message))
       return message.reply({ content: "You have no permission to do that." });

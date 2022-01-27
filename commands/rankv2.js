@@ -7,6 +7,8 @@ module.exports = {
   usage: "<optional: @user>",
   category: "General",
   aliases: ["rank"],
+  perms: ["SEND_MESSAGES"],
+  userperms: [],
   async execute(client, message, args, con) {
     var member = getID(message, args, client);
     let ID = member.id;

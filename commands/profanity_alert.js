@@ -8,6 +8,8 @@ module.exports = {
   usage: "(optinal): <disable>",
   category: "config",
   aliases: ["profanityalert", "pra"],
+  perms: ["SEND_MESSAGES"],
+  userperms: ["ADMINISTRATOR"],
   execute(client, message, args, con) {
     //check perms
     if (!permission(message))
@@ -83,9 +85,7 @@ module.exports = {
 };
 function permission(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS))
-    return false;
-  if (!message.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS))
+  if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR))
     return false;
   return true;
 }

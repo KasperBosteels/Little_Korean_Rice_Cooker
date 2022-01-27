@@ -19,6 +19,8 @@ module.exports = {
   cooldown: 1,
   usage: "<@user> / <blank> / <something you like>",
   category: "fun",
+  perms: ["SEND_MESSAGES"],
+  userperms: [],
   async execute(client, message, args, con) {
     try {
       score.ADD(con, 100, message.author.id);

@@ -6,6 +6,8 @@ module.exports = {
   cooldown: 3,
   usage: " ",
   category: "fun",
+  perms: ["SEND_MESSAGES", "MANAGE_MESSAGES"],
+  userperms: [],
   async execute(client, message, args, con) {
     await fetch(getRandom())
       .then((resp) => resp.json())

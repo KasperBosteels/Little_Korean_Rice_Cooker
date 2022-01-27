@@ -11,22 +11,26 @@ module.exports = {
   usage: "optional: [command name]\n optional: [category]",
   cooldown: 5,
   category: "general",
+  perms: ["SEND_MESSAGES", "MANAGE_MESSAGES"],
+  userperms: [],
   async execute(client, message, args, con, options, button) {
     prefix = await this.guildprefix(message.guild.id);
 
     //checks if a specific command query was asked if not send dm withh all commmands
     if (
       !args.length &&
+      !message.guild.me.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
+    ) {
+      return message.reply({ embeds: [await firstPage(prefix)] });
+    }
+    if (
+      !args.length &&
       message.guild.me.permissions.has([
-        Permissions.FLAGS.ADD_REACTIONS,
+        Permissions.FLAGS.SEND_MESSAGES,
         Permissions.FLAGS.MANAGE_MESSAGES,
         Permissions.FLAGS.EMBED_LINKS,
       ])
     ) {
-      console.log(
-        `reactions: ${Permissions.FLAGS.ADD_REACTIONS}, manage:${Permissions.FLAGS.MANAGE_MESSAGES}, links: ${Permissions.FLAGS.EMBED_LINKS}`
-      );
-
       //#region create command list in strings
       var commandlist = [];
       //for each command in commands folder get name description and category and usage
@@ -83,7 +87,13 @@ module.exports = {
       args[0] == "fun" ||
       args[0] == "music" ||
       args[0] == "config" ||
-      args[0] == "moderating"
+      args[0] == "moderating" ||
+      args[0] == 1 ||
+      args[0] == 2 ||
+      args[0] == 3 ||
+      args[0] == 4 ||
+      args[0] == 5 ||
+      args[0] == 6
     ) {
       //#region repeated code
       var commandlist = [];
@@ -133,37 +143,70 @@ module.exports = {
       ];
       response.unshift(await firstPage(prefix));
       if (!args.length) {
-        return message.channel.send({ embeds: response[0] });
+        return message.reply({ embeds: response[0] });
       } else {
         switch (args[0]) {
+          case "index":
+            return message.reply({ embeds: [response[0]], ephemeral: true });
+          case "1":
+            return message.reply({ ephemeral: true, embeds: [response[0]] });
           case "general":
             return message.channel.send({
-              ephemereal: true,
+              ephemeral: true,
+              embeds: [response[1]],
+            });
+          case "2":
+            return message.channel.send({
+              ephemeral: true,
               embeds: [response[1]],
             });
           case "fun":
             return message.channel.send({
-              ephemereal: true,
+              ephemeral: true,
               embeds: [response[2]],
             });
-          case "music":
+
+          case "3":
             return message.channel.send({
-              ephemereal: true,
+              ephemeral: true,
+              embeds: [response[2]],
+            });
+          case "music" || "4":
+            return message.channel.send({
+              ephemeral: true,
+              embeds: [response[3]],
+            });
+
+          case "4":
+            return message.channel.send({
+              ephemeral: true,
               embeds: [response[3]],
             });
           case "moderating":
             return message.channel.send({
-              ephemereal: true,
+              ephemeral: true,
+              embeds: [response[4]],
+            });
+
+          case "5":
+            return message.channel.send({
+              ephemeral: true,
               embeds: [response[4]],
             });
           case "config":
             return message.channel.send({
-              ephemereal: true,
+              ephemeral: true,
+              embeds: [response[5]],
+            });
+
+          case "6":
+            return message.channel.send({
+              ephemeral: true,
               embeds: [response[5]],
             });
           default:
             return message.channel.send({
-              ephemereal: true,
+              ephemeral: true,
               embeds: [response[0]],
             });
         }

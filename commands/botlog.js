@@ -8,11 +8,13 @@ module.exports = {
   guildOnly: "true",
   aliases: ["btl", "botlog"],
   category: "config",
+  perms: ["SEND_MESSAGES"],
+  userperms: ["ADMINISTRATOR"],
   execute(client, message, args, con) {
     //check perms
     if (!permission(message))
       return message.reply({
-        content: "Either you or i do not have the permission to do that.",
+        content: "Only an administrator is able to execute this command.",
       });
     //assigns id to variables and check if received
     var channel = message.channel.id;
@@ -79,9 +81,8 @@ module.exports = {
 };
 function permission(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS))
+  if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTATOR)) {
     return false;
-  if (!message.guild.me.permissions.has(Permissions.FLAGS.KICK_MEMBERS))
-    return false;
+  }
   return true;
 }

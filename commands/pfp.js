@@ -6,6 +6,8 @@ module.exports = {
   usage: " <blank> or <@user>",
   category: "fun",
   aliases: ["avatar", "ava"],
+  perms: ["SEND_MESSAGES", "ATTACH_FILES"],
+  userperms: [],
   async execute(client, message, args, con) {
     let member;
     if (args[0]) {

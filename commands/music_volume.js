@@ -7,6 +7,8 @@ module.exports = {
   cooldown: 1,
   usage: "a number between 0 and 100",
   category: "music",
+  perms: ["SEND_MESSAGES", "CONNECT", "SPEAK"],
+  userperms: ["CONNECT"],
   async execute(client, message, args, con) {
     let volume = parseInt(args[0]);
     if (volume < 0 || volume > 100 || !args[0])

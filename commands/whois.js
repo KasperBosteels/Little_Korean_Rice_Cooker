@@ -2,10 +2,12 @@ const Discord = require("discord.js");
 const credit = require("../socalCredit");
 module.exports = {
   name: "whois",
-  description: "get acount details",
+  description: "find out a bit more about this members acount.",
   cooldown: 2,
   usage: "<blank> / <user-id or @user>",
-  category: "moderating",
+  category: "general",
+  perms: ["SEND_MESSAGES"],
+  userperms: [],
   async execute(client, message, args, con) {
     let user, member, SCS;
 
