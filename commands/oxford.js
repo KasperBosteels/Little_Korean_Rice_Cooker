@@ -13,7 +13,6 @@ module.exports = {
   perms: ["SEND_MESSAGES"],
   userperms: [],
   async execute(client, message, args, con) {
-    message.deferReply();
     if (!args[0]) return;
     let word = "";
     if (!args[1]) {
@@ -39,7 +38,7 @@ module.exports = {
         });
       })
       .catch((err) => {
-        message.editReply({
+        message.reply({
           content: "I tried looking really hard but i didn't find that, sorry.",
         });
         console.error(err.message);
