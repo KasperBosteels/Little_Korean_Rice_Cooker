@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
 const ox = require("oxford-dictionary");
 const Discord = require("discord.js");
 const ID = process.env.OXFORD_ID;
@@ -5,40 +6,29 @@ const KEY = process.env.OXFORD_KEY;
 const config = { app_id: ID, app_key: KEY, source_lang: "en-gb" };
 const dict = new ox(config);
 module.exports = {
-  name: "oxford",
-  description: "Oxford Dictionary.",
-  cooldown: 3,
-  usage: "<word> ",
-  category: "fun",
-  perms: ["SEND_MESSAGES"],
-  userperms: [],
-  async execute(client, message, args, con) {
-    if (!args[0]) return;
-    let word = "";
-    if (!args[1]) {
-      word = args[0];
-    } else {
-      let argument_length = args.length;
-      for (let i = 0; i < argument_length; i++) {
-        if (!args[i + 1]) {
-          word += args[i];
-        } else {
-          word += `${args[i]} `;
-        }
-      }
-    }
-    let lookup = dict.find(word);
+  data: new SlashCommandBuilder()
+    .setName("ox")
+    .setDescription("Definitions from the oxford api")
+    .addStringOption((option) =>
+      option.setName("word").setDescription("The word you want to look up.")
+    ),
+
+  async execute(client, interaction, con) {
+    interaction.deferReply();
+    const searchword = interaction.options.getString("word");
+
+    let lookup = dict.find(searchword);
     lookup
       .then(function (res) {
         let author = "Powered by Oxford Languages";
         let data = JSON.stringify(res, null, 4);
         let object = JSON.parse(data);
-        return message.reply({
-          embeds: [makeEmbed(author, word, object, Discord)],
+        return interaction.editReply({
+          embeds: [makeEmbed(author, searchword, object, Discord)],
         });
       })
       .catch((err) => {
-        message.reply({
+        interaction.editReply({
           content: "I tried looking really hard but i didn't find that, sorry.",
         });
         console.error(err.message);
