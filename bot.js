@@ -1,6 +1,5 @@
 //#region get res
 require("dotenv").config();
-require("ms");
 const logger = require("./logger.js");
 const start = require("./startup.js");
 const sqlconnect = require("./sql_serverconnection.js");
@@ -37,6 +36,7 @@ const chatBot = require("smartestchatbot");
 const chatClient = new chatBot.Client();
 const slashCommandsUpload = require("./uploadSlashCommand");
 const { Interaction } = require("discord.js");
+//#endregion
 
 //#region init bot as client
 let intents = [
@@ -116,6 +116,7 @@ client.once("ready", () => {
   slashCommandsUpload.execute(slashCommandsArray, process.env.DISCORD_TOKEN);
   //#endregion
 });
+//#endregion
 
 //#region error handler
 client.on("error", (Err) => {
@@ -223,7 +224,7 @@ client.on("messageCreate", async (Interaction) => {
 
   //#region Interaction slice and dice
   //removes prefix and puts arguments in variable
-  let usedprefix = getprefix.GET(Interaction.guild.id);
+  const usedprefix = getprefix.GET(Interaction.guild.id);
   const args = Interaction.content.slice(usedprefix.length).trim().split(/ +/);
 
   //#region level handler
@@ -267,7 +268,7 @@ client.on("messageCreate", async (Interaction) => {
   if (command.args && !args.length) {
     let reply = `you didnt provide any arguments, ${Interaction.author}!`;
     if (command.usage) {
-      reply += `\nThe correct way to use this is:\n\`${command.usage}\`\n for more help type:  \`${config.prefix}help\` or  \`${config.prefix}help ${command.name}\``;
+      reply += `\nThe correct way to use this is:\n${command.usage}\n for more help type:  \`${config.prefix}help\` or \`${config.prefix}help ${command.name}\``;
     }
     return Interaction.channel.send({ content: reply });
   }
@@ -303,11 +304,31 @@ client.on("messageCreate", async (Interaction) => {
   //#region execute command
   //tries to perform the command if error occurs catch it and display on terminal
   try {
+    const startTime = new Date();
     await command.execute(client, Interaction, args, con, chatClient);
-    logger.execute(Interaction);
+    const endTime = new Date();
+    const workTime = endTime - startTime;
+    logger.execute(
+      usedprefix,
+      commandName,
+      args,
+      undefined,
+      Interaction.channel.id,
+      Interaction.guild.id,
+      workTime
+    );
   } catch (error) {
     console.error(error);
-    Interaction.reply({
+    logger.execute(
+      usedprefix,
+      commandName,
+      currentTime,
+      args,
+      error,
+      Interaction.channel.id,
+      Interaction.guild.id
+    );
+    await Interaction.reply({
       content: "there was an error trying to execute that command!",
     });
   }
