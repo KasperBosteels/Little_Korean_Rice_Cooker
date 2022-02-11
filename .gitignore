@@ -1,3 +1,9 @@
 .env
 package-lock.json
 node_modules/
+info/log.json
+jsonFiles/ignore.json
+jsonFiles/leveling_enabled.json
+jsonFiles/prefix.json
+jsonFiles/profanity_alert_channels.json
+jsonFiles/profanity_enabled.json
