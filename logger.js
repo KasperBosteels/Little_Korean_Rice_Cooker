@@ -1,4 +1,4 @@
-const { writeFile, fstat } = require("fs");
+const { writeFile } = require("fs");
 module.exports = {
   async execute(
     prefix,
@@ -11,21 +11,34 @@ module.exports = {
     completionTime
   ) {
     const time = new Date();
-    const timeLog = `<${time.getFullYear()}-${
-      time.getMonth() + 1
-    }-${time.getDate()}T${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}>`;
+    const timeLog = `${time.toString()}`;
     let errorMessage = "";
     if (error != undefined) errorMessage = error.message;
     const LOG = `${"-".repeat(
       60
-    )}\nTIME=${timeLog}\nCOMMAND= ${prefix}${commandName}\nARGUMENTS= ${args}\nID= [channel: ${channelID} guild: ${guildID}]\ntime-to-complete:${completionTime}ms\nerror: ${errorMessage}\n`;
+    )}\nTIME= ${timeLog}\nCOMMAND= ${prefix}${commandName}\nARGUMENTS= ${args}\nID= [channel: ${channelID} guild: ${guildID}]\ntime-to-complete:${completionTime}ms\nerror: ${errorMessage}\n`;
 
     try {
       await writeFile("./info/log.txt", LOG, { flag: "a" }, (error) => {
         if (error) throw console.error(error);
       });
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  async LEAVE_JOINLOG(error = undefined, guildID, event) {
+    let LOG;
+    if (error) {
+      LOG = `${"+".repeat(60)}\n${event}\nguild: ${guildID}\nerror: ${error}`;
+    } else {
+      LOG = `${"+".repeat(60)}\n${event}\nguild: ${guildID}`;
+    }
+    try {
+      await writeFile("./info/log.txt", LOG, { flag: "a" }, (error) => {
+        if (error) throw console.error(error);
+      });
+    } catch (error) {
+      console.error(error);
     }
   },
 };
