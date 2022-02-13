@@ -33,6 +33,9 @@ module.exports = {
     let buttons = [button1, button2];
     try {
       await GoogleClient.search(Q, options).then((images) => {
+        if (images.length == 0) {
+          images.push({ url: "https://i.imgur.com/rA2dVik.png" });
+        }
         for (let i = 0; i < images.length; i++) {
           list[i] = MakeEmbed(images[i].url, message.member, i, images.length);
         }
