@@ -55,6 +55,7 @@ module.exports = {
       cmoponentType: "SELECT_MENU",
     });
     collector.on("collect", async (collected) => {
+      if (collected.componentType != "SELECT_MENU") return;
       const value = collected.values[0];
       switch (value) {
         case "home":
