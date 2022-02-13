@@ -139,7 +139,6 @@ client.on("guildDelete", async (guild) => {
 //#region member leave
 //member leaves guild will trigger logchannel check and sad message
 client.on("guildMemberRemove", async (member) => {
-  console.log(`member left ${member.displayName} ${member.guild}`);
   if (!(await welcomeLeaveMessages.CONFIRM(member.guild.id))) return;
   var embed = new Discord.MessageEmbed()
     .setColor("#006400")
@@ -152,8 +151,10 @@ client.on("guildMemberRemove", async (member) => {
     .setDescription(`${member.displayName} left`);
   try {
     await sqlconnect.execute(con, member, 5, embed);
+    await logger.LEAVE_JOINLOG(undefined, member.guild, "USER LEFT SERVER");
   } catch (err) {
     console.log(err);
+    await logger.LEAVE_JOINLOG(err, member.guild, "USER LEFT SERVER");
   }
 });
 //#endregion
@@ -161,7 +162,6 @@ client.on("guildMemberRemove", async (member) => {
 //#region member join
 //member joins execute sql connection with parameters that correspondt with friendly message in logchannel
 client.on("guildMemberAdd", async (member) => {
-  console.log(`member joined ${member.displayName} ${member.guild}`);
   if (!(await welcomeLeaveMessages.CONFIRM(member.guild.id))) return;
   var embed = new Discord.MessageEmbed()
     .setColor("#006400")
@@ -175,8 +175,10 @@ client.on("guildMemberAdd", async (member) => {
 
   try {
     await sqlconnect.execute(con, member, 5, embed);
+    await logger.LEAVE_JOINLOG(undefined, member.guild, "USER JOINED SERVER");
   } catch (err) {
     console.log(err);
+    await logger.LEAVE_JOINLOG(err, member.guild, "USER JOINED SERVER");
   }
   socalCredit.ADDUSER(con, member.id);
 });
@@ -196,8 +198,10 @@ client.on("guildBanAdd", async (member) => {
     .setDescription(`${member.user.username} won't be missed.`);
   try {
     await sqlconnect.execute(con, member, 5, embed);
+    await logger.LEAVE_JOINLOG(undefined, member.guild, "USER BANNED");
   } catch (err) {
     console.log(err);
+    await logger.LEAVE_JOINLOG(err, member.guild, "USER BANNED");
   }
   socalCredit.SUBTRACT(con, 500, member.id);
 });
