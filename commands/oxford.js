@@ -38,19 +38,17 @@ module.exports = {
         });
       })
       .catch((err) => {
-        message.reply({
-          content: "I tried looking really hard but i didn't find that, sorry.",
-        });
-        console.error(err.message);
-        console.log(
-          derivative.length +
-            synonyms.length +
-            etymology.length +
-            definitions.length +
-            examples.length +
-            94 +
-            word.length
-        );
+        if (err == "No such entry found.") {
+          message.reply({
+            content:
+              "I tried looking really hard but i didn't find that, sorry.",
+          });
+        } else {
+          message.reply({
+            content: "Something went wrong internally, try another time.",
+          });
+        }
+        console.error(err);
       });
   },
 };

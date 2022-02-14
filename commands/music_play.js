@@ -33,6 +33,11 @@ module.exports = {
       });
     } catch (err) {
       console.log(err);
+      if (err.message == "NO_SONG_FOUND") {
+        return await message.reply({
+          content: "Sorry i wasn't able to find that song you wanted.",
+        });
+      }
       message.channel.send("A problem occured i am very sorry. ");
       message.channel.send("<:whot:908793757728636988>");
       return stop.execute(client, message, args, con);
