@@ -16,22 +16,33 @@ To run this project, you will need to add the following environment variables to
 your own private discord token:
 `DISCORD_TOKEN`
 
-to be able to use google search api's you need a key :
+To be able to use google search api's you need the following:
 `GOOGLE_API_KEY`
+You can create this when you make an api in the [google cloud platform](https://console.cloud.google.com/).
 
-you can freely get an oxford api key [here](https://developer.oxforddictionaries.com/):
+`CSE_ID`
+This one you need to create when you make a custom [google search engine](https://programmablesearchengine.google.com/)
+
+yYou can freely get an oxford api key [here](https://developer.oxforddictionaries.com/):
 `OXFORD_KEY`
 (it is limited to around 100 searches a day)
 
 
-for the bot to log warnings, customize prefixes, save the social credit of users,...
-you will need an sql server, ive tailored this bot to use a Mysql server connecten over a network.
+For the bot to log warnings, customize prefixes, save the social credit of users,...
+You will need an sql server, ive tailored this bot to use a Mysql server connecten over a network.
 
-`SQL_USERNAME`
+`HOST`
+The servers ip adress.
 
-`SQL_PASSWORD`
+`USERSQLSERVER`
+The username for the login into the server.
 
-`SQL_SERVER_IP`
+`PASSWORDSQLSERVER`
+The password for the sql server.
+
+`DATABASE`
+The database in the server that you are going to use.
+
 
 
 ## Deployment
@@ -45,10 +56,13 @@ To deploy this project run
 
 ## Installation
 
-Install my-project with npm
-
+Install my-project with npm,
+V13 is guaranteed to work with node 16.6.1
 ```bash
-  cd Little_Korean_Rice_Cooker
+git clone https://github.com/KasperBosteels/Little_Korean_Rice_Cooker.git
+cd Little_Korean_Rice_Cooker
+git checkout V13
+//or V12 if you want the old version(cannot guarantee that one still works).
   npm install
 ```
     
