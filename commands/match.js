@@ -76,7 +76,10 @@ module.exports = {
       chosen = getGif(value);
       var embed = new discord.MessageEmbed()
         .setColor("#fc0fc0")
-        .setFooter(message.member.displayName, message.author.displayAvatarURL)
+        .setFooter({
+          text: message.member.displayName,
+          iconURL: message.author.displaAvatarUrl,
+        })
         .setTimestamp()
         .setDescription(
           `**LOVE O' METER**\n
@@ -88,7 +91,10 @@ module.exports = {
       chosen = getGif(value);
       var embed = new discord.MessageEmbed()
         .setColor("#fc0fc0")
-        .setFooter(message.member.displayName, message.author.displayAvatarURL)
+        .setFooter({
+          text: message.member.displayName,
+          iconURL: message.author.displaAvatarUrl,
+        })
         .setTimestamp()
         .setDescription(
           `**LOVE O' METER**\n

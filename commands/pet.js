@@ -20,7 +20,10 @@ module.exports = {
 
       var embed = new discord.MessageEmbed()
         .setColor("#ff69b4")
-        .setFooter(message.member.displayName, message.author.displaAvatarUrl)
+        .setFooter({
+          text: message.member.displayName,
+          iconURL: message.author.displaAvatarUrl,
+        })
         .setTimestamp()
         .setDescription(
           `${message.client.user} **forcefully pets** ${message.author}`
@@ -44,14 +47,20 @@ module.exports = {
 
         var embed = new discord.MessageEmbed()
           .setColor("#ff69b4")
-          .setFooter(message.member.displayName, message.author.displaAvatarUrl)
+          .setFooter({
+            text: message.member.displayName,
+            iconURL: message.author.displaAvatarUrl,
+          })
           .setTimestamp()
           .setDescription(`${message.author} **pets** ${manualinput}`)
           .setImage(pats_gif);
       } else {
         var embed = new discord.MessageEmbed()
           .setColor("#ff69b4")
-          .setFooter(message.member.displayName, message.author.displaAvatarUrl)
+          .setFooter({
+            text: message.member.displayName,
+            iconURL: message.author.displaAvatarUrl,
+          })
           .setTimestamp()
           .setDescription(
             `${message.author} **pets** ${message.mentions.members.first()}`

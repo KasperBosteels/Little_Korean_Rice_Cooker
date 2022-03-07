@@ -29,7 +29,7 @@ module.exports = {
         interaction: message,
         channel: Vchannel,
         song: song,
-        requester: message.user,
+        requester: message.author,
       });
     } catch (err) {
       console.log(err);

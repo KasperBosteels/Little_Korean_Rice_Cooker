@@ -13,7 +13,10 @@ module.exports = {
   perms: ["SEND_MESSAGES"],
   userperms: [],
   async execute(client, message, args, con) {
-    if (!args[0]) return;
+    if (!args[0])
+      return message.reply({
+        content: "You need to give me a word to look up.",
+      });
     let word = "";
     if (!args[1]) {
       word = args[0];
@@ -43,6 +46,8 @@ module.exports = {
             content:
               "I tried looking really hard but i didn't find that, sorry.",
           });
+        } else if (err.code == "ERR_UNESCAPED_CHARACTERS") {
+          message.reply({ content: "No spaces please." });
         } else {
           message.reply({
             content: "Something went wrong internally, try another time.",

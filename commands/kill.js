@@ -49,7 +49,11 @@ async function makeEmbed(message, args) {
   let embed = new discord.MessageEmbed()
     .setColor("#00ff00")
     .setDescription(`${message.author} ${placeholder1} ${placeholder2}`)
-    .setAuthor("Little_Korean_Rice_Cooker", "https://i.imgur.com/A2SSxSE.png")
+    .setAuthor({
+      name: "Little_Korean_Rice_Cooker",
+      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
+      iconURL: "https://i.imgur.com/A2SSxSE.png",
+    })
     .setImage(link[coin]);
   console.log("responded with " + link[coin]);
   return embed;
