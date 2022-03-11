@@ -54,7 +54,11 @@ function permissioncheck(message) {
 function makeEmbed(user, message, reason) {
   const embed = new Discord.MessageEmbed()
     .setColor("#ff0000")
-    .setFooter(message.author.username)
+    .setAuthor({
+      name: "Little_Korean_Rice_Cooker",
+      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
+      iconURL: "https://i.imgur.com/A2SSxSE.png",
+    })
     .setFooter(user.tag, message.author.displayAvatarURL)
     .setTimestamp().setDescription(`**BANNED:** ${user.tag}\n
                     Banned by: ${message.author}\n
