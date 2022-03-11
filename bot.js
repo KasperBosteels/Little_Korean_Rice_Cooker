@@ -100,7 +100,6 @@ const con = mysql.createConnection({
 client.once("ready", () => {
   try {
     //enable discord buttons
-
     start.execute(client, con);
     getprefix.execute(con);
     profanity_alert_data_collector.execute(con);
@@ -111,10 +110,7 @@ client.once("ready", () => {
   } catch (err) {
     console.log(err);
   }
-
-  //#region slash command
   slashCommandsUpload.execute(slashCommandsArray, process.env.DISCORD_TOKEN);
-  //#endregion
 });
 //#endregion
 
