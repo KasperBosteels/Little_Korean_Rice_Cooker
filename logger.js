@@ -3,7 +3,6 @@ module.exports = {
   async execute(
     prefix,
     commandName,
-
     args,
     error = undefined,
     channelID,
