@@ -431,7 +431,7 @@ events.on("paused_song", async (channel, songdata, requester) => {
   });
 });
 events.on("finish", async (channel) => {
-  channel.send({ content: `I am now playing: silence` });
+  channel.send({ content: `The last song has finished.` });
 });
 
 //#endregion
