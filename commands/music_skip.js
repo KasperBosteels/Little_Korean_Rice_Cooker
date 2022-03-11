@@ -19,7 +19,12 @@ module.exports = {
     } else {
       try {
         const list = await music.getQueue({ interaction: message });
-        if (
+        if (!args[0]) {
+          const skipMessage = `${
+            list[Number.parseInt("0")].info.title
+          } was skipped.`;
+          await music.skip({ interaction: message });
+        } else if (
           !Number.isInteger(Number.parseInt(args[0])) ||
           args[0] < 0 ||
           args[0] > list.length
