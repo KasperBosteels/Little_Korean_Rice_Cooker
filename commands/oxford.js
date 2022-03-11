@@ -124,7 +124,15 @@ function synonymGET(object) {
 }
 function makeEmbed(author, word, object, Discord) {
   let embed = new Discord.MessageEmbed();
-  embed.setAuthor(author);
+  embed
+    .setAuthor({
+      name: "Little_Korean_Rice_Cooker",
+      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
+      iconURL: "https://i.imgur.com/A2SSxSE.png",
+    })
+    .setFooter({
+      text: author,
+    });
   embed.setTitle(word);
   if (!object) {
     embed.setDescription("nothing found sorry");
