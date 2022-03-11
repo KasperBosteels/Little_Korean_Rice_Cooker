@@ -1,85 +1,136 @@
 # BE AWARE THIS PROJECT IS IN PRODUCTION!!!!
+<br/>
+<p align="center">
+  <a href="https://github.com/KasperBosteels/Little_Korean_Rice_Cooker">
+    <img src="https://imgur.com/A2SSxSE.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">Little_Korean_Rice_Cooker</h3>
+
+  <p align="center">
+    An overly convoluted discord bot,
+with a ton of features.
+    <br/>
+    <br/>
+    <a href="https://github.com/KasperBosteels/Little_Korean_Rice_Cooker/issues">Report Bug</a>
+    .
+    <a href="https://github.com/KasperBosteels/Little_Korean_Rice_Cooker/issues">Request Feature</a>
+  </p>
+</p>
+
+![Contributors](https://img.shields.io/github/contributors/KasperBosteels/Little_Korean_Rice_Cooker?color=dark-green) ![Issues](https://img.shields.io/github/issues/KasperBosteels/Little_Korean_Rice_Cooker) ![License](https://img.shields.io/github/license/KasperBosteels/Little_Korean_Rice_Cooker) 
+
+## Table Of Contents
+
+* [About the Project](#about-the-project)
+* [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Usage](#usage)
+* [License](#license)
+* [Authors](#authors)
+* [Acknowledgements](#acknowledgements)
+
+## About The Project
+
+If you are a frequent visitor of the discord chat servers, you might already know that there are a ton of bots for a million different tasks.
+
+altho this project was started as just an educational project for my programming skills, it has grown a special place in my heart, and i've been developing it on and off for more than 2 years now.
 
 
-![Logo](https://imgur.com/A2SSxSE.png)
+Why would you get this bot for your server?
+Here's why:
+
+* This bot has very easily accessable configuration.
+* This bot likes to have fun just like you.
+* There are a ton of fun commands you can try out.
+* Progression!!
+* Slash commands are soon to be supported.
+
+I hope you consider running or inviting my bot, i am always open for questions or feature suggestions.
+
+## Built With
+
+* discord.js
+* discord.js/voice
+* oxford api
+* urban dictionary api
+* programmable google search engine
+* mysql
+* yt-core
 
 
-# Little Korean Rice Cooker
+## Getting Started
 
-this is the comprehensive and as clear as possible readme for the discord bot "Little_Korean_Rice_Cooker".
-due to me being the only developer i can only fix bugs or add changes to it, ever so often so don't be  afraid to experiment with the code, while i am indisposed.
-tip: the default prefix is "-" (without the quotation marks).
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
 
+### Prerequisites
 
-## Environment Variables
+This is an example of how to list things you need to use the software and how to install them.
 
-To run this project, you will need to add the following environment variables to your .env file
+* npm
 
-your own private discord token:
-
-name:`DISCORD_TOKEN`
-
-To be able to use google search api's you need the following:
-You can create this when you make an api in the [google cloud platform](https://console.cloud.google.com/).
-
-name:`GOOGLE_API_KEY`
-
-This one you need to create when you make a custom [google search engine](https://programmablesearchengine.google.com/)
-
-name:`CSE_ID`
-
-You can freely get an oxford api key [here](https://developer.oxforddictionaries.com/):
-(is limited to around 100 searches a day)
-
-name:`OXFORD_KEY`
-
-
-For the bot to log warnings, customize prefixes, save the social credit of users,...
-You will need an sql server, ive tailored this bot to use a Mysql server connecten over a network.
-
-name:`HOST`
-(The servers ip adress)
-
-name:`USERSQLSERVER`
-(The username for the login into the server)
-
-name:`PASSWORDSQLSERVER`
-(The password for the sql server)
-
-name:`DATABASE`
-(The database in the server that you are going to use)
-
-
-
-## STARTING
-
-If you installed all the required packages all you need to do it 
-```bash
-  cd Little_Korean_Rice_Cooker
-  npm start
+```sh
+npm install npm@latest -g
 ```
 
+*node
+you need to download node version 16.6.1
 
-## Installation
+### Installation
 
-Install my-project with npm,
-V13 is guaranteed to work with node 16.6.1
-```bash
+1. Clone the repo
+
+```sh
 git clone https://github.com/KasperBosteels/Little_Korean_Rice_Cooker.git
-cd Little_Korean_Rice_Cooker
-git checkout V13
-//or V12 if you want the old version(cannot guarantee that one still works).
-  npm install
 ```
-    
-## Author
 
-- [Kasper](https://github.com/KasperBosteels)
+3. Install NPM packages(may take a while).
+
+```sh
+npm install
+```
+
+4. Create a .env file with the following enviroment variables
 
 
-## Support
+DISCORD_TOKEN=`ENTER YOUR DISCORD TOKEN`
+PASSWORDSQLSERVER=`YOUR SQL SERVER PASSWORD`
+USERSQLSERVFER=`SQL USERNAME`
+DATABASE=`THE DATABASE IN YOUR SQL SERVER`
+HOST=`SQL SERVER IP ADDRESS`
+OXFORD_ID=`ID FROM THE OXFORD API`
+OXFORD_KEY=`API KEY FOR THE OXFORD API`
+OXFORD_LANG=`THE PREFFERED LANGUAGE`
+OXFORD_URL=`ttps://od-api.oxforddictionaries.com/api/v2`
+CSE_ID=`ID FOR THE PROGRAMMABLE GOOGLE SEARCH ENGINE`
+GOOGLE_API_KEY=`API KEY FOR THE GOOGLE SEARCH ENGINE`
 
-For support, 
-email: Little_Korean_rice_Cooker@outlook.com,
+where to get the key's and id's?
+* The discord token can be created in [the discord developers platform](https://discord.com/login?redirect_to=%2Fdevelopers%2Fapplications)
 
-or join the support server on [discord](https://discord.gg/aKZ5a4Vyau).
+* The sql keys you will need to create on your own after installing mysql on a device
+
+* The oxford keys can be attained from the [oxford dictionaries api website](https://developer.oxforddictionaries.com/) you will need to create an account there and follow the simple instructions there.
+
+* For the programmable search engine (the CSE_ID) you will need to create one in [googles programmable search engine](https://programmablesearchengine.google.com/) dashboard
+* For the google-api key you will need to create a new project in the [google cloud platform](https://console.cloud.google.com/home)
+and get the google_api key from there.
+
+## Usage
+
+Once you have installed all the packages, and put all the keys/id's in the .env file you can just type 'npm start' in the project to start the bot.
+
+### Creating A Pull Request
+
+
+
+## License
+
+Distributed under the MIT License. See [LICENSE](https://github.com/KasperBosteels/Little_Korean_Rice_Cooker/blob/main/LICENSE.md) for more information.
+
+## Authors
+
+* **Kasper** - *Programming Student* - [Kasper](https://github.com/KasperBosteels) - *pretty much everything*
