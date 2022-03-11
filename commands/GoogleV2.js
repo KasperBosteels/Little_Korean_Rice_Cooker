@@ -50,11 +50,12 @@ module.exports = {
 function MakeEmbed(url, member, i, l) {
   let embed = new MessageEmbed()
     .setImage(url)
-    .setAuthor(
-      member.displayName,
-      member.user.displayAvatarURL({ dynamic: true, size: 4096 })
-    )
-    .setColor("#00ff00")
-    .setFooter(`page: ${i + 1}/${l}    Enhanced by Google`);
+    .setAuthor({
+      name: "Little_Korean_Rice_Cooker",
+      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
+      iconURL: "https://i.imgur.com/A2SSxSE.png",
+    })
+    .setColor("RANDOM")
+    .setFooter({ text: `page: ${i + 1}/${l}    Enhanced by Google` });
   return embed;
 }
