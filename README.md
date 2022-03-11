@@ -1,6 +1,2 @@
-# discort-bot
-
-
-
-
-#V12 is no longer supported
+# Little_Korean_Rice_Cooker
+# THIS VERSION IS NO LONGER SUPPORTED AND HAS BEEN DISCONTINUED!
