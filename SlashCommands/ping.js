@@ -28,6 +28,11 @@ function makeEmbed(heartbeat, uptime) {
   let embed = new discord.MessageEmbed()
     .setTitle("**PING**")
     .addField("*ping:*", `\`\`\` ${heartbeat} ms \`\`\``)
-    .addField("*uptime:*", `\`\`\` ${uptime} \`\`\``);
+    .addField("*uptime:*", `\`\`\` ${uptime} \`\`\``)
+    .setAuthor({
+      name: "Little_Korean_Rice_Cooker",
+      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
+      iconURL: "https://i.imgur.com/A2SSxSE.png",
+    });
   return embed;
 }
