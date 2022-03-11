@@ -31,6 +31,11 @@ function makeEmbed(foto, title, url) {
     .setTitle(title)
     .setURL(url)
     .setImage(foto)
+    .setAuthor({
+      name: "Little_Korean_Rice_Cooker",
+      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
+      iconURL: "https://i.imgur.com/A2SSxSE.png",
+    })
     .setColor("RANDOM");
   return embed;
 }
