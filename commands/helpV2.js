@@ -259,15 +259,19 @@ function MakeEmbed(content, prefix, i) {
       `\`\`\`${prefix}${item.name}\n${item.description}\n${prefix}${item.name} ${item.usage}\`\`\``
     );
   });
-  embed.setFooter(
-    `You can find more info about a command by using: ${prefix}help <command name>\npage: ${i}/6`
-  );
+  embed.setFooter({
+    text: `You can find more info about a command by using: ${prefix}help <command name>\npage: ${i}/6`,
+  });
   return embed;
 }
 function firstPage(prefix) {
   let embed = new MessageEmbed()
     .setTitle("Little Korean Rice Cooker guide")
-    .setAuthor("Little_Korean_Rice_Cooker", "https://i.imgur.com/A2SSxSE.png")
+    .setAuthor({
+      name: "Little_Korean_Rice_Cooker",
+      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
+      iconURL: "https://i.imgur.com/A2SSxSE.png",
+    })
     .setColor("#00ff00");
   embed.addField(
     ":bookmark: index",
