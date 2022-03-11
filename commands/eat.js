@@ -19,7 +19,15 @@ module.exports = {
 
       var embed = new discord.MessageEmbed()
         .setColor("#ff69b4")
-        .setFooter(message.member.displayName, message.author.displaAvatarUrl)
+        .setAuthor({
+          name: "Little_Korean_Rice_Cooker",
+          url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
+          iconURL: "https://i.imgur.com/A2SSxSE.png",
+        })
+        .setFooter({
+          text: message.member.displayName,
+          iconURL: message.author.displaAvatarUrl,
+        })
         .setTimestamp()
         .setDescription(
           `${message.client.user} **takes a bite out of** ${message.author}`
@@ -42,14 +50,30 @@ module.exports = {
 
         var embed = new discord.MessageEmbed()
           .setColor("#ff69b4")
-          .setFooter(message.member.displayName, message.author.displaAvatarUrl)
+          .setAuthor({
+            name: "Little_Korean_Rice_Cooker",
+            url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
+            iconURL: "https://i.imgur.com/A2SSxSE.png",
+          })
+          .setFooter({
+            text: message.member.displayName,
+            iconURL: message.author.displaAvatarUrl,
+          })
           .setTimestamp()
           .setDescription(`${message.author} **eats** ${manualinput}`)
           .setImage(eating_gif);
       } else {
         var embed = new discord.MessageEmbed()
           .setColor("#ff69b4")
-          .setFooter(message.member.displayName, message.author.displaAvatarUrl)
+          .setAuthor({
+            name: "Little_Korean_Rice_Cooker",
+            url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
+            iconURL: "https://i.imgur.com/A2SSxSE.png",
+          })
+          .setFooter({
+            text: message.member.displayName,
+            iconURL: message.author.displaAvatarUrl,
+          })
           .setTimestamp()
           .setDescription(
             `${message.author} **eats** ${message.mentions.members.first()}`
