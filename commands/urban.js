@@ -53,7 +53,15 @@ function makeEmbed(word, def, example, discord) {
   embed.setTitle(`definition for: ${word}`);
   embed.setDescription(def);
   embed.addField("example", example);
-  embed.setAuthor("Urban Dictionary");
+  embed
+    .setAuthor("Urban Dictionary")
+    .setAuthor({
+      name: "Urban Dictionary",
+    })
+    .setFooter({
+      text: message.member.displayName,
+      iconURL: message.author.displaAvatarUrl,
+    });
   return embed;
 }
 function sendembed(embed, channel) {

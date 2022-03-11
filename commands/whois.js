@@ -86,7 +86,15 @@ function rolesMap(member, guildID) {
 function makeEmbed(user, member, message, score) {
   const embed = new Discord.MessageEmbed()
     .setColor("#00ff00")
-    .setFooter(message.author.username)
+    .setAuthor({
+      name: "Little_Korean_Rice_Cooker",
+      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
+      iconURL: "https://i.imgur.com/A2SSxSE.png",
+    })
+    .setFooter({
+      text: message.member.displayName,
+      iconURL: message.author.displaAvatarUrl,
+    })
     .setTimestamp();
   embed.addField(
     "user",
