@@ -27,7 +27,7 @@ module.exports = {
         } else if (
           !Number.isInteger(Number.parseInt(args[0])) ||
           args[0] < 0 ||
-          args[0] > list.length
+          args[0 + 1] > list.length
         )
           return await message.reply({
             content:
@@ -38,7 +38,7 @@ module.exports = {
         } was skipped.`;
         await music.removeQueue({
           interaction: message,
-          number: Number.parseInt(Number.parseInt(args[0])),
+          number: Number.parseInt(Number.parseInt(args[0 + 1])),
         });
         return await message.reply({
           content: skipMessage,
