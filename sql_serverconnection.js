@@ -10,9 +10,6 @@ module.exports = {
       case 3:
         endconnect(con);
         break;
-      case 4:
-        sqlconnect(con);
-        break;
       case 5:
         embedlog(con, member, embed, message);
         break;
@@ -22,11 +19,6 @@ module.exports = {
     }
   },
 };
-function sqlconnect(con) {
-  con.connect((err) => {
-    if (err) return console.log(err);
-  });
-}
 
 function embedlog(con, member, embed, message) {
   //#region looks for bot-log channel
