@@ -78,7 +78,7 @@ module.exports = {
         .setColor("#fc0fc0")
         .setFooter({
           text: message.member.displayName,
-          iconURL: message.author.displaAvatarUrl,
+          iconURL: message.author.displayAvatarUrl,
         })
         .setTimestamp()
         .setDescription(

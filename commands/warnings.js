@@ -39,7 +39,7 @@ module.exports = {
           })
           .setFooter({
             text: message.member.displayName,
-            iconURL: message.author.displaAvatarUrl,
+            iconURL: message.author.displayAvatarUrl,
           })
           .setTimestamp().setDescription(`**warnings for:** ${warnuser}\n
     ${warningsString}`);

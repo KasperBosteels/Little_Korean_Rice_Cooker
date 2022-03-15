@@ -21,7 +21,7 @@ function reconnect() {
     if (check(recon)) {
       return true;
     } else {
-      setTimeout(() => {}, ms("60s"));
+      setTimeout(() => {}, ms("3000"));
       if (check(recon)) {
         return true;
       } else {

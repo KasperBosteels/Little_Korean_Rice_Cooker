@@ -251,7 +251,11 @@ module.exports = {
 };
 function MakeEmbed(content, prefix, i) {
   let embed = new MessageEmbed()
-    .setAuthor("Little_Korean_Rice_Cooker", "https://i.imgur.com/A2SSxSE.png")
+    .setAuthor({
+      name: "Little_Korean_Rice_Cooker",
+      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
+      iconURL: "https://i.imgur.com/A2SSxSE.png",
+    })
     .setColor("#00ff00");
   content.forEach((item) => {
     embed.addField(
@@ -315,6 +319,6 @@ function firstPage(prefix) {
     ":question: support",
     `If you need Furter help you can join [the support server](https://discord.gg/7dWt3xA6Ck). `
   );
-  embed.setFooter("page: 1/6");
+  embed.setFooter({ text: "page: 1/6" });
   return embed;
 }

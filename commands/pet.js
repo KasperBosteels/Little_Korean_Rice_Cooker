@@ -22,7 +22,7 @@ module.exports = {
         .setColor("#ff69b4")
         .setFooter({
           text: message.member.displayName,
-          iconURL: message.author.displaAvatarUrl,
+          iconURL: message.author.displayAvatarUrl,
         })
         .setTimestamp()
         .setDescription(
@@ -49,7 +49,7 @@ module.exports = {
           .setColor("#ff69b4")
           .setFooter({
             text: message.member.displayName,
-            iconURL: message.author.displaAvatarUrl,
+            iconURL: message.author.displayAvatarUrl,
           })
           .setTimestamp()
           .setDescription(`${message.author} **pets** ${manualinput}`)
@@ -59,7 +59,7 @@ module.exports = {
           .setColor("#ff69b4")
           .setFooter({
             text: message.member.displayName,
-            iconURL: message.author.displaAvatarUrl,
+            iconURL: message.author.displayAvatarUrl,
           })
           .setTimestamp()
           .setDescription(

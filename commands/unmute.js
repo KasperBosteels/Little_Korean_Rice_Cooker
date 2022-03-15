@@ -59,7 +59,7 @@ function makeEmbed(message, mute, timeAndReason) {
     })
     .setFooter({
       text: message.member.displayName,
-      iconURL: message.author.displaAvatarUrl,
+      iconURL: message.author.displayAvatarUrl,
     })
     .setTimestamp()
     .setDescription(

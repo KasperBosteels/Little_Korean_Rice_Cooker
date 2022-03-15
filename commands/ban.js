@@ -59,7 +59,7 @@ function makeEmbed(user, message, reason) {
       url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
       iconURL: "https://i.imgur.com/A2SSxSE.png",
     })
-    .setFooter(user.tag, message.author.displayAvatarURL)
+    .setFooter({ text: user.tag, iconURL: message.author.displayAvatarURL })
     .setTimestamp().setDescription(`**BANNED:** ${user.tag}\n
                     Banned by: ${message.author}\n
                     **Reason:** ${reason}`);

@@ -22,7 +22,7 @@ module.exports = {
       })
       .setFooter({
         text: message.member.displayName,
-        iconURL: message.author.displaAvatarUrl,
+        iconURL: message.author.displayAvatarUrl,
       });
     for (let i = 0; i < list.length; i++) {
       embed.addField(

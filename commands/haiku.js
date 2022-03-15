@@ -46,7 +46,7 @@ function embedmaker(haiku, message) {
     })
     .setFooter({
       text: message.member.displayName,
-      iconURL: message.author.displaAvatarUrl,
+      iconURL: message.author.displayAvatarUrl,
     })
     .setTitle("a haiku for you")
     .setDescription(haiku);

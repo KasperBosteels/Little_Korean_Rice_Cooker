@@ -93,7 +93,7 @@ function makeEmbed(user, member, message, score) {
     })
     .setFooter({
       text: message.member.displayName,
-      iconURL: message.author.displaAvatarUrl,
+      iconURL: message.author.displayAvatarUrl,
     })
     .setTimestamp();
   embed.addField(

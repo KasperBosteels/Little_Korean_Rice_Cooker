@@ -1,7 +1,6 @@
 const discord = require("discord.js");
 const { Permissions } = require("discord.js");
 const sqlcon = require("../sql_serverconnection.js");
-const mute = require("../mutetimer.js");
 module.exports = {
   name: "warn",
   description: "Warn a user.",
@@ -42,7 +41,7 @@ module.exports = {
           })
           .setFooter({
             text: message.member.displayName,
-            iconURL: message.author.displaAvatarUrl,
+            iconURL: message.author.displayAvatarUrl,
           })
           .setTimestamp()
           .setDescription(
@@ -61,22 +60,6 @@ module.exports = {
         } finally {
           message.channel.send({ embeds: [embed] });
         }
-        // mute user if true +3 warns
-        if (amount > 3) {
-          //looks for mute role if not existing return console log
-          var role = message.guild.roles.cache.find(
-            (role) => role.name === "Muted"
-          );
-          if (!role)
-            return message.channel.send({
-              content:
-                "No mute role, pls make a role named <Muted>(case sensitive!).",
-            });
-
-          //makes mute time variable and checks for null if not console log
-          mute.execute(amount + "m", warnuser, role, message);
-        }
-        //#endregion
       }
     );
   },
@@ -99,9 +82,9 @@ module.exports = {
             `\`\`\`automatic warning\`\`\`\n\`\`\`${memberName} has been automatically warned for profanity\`\`\``
           )
           .addField(`warnings: `, `${amount}`, true)
-          .setFooter(
-            "Due to poor social credit(less than 500) this user was warned."
-          );
+          .setFooter({
+            text: "Due to poor social credit(less than 500) this user was warned.",
+          });
         //#endregion
 
         //send embed message to logchannel and channel where the command was given

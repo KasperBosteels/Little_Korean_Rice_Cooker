@@ -54,13 +54,12 @@ function makeEmbed(word, def, example, discord) {
   embed.setDescription(def);
   embed.addField("example", example);
   embed
-    .setAuthor("Urban Dictionary")
     .setAuthor({
       name: "Urban Dictionary",
     })
     .setFooter({
-      text: message.member.displayName,
-      iconURL: message.author.displaAvatarUrl,
+      text: "Little_Korean_Rice_Cooker",
+      iconURL: "https://i.imgur.com/A2SSxSE.png",
     });
   return embed;
 }

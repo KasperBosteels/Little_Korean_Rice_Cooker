@@ -53,7 +53,7 @@ function createEmbed(message, tickleDatabase, args) {
     })
     .setFooter({
       text: message.member.displayName,
-      iconURL: message.author.displaAvatarUrl,
+      iconURL: message.author.displayAvatarUrl,
     })
     .setImage(tickleDatabase[coin]);
   console.log("responded with " + tickleDatabase[coin]);
