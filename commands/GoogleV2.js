@@ -56,6 +56,9 @@ function MakeEmbed(url, member, i, l) {
       iconURL: "https://i.imgur.com/A2SSxSE.png",
     })
     .setColor("RANDOM")
-    .setFooter({ text: `page: ${i + 1}/${l}    Enhanced by Google` });
+    .setFooter({
+      text: `page: ${i + 1}/${l}    Enhanced by Google`,
+      iconURL: "",
+    });
   return embed;
 }
