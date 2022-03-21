@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 const { Permissions } = require("discord.js");
-const sqlcon = require("../sql_serverconnection.js");
+const loggging = require("../sendToLogChannel");
 module.exports = {
   name: "unwarn",
   description: "Resets a users warnings(within server).",
@@ -37,7 +37,7 @@ module.exports = {
         //#endregion
         try {
           let embed = makeEmbed(message, unwarnuser, amount);
-          sqlcon.execute(con, unwarnuser, 6, embed, message);
+          loggging.logWithNoMember(embed, message);
           return message.channel.send({ embeds: [embed] });
         } catch (err) {
           return console.log(err);

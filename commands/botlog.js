@@ -1,4 +1,5 @@
 const { Permissions } = require("discord.js");
+const logchannels = require("../getLogChannels.js");
 module.exports = {
   name: "bot-log",
   description:
@@ -71,6 +72,7 @@ module.exports = {
               }
             );
           }
+          logchannels.execute(con);
           return message.channel.send({
             content: "i will send my logs here now",
           });

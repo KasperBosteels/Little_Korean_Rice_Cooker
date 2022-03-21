@@ -1,6 +1,6 @@
-const sqlconnect = require("./sql_serverconnection.js");
 const leveling_enabled = require("./leveling_enabled");
 const score = require("./socalCredit");
+const logchannel = require("./sendToLogChannel");
 module.exports = {
   async execute(message, con, args, Discord) {
     //if leveling is disabled then stop this command and return
@@ -60,7 +60,7 @@ module.exports = {
                   );
                 //#endregion
                 try {
-                  sqlconnect.execute(con, mem, 6, embed, message);
+                  logchannel.logWithNoMember(embed, message);
                   con.query(
                     `UPDATE levels SET level = ${LEV}, exp = 0 WHERE userID = "${userID}"`,
                     (err) => {

@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const { Permissions } = require("discord.js");
-const sendembed = require("../sql_serverconnection.js");
+const logging = require("../sendToLogChannel");
 module.exports = {
   name: "unmute",
   description: "Unmute a tagged user.",
@@ -35,13 +35,7 @@ module.exports = {
       console.log(error);
       await muteperson.timeout(0);
     } finally {
-      sendembed.execute(
-        con,
-        message.member,
-        6,
-        makeEmbed(message, muteperson),
-        message
-      );
+      logging.logWithNoMember(embed, message);
       message.channel.send({
         embeds: [makeEmbed(message, muteperson)],
       });

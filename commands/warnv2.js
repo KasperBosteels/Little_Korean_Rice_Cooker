@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 const { Permissions } = require("discord.js");
-const sqlcon = require("../sql_serverconnection.js");
+const logging = require("../sendToLogChannel");
 module.exports = {
   name: "warn",
   description: "Warn a user.",
@@ -54,7 +54,7 @@ module.exports = {
 
         //send embed message to logchannel and channel where the command was given
         try {
-          sqlcon.execute(con, warnuser, 6, embed, message);
+          logging.logWithNoMember(embed, message);
         } catch (err) {
           return console.log(err);
         } finally {
@@ -89,7 +89,7 @@ module.exports = {
 
         //send embed message to logchannel and channel where the command was given
         try {
-          sqlcon.execute(con, warnuser, 6, embed, message);
+          logging.logWithNoMember(embed, message);
         } catch (err) {
           return console.log(err);
         } finally {

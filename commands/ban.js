@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const { Permissions } = require("discord.js");
-const sqlcon = require("../sql_serverconnection.js");
 module.exports = {
   name: "ban",
   description: "Ban user.",

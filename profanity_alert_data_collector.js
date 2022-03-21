@@ -6,6 +6,7 @@ module.exports = {
       if (err) console.error(err);
       data = JSON.stringify(rows);
       this.SAVE(data);
+      console.log("profanity alert channel data saved");
     });
   },
   SAVE(data) {

@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 const { Permissions } = require("discord.js");
-const sqlconnect = require("../sql_serverconnection.js");
+const logging = require("../sendToLogChannel");
 module.exports = {
   name: "purge",
   description: "Delete multiple messages.",
@@ -35,13 +35,7 @@ module.exports = {
     amount++;
     //delete messages
     await message.channel.bulkDelete(amount, true);
-    await sqlconnect.execute(
-      con,
-      message,
-      6,
-      createbed(amount, discord, message),
-      message
-    );
+    logging.logWithNoMember(createbed(amount, discord, message), message);
   },
 };
 function createbed(amount, discord, message) {

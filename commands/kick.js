@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const { Permissions } = require("discord.js");
-const sendembed = require("../sql_serverconnection.js").execute;
+const logging = require("../sendToLogChannel.js");
 module.exports = {
   name: "kick",
   description: "Kick a user.",
@@ -50,7 +50,7 @@ module.exports = {
       });
     var reason = "No reason given.";
     if (args[1]) reason = args[1];
-    sendembed(con, member, 5, MakeEmbed(member, reason), message);
+    logging.embedWithLog(member, MakeEmbed(member, reason), message);
   },
 };
 function MakeEmbed(reason, member) {

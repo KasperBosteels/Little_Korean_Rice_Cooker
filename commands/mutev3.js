@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const { Permissions } = require("discord.js");
-const sendembed = require("../sql_serverconnection.js");
+const logging = require("../sendToLogChannel");
 module.exports = {
   name: "mute",
   description: "Put a user in time-out for a while.",
@@ -47,10 +47,7 @@ module.exports = {
       console.log(error);
       await muteperson.timeout(500 * 60 * 1000, muteReason);
     } finally {
-      sendembed.execute(
-        con,
-        message.member,
-        6,
+      logging.logWithNoMember(
         makeEmbed(
           message,
           muteperson,

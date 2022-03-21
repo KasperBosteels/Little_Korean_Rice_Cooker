@@ -6,7 +6,7 @@
   "author": "Kasper",
   "license": "ISC",
   "scripts": {
-    "start": "nodemon --ignore prefix.json --ignore verjaardagen.json --ignore disboard.json --ignore profanity_alert_channels.json --ignore profanity_enabled.json --ignore leveling_enabled.json --ignore welcome_leave_messages.json --ignore ignore.json",
+    "start": "nodemon --ignore prefix.json --ignore verjaardagen.json --ignore disboard.json --ignore profanity_alert_channels.json --ignore profanity_enabled.json --ignore leveling_enabled.json --ignore welcome_leave_messages.json --ignore ignore.json --ignore logChannels.json",
     "test": "nodemon testStartup.js"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "@discordx/pagination": "^1.2.0",
     "@koenie06/discord.js-music": "^1.2.4",
     "canvacord": "^5.2.3",
+    "canvas": "^2.9.1",
     "cron": "^1.8.2",
     "discord-api-types": "^0.27.0",
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
@@ -38,6 +39,7 @@
     "oxford-dictionary": "^1.6.0",
     "reconlx": "^2.5.2",
     "smartestchatbot": "^2.0.1",
+    "translate": "^1.4.1",
     "urban-dictionary": "^3.0.2",
     "wikipedia": "^1.1.6",
     "yt-search": "^2.10.3",

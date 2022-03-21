@@ -2,7 +2,6 @@
 require("dotenv").config();
 const logger = require("./logger.js");
 const start = require("./startup.js");
-const sqlconnect = require("./sql_serverconnection.js");
 const mysql = require("mysql");
 const fs = require("fs");
 const Discord = require("discord.js");
@@ -36,6 +35,8 @@ const chatBot = require("smartestchatbot");
 const chatClient = new chatBot.Client();
 const slashCommandsUpload = require("./uploadSlashCommand");
 const { Interaction } = require("discord.js");
+const logchannels = require("./getLogChannels");
+const serverLog = require("./sendToLogChannel");
 //#endregion
 
 //#region init bot as client
@@ -107,6 +108,7 @@ client.once("ready", () => {
     leveling_enabled.execute(con);
     welcomeLeaveMessages.execute(con);
     ignoreusers.execute(con);
+    logchannels.execute(con);
   } catch (err) {
     console.log(err);
   }
@@ -146,7 +148,7 @@ client.on("guildMemberRemove", async (member) => {
     )
     .setDescription(`${member.displayName} left`);
   try {
-    await sqlconnect.execute(con, member, 5, embed);
+    await serverLog.embedWithLog(member, embed, false);
     await logger.LEAVE_JOINLOG(undefined, member.guild, "USER LEFT SERVER");
   } catch (err) {
     console.log(err);
@@ -170,7 +172,7 @@ client.on("guildMemberAdd", async (member) => {
     .setDescription(`welcome, ${member.displayName}`);
 
   try {
-    await sqlconnect.execute(con, member, 5, embed);
+    await serverLog.embedWithLog(member, embed, false);
     await logger.LEAVE_JOINLOG(undefined, member.guild, "USER JOINED SERVER");
   } catch (err) {
     console.log(err);
@@ -193,7 +195,7 @@ client.on("guildBanAdd", async (member) => {
     )
     .setDescription(`${member.user.username} won't be missed.`);
   try {
-    await sqlconnect.execute(con, member, 5, embed);
+    await serverLog.embedWithLog(member, embed, false);
     await logger.LEAVE_JOINLOG(undefined, member.guild, "USER BANNED");
   } catch (err) {
     console.log(err);
@@ -353,7 +355,7 @@ client.on("interactionCreate", async (interaction) => {
 
 //#endregion
 
-//#region   MUSIC EVENT TRIGGERS
+//#region    MUSIC EVENT TRIGGERS
 
 function QuickEmbed(title, songinfo = null, playlist = null, requester) {
   let embed = new Discord.MessageEmbed();
