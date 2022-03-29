@@ -27,10 +27,8 @@ async function proffilter(message, client, con) {
   //split content of message and get list of swear words
   let messageArray = message.content.split();
   let swear = getswearwords();
-  let sentecUser = "";
   let amountswear = 0;
   let userID = message.author.id;
-  let channel = message.channel;
   //for every word in message check if it is in the swearwords list
   const messageLength = messageArray.length;
   for (let Y = 0; Y < messageLength; Y++) {
