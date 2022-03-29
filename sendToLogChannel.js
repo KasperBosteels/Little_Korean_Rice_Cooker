@@ -1,9 +1,9 @@
 const { GET } = require("./getLogChannels");
+const welcome_channel = require("./welcome_data");
 module.exports = {
   async embedWithLog(member, embed, message) {
     let channelID = GET(member.guild.id);
     if (channelID != false) {
-      console.log(channelID);
       let logchannel = member.guild.channels.cache.get(channelID);
       await logchannel.send({ embeds: [embed] });
     } else {
@@ -25,6 +25,15 @@ module.exports = {
       return member.guild.channels.cache.get(logchannel);
     } else {
       return false;
+    }
+  },
+  async log_new_user(member, embed, guildID, client) {
+    let WelcomeChannel = await welcome_channel.GET(guildID);
+    if (WelcomeChannel != false || WelcomeChannel == null) {
+      let welcome_channel = await client.channels.cache.get(WelcomeChannel);
+      await welcome_channel.send({ embeds: [embed] });
+    } else {
+      await this.embedWithLog(member, embed, false);
     }
   },
 };
