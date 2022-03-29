@@ -6,7 +6,7 @@
   "author": "Kasper",
   "license": "ISC",
   "scripts": {
-    "start": "nodemon bot.js --ignore ignore.json --ignore leveling_enabled.json --ignore logChannels.json --ignore prefix.json --ignore profanity_alert_channels.json --ignore profanity_enabled.json --ignore welcome_channels.json",
+    "start": "nodemon bot.js --ignore ignore.json --ignore leveling_enabled.json --ignore logChannels.json --ignore prefix.json --ignore profanity_alert_channels.json --ignore profanity_enabled.json --ignore welcome_leave_messages.json --ignore welcome_channel.json",
     "test": "nodemon testStartup.js"
   },
   "dependencies": {
