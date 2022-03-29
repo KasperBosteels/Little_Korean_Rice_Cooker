@@ -6,7 +6,7 @@
   "author": "Kasper",
   "license": "ISC",
   "scripts": {
-    "start": "nodemon --ignore *.json",
+    "start": "nodemon bot.js --ignore *.json",
     "test": "nodemon testStartup.js"
   },
   "dependencies": {
