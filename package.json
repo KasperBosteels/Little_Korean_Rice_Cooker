@@ -6,7 +6,7 @@
   "author": "Kasper",
   "license": "ISC",
   "scripts": {
-    "start": "nodemon --ignore prefix.json --ignore verjaardagen.json --ignore disboard.json --ignore profanity_alert_channels.json --ignore profanity_enabled.json --ignore leveling_enabled.json --ignore welcome_leave_messages.json --ignore ignore.json --ignore logChannels.json",
+    "start": "nodemon --ignore *.json",
     "test": "nodemon testStartup.js"
   },
   "dependencies": {
