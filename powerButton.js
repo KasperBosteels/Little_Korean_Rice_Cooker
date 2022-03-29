@@ -9,7 +9,7 @@ module.exports = {
       message.channel
         .send({ content: "Pressing the power button..." })
         .then(() => {
-          console.log({ content: "shutting down..." });
+          console.log({ content: "sayonara..." });
         })
         .catch((err) => {
           console.error(err);
