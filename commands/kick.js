@@ -33,6 +33,9 @@ module.exports = {
     if (member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
       return message.reply({ content: "This person is possibly a mod." });
     // Kick
+    let embed;
+    let reason = `No reason give, by:${message.author.tag}`;
+    if (args[1]) reason = args[1];
     member
       .kick()
       .then((member) => {
@@ -43,14 +46,13 @@ module.exports = {
             member.displayName +
             " has been successfully kicked. :woman_cartwheeling: :person_golfing: ",
         });
+        embed = MakeEmbed(reason, member);
+        logging.embedWithLog(member, embed, message);
       })
       .catch(() => {
         // Failmessage
         message.channel.send({ content: "error: 1 in kick" });
       });
-    var reason = "No reason given.";
-    if (args[1]) reason = args[1];
-    logging.embedWithLog(member, MakeEmbed(member, reason), message);
   },
 };
 function MakeEmbed(reason, member) {
@@ -64,7 +66,7 @@ function MakeEmbed(reason, member) {
       iconURL: "https://i.imgur.com/A2SSxSE.png",
     })
     .setFooter({
-      text: member.displayName,
+      text: `${member.displayName}`,
     });
   return embed;
 }
