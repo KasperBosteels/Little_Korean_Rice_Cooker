@@ -19,12 +19,12 @@ const profanity = require("./profanityfilter.js");
 const level = require("./level.js");
 const rice = require("./text responses/rice.js");
 const getprefix = require("./getprefixData.js");
+const welcome_channel = require("./welcome_data.js");
 const profanity_alert_data_collector = require("./profanity_alert_data_collector.js");
 const profanity_enabled = require("./profanity_enabled");
 const leveling_enabled = require("./leveling_enabled");
 const welcomeLeaveMessages = require("./welcome_leave_messages");
 const power = require("./powerButton");
-const socalCredit = require("./socalCredit");
 const leave = require("./leave");
 const server = require("./server_events");
 const ignoreusers = require("./ignored_users");
@@ -36,7 +36,7 @@ const chatClient = new chatBot.Client();
 const slashCommandsUpload = require("./uploadSlashCommand");
 const { Interaction } = require("discord.js");
 const logchannels = require("./getLogChannels");
-const serverLog = require("./sendToLogChannel");
+const memberEvents = require("./member_events");
 //#endregion
 
 //#region init bot as client
@@ -106,6 +106,7 @@ client.once("ready", () => {
     profanity_alert_data_collector.execute(con);
     profanity_enabled.execute(con);
     leveling_enabled.execute(con);
+    welcome_channel.execute(con);
     welcomeLeaveMessages.execute(con);
     ignoreusers.execute(con);
     logchannels.execute(con);
@@ -137,71 +138,15 @@ client.on("guildDelete", async (guild) => {
 //#region member leave
 //member leaves guild will trigger logchannel check and sad message
 client.on("guildMemberRemove", async (member) => {
-  if (!(await welcomeLeaveMessages.CONFIRM(member.guild.id))) return;
-  var embed = new Discord.MessageEmbed()
-    .setColor("#006400")
-    .setTitle("oh no")
-    .setTimestamp()
-    .setAuthor("Little_Korean_Rice_Cooker", "https://i.imgur.com/A2SSxSE.png")
-    .setThumbnail(
-      member.user.avatarURL({ dynamic: true, format: "png", size: 64 })
-    )
-    .setDescription(`${member.displayName} left`);
-  try {
-    await serverLog.embedWithLog(member, embed, false);
-    await logger.LEAVE_JOINLOG(undefined, member.guild, "USER LEFT SERVER");
-  } catch (err) {
-    console.log(err);
-    await logger.LEAVE_JOINLOG(err, member.guild, "USER LEFT SERVER");
-  }
+  //if (!(await welcomeLeaveMessages.CONFIRM(member.guild.id))) return;
+  memberEvents.guildleave(member, con);
 });
 //#endregion
 
 //#region member join
 //member joins execute sql connection with parameters that correspondt with friendly message in logchannel
 client.on("guildMemberAdd", async (member) => {
-  if (!(await welcomeLeaveMessages.CONFIRM(member.guild.id))) return;
-  var embed = new Discord.MessageEmbed()
-    .setColor("#006400")
-    .setTitle("hello")
-    .setTimestamp()
-    .setAuthor("Little_Korean_Rice_Cooker", "https://i.imgur.com/A2SSxSE.png")
-    .setThumbnail(
-      member.user.avatarURL({ dynamic: true, format: "png", size: 64 })
-    )
-    .setDescription(`welcome, ${member.displayName}`);
-
-  try {
-    await serverLog.embedWithLog(member, embed, false);
-    await logger.LEAVE_JOINLOG(undefined, member.guild, "USER JOINED SERVER");
-  } catch (err) {
-    console.log(err);
-    await logger.LEAVE_JOINLOG(err, member.guild, "USER JOINED SERVER");
-  }
-  socalCredit.ADDUSER(con, member.id);
-});
-//#endregion
-
-//#region guild ban
-client.on("guildBanAdd", async (member) => {
-  console.log(`member banned ${member.displayName} ${member.guild}`);
-  let embed = new Discord.MessageEmbed()
-    .setColor("#FF0000")
-    .setTitle("BANNED")
-    .setTimestamp()
-    .setAuthor("Little_Korean_Rice_Cooker", "https://i.imgur.com/A2SSxSE.png")
-    .setThumbnail(
-      member.user.avatarURL({ dynamic: true, format: "png", size: 64 })
-    )
-    .setDescription(`${member.user.username} won't be missed.`);
-  try {
-    await serverLog.embedWithLog(member, embed, false);
-    await logger.LEAVE_JOINLOG(undefined, member.guild, "USER BANNED");
-  } catch (err) {
-    console.log(err);
-    await logger.LEAVE_JOINLOG(err, member.guild, "USER BANNED");
-  }
-  socalCredit.SUBTRACT(con, 500, member.id);
+  memberEvents.guildjoin(member, client, con);
 });
 //#endregion
 
