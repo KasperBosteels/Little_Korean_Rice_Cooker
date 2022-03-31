@@ -45,11 +45,18 @@ module.exports = {
         member.user.avatarURL({ dynamic: true, format: "png", size: 64 })
       );
     if (banned) {
-      embed
-        .addField(
+      if (banned.reason == null) {
+        embed.addField(
+          ":warning: **BANNED** :warning:",
+          `\`\`\`no reason provided\`\`\``
+        );
+      } else {
+        embed.addField(
           ":warning: **BANNED** :warning:",
           `\`\`\`${banned.reason}\`\`\``
-        )
+        );
+      }
+      embed
         .setTitle("good riddance!")
         .setDescription(`${member.displayName} won't be missed.`)
         .setColor("#FF0000");
