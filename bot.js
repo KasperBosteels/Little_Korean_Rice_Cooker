@@ -31,12 +31,12 @@ const ignoreusers = require("./ignored_users");
 const music = require("@koenie06/discord.js-music");
 const events = music.event;
 const cooldowns = new Map();
-const chatBot = require("smartestchatbot");
-const chatClient = new chatBot.Client();
+
 const slashCommandsUpload = require("./uploadSlashCommand");
 const { Interaction } = require("discord.js");
 const logchannels = require("./getLogChannels");
 const memberEvents = require("./member_events");
+const custom_Welcome = require("./welcome_message_data_collector.js");
 //#endregion
 
 //#region init bot as client
@@ -110,6 +110,7 @@ client.once("ready", () => {
     welcomeLeaveMessages.execute(con);
     ignoreusers.execute(con);
     logchannels.execute(con);
+    custom_Welcome.execute(con);
   } catch (err) {
     console.log(err);
   }
@@ -252,7 +253,7 @@ client.on("messageCreate", async (Interaction) => {
   //tries to perform the command if error occurs catch it and display on terminal
   try {
     const startTime = new Date();
-    await command.execute(client, Interaction, args, con, chatClient);
+    await command.execute(client, Interaction, args, con);
     const endTime = new Date();
     const workTime = endTime - startTime;
     logger.execute(
