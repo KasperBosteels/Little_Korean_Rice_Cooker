@@ -4,7 +4,8 @@ module.exports = {
   async embedWithLog(member, embed, message) {
     let channelID = GET(member.guild.id);
     if (channelID != false) {
-      let logchannel = member.guild.channels.cache.get(channelID);
+      let logchannel = await member.guild.channels.cache.get(channelID);
+      if (!logchannel) return;
       await logchannel.send({ embeds: [embed] });
     } else {
       if (message) await message.channel.send({ embeds: [embed] });
