@@ -2,8 +2,10 @@ const discord = require("discord.js");
 const embedlogger = require("./sendToLogChannel");
 const logger = require("./logger");
 const socialcreddit = require("./socalCredit");
+const customwelcome = require("./welcome_message_data_collector");
 module.exports = {
   async guildjoin(member, client, con) {
+    let custommessage = await createCustomMessage(member);
     var embed = new discord.MessageEmbed()
       .setColor("#006400")
       .setTitle("hello")
@@ -15,8 +17,12 @@ module.exports = {
       })
       .setThumbnail(
         member.user.avatarURL({ dynamic: true, format: "png", size: 64 })
-      )
-      .setDescription(`welcome, ${member.displayName}`);
+      );
+    if (custommessage == false) {
+      embed.setDescription(`welcome, ${member.displayName}`);
+    } else {
+      embed.setDescription(`${custommessage}`);
+    }
     try {
       await embedlogger.log_new_user(member, embed, member.guild.id, client);
       await logger.LEAVE_JOINLOG(undefined, member.guild, "USER JOINED SERVER");
@@ -76,3 +82,11 @@ module.exports = {
     }
   },
 };
+async function createCustomMessage(member) {
+  let message = await customwelcome.GET(member.guild.id);
+  if (message == false) return false;
+  message = await message
+    .replace("{user}", "" + member.displayName + "")
+    .replace("{server}", "" + member.guild.name + "");
+  return message;
+}

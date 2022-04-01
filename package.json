@@ -6,7 +6,7 @@
   "author": "Kasper",
   "license": "ISC",
   "scripts": {
-    "start": "nodemon bot.js --ignore ignore.json --ignore leveling_enabled.json --ignore logChannels.json --ignore prefix.json --ignore profanity_alert_channels.json --ignore profanity_enabled.json --ignore welcome_leave_messages.json --ignore welcome_channel.json",
+    "start": "nodemon bot.js --ignore ignore.json --ignore leveling_enabled.json --ignore logChannels.json --ignore prefix.json --ignore profanity_alert_channels.json --ignore profanity_enabled.json --ignore welcome_leave_messages.json --ignore welcome_channel.json --ignore custom_welcome_data.json",
     "test": "nodemon testStartup.js"
   },
   "dependencies": {
@@ -38,7 +38,6 @@
     "oxford-dictionaries-api": "^0.1.2",
     "oxford-dictionary": "^1.6.0",
     "reconlx": "^2.5.2",
-    "smartestchatbot": "^2.0.1",
     "translate": "^1.4.1",
     "urban-dictionary": "^3.0.2",
     "wikipedia": "^1.1.6",
