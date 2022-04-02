@@ -105,6 +105,8 @@ module.exports = {
           description: command.description,
           category: command.category,
           usage: command.usage,
+          perms: command.perms,
+          userperms: command.userperms,
         };
         //assign values to command list array
         commandlist.push(constructor);
@@ -236,6 +238,13 @@ module.exports = {
       embed.addField("**Description:**", `${command.description}`);
       embed.addField("**usage:**", `${prefix}${command.name} ${command.usage}`);
       embed.addField("**cooldown:**", `${command.cooldown || 3} second(s)`);
+      if (command.perms.length > 0)
+        embed.addField("```bot permissions```", `\`\`\`${command.perms}\`\`\``);
+      if (command.userperms.length > 0)
+        embed.addField(
+          `\`\`\`user permissions\`\`\``,
+          `\`\`\`${command.userperms}\`\`\``
+        );
       //send
       return message.reply({ embeds: [embed], ephemeral: true });
     }
