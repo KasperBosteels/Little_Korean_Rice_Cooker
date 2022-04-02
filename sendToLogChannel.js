@@ -31,7 +31,9 @@ module.exports = {
   async log_new_user(member, embed, guildID, client) {
     let WelcomeChannel = await welcome_channel.GET(guildID);
     if (WelcomeChannel != false || WelcomeChannel == null) {
-      let welcome_channel = await client.channels.cache.get(WelcomeChannel);
+      let welcome_channel = await member.guild.channels.cache.get(
+        WelcomeChannel
+      );
       await welcome_channel.send({ embeds: [embed] });
     } else {
       await this.embedWithLog(member, embed, false);
