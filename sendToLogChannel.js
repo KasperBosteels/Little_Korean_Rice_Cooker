@@ -30,7 +30,7 @@ module.exports = {
   },
   async log_new_user(member, embed, guildID, client) {
     let WelcomeChannel = await welcome_channel.GET(guildID);
-    if (WelcomeChannel != false || WelcomeChannel == null) {
+    if (WelcomeChannel != false && WelcomeChannel != null) {
       let welcome_channel = await member.guild.channels.cache.get(
         WelcomeChannel
       );
