@@ -31,7 +31,7 @@ module.exports = {
         //return with embed message
         return interaction.editReply({
           content: " ",
-          embeds: [makeEmbed(user, SCS)],
+          embeds: [makeEmbed(client, user, SCS)],
           ephemeral: true,
         });
       }
@@ -39,7 +39,7 @@ module.exports = {
   },
 };
 
-function makeEmbed(user, score) {
+function makeEmbed(client, user, score) {
   const embed = new Discord.MessageEmbed().setColor("#00ff00").setTimestamp();
   embed.addField(
     "user",
@@ -50,11 +50,11 @@ function makeEmbed(user, score) {
   embed.setThumbnail(
     user.avatarURL({ dynamic: true, format: "png", size: 64 })
   );
+  let sademoji = ":pensive:";
+  let happyemoji = ":smile:";
   let socialcreditlevel = "normal";
-  if (score < 1000)
-    socialcreditlevel = "bad <:sadgeCooker:910210761136148581>  ";
-  if (score >= 1500 && score <= 1999)
-    socialcreditlevel = "good <:Cooker:910220565955104818>  ";
+  if (score < 1000) socialcreditlevel = `bad ${sademoji}`;
+  if (score >= 1500 && score <= 1999) socialcreditlevel = `good ${happyemoji}`;
   if (score >= 2000 && score <= 2999) socialcreditlevel = "very good";
   if (score >= 3000 && score <= 3999) socialcreditlevel = "outstanding!";
   if (score >= 4000) socialcreditlevel = "**PERFECT**";
