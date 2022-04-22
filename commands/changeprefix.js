@@ -17,7 +17,7 @@ module.exports = {
         content: "You need to be an administrator to do this.",
       });
     con.query(
-      `CALL get_server_prefix("${message.guild.id}",@prefix); SELECT @prefix;`,
+      `SELECT prefix from guild where guildID = ${message.guild.id}`,
       (err, rows) => {
         if (err) return console.error(err);
         if (rows.length) {
