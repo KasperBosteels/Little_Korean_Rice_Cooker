@@ -1,4 +1,4 @@
-const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const G = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "pfp",
   description: "Display the pfp of a user.",
@@ -29,10 +29,14 @@ module.exports = {
 
     return await message.channel.send({
       embeds: [
-        GenerateEmbed(
-          (title = `${member.user.username}`),
-          (image = member.user.displayAvatarURL({ dynamic: true, size: 4096 })),
-          (timestamp = true)
+        G.GenerateEmbed(
+          false,
+          false,
+          false,
+          false,
+          true,
+          member.user.displayAvatarURL({ dynamic: true, size: 4096 }),
+          `${member.user.username}`
         ),
       ],
     });

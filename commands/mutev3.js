@@ -1,4 +1,4 @@
-const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const G = require("../Generators/GenerateSimpleEmbed");
 const { Permissions } = require("discord.js");
 const logging = require("../sendToLogChannel");
 module.exports = {
@@ -48,9 +48,9 @@ module.exports = {
       await muteperson.timeout(500 * 60 * 1000, muteReason);
     } finally {
       logging.logWithNoMember(
-        GenerateEmbed(
+        G.GenerateEmbed(
           "#ffa500",
-          `**MUTED** \`\`\`${mute.displayName}\`\`\`\nhas been muted for \n__${mutetime}__ minute(s)\n reason: __${muteReason}__`,
+          `**MUTED** \`\`\`${muteperson.displayName}\`\`\`\nhas been muted for \n__${mutetime}__ minute(s)\n reason: __${muteReason}__`,
           (footer = {
             text: message.member.displayName,
             url: message.author.displayAvatarUrl,
@@ -62,15 +62,18 @@ module.exports = {
       );
       message.channel.send({
         embeds: [
-          GenerateEmbed(
+          G.GenerateEmbed(
             "#ffa500",
-            `**MUTED** \`\`\`${mute.displayName}\`\`\`\nhas been muted for \n__${mutetime}__ minute(s)\n reason: __${muteReason}__`,
+            `\`\`\`${muteperson.displayName}\`\`\`\nhas been muted for \n__${mutetime}__ minute(s)\n reason: __${muteReason}__`,
             (footer = {
               text: message.member.displayName,
               url: message.author.displayAvatarUrl,
             }),
             false,
-            true
+            true,
+            false,
+            "**MUTED**",
+            message.url
           ),
         ],
       });

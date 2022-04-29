@@ -326,7 +326,7 @@ function firstPage(prefix) {
   );
   embed.addField(
     ":question: support",
-    `If you need Furter help you can join [the support server](https://discord.gg/7dWt3xA6Ck). `
+    `If you need Furter help you can join [the support server](https://discord.gg/y8QDMpuwZs). `
   );
   embed.setFooter({ text: "page: 1/6" });
   return embed;

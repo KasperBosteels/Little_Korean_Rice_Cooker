@@ -1,4 +1,4 @@
-const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const G = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "ping",
   description: "Gives you latency of the bot.",
@@ -12,8 +12,10 @@ module.exports = {
     message.channel.send({ content: "ping..." }).then((sent) => {
       sent.edit({
         embeds: [
-          GenerateEmbed(
-            (title = "**PING**"),
+          G.GenerateEmbed(
+            false,
+            false,
+            false,
             (fields = [
               {
                 name: "*roundstrip latency*",
@@ -29,7 +31,10 @@ module.exports = {
                 name: "*uptime:*",
                 content: `\`\`\` ${uptimeGET(client)} \`\`\``,
               },
-            ])
+            ]),
+            false,
+            false,
+            "**PING**"
           ),
         ],
       });

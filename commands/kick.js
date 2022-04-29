@@ -1,4 +1,4 @@
-const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const G = require("../Generators/GenerateSimpleEmbed");
 const { Permissions } = require("discord.js");
 const logging = require("../sendToLogChannel.js");
 module.exports = {
@@ -45,7 +45,7 @@ module.exports = {
             member.displayName +
             " has been successfully kicked. :woman_cartwheeling: :person_golfing: ",
         });
-        let embed = GenerateEmbed(
+        let embed = G.GenerateEmbed(
           "#FF0000",
           `reason: ${reason}`,
           (footer = { text: `${member.displayName}`, url: "" }),

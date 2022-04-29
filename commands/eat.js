@@ -1,6 +1,6 @@
 const eat = require("../jsonFiles/bodily_affection.json").eating;
 const score = require("../socalCredit");
-const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const G = require("../Generators/GenerateSimpleEmbed");
 
 module.exports = {
   name: "eat",
@@ -18,7 +18,7 @@ module.exports = {
     if (!args[0]) {
       //no arguments reply command
 
-      var embed = GenerateEmbed(
+      var embed = G.GenerateEmbed(
         "#ff69b4",
         `${message.client.user} **takes a bite out of** ${message.author}`,
         (footer = {
@@ -43,7 +43,7 @@ module.exports = {
           }
         }
         //return string with text
-        var embed = GenerateEmbed(
+        var embed = G.GenerateEmbed(
           "#ff69b4",
           `${message.author} **eats** ${manualinput}`,
           (footer = {
@@ -55,7 +55,7 @@ module.exports = {
           eating_gif
         );
       } else {
-        var embed = GenerateEmbed(
+        var embed = G.GenerateEmbed(
           "#ff69b4",
           `${message.author} **eats** ${message.mentions.members.first()}`,
           (footer = {

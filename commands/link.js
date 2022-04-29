@@ -9,9 +9,8 @@ module.exports = {
   userperms: [],
   execute(client, message, args) {
     message.channel.send({
-      content: `https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot <:Cooker:910220565955104818>      `,
+      content: `https://canary.discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376646&scope=bot <:Cooker:910220565955104818>      `,
     });
   },
 };
-//https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=464133090422&scope=bot
-//https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=189820955766&scope=bot
+//latest https://canary.discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376646&scope=bot

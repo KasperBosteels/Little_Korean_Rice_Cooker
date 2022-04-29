@@ -1,4 +1,4 @@
-const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const G = require("../Generators/GenerateSimpleEmbed");
 const hug = require("../jsonFiles/bodily_affection.json").hugs;
 const score = require("../socalCredit");
 module.exports = {
@@ -16,9 +16,9 @@ module.exports = {
     //looks for given arguments
     if (!args[0]) {
       //no arguments reply command
-      var embed = GenerateEmbed(
+      var embed = G.GenerateEmbed(
         "#ff69b4",
-        `${message.client.user} **forcefully hugs** ${message.euthor}`,
+        `${message.client.user} **forcefully hugs** ${message.author}`,
         (footer = {
           text: message.member.displayName,
           url: message.author.displaAvatarUrl,
@@ -42,7 +42,7 @@ module.exports = {
           }
         }
         //return string with text
-        var embed = GenerateEmbed(
+        var embed = G.GenerateEmbed(
           "#ff69b4",
           `${message.author} **hugs** ${manualinput}`,
           (footer = {
@@ -55,7 +55,7 @@ module.exports = {
           false
         );
       } else {
-        var embed = GenerateEmbed(
+        var embed = G.GenerateEmbed(
           "#ff69b4",
           `${message.author} **hugs** ${message.mentions.members.first()}`,
           (footer = {

@@ -1,4 +1,4 @@
-const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const G = require("../Generators/GenerateSimpleEmbed");
 const pats = require("../jsonFiles/bodily_affection.json").pats;
 const score = require("../socalCredit");
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
     var manualinput = " ";
     var pats_gif = pats[coin];
     if (!args[0]) {
-      var embed = GenerateEmbed(
+      var embed = G.GenerateEmbed(
         "#ff69b4",
         `${message.client.user} **forcefully pets** ${message.author}`,
         (footer = {
@@ -37,7 +37,7 @@ module.exports = {
             manualinput += ` ${args[i]}`;
           }
         }
-        var embed = GenerateEmbed(
+        var embed = G.GenerateEmbed(
           "#ff69b4",
           `${message.author} **pets** ${manualinput}`,
           (footer = {
@@ -49,7 +49,7 @@ module.exports = {
           pats_gif
         );
       } else {
-        var embed = GenerateEmbed(
+        var embed = G.GenerateEmbed(
           "#ff69b4",
           `${message.author} **pets** ${message.mentions.members.first()}`,
           (footer = {

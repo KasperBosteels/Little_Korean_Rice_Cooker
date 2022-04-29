@@ -1,6 +1,6 @@
 const link = require("../jsonFiles/bodily_affection.json").kill;
 const synonyms = require("../jsonFiles/bodily_affection.json").killsynonyms;
-const { GenereateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const G = require("../Generators/GenerateSimpleEmbed");
 const score = require("../socalCredit");
 module.exports = {
   name: "kill",
@@ -43,10 +43,11 @@ module.exports = {
       }
       message.channel.send({
         embeds: [
-          GenereateEmbed(
+          G.GenerateEmbed(
             "#00ff00",
             `${message.author} ${placeholder1} ${placeholder2}`,
-            `[url](${link[coin]})`,
+            false,
+            false,
             false,
             link[coin],
             false

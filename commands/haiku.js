@@ -1,6 +1,6 @@
 const haiku = require("haiku-random");
 const score = require("../socalCredit");
-const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const G = require("../Generators/GenerateSimpleEmbed");
 var hard_Haiku = [
   `You're a vast ocean,\nSo oddly terrifying\nSuch a strange comfort.\nby Achi`,
 ];
@@ -30,9 +30,9 @@ module.exports = {
     }
     message.channel.send({
       embeds: [
-        GenerateEmbed(
+        G.GenerateEmbed(
           "#50c878",
-          haiku,
+          smile,
           (footer = {
             text: message.member.displayName,
             url: message.author.displayAvatarUrl,

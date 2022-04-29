@@ -1,5 +1,5 @@
 const answers = require("../jsonFiles/bodily_affection.json").answers;
-const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const G = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "ask",
   description: "ask a question",
@@ -17,7 +17,7 @@ module.exports = {
     coin = await Math.floor(Math.random() * Math.floor(answers.length));
     return message.channel.send({
       embeds: [
-        GenerateEmbed(
+        G.GenerateEmbed(
           "#FFDF00",
           `Question from ${message.member.displayName}\n"${question}"\n${answers[coin]}`
         ),

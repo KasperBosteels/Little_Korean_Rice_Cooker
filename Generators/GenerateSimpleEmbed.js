@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-module.export = {
+module.exports = {
   GenerateEmbed(
     color = false,
     description = false,
@@ -24,7 +24,7 @@ module.export = {
         embed.addField(field.name, field.content);
       });
     }
-    if (timestamp != false) embed.timestamp();
+    if (timestamp != false) embed.setTimestamp();
     if (image != false) embed.setImage(image);
     if (title != false) embed.setTitle(title);
     if (url != false) embed.setURL(url);

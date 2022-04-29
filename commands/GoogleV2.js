@@ -1,4 +1,4 @@
-const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const G = require("../Generators/GenerateSimpleEmbed");
 const imageSearch = require("image-search-google");
 const paginationEmbed = require("discordjs-button-pagination");
 const { MessageButton } = require("discord.js");
@@ -37,7 +37,7 @@ module.exports = {
           images.push({ url: "https://i.imgur.com/rA2dVik.png" });
         }
         for (let i = 0; i < images.length; i++) {
-          list[i] = GenerateEmbed(
+          list[i] = G.GenerateEmbed(
             "RANDOM",
             false,
             (footer = { text: `page ${i + 1}/${images.length}`, url: "" }),

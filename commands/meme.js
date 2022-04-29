@@ -1,4 +1,4 @@
-const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const G = require("../Generators/GenerateSimpleEmbed");
 const fetch = require("node-fetch");
 module.exports = {
   name: "meme",
@@ -18,7 +18,7 @@ module.exports = {
         let memefoto = responsomgv[0].data.children[0].data.url;
         return message.channel.send({
           embeds: [
-            GenerateEmbed(
+            G.GenerateEmbed(
               "RANDOM",
               false,
               false,
@@ -56,7 +56,7 @@ async function fallbackfunction(message) {
       let memefoto = responsomgv[0].data.children[0].data.url;
       return message.channel.send({
         embeds: [
-          GenerateEmbed(
+          G.GenerateEmbed(
             "RANDOM",
             false,
             false,
