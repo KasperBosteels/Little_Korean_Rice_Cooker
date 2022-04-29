@@ -4,7 +4,8 @@ module.exports = {
     try {
       let guilds = await Getguilds(client);
       guilds.forEach((g) => {
-        g.commands.forEach((gc) => {
+        let guildcommands = g.commands;
+        guildcommands.forEach((gc) => {
           gc.permissions.set(true);
         });
       });
