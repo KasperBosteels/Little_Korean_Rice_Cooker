@@ -1,9 +1,9 @@
 const { Permissions } = require("discord.js");
-const welcome_data = require("../welcome_data");
+const welcome_data = require("../welcome_message_data_collector");
 module.exports = {
   name: "custom_welcome",
   description:
-    "set a custom welcome message.\n to use a username => {user}\n to say the servername => {server}",
+    "set a custom welcome message.\n``` to use a username => {user}\n to say the servername => {server}```\nTo disable custom welcome type 'disable' after the command.",
   cooldown: 1,
   usage: "<your message>",
   guildOnly: "true",
@@ -15,7 +15,7 @@ module.exports = {
     //check perms
     if (!permission(message))
       return message.reply({
-        content: "Only an administrator is able to execute this command.",
+        content: "Only an administrator is able to use this command.",
       });
     //assigns id to variables and check if received
     var guild = message.guild.id;
@@ -87,7 +87,7 @@ module.exports = {
 };
 function permission(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTATOR)) {
+  if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
     return false;
   }
   return true;
