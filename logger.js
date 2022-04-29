@@ -28,9 +28,13 @@ module.exports = {
   async LEAVE_JOINLOG(error = undefined, guildID, event) {
     let LOG;
     if (error) {
-      LOG = `${"+".repeat(60)}\n${event}\nguild: ${guildID}\nerror: ${error}`;
+      LOG = `${"+".repeat(30)}USER EVENT${"+".repeat(
+        30
+      )}\n${event}\nguild: ${guildID}\nerror: ${error}\n`;
     } else {
-      LOG = `${"+".repeat(60)}\n${event}\nguild: ${guildID}`;
+      LOG = `${"+".repeat(30)}USER EVENT${"+".repeat(
+        30
+      )}\n${event}\nguild: ${guildID}\n`;
     }
     try {
       await writeFile("./info/log.txt", LOG, { flag: "a" }, (error) => {
