@@ -1,5 +1,5 @@
-const discord = require("discord.js");
 const { Permissions } = require("discord.js");
+const G = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "warnings",
   description: "see the warnings against a user",
@@ -30,19 +30,14 @@ module.exports = {
           warningsString += `[${i + 1}] ${rows[i].warnings}\n`;
         }
         warningsString += "```";
-        var embed = new discord.MessageEmbed()
-          .setColor("#ff0000")
-          .setAuthor({
-            name: "Little_Korean_Rice_Cooker",
-            url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-            iconURL: "https://i.imgur.com/A2SSxSE.png",
-          })
-          .setFooter({
-            text: message.member.displayName,
-            iconURL: message.author.displayAvatarUrl,
-          })
-          .setTimestamp().setDescription(`**warnings for:** ${warnuser}\n
-    ${warningsString}`);
+        var embed = G.GenerateEmbed(
+          "#ff0000",
+          `**warnings for:** ${warnuser}\n
+        ${warningsString}`,
+          message,
+          false,
+          true
+        );
         return message.channel.send({ embeds: [embed] });
       }
     );

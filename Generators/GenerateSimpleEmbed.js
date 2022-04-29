@@ -18,8 +18,16 @@ module.exports = {
     });
     if (color != false) embed.setColor(color);
     if (description != false) embed.setDescription(description);
-    if (footer != false)
-      embed.setFooter({ text: footer.text, inconURL: footer.url });
+    if (footer != false) {
+      if (footer.member && footer.author) {
+        embed.setFooter({
+          text: footer.member.displayName,
+          inconURL: footer.author.displayAvatarUrl,
+        });
+      } else {
+        embed.setFooter({ text: footer.text, inconURL: footer.url });
+      }
+    }
     if (fields != false) {
       fields.forEach((field) => {
         embed.addField(field.name, field.content);

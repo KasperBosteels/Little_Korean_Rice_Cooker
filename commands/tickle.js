@@ -11,7 +11,8 @@ var tickleDatabase = [
   "https://i.pinimg.com/originals/de/63/73/de6373193dc2b6622ec4178382a6a18b.gif",
   "https://i.imgur.com/yKzEEmA.gif",
 ];
-const discord = require("discord.js");
+const { createPool } = require("mysql");
+const G = require("../Generators/GenerateSimpleEmbed");
 const score = require("../socalCredit");
 module.exports = {
   name: "tickle",
@@ -37,25 +38,23 @@ function createEmbed(message, tickleDatabase, args) {
   let coin = Math.floor(Math.random() * Math.floor(tickleDatabase.length));
   let msg = "";
   if (!message.mentions.members.first() && args.length == 0) {
-    msg = `${message.client.user} tickles you.`;
+    msg = `${message.client.user} [tickles you.](${tickleDatabase[coin]})`;
   } else if (args.length > 0 && !message.mentions.members.first()) {
-    msg = `${message.author} tickles ${args.join(" ")}`;
+    msg = `${message.author} [tickles](${tickleDatabase[coin]}) ${args.join(
+      " "
+    )}`;
   } else {
-    msg = `${message.author} tickles ${message.mentions.members.first()}`;
+    msg = `${message.author} [tickles](${
+      tickleDatabase[coin]
+    }) ${message.mentions.members.first()}`;
   }
-  let embed = new discord.MessageEmbed()
-    .setColor("#00ff00")
-    .setDescription(msg)
-    .setAuthor({
-      name: "Little_Korean_Rice_Cooker",
-      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-      iconURL: "https://i.imgur.com/A2SSxSE.png",
-    })
-    .setFooter({
-      text: message.member.displayName,
-      iconURL: message.author.displayAvatarUrl,
-    })
-    .setImage(tickleDatabase[coin]);
-  console.log("responded with " + tickleDatabase[coin]);
+  let embed = G.GenerateEmbed(
+    "#00ff00",
+    msg,
+    message,
+    false,
+    false,
+    tickleDatabase[coin]
+  );
   return embed;
 }

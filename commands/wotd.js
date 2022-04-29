@@ -27,7 +27,7 @@ async function term(message) {
             "RANDOM",
             results[coin].definition,
             false,
-            (fields = [{ name: "example", content: results[coin].example }]),
+            (fields = [{ name: "examples:", content: results[coin].example }]),
             false,
             false,
             `word of the day: **${results[coin].word}**`,

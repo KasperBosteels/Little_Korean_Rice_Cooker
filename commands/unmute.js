@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const G = require("../Generators/GenerateSimpleEmbed");
 const { Permissions } = require("discord.js");
 const logging = require("../sendToLogChannel");
 module.exports = {
@@ -35,29 +35,21 @@ module.exports = {
       console.log(error);
       await muteperson.timeout(0);
     } finally {
+      let embed = G.GenerateEmbed(
+        "#ffa500",
+        `\`\`\`${muteperson.displayName}\`\`\`\nwas unmuted.`,
+        message,
+        false,
+        true,
+        false,
+        "**UNMUTED**",
+        message.url
+      );
       logging.logWithNoMember(embed, message);
       message.channel.send({
-        embeds: [makeEmbed(message, muteperson)],
+        embeds: [embed],
       });
       return;
     }
   },
 };
-function makeEmbed(message, mute, timeAndReason) {
-  var embed = new Discord.MessageEmbed()
-    .setColor("#ffa500")
-    .setAuthor({
-      name: "Little_Korean_Rice_Cooker",
-      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-      iconURL: "https://i.imgur.com/A2SSxSE.png",
-    })
-    .setFooter({
-      text: message.member.displayName,
-      iconURL: message.author.displayAvatarUrl,
-    })
-    .setTimestamp()
-    .setDescription(
-      `**UNMUTED** \`\`\`${mute.displayName}\`\`\`\nwas unmuted.`
-    );
-  return embed;
-}

@@ -1,5 +1,5 @@
-const Discord = require("discord.js");
 const credit = require("../socalCredit");
+const G = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "whois",
   description: "find out a bit more about this members acount.",
@@ -84,18 +84,17 @@ function rolesMap(member, guildID) {
   return roles;
 }
 function makeEmbed(user, member, message, score) {
-  const embed = new Discord.MessageEmbed()
-    .setColor("#00ff00")
-    .setAuthor({
-      name: "Little_Korean_Rice_Cooker",
-      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-      iconURL: "https://i.imgur.com/A2SSxSE.png",
-    })
-    .setFooter({
-      text: message.member.displayName,
-      iconURL: message.author.displayAvatarUrl,
-    })
-    .setTimestamp();
+  const embed = G.GenerateEmbed(
+    "#00ff00",
+    false,
+    message,
+    false,
+    true,
+    false,
+    false,
+    false,
+    user.avatarURL({ dynamic: true, format: "png", size: 64 })
+  );
   embed.addField(
     "user",
     `\`\`\`${member.user.username}#${member.user.discriminator}\`\`\``,
@@ -112,9 +111,6 @@ function makeEmbed(user, member, message, score) {
   embed.addField("bot", `${member.user.bot}`, (inline = true));
   embed.addField("creation date", `${member.user.createdAt}`, (inline = true));
   embed.addField("join date", `${member.joinedAt}`);
-  embed.setThumbnail(
-    user.avatarURL({ dynamic: true, format: "png", size: 64 })
-  );
   let socialcreditlevel = "normal";
   if (score < 1000)
     socialcreditlevel = "bad <:sadgeCooker:910210761136148581>  ";

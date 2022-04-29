@@ -1,4 +1,4 @@
-const discord = require("discord.js");
+const G = require("../Generators/GenerateSimpleEmbed");
 const { Permissions } = require("discord.js");
 const logging = require("../sendToLogChannel");
 module.exports = {
@@ -34,14 +34,41 @@ module.exports = {
     }
     amount++;
     //delete messages
-    await message.channel.bulkDelete(amount, true);
-    logging.logWithNoMember(createbed(amount, discord, message), message);
+    let success = false;
+    try {
+      await message.channel.bulkDelete(amount, true);
+      success = true;
+    } catch (error) {
+      success = false;
+      console.log(error);
+    } finally {
+      if (success) {
+        logging.logWithNoMember(
+          G.GenerateEmbed(
+            "#FFFF00",
+            `${message.author}\n
+    deleted ${amount - 1} messages\n
+    in ${message.channel}.`,
+            message,
+            false,
+            true
+          ),
+          message
+        );
+      } else {
+        logging.logWithNoMember(
+          G.GenerateEmbed(
+            "#FFFF00",
+            `${message.author}\n
+        attempte to deleted ${amount - 1} messages\n
+        in ${message.channel}, however this failed.`,
+            message,
+            false,
+            true
+          ),
+          message
+        );
+      }
+    }
   },
 };
-function createbed(amount, discord, message) {
-  var embed = new discord.MessageEmbed().setColor("#FFFF00").setTimestamp()
-    .setDescription(`${message.author}\n
-     deleted ${amount - 1} messages\n
-     in ${message.channel}.`);
-  return embed;
-}

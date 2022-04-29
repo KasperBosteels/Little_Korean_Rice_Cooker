@@ -1,5 +1,5 @@
 const ud = require("urban-dictionary");
-const discord = require("discord.js");
+const G = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "urban",
   description: "Urban Dictionary.",
@@ -14,24 +14,34 @@ module.exports = {
       word += `${args[i]} `;
     }
     if (word) {
-      return await term(word, message.channel);
+      return await term(word, message);
     }
   },
 };
-async function term(word, channel) {
-  let explain = ["undefined", "undefined"];
+async function term(word, message) {
+  let explain = ["undefined", "undefined", "https://www.urbandictionary.com/"];
 
   await ud
     .define(word)
     .then((result) => {
       explain[0] = result[0].definition;
       explain[1] = result[0].example;
+      explain[2] = result[0].permalink;
       sendembed(
-        makeEmbed(word, explain[0], explain[1], discord),
-        channel
+        G.GenerateEmbed(
+          "RANDOM",
+          explain[0],
+          message,
+          (fields = [{ name: "examples:", content: explain[1] }]),
+          true,
+          false,
+          "urban dictionary",
+          explain[2]
+        ),
+        message.channel
       ).catch((error) => {
         if ((error.code = 50035))
-          return channel.send({
+          return message.channel.send({
             content:
               "The definition of this word is too big for discord, sorry.",
           });
@@ -40,28 +50,13 @@ async function term(word, channel) {
     .catch((error) => {
       if ((error.code = "ERR_WORD_UNDEFINED")) {
         console.log(error);
-        return channel.send({
+        return message.channel.send({
           content: "perhaps the archives are incomplete...",
         });
       } else {
         console.error(error);
       }
     });
-}
-function makeEmbed(word, def, example, discord) {
-  var embed = new discord.MessageEmbed();
-  embed.setTitle(`definition for: ${word}`);
-  embed.setDescription(def);
-  embed.addField("example", example);
-  embed
-    .setAuthor({
-      name: "Urban Dictionary",
-    })
-    .setFooter({
-      text: "Little_Korean_Rice_Cooker",
-      iconURL: "https://i.imgur.com/A2SSxSE.png",
-    });
-  return embed;
 }
 function sendembed(embed, channel) {
   return channel.send({ embeds: [embed] });

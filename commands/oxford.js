@@ -1,5 +1,6 @@
 const ox = require("oxford-dictionary");
 const Discord = require("discord.js");
+const G = require("../Generators/GenerateSimpleEmbed");
 const ID = process.env.OXFORD_ID;
 const KEY = process.env.OXFORD_KEY;
 const config = { app_id: ID, app_key: KEY, source_lang: "en-gb" };
@@ -33,7 +34,8 @@ module.exports = {
     let lookup = dict.find(word);
     lookup
       .then(function (res) {
-        let author = "Powered by Oxford Languages";
+        let author =
+          "[Powered by Oxford Languages](https://languages.oup.com/)";
         let data = JSON.stringify(res, null, 4);
         let object = JSON.parse(data);
         return message.reply({
@@ -123,17 +125,15 @@ function synonymGET(object) {
   return synonyms;
 }
 function makeEmbed(author, word, object, Discord) {
-  let embed = new Discord.MessageEmbed();
-  embed
-    .setAuthor({
-      name: "Little_Korean_Rice_Cooker",
-      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-      iconURL: "https://i.imgur.com/A2SSxSE.png",
-    })
-    .setFooter({
-      text: author,
-    });
-  embed.setTitle(word);
+  let embed = G.GenerateEmbed(
+    "RANDOM",
+    false,
+    (footer = { text: author, url: "" }),
+    false,
+    false,
+    false,
+    word
+  );
   if (!object) {
     embed.setDescription("nothing found sorry");
     return embed;
