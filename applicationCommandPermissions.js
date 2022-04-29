@@ -15,5 +15,8 @@ module.exports = {
 };
 function Getguilds(client) {
   let presentGuilds = client.guilds.cache;
+  for (let i = 0; i < presentGuilds.length; i++) {
+    console.log(presentGuilds[i].id);
+  }
   return presentGuilds;
 }
