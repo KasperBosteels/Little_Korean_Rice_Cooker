@@ -8,7 +8,8 @@ module.exports = {
     timestamp = false,
     image = false,
     title = false,
-    url = false
+    url = false,
+    thumbnail = false
   ) {
     const embed = new MessageEmbed().setAuthor({
       name: "Little_Korean_Rice_Cooker",
@@ -28,6 +29,7 @@ module.exports = {
     if (image != false) embed.setImage(image);
     if (title != false) embed.setTitle(title);
     if (url != false) embed.setURL(url);
+    if (thumbnail != false) embed.setThumbnail(thumbnail);
     return embed;
   },
 };
