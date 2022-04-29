@@ -155,64 +155,43 @@ client.on("guildMemberAdd", async (member) => {
 //#region message processor
 //when a user sends a message
 client.on("messageCreate", async (Interaction) => {
-  //#region bot ignore
   if (Interaction.author.bot) return;
-  //#endregion
 
-  //#region reboot
   power.execute(Interaction, con);
-  //#endregion
 
-  //#region simple responses
   profanity.execute(Interaction, client, con);
   if (ignoreusers.GET(Interaction.author.id) == true) return;
   lie.execute(Interaction);
   rice.execute(Interaction);
   leave.execute(Interaction, client);
-  //#endregion
 
-  //#region Interaction slice and dice
   //removes prefix and puts arguments in variable
   const usedprefix = getprefix.GET(Interaction.guild.id);
   const args = Interaction.content.slice(usedprefix.length).trim().split(/ +/);
 
-  //#region level handler
   try {
     level.execute(Interaction, con, args, Discord);
   } catch (error) {
     console.error(error.message);
   }
-  //#endregion
 
-  //#region prefix check
-  //check if messages contains the selected prefix
   if (!prefixcheck.execute(Interaction)) return;
-  //#endregion
 
-  //makes sure command name is lowercase
   const commandName = args.shift().toLowerCase();
-  //#endregion
-
-  //#region command lookup
-  //checks if Interaction containts a command name/alias if true then asign it to variable if false return to default state
   const command =
     client.commands.get(commandName) ||
     client.commands.find(
       (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
     );
   if (!command) return;
-  //#endregion
 
-  //#region dm applicable check
   //checks if the command is applciable for dm's
   if (command.guildOnly && Interaction.channel.type === "dm") {
     return Interaction.reply({
       content: "i can't perform this action in direct message chat",
     });
   }
-  //#endregion
 
-  //#region argument needed check
   //checks if the command needs an argument if true and no given error Interaction and return to default state
   if (command.args && !args.length) {
     let reply = `you didnt provide any arguments, ${Interaction.author}!`;
@@ -221,14 +200,12 @@ client.on("messageCreate", async (Interaction) => {
     }
     return Interaction.channel.send({ content: reply });
   }
-  //#endregion
 
-  //#region cooldown
   //if command is not in map put it in
   if (!cooldowns.has(command.name)) {
     cooldowns.set(command.name, new Discord.Collection());
   }
-  //get current time, get timestamp from command, get cooldown time of command
+
   let currentTime = Date.now();
   let timeStamps = cooldowns.get(command.name);
   let cooldownTime = command.cooldown * 1000;
@@ -248,9 +225,6 @@ client.on("messageCreate", async (Interaction) => {
   }
   timeStamps.set(Interaction.author.id, currentTime);
 
-  //#endregion
-
-  //#region execute command
   //tries to perform the command if error occurs catch it and display on terminal
   try {
     const startTime = new Date();
@@ -281,12 +255,8 @@ client.on("messageCreate", async (Interaction) => {
       content: "there was an error trying to execute that command!",
     });
   }
-  //#endregion
 });
 
-//#endregion
-
-//#region interactionCreate
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
   const slashcommand = client.slashCommands.get(interaction.commandName);
@@ -299,8 +269,6 @@ client.on("interactionCreate", async (interaction) => {
     await interaction.reply({ content: error.message, ephemeral: true });
   }
 });
-
-//#endregion
 
 //#region    MUSIC EVENT TRIGGERS
 
@@ -379,15 +347,8 @@ events.on("finish", async (channel) => {
   channel.send({ content: `The last song has finished.` });
 });
 
-//#endregion
-
-//#region bot login
-//initiate bot by connecting to server and logging in with token
 client.login(process.env.DISCORD_TOKEN);
-//#endregion
 
-//#region proces error
-//if during proces an error occurs catch and display on terminal
 process.on("uncaughtException", (error) => console.log("error", error));
 process.on("unhandledRejection", (error) => console.log("error", error));
 process.on("ECONNRESET", (error) => {
@@ -406,7 +367,6 @@ process.on("DiscordAPIError", (error) => {
   });
   console.log(error);
 });
-//#endregion
 
 /*cool links
  https://i.imgur.com/18qFmWU.mp4
@@ -416,12 +376,9 @@ process.on("DiscordAPIError", (error) => {
  https://i.imgur.com/z3AJL70.gif
  https://i.imgur.com/dWK54ms.gif
  https://i.gifer.com/3lAO.gif
- test
  don't forget reconlx (google images thingy old)
      is still in package maybe do something with it
 
-
----------------------------------------------------------------------------------------
 koenie audioplayer 
 my settings seem to work:
 
