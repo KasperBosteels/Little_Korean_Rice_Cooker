@@ -1,6 +1,6 @@
 const ud = require("urban-dictionary");
-const discord = require("discord.js");
 const social = require("../socalCredit");
+const G = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "wotd",
   description: "word of the day",
@@ -21,29 +21,22 @@ async function term(message) {
     .then((results, error) => {
       if (error) return console.error(error.message);
       let coin = Math.floor(Math.random() * Math.floor(results.length));
-      sendembed(
-        makeEmbed(
-          results[coin].word,
-          results[coin].definition,
-          results[coin].example,
-          results[coin].permalink,
-          discord
-        ),
-        message.channel
-      );
+      message.channel.send({
+        embeds: [
+          G.GenerateEmbed(
+            "RANDOM",
+            results[coin].definition,
+            false,
+            (fields = [{ name: "example", content: results[coin].example }]),
+            false,
+            false,
+            `word of the day: **${results[coin].word}**`,
+            results[coin].permalink
+          ),
+        ],
+      });
     })
     .catch((error) => {
       console.error(error);
     });
-}
-function makeEmbed(word, def, example, link, discord) {
-  var embed = new discord.MessageEmbed();
-  embed.setTitle(`word of the day: ${word}`);
-  embed.setDescription(def);
-  embed.addField("example", example);
-  embed.setURL(link);
-  return embed;
-}
-function sendembed(embed, channel) {
-  return channel.send({ embeds: [embed] });
 }
