@@ -14,6 +14,6 @@ module.exports = {
   },
 };
 function Getguilds(client) {
-  let presentGuilds = client.guilds.cache.map(guild);
+  let presentGuilds = client.guilds.cache;
   return presentGuilds;
 }
