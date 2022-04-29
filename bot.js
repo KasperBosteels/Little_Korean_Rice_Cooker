@@ -111,7 +111,7 @@ client.once("ready", () => {
     ignoreusers.execute(con);
     logchannels.execute(con);
     custom_Welcome.execute(con);
-    writeAllPermissions(client);
+    //writeAllPermissions(client);
   } catch (err) {
     console.log(err);
   }
