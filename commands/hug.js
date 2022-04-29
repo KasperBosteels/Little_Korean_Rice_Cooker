@@ -1,4 +1,4 @@
-const discord = require("discord.js");
+import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
 const hug = require("../jsonFiles/bodily_affection.json").hugs;
 const score = require("../socalCredit");
 module.exports = {
@@ -16,23 +16,18 @@ module.exports = {
     //looks for given arguments
     if (!args[0]) {
       //no arguments reply command
-
-      var embed = new discord.MessageEmbed()
-        .setColor("#ff69b4")
-        .setAuthor({
-          name: "Little_Korean_Rice_Cooker",
-          url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-          iconURL: "https://i.imgur.com/A2SSxSE.png",
-        })
-        .setFooter({
+      var embed = GenerateEmbed(
+        "#ff69b4",
+        `${message.client.user} **forcefully hugs** ${message.euthor}`,
+        (footer = {
           text: message.member.displayName,
-          iconURL: message.author.displayAvatarUrl,
-        })
-        .setTimestamp()
-        .setDescription(
-          `${message.client.user} **forcefully hugs** ${message.author}`
-        )
-        .setImage(huggif);
+          url: message.author.displaAvatarUrl,
+        }),
+        false,
+        true,
+        huggif,
+        false
+      );
     } else {
       //argument given, assign mention to variable
       var member = message.mentions.members.first();
@@ -47,37 +42,31 @@ module.exports = {
           }
         }
         //return string with text
-        var embed = new discord.MessageEmbed()
-          .setColor("#ff69b4")
-          .setAuthor({
-            name: "Little_Korean_Rice_Cooker",
-            url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-            iconURL: "https://i.imgur.com/A2SSxSE.png",
-          })
-          .setFooter({
+        var embed = GenerateEmbed(
+          "#ff69b4",
+          `${message.author} **hugs** ${manualinput}`,
+          (footer = {
             text: message.member.displayName,
-            iconURL: message.author.displaAvatarUrl,
-          })
-          .setTimestamp()
-          .setDescription(`${message.author} **hugs** ${manualinput}`)
-          .setImage(huggif);
+            url: message.author.displaAvatarUrl,
+          }),
+          false,
+          true,
+          huggif,
+          false
+        );
       } else {
-        var embed = new discord.MessageEmbed()
-          .setColor("#ff69b4")
-          .setAuthor({
-            name: "Little_Korean_Rice_Cooker",
-            url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-            iconURL: "https://i.imgur.com/A2SSxSE.png",
-          })
-          .setFooter({
+        var embed = GenerateEmbed(
+          "#ff69b4",
+          `${message.author} **hugs** ${message.mentions.members.first()}`,
+          (footer = {
             text: message.member.displayName,
-            iconURL: message.author.displaAvatarUrl,
-          })
-          .setTimestamp()
-          .setDescription(
-            `${message.author} **hugs** ${message.mentions.members.first()}`
-          )
-          .setImage(huggif);
+            url: message.author.displaAvatarUrl,
+          }),
+          false,
+          true,
+          huggif,
+          false
+        );
       }
     }
     score.ADD(con, 100, message.author.id);

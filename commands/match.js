@@ -1,4 +1,4 @@
-const discord = require("discord.js");
+import GenereateEmbed from "../Generators/GenerateSimpleEmbed";
 const gif = require("../jsonFiles/bodily_affection.json");
 const score = require("../socalCredit");
 const prefixGET = require("../getprefixData").GET;
@@ -74,34 +74,36 @@ module.exports = {
     lovemeter = progressBar(value, 100, 25);
     if (!args[1]) {
       chosen = getGif(value);
-      var embed = new discord.MessageEmbed()
-        .setColor("#fc0fc0")
-        .setFooter({
-          text: message.member.displayName,
-          iconURL: message.author.displayAvatarUrl,
-        })
-        .setTimestamp()
-        .setDescription(
-          `**LOVE O' METER**\n
+      var embed = GenereateEmbed(
+        "#fc0fc0",
+        `**LOVE O' METER**\n
 	${message.author}  :heart:  ${users[0]}\n
-	**measured love**\n${lovemeter}`
-        )
-        .setImage(chosen);
+	**measured love**\n${lovemeter}`,
+        ((footer = {
+          text: message.member.displayName,
+          url: message.author.displayAvatarUrl,
+        }),
+        false,
+        true,
+        chosen,
+        false)
+      );
     } else {
       chosen = getGif(value);
-      var embed = new discord.MessageEmbed()
-        .setColor("#fc0fc0")
-        .setFooter({
-          text: message.member.displayName,
-          iconURL: message.author.displaAvatarUrl,
-        })
-        .setTimestamp()
-        .setDescription(
-          `**LOVE O' METER**\n
+      var embed = GenereateEmbed(
+        "#fc0fc0",
+        `**LOVE O' METER**\n
 			${users[0]}  :heart:  ${users[1]}\n
-			**measured love**\n${lovemeter}`
-        )
-        .setImage(chosen);
+			**measured love**\n${lovemeter}`,
+        (footer = {
+          text: message.member.displayName,
+          url: message.author.displaAvatarUrl,
+        }),
+        false,
+        true,
+        chosen,
+        false
+      );
     }
     message.channel.send({ embeds: [embed] });
     try {

@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
 const { Permissions } = require("discord.js");
 const logging = require("../sendToLogChannel.js");
 module.exports = {
@@ -33,7 +33,6 @@ module.exports = {
     if (member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
       return message.reply({ content: "This person is possibly a mod." });
     // Kick
-    let embed;
     let reason = `No reason give, by:${message.author.tag}`;
     if (args[1]) reason = args[1];
     member
@@ -46,7 +45,14 @@ module.exports = {
             member.displayName +
             " has been successfully kicked. :woman_cartwheeling: :person_golfing: ",
         });
-        embed = MakeEmbed(reason, member);
+        let embed = GenerateEmbed(
+          "#FF0000",
+          `reason: ${reason}`,
+          (footer = { text: `${member.displayName}`, url: "" }),
+          false,
+          true,
+          `${member.displayName} has been kicked.`
+        );
         logging.embedWithLog(member, embed, message);
       })
       .catch(() => {
@@ -55,18 +61,3 @@ module.exports = {
       });
   },
 };
-function MakeEmbed(reason, member) {
-  var embed = new Discord.MessageEmbed()
-    .setTitle(`${member.displayName} has been kicked.`)
-    .setDescription(`reason: ${reason}`)
-    .setTimestamp()
-    .setAuthor({
-      name: "Little_Korean_Rice_Cooker",
-      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-      iconURL: "https://i.imgur.com/A2SSxSE.png",
-    })
-    .setFooter({
-      text: `${member.displayName}`,
-    });
-  return embed;
-}

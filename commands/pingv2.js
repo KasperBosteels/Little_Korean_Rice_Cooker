@@ -1,4 +1,4 @@
-const discord = require("discord.js");
+import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
 module.exports = {
   name: "ping",
   description: "Gives you latency of the bot.",
@@ -12,14 +12,27 @@ module.exports = {
     message.channel.send({ content: "ping..." }).then((sent) => {
       sent.edit({
         embeds: [
-          makeEmbed(
-            sent.createdTimestamp - message.createdTimestamp,
-            client.ws.ping,
-            uptimeGET(client)
+          GenerateEmbed(
+            (title = "**PING**"),
+            (fields = [
+              {
+                name: "*roundstrip latency*",
+                content: `\`\`\` ${
+                  sent.createdTimestamp - message.createdTimestamp
+                } ms \`\`\``,
+              },
+              {
+                name: "*websocket heartbeat:*",
+                content: `\`\`\` ${client.ws.ping} ms \`\`\``,
+              },
+              {
+                name: "*uptime:*",
+                content: `\`\`\` ${uptimeGET(client)} \`\`\``,
+              },
+            ])
           ),
         ],
       });
-      //sent.edit(`roundtrip latency: ${sent.createdTimestamp - message.createdTimestamp} ms \n websocket heartbeat: ${client.ws.ping} ms\n${uptimeGET(client)}`);
     });
     return;
   },
@@ -33,12 +46,4 @@ function uptimeGET(client) {
   let totalminutes = Math.floor(totalSeconds / 60);
   let seconds = Math.floor(totalSeconds % 60);
   return `${days}:${hours}:${totalminutes}:${seconds}`;
-}
-function makeEmbed(roundtrip, heartbeat, uptime) {
-  let embed = new discord.MessageEmbed()
-    .setTitle("**PING**")
-    .addField("*roundtrip latency:*", `\`\`\` ${roundtrip} ms \`\`\``)
-    .addField("*websocket heartbeat:*", `\`\`\` ${heartbeat} ms \`\`\``)
-    .addField("*uptime:*", `\`\`\` ${uptime} \`\`\``);
-  return embed;
 }

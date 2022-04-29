@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
 const { Permissions } = require("discord.js");
 const logging = require("../sendToLogChannel");
 module.exports = {
@@ -48,19 +48,29 @@ module.exports = {
       await muteperson.timeout(500 * 60 * 1000, muteReason);
     } finally {
       logging.logWithNoMember(
-        makeEmbed(
-          message,
-          muteperson,
-          `\n__${mutetime}__ minute(s)\n reason: __${muteReason}__`
+        GenerateEmbed(
+          "#ffa500",
+          `**MUTED** \`\`\`${mute.displayName}\`\`\`\nhas been muted for \n__${mutetime}__ minute(s)\n reason: __${muteReason}__`,
+          (footer = {
+            text: message.member.displayName,
+            url: message.author.displayAvatarUrl,
+          }),
+          false,
+          true
         ),
         message
       );
       message.channel.send({
         embeds: [
-          makeEmbed(
-            message,
-            muteperson,
-            `\n__${mutetime}__ minute(s)\n reason: __${muteReason}__`
+          GenerateEmbed(
+            "#ffa500",
+            `**MUTED** \`\`\`${mute.displayName}\`\`\`\nhas been muted for \n__${mutetime}__ minute(s)\n reason: __${muteReason}__`,
+            (footer = {
+              text: message.member.displayName,
+              url: message.author.displayAvatarUrl,
+            }),
+            false,
+            true
           ),
         ],
       });
@@ -68,21 +78,3 @@ module.exports = {
     }
   },
 };
-function makeEmbed(message, mute, timeAndReason) {
-  var embed = new Discord.MessageEmbed()
-    .setColor("#ffa500")
-    .setAuthor({
-      name: "Little_Korean_Rice_Cooker",
-      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-      iconURL: "https://i.imgur.com/A2SSxSE.png",
-    })
-    .setFooter({
-      text: message.member.displayName,
-      iconURL: message.author.displayAvatarUrl,
-    })
-    .setTimestamp()
-    .setDescription(
-      `**MUTED** \`\`\`${mute.displayName}\`\`\`\nhas been muted for ${timeAndReason}.`
-    );
-  return embed;
-}

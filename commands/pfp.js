@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
 module.exports = {
   name: "pfp",
   description: "Display the pfp of a user.",
@@ -27,13 +27,14 @@ module.exports = {
     }
     if (!member) member = message.member;
 
-    return message.channel.send({ embeds: [makeEmbed(member)] });
+    return await message.channel.send({
+      embeds: [
+        GenerateEmbed(
+          (title = `${member.user.username}`),
+          (image = member.user.displayAvatarURL({ dynamic: true, size: 4096 })),
+          (timestamp = true)
+        ),
+      ],
+    });
   },
 };
-function makeEmbed(member) {
-  let embed = new Discord.MessageEmbed()
-    .setTitle(`${member.user.username}`)
-    .setImage(member.user.displayAvatarURL({ dynamic: true, size: 4096 }))
-    .setTimestamp();
-  return embed;
-}

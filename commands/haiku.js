@@ -1,6 +1,6 @@
 const haiku = require("haiku-random");
-const discord = require("discord.js");
 const score = require("../socalCredit");
+import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
 var hard_Haiku = [
   `You're a vast ocean,\nSo oddly terrifying\nSuch a strange comfort.\nby Achi`,
 ];
@@ -28,7 +28,22 @@ module.exports = {
     if (Math.floor(Math.random() * 10) + 1 === 1) {
       smile = hard_Haiku[Math.floor(Math.random() * hard_Haiku.length)];
     }
-    embedmaker(smile, message);
+    message.channel.send({
+      embeds: [
+        GenerateEmbed(
+          "#50c878",
+          haiku,
+          (footer = {
+            text: message.member.displayName,
+            url: message.author.displayAvatarUrl,
+          }),
+          false,
+          false,
+          false,
+          "a haiku for you"
+        ),
+      ],
+    });
     try {
       score.ADD(con, 10, message.author.id);
     } catch (err) {
@@ -36,19 +51,3 @@ module.exports = {
     }
   },
 };
-function embedmaker(haiku, message) {
-  var bed = new discord.MessageEmbed()
-    .setColor("#50C878")
-    .setAuthor({
-      name: "Little_Korean_Rice_Cooker",
-      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-      iconURL: "https://i.imgur.com/A2SSxSE.png",
-    })
-    .setFooter({
-      text: message.member.displayName,
-      iconURL: message.author.displayAvatarUrl,
-    })
-    .setTitle("a haiku for you")
-    .setDescription(haiku);
-  message.channel.send({ embeds: [bed] });
-}
