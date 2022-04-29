@@ -31,7 +31,7 @@ const ignoreusers = require("./ignored_users");
 const music = require("@koenie06/discord.js-music");
 const events = music.event;
 const cooldowns = new Map();
-
+const { writeAllPermissionsa } = require("./applicationCommandPermissions");
 const slashCommandsUpload = require("./uploadSlashCommand");
 const { Interaction } = require("discord.js");
 const logchannels = require("./getLogChannels");
@@ -111,6 +111,7 @@ client.once("ready", () => {
     ignoreusers.execute(con);
     logchannels.execute(con);
     custom_Welcome.execute(con);
+    writeAllPermissions(client);
   } catch (err) {
     console.log(err);
   }
