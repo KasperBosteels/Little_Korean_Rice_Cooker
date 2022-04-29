@@ -18,7 +18,7 @@ with a ton of features.
   </p>
 </p>
 
-![Contributors](https://img.shields.io/github/contributors/KasperBosteels/Little_Korean_Rice_Cooker?color=dark-green) ![Issues](https://img.shields.io/github/issues/KasperBosteels/Little_Korean_Rice_Cooker) ![License](https://img.shields.io/github/license/KasperBosteels/Little_Korean_Rice_Cooker/LICENSE) 
+![Contributors](https://img.shields.io/github/contributors/KasperBosteels/Little_Korean_Rice_Cooker?color=dark-green) ![Issues](https://img.shields.io/github/issues/KasperBosteels/Little_Korean_Rice_Cooker) ![License](https://img.shields.io/github/license/KasperBosteels/Little_Korean_Rice_Cooker) 
 
 ## Table Of Contents
 
