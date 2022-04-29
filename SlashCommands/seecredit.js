@@ -4,6 +4,7 @@ const credit = require("../socalCredit");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("credit")
+    .setDefaultPermission(true)
     .setDescription("Look at your own or someone elses credit.")
     .addUserOption((option) =>
       option

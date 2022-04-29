@@ -6,6 +6,7 @@ const yt = require("../commands/youtube");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("yt")
+    .setDefaultPermission(true)
     .setDescription("Quickly look up a youtube video.")
     .addStringOption((option) =>
       option

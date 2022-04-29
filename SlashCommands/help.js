@@ -5,6 +5,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("help")
     .setDescription("A handy guide for the bot.")
+    .setDefaultPermission(true)
     .addStringOption((option) =>
       option
         .setName("category")

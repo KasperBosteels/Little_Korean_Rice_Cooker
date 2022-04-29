@@ -9,6 +9,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("ox")
     .setDescription("Definitions from the oxford api")
+    .setDefaultPermission(true)
     .addStringOption((option) =>
       option.setName("word").setDescription("The word you want to look up.")
     ),

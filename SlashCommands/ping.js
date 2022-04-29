@@ -3,6 +3,7 @@ const discord = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("ping")
+    .setDefaultPermission(true)
     .setDescription("ping pong ping"),
   async execute(client, interaction, con) {
     await interaction.reply({
