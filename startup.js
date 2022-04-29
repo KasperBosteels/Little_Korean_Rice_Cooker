@@ -6,7 +6,9 @@ const fs = require("fs");
 module.exports = {
   async execute(client, con) {
     await con.connect();
-    console.log(`Logged in as ${client.user.tag}!`);
+    console.log(
+      `Logged in as ${client.user.tag} at: ${client.readyAt.toDateString()}`
+    );
     let counter = 0;
     const setStatus = () => {
       let statustxt = statusTexts;
@@ -34,3 +36,4 @@ function createLogCleaner() {
   });
   Job.start();
 }
+//0 0 * * 1/1
