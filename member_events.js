@@ -1,4 +1,4 @@
-const discord = require("discord.js");
+const G = require("./Generators/GenerateSimpleEmbed");
 const embedlogger = require("./sendToLogChannel");
 const logger = require("./logger");
 const socialcreddit = require("./socalCredit");
@@ -6,18 +6,17 @@ const customwelcome = require("./welcome_message_data_collector");
 module.exports = {
   async guildjoin(member, client, con) {
     let custommessage = await createCustomMessage(member);
-    var embed = new discord.MessageEmbed()
-      .setColor("#006400")
-      .setTitle("hello")
-      .setTimestamp()
-      .setAuthor({
-        name: "Little_Korean_Rice_Cooker",
-        url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-        iconURL: "https://i.imgur.com/A2SSxSE.png",
-      })
-      .setThumbnail(
-        member.user.avatarURL({ dynamic: true, format: "png", size: 64 })
-      );
+    var embed = G.GenerateEmbed(
+      "#006400",
+      false,
+      false,
+      false,
+      true,
+      false,
+      "Hello",
+      false,
+      member.user.avatarURL({ dynamic: true, format: "png", size: 64 })
+    );
     if (custommessage == false) {
       embed.setDescription(`welcome, ${member.displayName}`);
     } else {
@@ -40,16 +39,17 @@ module.exports = {
         return false;
       }
     });
-    var embed = new discord.MessageEmbed()
-      .setTimestamp()
-      .setAuthor({
-        name: "Little_Korean_Rice_Cooker",
-        url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-        iconURL: "https://i.imgur.com/A2SSxSE.png",
-      })
-      .setThumbnail(
-        member.user.avatarURL({ dynamic: true, format: "png", size: 64 })
-      );
+    var embed = G.GenerateEmbed(
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      member.user.avatarURL({ dynamic: true, format: "png", size: 64 })
+    );
     if (banned) {
       if (banned.reason == null) {
         embed.addField(
