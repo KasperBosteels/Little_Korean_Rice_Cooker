@@ -1,4 +1,4 @@
-import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
+const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
 const fetch = require("node-fetch");
 module.exports = {
   name: "meme",

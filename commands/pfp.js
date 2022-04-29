@@ -1,4 +1,4 @@
-import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
+const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "pfp",
   description: "Display the pfp of a user.",

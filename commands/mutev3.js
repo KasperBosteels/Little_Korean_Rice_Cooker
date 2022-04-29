@@ -1,4 +1,4 @@
-import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
+const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
 const { Permissions } = require("discord.js");
 const logging = require("../sendToLogChannel");
 module.exports = {

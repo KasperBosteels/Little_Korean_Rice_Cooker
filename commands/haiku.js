@@ -1,6 +1,6 @@
 const haiku = require("haiku-random");
 const score = require("../socalCredit");
-import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
+const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
 var hard_Haiku = [
   `You're a vast ocean,\nSo oddly terrifying\nSuch a strange comfort.\nby Achi`,
 ];

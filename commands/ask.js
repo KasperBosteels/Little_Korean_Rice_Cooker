@@ -1,8 +1,5 @@
-const Discord = require("discord.js");
-import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
-//#region answer array
 const answers = require("../jsonFiles/bodily_affection.json").answers;
-//#endregion
+const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "ask",
   description: "ask a question",

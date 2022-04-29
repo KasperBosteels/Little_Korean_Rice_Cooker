@@ -1,4 +1,4 @@
-import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
+const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
 const pats = require("../jsonFiles/bodily_affection.json").pats;
 const score = require("../socalCredit");
 module.exports = {

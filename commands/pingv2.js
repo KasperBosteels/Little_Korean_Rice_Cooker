@@ -1,4 +1,4 @@
-import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
+const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "ping",
   description: "Gives you latency of the bot.",

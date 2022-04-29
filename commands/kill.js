@@ -1,6 +1,6 @@
 const link = require("../jsonFiles/bodily_affection.json").kill;
 const synonyms = require("../jsonFiles/bodily_affection.json").killsynonyms;
-import GenereateEmbed from "../Generators/GenerateSimpleEmbed";
+const { GenereateEmbed } = require("../Generators/GenerateSimpleEmbed");
 const score = require("../socalCredit");
 module.exports = {
   name: "kill",

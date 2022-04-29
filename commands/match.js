@@ -1,4 +1,4 @@
-import GenereateEmbed from "../Generators/GenerateSimpleEmbed";
+const { GenereateEmbed } = require("../Generators/GenerateSimpleEmbed");
 const gif = require("../jsonFiles/bodily_affection.json");
 const score = require("../socalCredit");
 const prefixGET = require("../getprefixData").GET;

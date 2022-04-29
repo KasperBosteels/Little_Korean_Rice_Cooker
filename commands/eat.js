@@ -1,7 +1,7 @@
-const discord = require("discord.js");
 const eat = require("../jsonFiles/bodily_affection.json").eating;
 const score = require("../socalCredit");
-import GenerateEmbed from "../Generators/GenerateSimpleEmbed";
+const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+
 module.exports = {
   name: "eat",
   description: "eat someone.",

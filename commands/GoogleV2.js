@@ -1,4 +1,4 @@
-import { GenerateEmbed } from "../Generators/GenerateSimpleEmbed";
+const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
 const imageSearch = require("image-search-google");
 const paginationEmbed = require("discordjs-button-pagination");
 const { MessageButton } = require("discord.js");
