@@ -2,7 +2,7 @@ module.exports = {
   async writeAllPermissions(client) {
     console.log("updating application permissions...");
     try {
-      let guilds = await Getguilds(client);
+      let guilds = await client.guilds.cache;
       guilds.forEach((g) => {
         let guildcommands = g.commands;
         guildcommands.forEach((gc) => {
@@ -14,10 +14,3 @@ module.exports = {
     }
   },
 };
-function Getguilds(client) {
-  let presentGuilds = client.guilds.cache;
-  for (let i = 0; i < presentGuilds.length; i++) {
-    console.log(presentGuilds[i].id);
-  }
-  return presentGuilds;
-}
