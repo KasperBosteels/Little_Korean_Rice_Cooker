@@ -129,7 +129,7 @@ Once you have installed all the packages, and put all the keys/id's in the .env 
 
 ## License
 
-Distributed under the MIT License. See [LICENSE](https://github.com/KasperBosteels/Little_Korean_Rice_Cooker/blob/main/LICENSE.md) for more information.
+Distributed under the CC0 License. See [LICENSE](https://github.com/KasperBosteels/Little_Korean_Rice_Cooker/blob/main/LICENSE) for more information.
 
 ## Authors
 
