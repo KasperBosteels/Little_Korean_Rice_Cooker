@@ -293,7 +293,6 @@ client.player
         ),
       ],
     });
-    console.log(song);
   })
   // Emitted when a playlist was added to the queue.
   .on("playlistAdd", (queue, playlist) =>
