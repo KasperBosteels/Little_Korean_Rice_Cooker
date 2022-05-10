@@ -3,14 +3,18 @@ const stop = require("./music_stop");
 const pause = require("./music_pause.js");
 module.exports = {
   name: "play",
-  description: "I will sing the song of my people.",
+  description: "To play some tunes in VC.",
   cooldown: 5,
-  usage: "<name of the song>",
+  usage: "<name | url>",
   category: "music",
   aliases: ["p"],
   perms: ["SEND_MESSAGES", "CONNECT", "SPEAK"],
   userperms: ["CONNECT"],
   async execute(client, message, args, con) {
+    if (args.length < 1)
+      return message.channel.send({
+        content: "I can't play silence dude,give me something.",
+      });
     let Vchannel, songquery, guildQueue;
     guildQueue = client.player.getQueue(message.guild.id);
     Vchannel = message.member.voice.channel;
