@@ -28,8 +28,6 @@ const power = require("./powerButton");
 const leave = require("./leave");
 const server = require("./server_events");
 const ignoreusers = require("./ignored_users");
-const music = require("@koenie06/discord.js-music");
-const events = music.event;
 const cooldowns = new Map();
 const { writeAllPermissions } = require("./applicationCommandPermissions");
 const slashCommandsUpload = require("./uploadSlashCommand");
@@ -37,6 +35,8 @@ const { Interaction } = require("discord.js");
 const logchannels = require("./getLogChannels");
 const memberEvents = require("./member_events");
 const custom_Welcome = require("./welcome_message_data_collector.js");
+const { Player } = require("discord-music-player");
+const G = require("./Generators/GenerateSimpleEmbed");
 //#endregion
 
 //#region init bot as client
@@ -56,7 +56,8 @@ let intents = [
   Intents.FLAGS.GUILD_PRESENCES,
 ];
 const client = new Discord.Client({ intents: intents });
-
+const player = new Player(client, { leaveOnEmpty: false });
+client.player = player;
 //#endregion
 
 //#region load commands
@@ -271,81 +272,78 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 //#region    MUSIC EVENT TRIGGERS
-
-function QuickEmbed(title, songinfo = null, playlist = null, requester) {
-  let embed = new Discord.MessageEmbed();
-  embed
-    .setColor("RANDOM")
-    .setAuthor("Little_Korean_Rice_Cooker", "https://i.imgur.com/A2SSxSE.png")
-    .setTitle(title);
-  if (
-    title != "Paused this song for you" &&
-    songinfo != null &&
-    playlist == null
-  ) {
-    embed.addField(
-      songinfo.title,
-      `\`\`\`by: ${songinfo.author}\nrequested by: ${requester.user.username} \`\`\``
-    );
-    embed.setThumbnail(songinfo.thumbnail);
-  } else if (playlist != null && songinfo != null) {
-    embed.addField(
-      songinfo.title,
-      `\`\`\`by: ${songinfo.author}\nplaylist: ${playlist.title}\nrequested by: ${requester.user.username} \`\`\``
-    );
-    embed.setThumbnail(songinfo.thumbnail);
-  } else if (title == "Paused this song for you") {
-    embed.addField(
-      songinfo.title,
-      `\`\`\`by: ${songinfo.author}\nrequested by: ${requester.user.username} \`\`\``
-    );
-    embed.setThumbnail(songinfo.thumbnail);
-  } else {
-    embed.addField(
-      playlist.title,
-      `\`\`\`videos: ${playlist.videos.length}\nrequested by: ${requester.user.username} \`\`\``
-    );
-  }
-  return embed;
-}
-
-events.on("playSong", async (channel, songInfo, requester) => {
-  channel.send({
-    embeds: [QuickEmbed("playing", songInfo, null, requester)],
+client.player
+  .on("channelEmpty", (queue) =>
+    queue.data.queueInitChannel.send({
+      embeds: [
+        G.GenerateEmbed(
+          "RANDOM",
+          "oof, its awfully quiet in here, maybe ill leave too..."
+        ),
+      ],
+    })
+  )
+  // Emitted when a song was added to the queue.
+  .on("songAdd", (queue, song) => {
+    queue.data.queueInitChannel.send({
+      embeds: [
+        G.GenerateEmbed(
+          "RANDOM",
+          `${song.name}\ntime: ${song.duration}\nrequested by: ${song.requestedBy}`
+        ),
+      ],
+    });
+    console.log(song);
+  })
+  // Emitted when a playlist was added to the queue.
+  .on("playlistAdd", (queue, playlist) =>
+    queue.data.queueInitChannel.send({
+      embeds: [
+        G.GenerateEmbed(
+          "RANDOM",
+          `with ${playlist.song.length} songs\nby: ${playlist.author}`
+        ),
+      ],
+    })
+  )
+  // Emitted when there was no more music to play.
+  .on("queueDestroyed", (queue) => console.log(`The queue was destroyed.`))
+  // Emitted when the queue was destroyed (either by ending or stopping).
+  .on("queueEnd", (queue) =>
+    queue.data.queueInitChannel.send({
+      embeds: [G.GenerateEmbed("RANDOM", "all songs where played")],
+    })
+  )
+  // Emitted when a song changed.
+  .on("songChanged", (queue, newSong, oldSong) =>
+    queue.data.queueInitChannel.send({
+      embeds: [
+        G.GenerateEmbed(
+          "RANDOM",
+          `and that was our lovely ${oldSong.author} with ${oldSong.name}\n now upcoming ${newSong.name}`,
+          false,
+          false,
+          true,
+          false,
+          "now playing",
+          newSong.url,
+          newSong.thumbnail
+        ),
+      ],
+    })
+  )
+  // Emitted when a first song in the queue started playing.
+  .on("songFirst", (queue, song) => console.log(`Started playing ${song}.`))
+  // Emitted when someone disconnected the bot from the channel.
+  .on("clientDisconnect", (queue) =>
+    console.log(`I was kicked from the Voice Channel, queue ended.`)
+  )
+  // Emitted when deafenOnJoin is true and the bot was undeafened
+  .on("clientUndeafen", (queue) => console.log(`I got undefeanded.`))
+  // Emitted when there was an error in runtime
+  .on("error", (error, queue) => {
+    console.log(`Error: ${error} in ${queue.guild.name}`);
   });
-});
-events.on("addSong", async (channel, songInfo, requester) => {
-  channel.send({
-    embeds: [QuickEmbed("added song to the queue", songInfo, null, requester)],
-  });
-});
-events.on("playList", async (channel, playlist, songInfo, requester) => {
-  channel.send({
-    embeds: [QuickEmbed("starting playlist", songInfo, playlist, requester)],
-  });
-});
-events.on("addList", async (channel, playlist, requester) => {
-  channel.send({
-    embeds: [
-      QuickEmbed("added playlist to the queue", null, playlist, requester),
-    ],
-  });
-});
-events.on("paused_song", async (channel, songdata, requester) => {
-  channel.send({
-    embeds: [
-      QuickEmbed(
-        "Paused this song for you",
-        songdata.queue[0].info,
-        null,
-        requester
-      ),
-    ],
-  });
-});
-events.on("finish", async (channel) => {
-  channel.send({ content: `The last song has finished.` });
-});
 
 client.login(process.env.DISCORD_TOKEN);
 
@@ -360,13 +358,17 @@ process.on("PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR", (error) => {
   con.connect();
   throw error;
 });
-process.on("DiscordAPIError", (error) => {
-  Interaction.channel.send({
-    content:
-      "Message was too big to send in discord, sorry. <:sadgeCooker:910210761136148581>",
+process
+  .on("DiscordAPIError", (error) => {
+    Interaction.channel.send({
+      content:
+        "Message was too big to send in discord, sorry. <:sadgeCooker:910210761136148581>",
+    });
+    console.log(error);
+  })
+  .on("error", (error, queue) => {
+    console.log(`ERROR: ${error} in ${queue.guild.name}`);
   });
-  console.log(error);
-});
 
 /*cool links
  https://i.imgur.com/18qFmWU.mp4

@@ -1,4 +1,3 @@
-const music = require("@koenie06/discord.js-music");
 const score = require("../socalCredit");
 const Discord = require("discord.js");
 module.exports = {
@@ -10,10 +9,11 @@ module.exports = {
   perms: ["SEND_MESSAGES"],
   userperms: ["CONNECT"],
   async execute(client, message, args, con) {
-    let list = await music.getQueue({ interaction: message });
+    let guildQueue = client.player.getQueue(message.guild.id);
+    let volume = guildQueue.volume;
     let embed = new Discord.MessageEmbed()
       .setTitle("QUEUE")
-      .setDescription("The queue for this PARTAY!")
+      .setDescription("the current volume is: " + `${volume}/100\n`)
       .setColor("RANDOM")
       .setAuthor({
         name: "Little_Korean_Rice_Cooker",
@@ -24,12 +24,15 @@ module.exports = {
         text: message.member.displayName,
         iconURL: message.author.displayAvatarUrl,
       });
-    for (let i = 0; i < list.length; i++) {
+
+    let i = 0;
+    guildQueue.songs.forEach((song) => {
       embed.addField(
-        `[${i + 1}]${list[i].info.title}`,
-        `duration: ${list[i].info.duration}  author: ${list[i].info.author} requested by:${list[i].requester}`
+        `${i++}. **` + song.name + "**",
+        `by: ${song.author}\nduration: ${song.duration}\nrequested by:${song.requestedBy}`
       );
-    }
+    });
+    console.log(guildQueue);
     message.channel.send({ embeds: [embed] });
     score.ADD(con, 1, message.author.id);
   },

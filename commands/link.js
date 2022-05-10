@@ -9,7 +9,7 @@ module.exports = {
   userperms: [],
   execute(client, message, args) {
     message.channel.send({
-      content: `https://canary.discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376646&scope=bot <:Cooker:910220565955104818>      `,
+      content: `https://canary.discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376646&scope=bot%20applications.commands <:Cooker:910220565955104818>      `,
     });
   },
 };
