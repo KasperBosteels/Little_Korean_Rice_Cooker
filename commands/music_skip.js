@@ -1,4 +1,3 @@
-const music = require("@koenie06/discord.js-music");
 const score = require("../socalCredit");
 module.exports = {
   name: "skip",
@@ -9,45 +8,8 @@ module.exports = {
   perms: ["SEND_MESSAGES", "CONNECT", "SPEAK"],
   userperms: ["CONNECT"],
   async execute(client, message, args, con) {
-    if (!args) {
-      try {
-        music.skip({ interaction: message });
-      } catch (error) {
-        console.log(error);
-        throw new Error(error);
-      }
-    } else {
-      try {
-        const list = await music.getQueue({ interaction: message });
-        if (!args[0]) {
-          const skipMessage = `${
-            list[Number.parseInt("0")].info.title
-          } was skipped.`;
-          await music.skip({ interaction: message });
-        } else if (
-          !Number.isInteger(Number.parseInt(args[0])) ||
-          args[0] < 0 ||
-          args[0 + 1] > list.length
-        )
-          return await message.reply({
-            content:
-              "Sorry you need to give a valid number,\nMake sure the number is within the queue.",
-          });
-        const skipMessage = `${
-          list[Number.parseInt(args[0])].info.title
-        } was skipped.`;
-        await music.removeQueue({
-          interaction: message,
-          number: Number.parseInt(Number.parseInt(args[0 + 1])),
-        });
-        return await message.reply({
-          content: skipMessage,
-        });
-      } catch (error) {
-        console.log(error);
-        throw new Error(error);
-      }
-    }
+    let guildQueue = client.player.getQueue(message.guild.id);
+    guildQueue.skip();
 
     score.ADD(con, 1, message.author.id);
   },

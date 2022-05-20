@@ -1,48 +1,38 @@
-const music = require("@koenie06/discord.js-music");
 const score = require("../socalCredit");
 const stop = require("./music_stop");
 const pause = require("./music_pause.js");
 module.exports = {
   name: "play",
-  description: "I will sing the song of my people.",
+  description: "To play some tunes in VC.",
   cooldown: 5,
-  usage: "<name of the song>",
+  usage: "<name | url>",
   category: "music",
   aliases: ["p"],
   perms: ["SEND_MESSAGES", "CONNECT", "SPEAK"],
   userperms: ["CONNECT"],
   async execute(client, message, args, con) {
-    let Vchannel, song;
+    if (args.length < 1)
+      return message.channel.send({
+        content: "I can't play silence dude,give me something.",
+      });
+    let Vchannel, songquery, guildQueue;
+    guildQueue = client.player.getQueue(message.guild.id);
     Vchannel = message.member.voice.channel;
     if (!Vchannel) return message.reply("You are not in a voice channel.");
     if (!args.length) {
-      if (!(await music.isConnected({ interaction: message }))) {
-        return message.reply({
-          content: "I'm not connected to VC or not playing any music.",
-        });
-      }
       return await pause.execute(null, message, null, con);
     }
-    song = args.join(" ");
-    try {
-      music.play({
-        interaction: message,
-        channel: Vchannel,
-        song: song,
-        requester: message.author,
+
+    songquery = args.join(" ");
+    let queue = client.player.createQueue(message.guild.id, {
+      data: { queueInitChannel: message.channel },
+    });
+    await queue.join(Vchannel);
+    let song = await queue
+      .play(songquery, { requestedBy: message.author.username })
+      .catch((_) => {
+        if (!guildQueue) queue.stop();
       });
-    } catch (err) {
-      console.log(err);
-      if (err.message == "NO_SONG_FOUND") {
-        return await message.reply({
-          content: "Sorry i wasn't able to find that song you wanted.",
-        });
-      }
-      message.channel.send("A problem occured i am very sorry. ");
-      message.channel.send("<:whot:908793757728636988>");
-      return stop.execute(client, message, args, con);
-    } finally {
-      return score.ADD(con, 1, message.author.id);
-    }
+    return score.ADD(con, 3, message.author.id);
   },
 };

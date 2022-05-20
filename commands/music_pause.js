@@ -1,4 +1,3 @@
-const music = require("@koenie06/discord.js-music");
 const score = require("../socalCredit");
 const resume = require("./music_resume");
 module.exports = {
@@ -10,11 +9,8 @@ module.exports = {
   perms: ["SEND_MESSAGES", "CONNECT", "SPEAK"],
   userperms: ["CONNECT", "SPEAK"],
   async execute(client, message, args, con) {
-    if (!(await music.isPaused({ interaction: message }))) {
-      music.pause({ interaction: message });
-    } else {
-      music.resume({ interaction: message });
-    }
+    let guildQueue = client.player.getQueue(message.guild.id);
+    guildQueue.setPaused(true);
     score.ADD(con, 1, message.author.id);
   },
 };
