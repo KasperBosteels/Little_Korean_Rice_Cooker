@@ -29,7 +29,6 @@ const leave = require("./leave");
 const server = require("./server_events");
 const ignoreusers = require("./ignored_users");
 const cooldowns = new Map();
-const { writeAllPermissions } = require("./applicationCommandPermissions");
 const slashCommandsUpload = require("./uploadSlashCommand");
 const { Interaction } = require("discord.js");
 const logchannels = require("./getLogChannels");
