@@ -36,6 +36,7 @@ const memberEvents = require("./member_events");
 const custom_Welcome = require("./welcome_message_data_collector.js");
 const { Player } = require("discord-music-player");
 const G = require("./Generators/GenerateSimpleEmbed");
+const updateSwears = require("./update_swear_words");
 //#endregion
 
 //#region init bot as client
@@ -105,6 +106,7 @@ client.once("ready", () => {
     getprefix.execute(con);
     profanity_alert_data_collector.execute(con);
     profanity_enabled.execute(con);
+    updateSwears.execute(con);
     leveling_enabled.execute(con);
     welcome_channel.execute(con);
     welcomeLeaveMessages.execute(con);

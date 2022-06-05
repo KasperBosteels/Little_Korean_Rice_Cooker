@@ -4,6 +4,8 @@ const profanity_enabled = require("./profanity_enabled");
 const score = require("./socalCredit");
 const warn = require("./commands/warnv2.js");
 const Discord = require("discord.js");
+const { get_default_swear_words, GET } = require("./update_swear_words");
+const { profanity } = require("./logger");
 const threats = [
   "Profanity detected! <:angryCooker:910235812334022746>  ",
   "I have detected profanity in your message, i will report this. <:angryCooker:910235812334022746>  ",
@@ -26,14 +28,14 @@ async function proffilter(message, client, con) {
 
   //split content of message and get list of swear words
   let messageArray = message.content.split();
-  let swear = getswearwords();
+  let swear = await getswearwords(message.guild.id);
   let amountswear = 0;
   let userID = message.author.id;
   //for every word in message check if it is in the swearwords list
   const messageLength = messageArray.length;
   for (let Y = 0; Y < messageLength; Y++) {
-    for (let i = 0; i < swear["vloekwoorden"].length; i++) {
-      if (messageArray[Y].toLowerCase().includes(swear["vloekwoorden"][i])) {
+    for (let i = 0; i < swear.length; i++) {
+      if (messageArray[Y].toLowerCase().includes(swear[i])) {
         amountswear++;
       }
     }
@@ -50,9 +52,7 @@ async function proffilter(message, client, con) {
       } catch (err) {
         return console.log(err);
       } finally {
-        console.log(
-          `profanity  ${message.author.tag}   \"${message.content}\"`
-        );
+        profanity(message.channel.id, message.guild.id, message.content);
         score.SUBTRACT(con, 125, message.author.id);
         if ((await score.GETSCORE(con, userID)) <= 500) {
           warn.aleternateWarn(
@@ -76,8 +76,16 @@ async function proffilter(message, client, con) {
     */
 }
 //get swear words from json file
-function getswearwords() {
-  return JSON.parse(fs.readFileSync("./jsonFiles/swearwords.json"));
+async function getswearwords(guildID) {
+  let customs = await GET(guildID);
+  let allswearwords = [];
+  allswearwords = await get_default_swear_words();
+  if (customs.default == 1) {
+    allswearwords.push(...customs.custom);
+  } else {
+    allswearwords = customs.custom;
+  }
+  return allswearwords;
 }
 //check for arabic
 function HasArabicCharacters(text) {
