@@ -8,7 +8,6 @@ module.exports = {
     (async () => {
       try {
         console.log("Started refreshing application (/) commands.");
-
         await rest.put(Routes.applicationCommands(clientId), {
           body: slashcommands,
         });

@@ -267,8 +267,8 @@ client.on("interactionCreate", async (interaction) => {
     await slashcommand.execute(client, interaction, con);
   } catch (error) {
     if (error.code == 10062) return;
-
     await interaction.reply({ content: error.message, ephemeral: true });
+    logger.execute("/", interaction.name, interaction.options, error);
   }
 });
 

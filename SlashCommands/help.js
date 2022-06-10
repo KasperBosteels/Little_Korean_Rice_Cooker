@@ -11,12 +11,14 @@ module.exports = {
         .setName("category")
         .setDescription("Select a specific help category.")
         .setRequired(false)
-        .addChoice("Index", "1")
-        .addChoice("General", "2")
-        .addChoice("Fun", "3")
-        .addChoice("Music", "4")
-        .addChoice("Moderating", "5")
-        .addChoice("Configuration", "6")
+        .addChoices(
+          { name: "Index", value: "1" },
+          { name: "General", value: "2" },
+          { name: "Fun", value: "3" },
+          { name: "Music", value: "4" },
+          { name: "Moderating", value: "5" },
+          { name: "Configuration", value: "6" }
+        )
     ),
   async execute(client, interaction, con) {
     const cat = interaction.options.getString("category");

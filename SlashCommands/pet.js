@@ -5,43 +5,41 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("pet")
     .setDescription("Sometimes you just need to put your hands on it.")
-    .addUserOption((option) => {
-      option.setName("user").setDescription("Pet a user.").required(false);
-    }),
+    .setDefaultPermission(true)
+    .addUserOption((option) =>
+      option.setName("user").setDescription("Pet a user.").setRequired(false)
+    )
+    .addStringOption((option) =>
+      option
+        .setName("text")
+        .setDescription("something you want to pet")
+        .setRequired(false)
+    ),
   async execute(client, interaction, con) {
     await interaction.deferReply();
-    let userRequest;
-    let responseEmbed;
-    const RandomLove = love[Math.floor(Math.random() * love.length)];
-    if (await interaction.options.getUser("cannibalize")) {
-      userRequest = await interaction.options.getUser("send love");
-      responseEmbed = G.GenerateEmbed(
-        "RANDOM",
-        userRequest + "\n" + RandomLove,
-        true,
-        false,
-        fale,
-        false,
-        false,
-        false,
-        false
-      );
+    let userRequest, responsetext, inbetween;
+    inbetween = "pats";
+    if (interaction.options.getUser("user")) {
+      userRequest = interaction.options.getUser("user");
+      responsetext = `${interaction.user} **${inbetween}** ${userRequest}`;
+    } else if (interaction.options.getString("text")) {
+      userRequest = interaction.options.getString("text");
+      responsetext = `${interaction.user} **${inbetween}** ${userRequest}`;
     } else {
-      responseEmbed = G.GenerateEmbed(
-        "RANDOM",
-        RandomLove,
-        true,
-        false,
-        fale,
-        false,
-        false,
-        false,
-        false
-      );
+      userRequest = interaction.user;
+      responsetext = `i gently pet ${userRequest}`;
     }
-    return interaction.editReply({
-      content: " ",
-      embeds: [responseEmbed],
+    const gif = path[Math.floor(Math.random() * path.length)];
+    let embed = G.GenerateEmbed(
+      "RANDOM",
+      responsetext,
+      false,
+      false,
+      false,
+      gif
+    );
+    return await interaction.editReply({
+      embeds: [embed],
     });
   },
 };

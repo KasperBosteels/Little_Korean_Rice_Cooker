@@ -1,52 +1,46 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const eat = require("../jsonFiles/bodily_affection.json").eating;
+const eatingtext = require("../jsonFiles/bodily_affection.json")["eating-text"];
 const G = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("Eat")
+    .setName("eat")
     .setDescription("Eat something or someone.")
+    .setDefaultPermission(true)
     .addStringOption((option) =>
-      option.setName("eat").setDescription("Eat something.").required(false)
+      option.setName("text").setDescription("something").setRequired(false)
     )
-    .addUserOption((option) => {
+    .addUserOption((option) =>
       option
         .setName("cannibalize")
-        .setDescription("Eat someone.")
-        .required(false);
-    }),
-
+        .setDescription("the user you want to eat.")
+        .setRequired(false)
+    ),
   async execute(client, interaction, con) {
     await interaction.deferReply();
-    let userRequest;
-    let responsetext;
-    if (await interaction.options.getUser("cannibalize")) {
-      userRequest = await interaction.options.getUser("cannibalize");
-      responsetext = `${interaction.user} **takes a bite out of** ${userRequest}`;
-    } else if (await interaction.options.getString("eat")) {
-      userRequest = await interaction.options.getString("eat");
-      responsetext = `${interaction.user} **takes a bite out of** ${userRequest}`;
+    let userRequest, responsetext, inbetween;
+    inbetween = eatingtext[Math.floor(Math.random() * eatingtext.length)];
+    if (interaction.options.getUser("cannibalize")) {
+      userRequest = interaction.options.getUser("cannibalize");
+      responsetext = `${interaction.user} **${inbetween}** ${userRequest}`;
+    } else if (interaction.options.getString("text")) {
+      userRequest = interaction.options.getString("text");
+      responsetext = `${interaction.user} **${inbetween}** ${userRequest}`;
     } else {
       userRequest = interaction.user;
       responsetext = `i nibble on ${userRequest}'s toes`;
     }
     const gif = eat[Math.floor(Math.random() * eat.length)];
-    let responseEmbed;
-    return interaction.editReply({
-      content: " ",
-      embeds: [
-        G.GenerateEmbed(
-          "RANDOM",
-          responsetext,
-          true,
-          false,
-          false,
-          gif,
-          false,
-          false,
-          false
-        ),
-      ],
-      ephemeral: false,
+    let embed = G.GenerateEmbed(
+      "RANDOM",
+      responsetext,
+      false,
+      false,
+      false,
+      gif
+    );
+    return await interaction.editReply({
+      embeds: [embed],
     });
   },
 };

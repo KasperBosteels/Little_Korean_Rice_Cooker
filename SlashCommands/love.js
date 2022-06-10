@@ -3,49 +3,31 @@ const G = require("../Generators/GenerateSimpleEmbed");
 const love = require("../jsonFiles/love.json").answer;
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("love")
+    .setName("loveyou")
     .setDescription(
       "For whenever you need some affection of an inanimate object."
     )
-    .addUserOption((option) => {
+    .setDefaultPermission(true)
+    .addUserOption((option) =>
       option
-        .setName("send love")
+        .setName("send")
         .setDescription("Share some love.")
-        .required(false);
-    }),
+        .setRequired(false)
+    ),
   async execute(client, interaction, con) {
     await interaction.deferReply();
-    let userRequest;
-    let responseEmbed;
+    let userRequest, responseEmbed;
     const RandomLove = love[Math.floor(Math.random() * love.length)];
-    if (await interaction.options.getUser("cannibalize")) {
-      userRequest = await interaction.options.getUser("send love");
+    if (interaction.options.getUser("send")) {
+      userRequest = interaction.options.getUser("send");
       responseEmbed = G.GenerateEmbed(
         "RANDOM",
-        userRequest + "\n" + RandomLove,
-        true,
-        false,
-        fale,
-        false,
-        false,
-        false,
-        false
+        `${userRequest}\n${RandomLove}`
       );
     } else {
-      responseEmbed = G.GenerateEmbed(
-        "RANDOM",
-        RandomLove,
-        true,
-        false,
-        fale,
-        false,
-        false,
-        false,
-        false
-      );
+      responseEmbed = G.GenerateEmbed("RANDOM", RandomLove);
     }
-    return interaction.editReply({
-      content: " ",
+    return await interaction.editReply({
       embeds: [responseEmbed],
     });
   },
