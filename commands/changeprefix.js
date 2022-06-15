@@ -36,6 +36,30 @@ module.exports = {
       content: `Updated your prefix to: "${args[0]}".`,
     });
   },
+  async update(guildID, prefix) {
+    try {
+      con.query(
+        `SELECT prefix from guild where guildID = ${guildID}`,
+        (err, rows) => {
+          if (err) return console.error(err);
+          if (rows.length) {
+            con.query(
+              `UPDATE guild SET prefix ="${prefix}" WHERE guildID = "${guildID}";`
+            );
+          } else {
+            con.query(
+              `INSERT INTO guild (guildID,prefix) VALUES ("${guildID}","${prefix}");`
+            );
+          }
+          pr.execute(con);
+        }
+      );
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
 };
 function permissioncheck(message) {
   //check perms
