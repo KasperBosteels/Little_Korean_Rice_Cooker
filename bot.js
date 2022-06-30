@@ -267,7 +267,7 @@ client.on("interactionCreate", async (interaction) => {
     await slashcommand.execute(client, interaction, con);
   } catch (error) {
     if (error.code == 10062) return;
-    await interaction.reply({ content: error.message, ephemeral: true });
+    await interaction.editReply({ content: error.message, ephemeral: true });
     logger.execute("/", interaction.name, interaction.options, error);
   }
 });
@@ -380,13 +380,4 @@ process
  https://i.gifer.com/3lAO.gif
  don't forget reconlx (google images thingy old)
      is still in package maybe do something with it
-
-koenie audioplayer 
-my settings seem to work:
-
-    let resource = await createAudioResource(ytdl(data.queue[0].url, { filter: 'audioonly',highWaterMark:1<<25,quality:'highestaudio'}), { 
-        inputType: StreamType.Arbitrary,
-        inlineVolume: true,
-    });
-
 */

@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const ox = require("oxford-dictionary");
 const Discord = require("discord.js");
+const G = require("../Generators/GenerateSimpleEmbed").GenerateEmbed;
 const ID = process.env.OXFORD_ID;
 const KEY = process.env.OXFORD_KEY;
 const config = { app_id: ID, app_key: KEY, source_lang: "en-gb" };
@@ -50,7 +51,6 @@ function derivativeGET(object) {
     let derivative = " ";
     const derivative_length =
       object.results[0].lexicalEntries[0].derivatives.length;
-    console.log(derivative_length);
     for (let i = 0; i < derivative_length; i++) {
       derivative += `\n${object.results[0].lexicalEntries[0].derivatives[i].id}`;
     }
@@ -111,13 +111,16 @@ function synonymGET(object) {
   return synonyms;
 }
 function makeEmbed(author, word, object, Discord) {
-  let embed = new Discord.MessageEmbed();
-  embed.setAuthor(author);
-  embed.setTitle(word);
-  if (!object) {
-    embed.setDescription("nothing found sorry");
-    return embed;
-  }
+  let messageEmbed = G(
+    "RANDOM",
+    "Nothing found sorry.",
+    false,
+    false,
+    false,
+    false,
+    word,
+    `https://www.oxfordlearnersdictionaries.com/definition/english/${word}`
+  );
   let derivative = derivativeGET(object);
   let synonyms = synonymGET(object);
   let etymology = etymologyGet(object);
@@ -139,6 +142,6 @@ function makeEmbed(author, word, object, Discord) {
   if (synonyms) {
     completeDescription += `**synonyms**: ${synonyms}`;
   }
-  embed.setDescription(`${completeDescription}`);
-  return embed;
+  messageEmbed.setDescription(`${completeDescription}`);
+  return messageEmbed;
 }

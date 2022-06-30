@@ -29,14 +29,13 @@ module.exports = {
     try {
       //try to ban member with reason
       await message.guild.members.ban(user, { days: 7, reason: Reason });
+      await message.channel.send({
+        content: `:man_police_officer: ${user.username} has been successfully banned :man_police_officer: `,
+      });
     } catch (error) {
       //if unsucsessfull display failed message
       return message.channel.send({
         content: `Failed to ban **${user.username}**: ${error}`,
-      });
-    } finally {
-      message.channel.send({
-        content: `:man_police_officer: ${user.username} has been successfully banned :man_police_officer: `,
       });
     }
   },
@@ -48,21 +47,6 @@ function permissioncheck(message) {
   if (!message.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS))
     return false;
   return true;
-}
-
-function makeEmbed(user, message, reason) {
-  const embed = new Discord.MessageEmbed()
-    .setColor("#ff0000")
-    .setAuthor({
-      name: "Little_Korean_Rice_Cooker",
-      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-      iconURL: "https://i.imgur.com/A2SSxSE.png",
-    })
-    .setFooter({ text: user.tag, iconURL: message.author.displayAvatarURL })
-    .setTimestamp().setDescription(`**BANNED:** ${user.tag}\n
-                    Banned by: ${message.author}\n
-                    **Reason:** ${reason}`);
-  return embed;
 }
 //advanced identifier for user to not ban the wrong person
 function getUserFromMention(mention, client, message) {
