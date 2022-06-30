@@ -13,7 +13,7 @@ const commandFiles = fs
   .readdirSync("./commands")
   .filter((file) => file.endsWith(".js"));
 const slashCommandsFiles = fs
-  .readdirSync("./SlashCommands")
+  .readdirSync("./commands/SlashCommands")
   .filter((file) => file.endsWith(".js"));
 const profanity = require("./profanityfilter.js");
 const level = require("./level.js");
@@ -76,7 +76,7 @@ for (const file of commandFiles) {
 client.slashCommands = new Discord.Collection();
 const slashCommandsArray = [];
 for (const slashfile of slashCommandsFiles) {
-  const commandslash = require(`./SlashCommands/${slashfile}`);
+  const commandslash = require(`./commands/SlashCommands/${slashfile}`);
   client.slashCommands.set(commandslash.data.name, commandslash);
   slashCommandsArray.push(commandslash.data.toJSON());
   console.log(`slash command file loaded: ${commandslash.data.name}`);

@@ -1,35 +1,38 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const G = require("../Generators/GenerateSimpleEmbed");
-const path = require("../jsonFiles/bodily_affection.json").pats;
+const eat = require("../../jsonFiles/bodily_affection.json").eating;
+const eatingtext = require("../../jsonFiles/bodily_affection.json")[
+  "eating-text"
+];
+const G = require("../../Generators/GenerateSimpleEmbed");
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("pet")
-    .setDescription("Sometimes you just need to put your hands on it.")
+    .setName("eat")
+    .setDescription("Eat something or someone.")
     .setDefaultPermission(true)
-    .addUserOption((option) =>
-      option.setName("user").setDescription("Pet a user.").setRequired(false)
-    )
     .addStringOption((option) =>
+      option.setName("text").setDescription("something").setRequired(false)
+    )
+    .addUserOption((option) =>
       option
-        .setName("text")
-        .setDescription("something you want to pet")
+        .setName("cannibalize")
+        .setDescription("the user you want to eat.")
         .setRequired(false)
     ),
   async execute(client, interaction, con) {
     await interaction.deferReply();
     let userRequest, responsetext, inbetween;
-    inbetween = "pats";
-    if (interaction.options.getUser("user")) {
-      userRequest = interaction.options.getUser("user");
+    inbetween = eatingtext[Math.floor(Math.random() * eatingtext.length)];
+    if (interaction.options.getUser("cannibalize")) {
+      userRequest = interaction.options.getUser("cannibalize");
       responsetext = `${interaction.user} **${inbetween}** ${userRequest}`;
     } else if (interaction.options.getString("text")) {
       userRequest = interaction.options.getString("text");
       responsetext = `${interaction.user} **${inbetween}** ${userRequest}`;
     } else {
       userRequest = interaction.user;
-      responsetext = `i gently pet ${userRequest}`;
+      responsetext = `i nibble on ${userRequest}'s toes`;
     }
-    const gif = path[Math.floor(Math.random() * path.length)];
+    const gif = eat[Math.floor(Math.random() * eat.length)];
     let embed = G.GenerateEmbed(
       "RANDOM",
       responsetext,

@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const G = require("../Generators/GenerateSimpleEmbed");
-const love = require("../jsonFiles/love.json").answer;
+const G = require("../../Generators/GenerateSimpleEmbed");
+const love = require("../../jsonFiles/love.json").answer;
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("loveyou")
