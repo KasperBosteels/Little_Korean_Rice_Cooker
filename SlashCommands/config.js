@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageSelectMenu, Message } = require("discord.js");
 const { Modal, MessageActionRow, TextInputComponent } = require("discord.js");
-const { description } = require("../commands/warnv2");
 const { GET } = require("../getprefixData");
 const confirm = require("../leveling_enabled").CONFIRM;
 module.exports = {
@@ -11,7 +10,9 @@ module.exports = {
     .setDescription("Quickly apply basic configuration"),
   async execute(client, interaction, con) {
     if (confirm(interaction.guild.id)) currentLevelStatus = "enabled";
-    const modal = new Modal().setCustomId("a").setTitle("Bot Configuration");
+    const modal = new Modal()
+      .setCustomId("configModal")
+      .setTitle("Bot Configuration");
     let prefixcomponent = new TextInputComponent()
       .setCustomId("pid")
       .setLabel(`this servers prefix:`)
@@ -21,13 +22,13 @@ module.exports = {
     if (confirm(interaction.guild.id)) {
       levelcomponent.addOptions([
         {
-          label: "Enable",
+          label: "Enable level system",
           description: "Enable leveling in this server.",
           default: true,
           value: "1",
         },
         {
-          label: "Disable",
+          label: "Disable level system",
           description: "Disable leveling in this server.",
           default: false,
           value: "0",
@@ -50,8 +51,7 @@ module.exports = {
       ]);
     }
     const firstAction = new MessageActionRow().addComponents(prefixcomponent);
-    const secondAction = new MessageActionRow().addComponents(levelcomponent);
-    modal.addComponents(firstAction, secondAction);
+    modal.addComponents(firstAction);
     await interaction.showModal(modal);
   },
 };
