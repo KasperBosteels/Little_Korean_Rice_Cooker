@@ -1,4 +1,4 @@
-const { GenereateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const G = require("../Generators/GenerateSimpleEmbed").GenerateEmbed;
 const gif = require("../jsonFiles/bodily_affection.json");
 const score = require("../socalCredit");
 const prefixGET = require("../getprefixData").GET;
@@ -74,7 +74,7 @@ module.exports = {
     lovemeter = progressBar(value, 100, 25);
     if (!args[1]) {
       chosen = getGif(value);
-      var embed = GenereateEmbed(
+      var embed = G(
         "#fc0fc0",
         `**LOVE O' METER**\n
 	${message.author}  :heart:  ${users[0]}\n
@@ -90,7 +90,7 @@ module.exports = {
       );
     } else {
       chosen = getGif(value);
-      var embed = GenereateEmbed(
+      var embed = G(
         "#fc0fc0",
         `**LOVE O' METER**\n
 			${users[0]}  :heart:  ${users[1]}\n
