@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const Discord = require("discord.js");
-const credit = require("../socalCredit");
+const credit = require("../../socalCredit");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("credit")
