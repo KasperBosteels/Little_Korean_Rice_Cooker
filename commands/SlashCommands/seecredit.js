@@ -51,14 +51,15 @@ function makeEmbed(client, user, score) {
   embed.setThumbnail(
     user.avatarURL({ dynamic: true, format: "png", size: 64 })
   );
-  let sademoji = ":pensive:";
-  let happyemoji = ":smile:";
   let socialcreditlevel = "normal";
-  if (score < 1000) socialcreditlevel = `bad ${sademoji}`;
-  if (score >= 1500 && score <= 1999) socialcreditlevel = `good ${happyemoji}`;
+  if (score < 500)
+    socialcreditlevel = `too low to use commands <:cookerangry:927889358231597127> `;
+  if (score < 1000) socialcreditlevel = `bad <:cookersad:927889427500499006> `;
+  if (score >= 1500 && score <= 1999)
+    socialcreditlevel = `good <:cooker:927889501295095879> `;
   if (score >= 2000 && score <= 2999) socialcreditlevel = "very good";
   if (score >= 3000 && score <= 3999) socialcreditlevel = "outstanding!";
-  if (score >= 4000) socialcreditlevel = "**PERFECT**";
+  if (score >= 4000) socialcreditlevel = "**AMAZING**";
   embed.addField(
     "social Credit",
     `${score} this score is ${socialcreditlevel}`,
