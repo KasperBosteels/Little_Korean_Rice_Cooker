@@ -13,7 +13,7 @@ module.exports = {
   ) {
     const embed = new MessageEmbed().setAuthor({
       name: "Little_Korean_Rice_Cooker",
-      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
+      url: "https://canary.discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376646&scope=applications.commands%20bot",
       iconURL: "https://i.imgur.com/A2SSxSE.png",
     });
     if (color != false) embed.setColor(color);
