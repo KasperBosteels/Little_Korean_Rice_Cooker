@@ -13,7 +13,7 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(client, interaction, con) {
-    interaction.deferReply();
+    await interaction.deferReply();
     const input = interaction.options.getString("search");
     const page = await wiki.page(input.replace(" ", "_"));
     const summary = await page.summary();
