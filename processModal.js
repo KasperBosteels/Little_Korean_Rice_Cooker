@@ -4,17 +4,17 @@ const controlPrefix = require("./getprefixData").GET;
 const updateprefix = require("./commands/changeprefix").update;
 const updateLevel = require("./commands/leveling").update;
 module.exports = {
-  async execute(interaction) {
-    interaction.deferReply();
+  async execute(interaction, con) {
     console.log(interaction);
-    let prefixchange = false;
-    let level = false;
-    if (interaction.customId == "a") {
+    let prefixchange = false,
+      level = false;
+    if (interaction.customId == "configModal") {
       const prefix = interaction.fields.getTextInputValue("pid");
-      const levelsystem = interaction.gields.getSelectInputValue("lsid");
+      const levelsystem = await interaction.fields.getField("lsid").values;
+      console.log(levelsystem);
       const currentlevelstatus = controlLevel(interaction.guildId);
-      if (prefix != controlPrefix(interaction.guildId)) {
-        prefixchange = await updateprefix(interaction.guildId, prefix);
+      if (prefix != controlPrefix(interaction.guild.id)) {
+        prefixchange = await updateprefix(interaction.guild.id, prefix);
       }
       if (
         (levelsystem == "1" && !currentlevelstatus) ||
