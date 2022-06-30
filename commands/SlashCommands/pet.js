@@ -18,7 +18,7 @@ module.exports = {
   async execute(client, interaction, con) {
     await interaction.deferReply();
     let userRequest, responsetext, inbetween;
-    inbetween = "pats";
+    inbetween = "*pets*";
     if (interaction.options.getUser("user")) {
       userRequest = interaction.options.getUser("user");
       responsetext = `${interaction.user} **${inbetween}** ${userRequest}`;
