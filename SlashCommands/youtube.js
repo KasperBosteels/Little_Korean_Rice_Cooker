@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const search = require("yt-search");
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("yt")
+    .setName("youtube")
     .setDefaultPermission(true)
     .setDescription("Quickly look up a youtube video.")
     .addStringOption((option) =>
@@ -19,7 +19,7 @@ module.exports = {
         console.log(err);
         return interaction.editReply({
           content:
-            "Something went badly. error: 7 <:sadgeCooker:910210761136148581>",
+            "Something went badly. error: 7 <:cookersad:927889427500499006>",
         });
       }
       let videos = result.videos.slice(0, 5);
