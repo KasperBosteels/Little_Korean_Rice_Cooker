@@ -36,7 +36,7 @@ module.exports = {
       content: `Updated your prefix to: "${args[0]}".`,
     });
   },
-  async update(guildID, prefix) {
+  async update(guildID, prefix, con) {
     try {
       con.query(
         `SELECT prefix from guild where guildID = ${guildID}`,
