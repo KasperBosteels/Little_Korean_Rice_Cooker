@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const wiki = require("wikipedia");
-const G = require("../Generators/GenerateSimpleEmbed").GenerateEmbed;
+const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("wiki")
