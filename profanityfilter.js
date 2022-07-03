@@ -6,6 +6,7 @@ const warn = require("./commands/warnv2.js");
 const Discord = require("discord.js");
 const { get_default_swear_words, GET } = require("./update_swear_words");
 const { profanity } = require("./logger");
+const G = require("./Generators/GenerateSimpleEmbed").GenerateEmbed;
 const threats = [
   "Profanity detected! <:angryCooker:910235812334022746>  ",
   "I have detected profanity in your message, i will report this. <:angryCooker:910235812334022746>  ",
@@ -98,19 +99,28 @@ function sendMessageToChannel(message, client) {
     client.channels
       .fetch(alertChannel)
       .then((channel) => {
-        return channel.send({ embeds: [makeEmbed(message)] });
+        return channel.send({
+          embeds: [
+            G(
+              "#ff0000",
+              `**this user has used profanity**
+              \nlocation: ${message.channel.name}
+              \ncontent: "${message.content}"`,
+              (footer = {
+                text: message.member.displayName,
+                iconURL: message.member.iconURL,
+              }),
+              false,
+              true,
+              false,
+              false,
+              message.link
+            ),
+          ],
+        });
       })
       .catch(console.error);
   } else {
     return;
   }
-}
-function makeEmbed(message) {
-  let embed = new Discord.MessageEmbed()
-    .setColor("#ff0000")
-    .setFooter(message.member.displayName)
-    .setTimestamp().setDescription(`**this user has used profanity**\n
-location: ${message.channel.name}\n
-content: "${message.content}"`);
-  return embed;
 }
