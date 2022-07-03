@@ -1,64 +1,30 @@
 const fs = require("fs");
-    module.exports = {
-     
-        execute(message) {
-            var messageArray = message.content.split();
-            var swear = getswearwords();
-            Rice(message,messageArray,swear);
-            Good(message,messageArray,swear);
-            bad(message,messageArray,swear);
-        },
-    };
-//get swear words from json file
+module.exports = {
+  async execute(message) {
+    let reply = async (words) => await message.channel.send({ content: words });
+    const swear = await getswearwords();
+    const messageArray = message.content.split().toLowerCase();
+    let messageContent = response(swear, messageArray);
+    if (messageContent != false) return reply(messageContent);
+  },
+};
 function getswearwords() {
-    return JSON.parse(fs.readFileSync("./jsonFiles/swearwords.json")); 
-    }
-
-function Good(message,messageArray,swear){
-    var amountswear = 0;
-
-    for (let A = 0; A < messageArray.length; A++) {
-        const word = messageArray[A].toLowerCase();
-        for (let U = 0; U < swear["good"].length; U++) {
-            if (word.includes(swear["good"][U])){
-                amountswear++;
-            }
-        }
-        if(amountswear != 0){
-            message.channel.send("thank you (っ ᵔ ₃ ᵔ )っ🎔");
-        } 
-        
-    }
+  return JSON.parse(fs.readFileSync("./jsonFiles/swearwords.json"));
 }
-function Rice(message,messageArray,swear){
-    var amountswear = 0;
-
-    for (let A = 0; A < messageArray.length; A++) {
-        const word = messageArray[A].toLowerCase();
-        for (let U = 0; U < swear["rice"].length; U++) {
-            if (word.includes(swear["rice"][U])){
-                amountswear++;
-            }
-        }
-        if(amountswear != 0){
-            message.channel.send("here you go, :rice:");
-        } 
-        
-    }
-}
-function bad(message,messageArray,swear){
-    var amountswear = 0;
-
-    for (let A = 0; A < messageArray.length; A++) {
-        const word = messageArray[A].toLowerCase();
-        for (let U = 0; U < swear["bad"].length; U++) {
-            if (word.includes(swear["bad"][U])){
-                amountswear++;
-            }
-        }
-        if(amountswear != 0){
-            message.channel.send("Yeah, you're rubbing off on me.");
-        } 
-        
-    }
+function response(swear, array) {
+  if (array.length == 1 && array[0].toLowerCase() == "meow")
+    return "pspspspspspspspsps, here kity.";
+  for (let A = 0; A < array.length; A++) {
+    const userWord = array[A].toLowerCase();
+    swear["good"].map((word) => {
+      if (userWord.includes(word)) return "thank you (っ ᵔ ₃ ᵔ )っ🎔";
+    });
+    swear["rice"].map((word) => {
+      if (userWord.includes(word)) return "Here you go, :rice:";
+    });
+    swear["bad"].map((word) => {
+      if (userWord.includes(word)) return "Yeah, you're rubbing off on me.";
+    });
+  }
+  return false;
 }
