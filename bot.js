@@ -5,7 +5,7 @@ const start = require("./startup.js");
 const mysql = require("mysql");
 const fs = require("fs");
 const Discord = require("discord.js");
-const { Intents } = require("discord.js");
+const { Intents, Interaction } = require("discord.js");
 const config = require("./auth.json");
 const prefixcheck = require("./prefixcheck.js");
 const lie = require("./text responses/liedetector.js");
@@ -17,7 +17,7 @@ const slashCommandsFiles = fs
   .filter((file) => file.endsWith(".js"));
 const profanity = require("./profanityfilter.js");
 const level = require("./level.js");
-const rice = require("./text responses/rice.js");
+const rice = require("./text responses/rice.js").execute;
 const getprefix = require("./getprefixData.js");
 const welcome_channel = require("./welcome_data.js");
 const profanity_alert_data_collector = require("./profanity_alert_data_collector.js");
@@ -25,12 +25,11 @@ const profanity_enabled = require("./profanity_enabled");
 const leveling_enabled = require("./leveling_enabled");
 const welcomeLeaveMessages = require("./welcome_leave_messages");
 const power = require("./powerButton");
-const leave = require("./leave");
+const leave = require("./leave").execute;
 const server = require("./server_events");
 const ignoreusers = require("./ignored_users");
 const cooldowns = new Map();
 const slashCommandsUpload = require("./uploadSlashCommand");
-const { Interaction } = require("discord.js");
 const logchannels = require("./getLogChannels");
 const memberEvents = require("./member_events");
 const custom_Welcome = require("./welcome_message_data_collector.js");
@@ -130,7 +129,7 @@ client.on("error", (Err) => {
 });
 //#endregion
 
-//#region bot join
+//#region server join/leave.
 client.on("guildCreate", async (guild) => {
   await server.join(guild, con);
 });
@@ -139,33 +138,24 @@ client.on("guildDelete", async (guild) => {
 });
 //#endregion
 
-//#region member leave
-//member leaves guild will trigger logchannel check and sad message
+//#region member join/leave.
 client.on("guildMemberRemove", async (member) => {
-  //if (!(await welcomeLeaveMessages.CONFIRM(member.guild.id))) return;
   memberEvents.guildleave(member, con);
 });
-//#endregion
-
-//#region member join
-//member joins execute sql connection with parameters that correspondt with friendly message in logchannel
 client.on("guildMemberAdd", async (member) => {
   memberEvents.guildjoin(member, client, con);
 });
 //#endregion
 
 //#region message processor
-//when a user sends a message
 client.on("messageCreate", async (Interaction) => {
   if (Interaction.author.bot) return;
-
   power.execute(Interaction, con);
-
   profanity.execute(Interaction, client, con);
   if (ignoreusers.GET(Interaction.author.id) == true) return;
   lie.execute(Interaction);
-  rice.execute(Interaction);
-  leave.execute(Interaction, client);
+  rice(Interaction);
+  leave(Interaction, client);
 
   //removes prefix and puts arguments in variable
   const usedprefix = getprefix.GET(Interaction.guild.id);
