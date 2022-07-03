@@ -8,7 +8,6 @@ const Discord = require("discord.js");
 const { Intents, Interaction } = require("discord.js");
 const config = require("./auth.json");
 const prefixcheck = require("./prefixcheck.js");
-const lie = require("./text responses/liedetector.js");
 const commandFiles = fs
   .readdirSync("./commands")
   .filter((file) => file.endsWith(".js"));
@@ -153,7 +152,6 @@ client.on("messageCreate", async (Interaction) => {
   power.execute(Interaction, con);
   profanity.execute(Interaction, client, con);
   if (ignoreusers.GET(Interaction.author.id) == true) return;
-  lie.execute(Interaction);
   rice(Interaction);
   leave(Interaction, client);
 
@@ -301,7 +299,7 @@ client.player
   // Emitted when the queue was destroyed (either by ending or stopping).
   .on("queueEnd", (queue) =>
     queue.data.queueInitChannel.send({
-      embeds: [G.GenerateEmbed("RANDOM", "all songs where played")],
+      embeds: [G.GenerateEmbed("RANDOM", "Playlist finished.")],
     })
   )
   // Emitted when a song changed.
@@ -310,7 +308,7 @@ client.player
       embeds: [
         G.GenerateEmbed(
           "RANDOM",
-          `and that was our lovely ${oldSong.author} with ${oldSong.name}\n now upcoming ${newSong.name}`,
+          `and that was our lovely ${oldSong.author} with ${oldSong.name}\n now upcoming ${newSong.name}\n${newSong.length}`,
           false,
           false,
           true,
@@ -323,7 +321,9 @@ client.player
     })
   )
   // Emitted when a first song in the queue started playing.
-  .on("songFirst", (queue, song) => console.log(`Started playing ${song}.`))
+  .on("songFirst", (queue, song) =>
+    console.log(`music player started with:\n${song}.`)
+  )
   // Emitted when someone disconnected the bot from the channel.
   .on("clientDisconnect", (queue) =>
     console.log(`I was kicked from the Voice Channel, queue ended.`)
