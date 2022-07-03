@@ -5,15 +5,10 @@ module.exports = {
       message.channel
         .send({ content: "Sayonara" })
         .then(() => {
-          console.log(
-            `leaving server: ${message.guild} <:sadgeCooker:910210761136148581>          `
-          );
+          message.guild.leave();
         })
         .catch((err) => {
           console.error(err);
-        })
-        .finally(() => {
-          message.guild.leave();
         });
     }
   },
