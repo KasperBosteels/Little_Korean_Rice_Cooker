@@ -3,22 +3,22 @@ module.exports = {
   async execute(message) {
     let reply = async (words) => await message.channel.send({ content: words });
     let tempstring = message.content.toLowerCase();
-    if (array.length == 1 && array[0].toLowerCase() == "meow") {
-      return reply("pspspspspspspspsps, here kitty.");
+    if (
+      tempstring.split(" ").length == 1 &&
+      tempstring.split(" ")[0] == "meow"
+    ) {
+      reply("pspspspspspspspsps, here kitty.");
+      return;
     } else if (tempstring == "bot lies" || tempstring == "bot lie") {
-      return reply("I don't lie!");
-    } else {
-      const messageArray = message.content.split().toLowerCase();
-      const swear = await getswearwords();
-      let messageContent = response(swear, messageArray);
-      if (messageContent != false) return reply(messageContent);
+      reply("I don't lie!");
+      return;
     }
   },
 };
 function getswearwords() {
   return JSON.parse(fs.readFileSync("./jsonFiles/swearwords.json"));
 }
-function response(swear, array) {
+async function response(swear, array) {
   for (let A = 0; A < array.length; A++) {
     const userWord = array[A].toLowerCase();
     swear["good"].map((word) => {
