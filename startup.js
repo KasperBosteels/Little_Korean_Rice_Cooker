@@ -11,7 +11,6 @@ module.exports = {
     );
     let counter = 0;
     const setStatus = () => {
-      let statustxt = statusTexts;
       client.user.setActivity(`${statusTexts[counter]}`, {
         type: statusType[counter],
       });

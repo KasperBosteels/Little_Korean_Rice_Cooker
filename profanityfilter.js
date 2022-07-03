@@ -1,4 +1,3 @@
-const fs = require("fs");
 const channel_alert = require("./profanity_alert_data_collector");
 const profanity_enabled = require("./profanity_enabled");
 const score = require("./socalCredit");
