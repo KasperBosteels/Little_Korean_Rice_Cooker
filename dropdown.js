@@ -1,11 +1,5 @@
 const { MessageSelectMenu } = require("discord.js");
-const {
-  discord,
-  MessageActionRow,
-  MessageSelectionMenu,
-  Message,
-} = require("discord.js");
-const { MessageEmbed } = require("discord.js");
+const { MessageActionRow } = require("discord.js");
 module.exports = {
   async execute(client, message, embeds) {
     const riws = new MessageActionRow().addComponents(

@@ -11,7 +11,6 @@ module.exports = {
     );
     let counter = 0;
     const setStatus = () => {
-      let statustxt = statusTexts;
       client.user.setActivity(`${statusTexts[counter]}`, {
         type: statusType[counter],
       });
@@ -26,7 +25,7 @@ function createLogCleaner() {
   const Job = new CronJob("0 0 0 1/2 * * ", () => {
     try {
       const datum = new Date();
-      const message = `REMOVED DATA PRIOR TO [${datum.toDateString()}]`;
+      const message = `REMOVED DATA PRIOR TO [${datum.toDateString()}]\n`;
       fs.writeFile("./info/log.txt", message, (error) => {
         if (error) throw console.error(error);
       });
