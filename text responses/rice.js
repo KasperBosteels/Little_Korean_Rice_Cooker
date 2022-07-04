@@ -12,6 +12,18 @@ module.exports = {
     } else if (tempstring == "bot lies" || tempstring == "bot lie") {
       reply("I don't lie!");
       return;
+    } else {
+      let messageContent = await response(
+        getswearwords(),
+        tempstring.split(" ")
+      );
+      if (messageContent === false) {
+        console.log(tempstring, messageContent);
+        return;
+      } else {
+        reply(messageContent);
+        return;
+      }
     }
   },
 };
@@ -19,16 +31,17 @@ function getswearwords() {
   return JSON.parse(fs.readFileSync("./jsonFiles/swearwords.json"));
 }
 async function response(swear, array) {
+  let cache;
   for (let A = 0; A < array.length; A++) {
-    const userWord = array[A].toLowerCase();
+    cache = array[A].toLowerCase();
     swear["good"].map((word) => {
-      if (userWord.includes(word)) return "thank you (っ ᵔ ₃ ᵔ )っ🎔";
+      if (cache.includes(word)) return "thank you (っ ᵔ ₃ ᵔ )っ🎔";
     });
     swear["rice"].map((word) => {
-      if (userWord.includes(word)) return "Here you go, :rice:";
+      if (cache.includes(word)) return "Here you go, :rice:";
     });
     swear["bad"].map((word) => {
-      if (userWord.includes(word)) return "Yeah, you're rubbing off on me.";
+      if (cache.includes(word)) return "Yeah, you're rubbing off on me.";
     });
   }
   return false;
