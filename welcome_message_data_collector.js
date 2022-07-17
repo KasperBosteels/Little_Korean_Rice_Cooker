@@ -8,7 +8,7 @@ module.exports = {
         if (err) console.error(err);
         data = JSON.stringify(rows);
         this.SAVE(data);
-        console.log("cutom welcome data saved");
+        console.log("custom welcome data saved");
       }
     );
   },
