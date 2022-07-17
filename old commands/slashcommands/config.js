@@ -1,8 +1,8 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageSelectMenu, Message } = require("discord.js");
 const { Modal, MessageActionRow, TextInputComponent } = require("discord.js");
-const { GET } = require("../getprefixData");
-const confirm = require("../leveling_enabled").CONFIRM;
+const { GET } = require("../../getprefixData");
+const confirm = require("../../leveling_enabled").CONFIRM;
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("config")
@@ -51,8 +51,7 @@ module.exports = {
       ]);
     }
     const firstAction = new MessageActionRow().addComponents(prefixcomponent);
-    const secondAction = new MessageActionRow().addComponents(levelcomponent);
-    modal.addComponents(firstAction, secondAction);
+    modal.addComponents(firstAction);
     await interaction.showModal(modal);
   },
 };

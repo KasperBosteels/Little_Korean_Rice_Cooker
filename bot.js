@@ -263,11 +263,12 @@ client.on("messageCreate", async (Interaction) => {
 client.on("interactionCreate", async (interaction) => {
   if (interaction.isModalSubmit()) {
     try {
-      processModal(interaction, con);
       await interaction.deferReply({
         content:
           "Your submission was received successfully and will be processed.",
+        ephemeral: true,
       });
+      processModal(interaction, con);
     } catch (error) {
       console.log(error);
     }
