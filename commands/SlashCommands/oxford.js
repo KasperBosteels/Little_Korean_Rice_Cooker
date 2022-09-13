@@ -33,16 +33,20 @@ module.exports = {
         interaction.editReply({
           content: "I tried looking really hard but i didn't find that, sorry.",
         });
-        console.error(err.message);
-        console.log(
-          derivative.length +
-            synonyms.length +
-            etymology.length +
-            definitions.length +
-            examples.length +
-            94 +
-            word.length
-        );
+        if (err.message == undefined) {
+          throw new Error("oxford did not find the word: " + searchword);
+        } else {
+          console.log(err);
+          console.log(
+            derivative.length +
+              synonyms.length +
+              etymology.length +
+              definitions.length +
+              examples.length +
+              94 +
+              word.length
+          );
+        }
       });
   },
 };
