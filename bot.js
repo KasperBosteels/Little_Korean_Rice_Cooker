@@ -35,6 +35,7 @@ const custom_Welcome = require("./welcome_message_data_collector.js");
 const { Player } = require("discord-music-player");
 const G = require("./Generators/GenerateSimpleEmbed");
 const updateSwears = require("./update_swear_words");
+const processModal = require("./processModal.js").execute;
 //#endregion
 
 //#region init bot as client
@@ -248,7 +249,18 @@ client.on("messageCreate", async (Interaction) => {
 });
 
 client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isCommand()) return;
+  if (interaction.isModalSubmit()) {
+    try {
+      await interaction.deferReply({
+        content:
+          "Your submission was received successfully and will be processed.",
+        ephemeral: true,
+      });
+      processModal(interaction, con);
+    } catch (error) {
+      console.log(error);
+    }
+  } else if (!interaction.isCommand()) return;
   const slashcommand = client.slashCommands.get(interaction.commandName);
   if (!slashcommand) return;
   try {

@@ -68,6 +68,30 @@ module.exports = {
       });
     }
   },
+  async update(guildID, value) {
+    con.query(
+      `SELECT level_system from guild where guildID = ${guildID}`,
+      (err, rows) => {
+        if (err) return console.error(err);
+        try {
+          if (rows.length) {
+            con.query(
+              `UPDATE guild set level_system = ${value} WHERE guildID = '${guildID}';`
+            );
+          } else {
+            con.query(
+              `INSERT INTO guild (guild,level_system) VALUES ("${guildID},${value}")`
+            );
+          }
+          return true;
+        } catch (error) {
+          console.error(error);
+          return false;
+        }
+      }
+    );
+    await leveling.execute(con);
+  },
 };
 function permission(message) {
   let mem = message.member;
