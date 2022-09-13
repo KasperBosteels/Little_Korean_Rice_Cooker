@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const G = require("../Generators/GenerateSimpleEmbed").GenerateEmbed;
+const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("read_mail")
