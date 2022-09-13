@@ -1,7 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageSelectMenu, Message } = require("discord.js");
 const { Modal, MessageActionRow, TextInputComponent } = require("discord.js");
-const { GET } = require("../../getprefixData");
 const confirm = require("../../leveling_enabled").CONFIRM;
 module.exports = {
   data: new SlashCommandBuilder()
