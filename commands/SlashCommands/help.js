@@ -5,7 +5,8 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("help")
     .setDescription("A handy guide for the bot.")
-    .setDefaultPermission(true)
+    .setDefaultPermission(true),
+  /*    
     .addStringOption((option) =>
       option
         .setName("category")
@@ -20,11 +21,13 @@ module.exports = {
           { name: "Configuration", value: "6" }
         )
     ),
+    */
   async execute(client, interaction, con) {
-    const cat = interaction.options.getString("category");
+    /*const cat = interaction.options.getString("category");
     if (cat) {
       await help.execute(client, interaction, [cat], null, null, null);
     }
+    */
     await help.execute(client, interaction, [], null, null, null);
   },
 };
