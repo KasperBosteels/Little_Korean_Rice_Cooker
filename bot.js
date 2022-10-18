@@ -30,7 +30,7 @@ const ignoreusers = require("./ignored_users");
 const cooldowns = new Map();
 const slashCommandsUpload = require("./uploadSlashCommand");
 const logchannels = require("./getLogChannels");
-const memberEvents = require("./member_events");
+const { guildjoin, guildleave } = require("./member_events");
 const custom_Welcome = require("./welcome_message_data_collector.js");
 const { Player } = require("discord-music-player");
 const G = require("./Generators/GenerateSimpleEmbed");
@@ -140,10 +140,10 @@ client.on("guildDelete", async (guild) => {
 
 //#region member join/leave.
 client.on("guildMemberRemove", async (member) => {
-  memberEvents.guildleave(member, con);
+  guildleave(member, con);
 });
 client.on("guildMemberAdd", async (member) => {
-  memberEvents.guildjoin(member, client, con);
+  guildjoin(member, client, con);
 });
 //#endregion
 
