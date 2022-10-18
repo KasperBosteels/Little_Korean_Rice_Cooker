@@ -3,9 +3,9 @@ require("dotenv").config();
 const logger = require("./logger.js");
 const start = require("./startup.js");
 const mysql = require("mysql");
-const fs = require("fs");
+const fs = require("node:fs");
 const Discord = require("discord.js");
-const { Intents, Interaction } = require("discord.js");
+const { GateWayIntentBits, Interaction } = require("discord.js");
 const config = require("./auth.json");
 const prefixcheck = require("./prefixcheck.js");
 const commandFiles = fs
@@ -40,19 +40,19 @@ const processModal = require("./processModal.js").execute;
 
 //#region init bot as client
 let intents = [
-  Intents.FLAGS.GUILDS,
-  Intents.FLAGS.GUILD_MEMBERS,
-  Intents.FLAGS.GUILD_BANS,
-  Intents.FLAGS.GUILD_VOICE_STATES,
-  Intents.FLAGS.GUILD_MESSAGES,
-  Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-  Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
-  Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
-  Intents.FLAGS.GUILD_WEBHOOKS,
-  Intents.FLAGS.GUILD_MESSAGE_TYPING,
-  Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
-  Intents.FLAGS.DIRECT_MESSAGES,
-  Intents.FLAGS.GUILD_PRESENCES,
+  GateWayIntentBits.Guilds,
+  GateWayIntentBits.GuildMembers,
+  GateWayIntentBits.GuildBans,
+  GateWayIntentBits.GuildVoiceStates,
+  GateWayIntentBits.GuildMessages,
+  GateWayIntentBits.GuildMessageReactions,
+  GateWayIntentBits.DirectMessageReactions,
+  GateWayIntentBits.GuildEmojisAndStickers,
+  GateWayIntentBits.GuildWebhooks,
+  GateWayIntentBits.GuildMessageTyping,
+  GateWayIntentBits.DirectMessageReactions,
+  GateWayIntentBits.DirectMessages,
+  GateWayIntentBits.GuildPresences,
 ];
 const client = new Discord.Client({ intents: intents });
 const player = new Player(client, { leaveOnEmpty: false });
@@ -260,7 +260,7 @@ client.on("interactionCreate", async (interaction) => {
     } catch (error) {
       console.log(error);
     }
-  } else if (!interaction.isCommand()) return;
+  } else if (!interaction.isChatInputCommand()) return;
   const slashcommand = client.slashCommands.get(interaction.commandName);
   if (!slashcommand) return;
   try {
