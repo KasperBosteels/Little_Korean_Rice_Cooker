@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 module.exports = {
   GenerateEmbed(
     color = false,
@@ -11,7 +11,7 @@ module.exports = {
     url = false,
     thumbnail = false
   ) {
-    const embed = new MessageEmbed().setAuthor({
+    const embed = new EmbedBuilder().setAuthor({
       name: "Little_Korean_Rice_Cooker",
       url: "https://canary.discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376646&scope=applications.commands%20bot",
       iconURL: "https://i.imgur.com/A2SSxSE.png",
