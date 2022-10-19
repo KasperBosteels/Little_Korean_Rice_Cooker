@@ -45,7 +45,7 @@ module.exports = {
       components: [riws],
     });
     const collector = message.channel.createMessageComponentCollector({
-      cmoponentType: "SELECT_MENU",
+      componentType: "SELECT_MENU",
     });
     collector.on("collect", async (collected) => {
       if (collected.componentType != "SELECT_MENU") return;
