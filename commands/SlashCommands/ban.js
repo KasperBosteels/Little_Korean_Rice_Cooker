@@ -47,7 +47,10 @@ module.exports = {
             ),
           ],
         });
-        userRequest.ban({ days: days, reason: banReason });
+        userRequest.ban({
+          deleteMessageSeconds: 3 * 24 * 60 * 60,
+          reason: banReason,
+        });
         interaction.reply({
           embeds: [
             G.GenerateEmbed(
