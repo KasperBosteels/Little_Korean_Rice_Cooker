@@ -1,5 +1,9 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Modal, MessageActionRow, TextInputComponent } = require("discord.js");
+const {
+  ModalBuilder,
+  MessageActionRow,
+  TextInputComponent,
+} = require("discord.js");
 const confirm = require("../../leveling_enabled").CONFIRM;
 module.exports = {
   data: new SlashCommandBuilder()
@@ -14,7 +18,9 @@ module.exports = {
     ),
   async execute(client, interaction, con) {
     if (confirm(interaction.guild.id)) currentLevelStatus = "enabled";
-    const modal = new Modal().setCustomId("sendmessage").setTitle("send mail");
+    const modal = new ModalBuilder()
+      .setCustomId("sendmessage")
+      .setTitle("send mail");
     let topicComponent = new TextInputComponent()
       .setCustomId("tid")
       .setLabel(`topic`)
