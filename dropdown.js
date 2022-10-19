@@ -1,9 +1,8 @@
-const { MessageSelectMenu } = require("discord.js");
-const { MessageActionRow } = require("discord.js");
+const { ActionRowBuilder, SelectMenuBuilder } = require("discord.js");
 module.exports = {
   async execute(client, message, embeds) {
-    const riws = new MessageActionRow().addComponents(
-      new MessageSelectMenu()
+    const riws = new ActionRowBuilder().addComponents(
+      new SelectMenuBuilder()
         .setCustomId("select")
         .setPlaceholder("Select help topic")
         .addOptions([
