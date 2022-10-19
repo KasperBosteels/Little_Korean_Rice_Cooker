@@ -1,7 +1,9 @@
 const botconfig = require("../auth.json");
 const getprefix = require("../getprefixData.js");
-const { MessageEmbed, Permissions } = require("discord.js");
+const { MessageEmbedBuilder, Permissions } = require("discord.js");
 const dropdown = require("../dropdown");
+const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const message = require("./SlashCommands/message");
 var prefix = "-";
 //page settings
 module.exports = {
@@ -232,21 +234,34 @@ module.exports = {
       }
 
       //push values to data array
-      let embed = new MessageEmbed();
-      embed.setTitle(`**${command.name}**`).setColor("#00ff00");
-      embed.setDescription("**aliases:**", `${command.aliases}`);
-      embed.addField("**Description:**", `${command.description}`);
-      embed.addField("**usage:**", `${prefix}${command.name} ${command.usage}`);
-      embed.addField("**cooldown:**", `${command.cooldown || 3} second(s)`);
+      let commandFields = [
+        { name: "**Description**", value: command.description },
+        {
+          name: "**usage**",
+          value: `${prefix}${command.name} ${command.usage}`,
+        },
+        { name: "**cooldown**", value: `${command.cooldown || 3} second(s)` },
+      ];
       if (command.perms.length > 0)
-        embed.addField("```bot permissions```", `\`\`\`${command.perms}\`\`\``);
+        commandFields.push({
+          name: "```bot permissions```",
+          value: `\`\`\`${command.perms}\`\`\``,
+        });
       if (command.userperms.length > 0)
-        embed.addField(
-          `\`\`\`user permissions\`\`\``,
-          `\`\`\`${command.userperms}\`\`\``
-        );
-      //send
-      return message.reply({ embeds: [embed], ephemeral: true });
+        commandFields.push({
+          name: `\`\`\`user permissions\`\`\``,
+          value: `\`\`\`${command.userperms}\`\`\``,
+        });
+      let betterEmbed = GenerateEmbed(
+        "#00ff00",
+        `**aliases:** ${command.aliases}`,
+        false,
+        commandFields,
+        false,
+        fal,
+        `**${command.name}**`
+      );
+      return message.reply({ embeds: [betterEmbed], ephemeral: true });
     }
   },
   guildprefix(guildID) {
@@ -258,76 +273,50 @@ module.exports = {
     }
   },
 };
-function MakeEmbed(content, prefix, i) {
-  let embed = new MessageEmbed()
-    .setAuthor({
-      name: "Little_Korean_Rice_Cooker",
-      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-      iconURL: "https://i.imgur.com/A2SSxSE.png",
-    })
-    .setColor("#00ff00");
-  content.forEach((item) => {
-    embed.addField(
-      `${item.name}`,
-      `\`\`\`${prefix}${item.name}\n${item.description}\n${prefix}${item.name} ${item.usage}\`\`\``
-    );
+function MakeEmbed(content, prefix, i, pages = 6) {
+  let FieldContent = [];
+  content.forEach((field) => {
+    FieldContent.push({
+      name: field.name,
+      value: `\`\`\`${prefix}${field.name}\n${field.description}\n${prefix}${field.name} ${field.usage}\`\`\``,
+    });
   });
-  embed.setFooter({
-    text: `You can find more info about a command by using: ${prefix}help <command name>\npage: ${i}/6`,
-  });
+  let embed = GenerateEmbed(
+    "#00ff00",
+    false,
+    `You can find more info about a commmand by using: ${prefix}help <command name>\n page:${i}/${pages}`,
+    FieldContent
+  );
   return embed;
 }
+
 function firstPage(prefix) {
-  let embed = new MessageEmbed()
-    .setTitle("Little Korean Rice Cooker guide")
-    .setAuthor({
-      name: "Little_Korean_Rice_Cooker",
-      url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-      iconURL: "https://i.imgur.com/A2SSxSE.png",
-    })
-    .setColor("#00ff00");
-  embed.addField(
-    ":bookmark: index",
-    `\`\`\`${prefix}help \`\`\``,
-    (inline = true)
-  );
-  embed.addField(
-    ":thinking: general",
-    `\`\`\`${prefix}help general\`\`\``,
-    (inline = true)
-  );
-  embed.addField(
-    ":upside_down: fun",
-    `\`\`\`${prefix}help fun\`\`\``,
-    (inline = true)
-  );
-  embed.addField(
-    ":notes: music",
-    `\`\`\`${prefix}help music\`\`\``,
-    (inline = true)
-  );
-  embed.addField(
-    ":eyes: moderating",
-    `\`\`\`${prefix}help moderating\`\`\``,
-    (inline = true)
-  );
-  embed.addField(
-    ":screwdriver: config",
-    `\`\`\`${prefix}help config\`\`\``,
-    (inline = true)
-  );
-  embed.addField(
-    ":books: quick guide",
-    `\`\`\`${prefix}help "command name"\nFor extra information about a command.\`\`\``
-  );
-  embed.addField(
-    ":file_cabinet: remove my data/ignore me",
-    `\`\`\`Your data is in no way traded or handed to third parties.\nyou can delete any stored data with the "${prefix}ignore-me" command(the bot will ignore you from this point on).\`\`\``
-  );
-  embed.addField(
-    ":question: support",
-    `If you need additional help, you can join **[the support server](https://discord.gg/y8QDMpuwZs)**.`
-  );
-  embed.setFooter({ text: "page: 1/6" });
-  return embed;
+  let fields = [
+    { name: ":bookmark: index", value: `\`\`\`${prefix}help \`\`\`` },
+    { name: ":thinking: general", value: `\`\`\`${prefix}help general\`\`\`` },
+    { name: ":upside_down: fun", value: `\`\`\`${prefix}help fun\`\`\`` },
+    { name: ":notes: music", value: `\`\`\`${prefix}help music\`\`\`` },
+    {
+      name: ":eyes: moderating",
+      value: `\`\`\`${prefix}help moderating\`\`\``,
+    },
+    {
+      name: ":screwdriver: config",
+      values: `\`\`\`${prefix}help config\`\`\``,
+    },
+    {
+      name: ":books: quick guide",
+      value: `\`\`\`${prefix}help "command name"\nFor extra information about a command.\`\`\``,
+    },
+    {
+      name: ":file_cabinet: remove my data/ignore me",
+      value: `\`\`\`Your data is in no way traded or handed to third parties.\nyou can delete any stored data with the "${prefix}ignore-me" command(the bot will ignore you from this point on).\`\`\``,
+    },
+    {
+      name: ":question: support",
+      value: `If you need additional help, you can join **[the support server](https://discord.gg/y8QDMpuwZs)**.`,
+    },
+  ];
+  let betterEmbed = GenerateEmbed("#00ff00", false, "page: 1/6", fields);
+  return betterEmbed;
 }
