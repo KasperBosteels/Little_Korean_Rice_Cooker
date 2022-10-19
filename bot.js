@@ -4,8 +4,13 @@ const logger = require("./logger.js");
 const start = require("./startup.js");
 const mysql = require("mysql");
 const fs = require("node:fs");
-const Discord = require("discord.js");
-const { GateWayIntentBits, Interaction } = require("discord.js");
+const {
+  Interaction,
+  version,
+  GatewayIntentBits,
+  Client,
+  Collection,
+} = require("discord.js");
 const config = require("./auth.json");
 const prefixcheck = require("./prefixcheck.js");
 const commandFiles = fs
@@ -37,31 +42,33 @@ const G = require("./Generators/GenerateSimpleEmbed");
 const updateSwears = require("./update_swear_words");
 const processModal = require("./processModal.js").execute;
 //#endregion
-
+console.log("running discord.js@" + version);
 //#region init bot as client
 let intents = [
-  GateWayIntentBits.Guilds,
-  GateWayIntentBits.GuildMembers,
-  GateWayIntentBits.GuildBans,
-  GateWayIntentBits.GuildVoiceStates,
-  GateWayIntentBits.GuildMessages,
-  GateWayIntentBits.GuildMessageReactions,
-  GateWayIntentBits.DirectMessageReactions,
-  GateWayIntentBits.GuildEmojisAndStickers,
-  GateWayIntentBits.GuildWebhooks,
-  GateWayIntentBits.GuildMessageTyping,
-  GateWayIntentBits.DirectMessageReactions,
-  GateWayIntentBits.DirectMessages,
-  GateWayIntentBits.GuildPresences,
+  GatewayIntentBits.Guilds,
+  GatewayIntentBits.GuildMembers,
+  GatewayIntentBits.GuildBans,
+  GatewayIntentBits.GuildVoiceStates,
+  GatewayIntentBits.GuildMessages,
+  GatewayIntentBits.GuildMessageReactions,
+  GatewayIntentBits.DirectMessageReactions,
+  GatewayIntentBits.GuildEmojisAndStickers,
+  GatewayIntentBits.GuildWebhooks,
+  GatewayIntentBits.GuildMessageTyping,
+  GatewayIntentBits.DirectMessageReactions,
+  GatewayIntentBits.DirectMessages,
+  GatewayIntentBits.GuildPresences,
 ];
-const client = new Discord.Client({ intents: intents });
+const client = new Client({
+  intents: intents,
+});
 const player = new Player(client, { leaveOnEmpty: false });
 client.player = player;
 //#endregion
 
 //#region load commands
 
-client.commands = new Discord.Collection();
+client.commands = new Collection();
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
@@ -72,7 +79,7 @@ for (const file of commandFiles) {
 
 //#region  load slash commands
 
-client.slashCommands = new Discord.Collection();
+client.slashCommands = new Collection();
 const slashCommandsArray = [];
 for (const slashfile of slashCommandsFiles) {
   const commandslash = require(`./commands/SlashCommands/${slashfile}`);
