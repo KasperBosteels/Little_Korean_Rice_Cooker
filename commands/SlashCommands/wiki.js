@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { SlashCommandBuilder } = require("discord.js");
 const wiki = require("wikipedia");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {

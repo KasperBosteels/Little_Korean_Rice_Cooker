@@ -1,6 +1,5 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
 const ox = require("oxford-dictionary");
-const Discord = require("discord.js");
+const { Discord, SlashCommandBuilder } = require("discord.js");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 const ID = process.env.OXFORD_ID;
 const KEY = process.env.OXFORD_KEY;

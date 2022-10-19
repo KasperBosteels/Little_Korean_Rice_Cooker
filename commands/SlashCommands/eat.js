@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { SlashCommandBuilder } = require("discord.js");
 const eat = require("../../jsonFiles/bodily_affection.json").eating;
 const eatingtext = require("../../jsonFiles/bodily_affection.json")[
   "eating-text"

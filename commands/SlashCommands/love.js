@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { SlashCommandBuilder } = require("discord.js");
 const G = require("../../Generators/GenerateSimpleEmbed");
 const love = require("../../jsonFiles/love.json").answer;
 module.exports = {
