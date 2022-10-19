@@ -121,7 +121,7 @@ client.once("ready", () => {
 //#endregion
 
 //#region error handler
-client.on("error", (Err) => {
+client.rest.on("error", (Err) => {
   console.log(`An error occured, if problem persists inform devs pls.`);
   fs.writeFileSync("./errors.json", JSON.stringify(Err, null, 2), (err) => {
     if (err) console.log(err);
@@ -130,25 +130,25 @@ client.on("error", (Err) => {
 //#endregion
 
 //#region server join/leave.
-client.on("guildCreate", async (guild) => {
+client.rest.on("guildCreate", async (guild) => {
   await server.join(guild, con);
 });
-client.on("guildDelete", async (guild) => {
+client.rest.on("guildDelete", async (guild) => {
   await server.leave(guild, con);
 });
 //#endregion
 
 //#region member join/leave.
-client.on("guildMemberRemove", async (member) => {
+client.rest.on("guildMemberRemove", async (member) => {
   guildleave(member, con);
 });
-client.on("guildMemberAdd", async (member) => {
+client.rest.on("guildMemberAdd", async (member) => {
   guildjoin(member, client, con);
 });
 //#endregion
 
 //#region message processor
-client.on("messageCreate", async (Interaction) => {
+client.rest.on("messageCreate", async (Interaction) => {
   if (Interaction.author.bot) return;
   power.execute(Interaction, con);
   profanity.execute(Interaction, client, con);
@@ -248,7 +248,7 @@ client.on("messageCreate", async (Interaction) => {
   }
 });
 
-client.on("interactionCreate", async (interaction) => {
+client.rest.on("interactionCreate", async (interaction) => {
   if (interaction.isModalSubmit()) {
     try {
       await interaction.deferReply({
