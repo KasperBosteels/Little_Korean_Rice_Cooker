@@ -28,10 +28,13 @@ module.exports = {
         embed.setFooter({ text: footer.text, inconURL: footer.url });
       }
     }
-    if (fields != false) {
-      fields.forEach((field) => {
-        embed.addField(field.name, field.content);
-      });
+    if (
+      fields != false &&
+      fields.length > 0 &&
+      fields[0].name &&
+      fields[0].value
+    ) {
+      embed.addFields(fields);
     }
     if (timestamp != false) embed.setTimestamp();
     if (image != false) embed.setImage(image);
