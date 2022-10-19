@@ -1,5 +1,5 @@
 const score = require("../socalCredit");
-const Discord = require("discord.js");
+const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "queue",
   description: "look at the queue'd songs",
@@ -11,27 +11,25 @@ module.exports = {
   async execute(client, message, args, con) {
     let guildQueue = client.player.getQueue(message.guild.id);
     let volume = guildQueue.volume;
-    let embed = new Discord.MessageEmbed()
-      .setTitle("QUEUE")
-      .setDescription("the current volume is: " + `${volume}/100\n`)
-      .setColor("RANDOM")
-      .setAuthor({
-        name: "Little_Korean_Rice_Cooker",
-        url: "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376694&scope=bot",
-        iconURL: "https://i.imgur.com/A2SSxSE.png",
-      })
-      .setFooter({
+    let embed = GenerateEmbed(
+      "RANDOm",
+      "the current colume is " + `${volume}%\n`,
+      {
         text: message.member.displayName,
         iconURL: message.author.displayAvatarUrl,
-      });
+      },
+      [
+        {
+          text: `${i++}. **${song.name}** by: ${song.author}\n duration: ${
+            song.duration
+          }\n requested by: ${song.requestedBy}`,
+        },
+      ],
+      false,
+      false,
+      "QUEUE"
+    );
 
-    let i = 0;
-    guildQueue.songs.forEach((song) => {
-      embed.addField(
-        `${i++}. **` + song.name + "**",
-        `by: ${song.author}\nduration: ${song.duration}\nrequested by:${song.requestedBy}`
-      );
-    });
     console.log(guildQueue);
     message.channel.send({ embeds: [embed] });
     score.ADD(con, 1, message.author.id);

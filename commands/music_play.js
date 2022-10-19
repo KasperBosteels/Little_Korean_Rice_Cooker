@@ -18,7 +18,8 @@ module.exports = {
     let Vchannel, songquery, guildQueue;
     guildQueue = client.player.getQueue(message.guild.id);
     Vchannel = message.member.voice.channel;
-    if (!Vchannel) return message.reply("You are not in a voice channel.");
+    if (!Vchannel || !Vchannel.type === ChannelType.GuildVoice)
+      return message.reply("You are not in a voice channel.");
     if (!args.length) {
       return await pause.execute(null, message, null, con);
     }
