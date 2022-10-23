@@ -254,7 +254,7 @@ client.rest.on("messageCreate", async (Interaction) => {
     });
   }
 });
-
+//#endregion
 client.rest.on("interactionCreate", async (interaction) => {
   if (interaction.isModalSubmit()) {
     try {
@@ -353,9 +353,10 @@ client.player
   .on("error", (error, queue) => {
     console.log(`Error: ${error} in ${queue.guild.name}`);
   });
-
+//#endregion
 client.login(process.env.DISCORD_TOKEN);
 
+//#region  error handles
 process.on("uncaughtException", (error) => console.log("error", error));
 process.on("unhandledRejection", (error) => console.log("error", error));
 process.on("ECONNRESET", (error) => {
@@ -378,6 +379,7 @@ process
   .on("error", (error, queue) => {
     console.log(`ERROR: ${error} in ${queue.guild.name}`);
   });
+//#endregion
 
 /*cool links
  https://i.imgur.com/18qFmWU.mp4
