@@ -41,6 +41,7 @@ const { Player } = require("discord-music-player");
 const G = require("./Generators/GenerateSimpleEmbed");
 const updateSwears = require("./update_swear_words");
 const processModal = require("./processModal.js").execute;
+const SlashCommandLoader = require("./uploadSlashCommand").execute;
 //#endregion
 console.log("running discord.js@" + version);
 //#region init bot as client
@@ -79,15 +80,6 @@ for (const file of commandFiles) {
 
 //#region  load slash commands
 
-client.slashCommands = new Collection();
-const slashCommandsArray = [];
-for (const slashfile of slashCommandsFiles) {
-  const commandslash = require(`./commands/SlashCommands/${slashfile}`);
-  client.slashCommands.set(commandslash.data.name, commandslash);
-  slashCommandsArray.push(commandslash.data.toJSON());
-  console.log(`slash command file loaded: ${commandslash.data.name}`);
-}
-
 //#endregion
 
 //#region sql login data
@@ -123,7 +115,7 @@ client.once("ready", () => {
   } catch (err) {
     console.log(err);
   }
-  slashCommandsUpload.execute(slashCommandsArray, process.env.DISCORD_TOKEN);
+  SlashCommandLoader(process.env.DISCORD_TOKEN, client);
 });
 //#endregion
 

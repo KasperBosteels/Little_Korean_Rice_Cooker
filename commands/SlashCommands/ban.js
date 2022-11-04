@@ -1,28 +1,42 @@
+const { ApplicationCommandOptionType } = require("discord-api-types/v9");
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const G = require("../../Generators/GenerateSimpleEmbed");
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("ban")
-    .setDescription("Ban a user from your server.")
-    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
-    .addUserOption((option) =>
-      option
-        .setName("user")
-        .setDescription("The user you want to ban.")
-        .setRequired(true)
-    )
-    .addStringOption((option) => {
-      option
-        .setName("reason")
-        .setDescription("The Reason you want to ban.")
-        .setRequired(false);
-    })
-    .addStringOption((option) => {
-      option
-        .setName("days")
-        .setDescription("Amount of days")
-        .setRequired(false);
-    }),
+  name: "ban",
+  description: "Ban a user from your server.",
+  userPermissions: ["BanMembers"],
+  command: {
+    enabled: true,
+    minArgsCount: 1,
+    slashCommand: {
+      enabled: true,
+      ephemeral: true,
+      dmPermission: false,
+
+      options: [
+        {
+          type: ApplicationCommandOptionType.User,
+          required: true,
+          name: "user",
+          description: "The user you want to ban",
+        },
+        {
+          type: ApplicationCommandOptionType.String,
+          required: false,
+          name: "reason",
+          description: "The reason you want to ban",
+          maxLength: 255,
+        },
+        {
+          type: ApplicationCommandOptionType.Integer,
+          required: false,
+          name: "duration",
+          description:
+            "How long you want this person to stay banned(leave empty for indefinite).",
+        },
+      ],
+    },
+  },
   async execute(client, interaction, con) {
     let userRequest,
       banReason = "no Reason given",
