@@ -1,19 +1,31 @@
 const ox = require("oxford-dictionary");
 const { Discord, SlashCommandBuilder } = require("discord.js");
+const { ApplicationCommandType } = require("discord.js");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 const ID = process.env.OXFORD_ID;
 const KEY = process.env.OXFORD_KEY;
 const config = { app_id: ID, app_key: KEY, source_lang: "en-gb" };
 const dict = new ox(config);
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("ox")
-    .setDescription("Definitions from the oxford api")
-    .setDefaultPermission(true)
-    .addStringOption((option) =>
-      option.setName("word").setDescription("The word you want to look up.")
-    ),
-
+  name: "oxford",
+  description: "Find definitions from the oxford api",
+  command: {
+    enabled: true,
+    minArgsCount: 1,
+    slashCommand: {
+      enabled: true,
+      ephemeral: false,
+      dmPermission: true,
+      options: [
+        {
+          type: ApplicationCommandType.String,
+          name: "word",
+          description: "The Word you want to look up",
+          required: false,
+        },
+      ],
+    },
+  },
   async execute(client, interaction, con) {
     interaction.deferReply();
     const searchword = interaction.options.getString("word");

@@ -1,17 +1,28 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { ApplicationCommand } = require("discord.js");
+const { ApplicationCommandType } = require("discord.js");
+const { SlashCommandBuilder, Application } = require("discord.js");
 const wiki = require("wikipedia");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("wiki")
-    .setDefaultPermission(true)
-    .setDescription("search wikipedia")
-    .addStringOption((option) =>
-      option
-        .setName("search")
-        .setDescription("wiki article you want to look up.")
-        .setRequired(true)
-    ),
+  name: "wiki",
+  description: "Search Wikipedia",
+  command: {
+    enabled: true,
+    minArsCout: 1,
+    slashCommand: {
+      enabled: true,
+      ephemeral: false,
+      dmPermission: true,
+      options: [
+        {
+          type: ApplicationCommandType.String,
+          required: true,
+          name: "search",
+          description: "Wikipedia Article you want to look up.",
+        },
+      ],
+    },
+  },
   async execute(client, interaction, con) {
     await interaction.deferReply();
     const input = interaction.options.getString("search");

@@ -1,10 +1,16 @@
 const { SlashCommandBuilder } = require("discord.js");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("read_mail")
-    .setDescription("Read Your mail")
-    .setDefaultPermission(true),
+  name: "read_mail",
+  description: "Read all messages you send or received from the developers.",
+  command: {
+    enabled: true,
+    slashCommand: {
+      enabled: true,
+      ephemeral: true,
+      dmPermission: true,
+    },
+  },
   async execute(client, interaction, con) {
     await con.query(
       `SELECT * FROM user_messages WHERE userID = ${interaction.member.id}`,

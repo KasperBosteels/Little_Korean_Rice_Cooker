@@ -1,3 +1,4 @@
+const { ApplicationCommandOptionType } = require("discord.js");
 const { SlashCommandBuilder } = require("discord.js");
 const {
   ModalBuilder,
@@ -6,16 +7,25 @@ const {
 } = require("discord.js");
 const confirm = require("../../leveling_enabled").CONFIRM;
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("mail")
-    .setDefaultPermission(true)
-    .setDescription("send a message to the developer.")
-    .addStringOption((option) =>
-      option
-        .setName("topic")
-        .setDescription("the topic for your email.")
-        .setRequired(false)
-    ),
+  name: "mail",
+  description: "Send a message to de developers",
+  command: {
+    enabled: true,
+    slashCommand: {
+      enabled: true,
+      ephemeral: true,
+      dmPermission: true,
+      options: [
+        {
+          type: ApplicationCommandOptionType.String,
+          name: "topic",
+          description: "the topic for your email",
+          required: false,
+          maxLength: 255,
+        },
+      ],
+    },
+  },
   async execute(client, interaction, con) {
     if (confirm(interaction.guild.id)) currentLevelStatus = "enabled";
     const modal = new ModalBuilder()

@@ -1,20 +1,32 @@
+const { ApplicationCommandType, Application } = require("discord.js");
 const { SlashCommandBuilder } = require("discord.js");
 const G = require("../../Generators/GenerateSimpleEmbed");
 const path = require("../../jsonFiles/bodily_affection.json").pats;
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("pet")
-    .setDescription("Sometimes you just need to put your hands on it.")
-    .setDefaultPermission(true)
-    .addUserOption((option) =>
-      option.setName("user").setDescription("Pet a user.").setRequired(false)
-    )
-    .addStringOption((option) =>
-      option
-        .setName("text")
-        .setDescription("something you want to pet")
-        .setRequired(false)
-    ),
+  name: "pet",
+  description: "Sometimes you just need to put your hands on it.",
+  command: {
+    enabled: true,
+    slashCommand: {
+      enabled: true,
+      ephemeral: false,
+      dmPermission: true,
+      options: [
+        {
+          type: ApplicationCommandType.User,
+          name: "user",
+          required: false,
+          description: "Pet a user.",
+        },
+        {
+          type: ApplicationCommandType.String,
+          required: false,
+          name: "text",
+          description: "Something you want to pet.",
+        },
+      ],
+    },
+  },
   async execute(client, interaction, con) {
     await interaction.deferReply();
     let userRequest, responsetext, inbetween;

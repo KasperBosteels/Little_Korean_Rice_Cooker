@@ -1,10 +1,16 @@
 const { SlashCommandBuilder } = require("discord.js");
 const discord = require("discord.js");
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("ping")
-    .setDefaultPermission(true)
-    .setDescription("ping pong ping"),
+  name: "ping",
+  description: "ping pong ping",
+  command: {
+    enabled: true,
+    slashCommand: {
+      enabled: true,
+      ephemeral: false,
+      dmPermission: true,
+    },
+  },
   async execute(client, interaction, con) {
     await interaction.reply({
       content: " ",

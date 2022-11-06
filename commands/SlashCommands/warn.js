@@ -1,24 +1,41 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const { ApplicationCommandType } = require("discord.js");
+const { ApplicationCommand } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  PermissionFlagsBits,
+  Application,
+} = require("discord.js");
 const { GenerateEmbed } = require("../../Generators/GenerateSimpleEmbed");
 const { logWithNoMember } = require("../../sendToLogChannel");
 const logging = require("../../sendToLogChannel");
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("warn")
-    .setDescription("Warn a user.")
-    .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
-    .addUserOption((option) =>
-      option
-        .setName("user")
-        .setDescription("The user you want to warn.")
-        .setRequired(true)
-    )
-    .addStringOption((option) => {
-      option
-        .setName("reason")
-        .setDescription("reason for warning")
-        .setRequired(false);
-    }),
+  name: "warn",
+  description:
+    "Warn a user.\nWarnings will be saved so you can see them later on.",
+  userPermissions: ["ModerateMembers"],
+  command: {
+    enabled: true,
+    minArgsCount: 1,
+    slashCommand: {
+      enabled: true,
+      ephemeral: false,
+      dmPermission: false,
+      options: [
+        {
+          type: ApplicationCommandType.User,
+          required: true,
+          name: "user",
+          description: "The User you want to warn",
+        },
+        {
+          type: ApplicationCommandType.String,
+          required: false,
+          name: "reason",
+          description: "The reason for this warning.",
+        },
+      ],
+    },
+  },
   async execute(client, interaction, con) {
     let member = await interaction.options.getMember("user");
     let reason = "no reason given";

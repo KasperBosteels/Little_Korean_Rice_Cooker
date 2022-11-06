@@ -47,8 +47,8 @@ module.exports = {
       if (interaction.option.getString("reason")) {
         banReason = interaction.option.getString("reason");
       }
-      if (!isNaN(parseInt(interaction.options.getString("days")))) {
-        days = parseInt(interaction.options.getString("days"));
+      if (!isNaN(parseInt(interaction.options.getString("duration")))) {
+        days = parseInt(interaction.options.getString("duration"));
       }
 
       try {

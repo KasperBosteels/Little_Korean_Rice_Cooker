@@ -1,16 +1,31 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const { ApplicationCommandType } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  PermissionFlagsBits,
+  Application,
+} = require("discord.js");
 const G = require("../../Generators/GenerateSimpleEmbed");
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("unban")
-    .setDescription("Unban a user from your server.")
-    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
-    .addStringOption((option) =>
-      option
-        .setName("id")
-        .setDescription("The user you want to unban.")
-        .setRequired(true)
-    ),
+  name: "unban",
+  description: "Unban a user from your server",
+  userPermissions: ["BanMembers"],
+  command: {
+    enabled: true,
+    minArsCount: 1,
+    slashCommand: {
+      enabled: true,
+      ephemeral: true,
+      dmPermission: false,
+      options: [
+        {
+          type: ApplicationCommandType.String,
+          required: true,
+          name: "id",
+          description: "Id of the user you want to unban",
+        },
+      ],
+    },
+  },
   async execute(client, interaction, con) {
     if (interaction.options.getUser("id")) {
       let userid = interaction.options.getString("id");

@@ -1,23 +1,37 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { ApplicationCommandOptionType } = require("discord.js");
 const eat = require("../../jsonFiles/bodily_affection.json").eating;
 const eatingtext = require("../../jsonFiles/bodily_affection.json")[
   "eating-text"
 ];
 const G = require("../../Generators/GenerateSimpleEmbed");
+const { userPermissions } = require("./ban");
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("eat")
-    .setDescription("Eat something or someone.")
-    .setDefaultPermission(true)
-    .addStringOption((option) =>
-      option.setName("text").setDescription("something").setRequired(false)
-    )
-    .addUserOption((option) =>
-      option
-        .setName("cannibalize")
-        .setDescription("the user you want to eat.")
-        .setRequired(false)
-    ),
+  name: "eat",
+  descritpion: "Eat something or someone.",
+  command: {
+    enabled: true,
+    minArgsCount: 0,
+    slashCommand: {
+      enabled: true,
+      ephemeral: false,
+      dmPermission: true,
+      options: [
+        {
+          type: ApplicationCommandOptionType.String,
+          required: false,
+          name: "eat",
+          description: "Thing you want to put in your mouth.",
+          maxLength: 255,
+        },
+        {
+          type: ApplicationCommandOptionType.User,
+          required: false,
+          name: "cannibalize",
+          description: "the user you want to nibble on.",
+        },
+      ],
+    },
+  },
   async execute(client, interaction, con) {
     await interaction.deferReply();
     let userRequest, responsetext, inbetween;

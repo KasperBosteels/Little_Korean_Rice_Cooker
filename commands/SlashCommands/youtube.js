@@ -1,16 +1,27 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { ApplicationCommand } = require("discord.js");
+const { ApplicationCommandType } = require("discord.js");
+const { SlashCommandBuilder, Application } = require("discord.js");
 const search = require("yt-search");
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("youtube")
-    .setDefaultPermission(true)
-    .setDescription("Quickly look up a youtube video.")
-    .addStringOption((option) =>
-      option
-        .setName("search")
-        .setDescription("Name of the video you want to show.")
-        .setRequired(true)
-    ),
+  name: "Youtube",
+  description: "Quickly look up a Youtube video.",
+  command: {
+    enabled: true,
+    minArsCount: 1,
+    slashCommand: {
+      enabled: true,
+      ephemeral: false,
+      dmPermission: true,
+      options: [
+        {
+          type: ApplicationCommandType.String,
+          required: true,
+          name: "search",
+          description: "Name of the video you want to show.",
+        },
+      ],
+    },
+  },
   async execute(client, interaction, con) {
     interaction.deferReply();
     const word = interaction.options.getString("search");

@@ -1,25 +1,32 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { ApplicationCommandOptionType } = require("discord.js");
 const G = require("../../Generators/GenerateSimpleEmbed");
 const love = require("../../jsonFiles/love.json").answer;
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("loveyou")
-    .setDescription(
-      "For whenever you need some affection of an inanimate object."
-    )
-    .setDefaultPermission(true)
-    .addUserOption((option) =>
-      option
-        .setName("send")
-        .setDescription("Share some love.")
-        .setRequired(false)
-    ),
+  name: "love",
+  description: "For whenever you need some affection of an inanimate object.",
+  command: {
+    enabled: true,
+    slashCommand: {
+      enabled: true,
+      ephemeral: false,
+      dmPermission: true,
+      options: [
+        {
+          type: ApplicationCommandOptionType.User,
+          required: false,
+          name: "user",
+          description: "Share some love with someone.",
+        },
+      ],
+    },
+  },
+
   async execute(client, interaction, con) {
     await interaction.deferReply();
     let userRequest, responseEmbed;
     const RandomLove = love[Math.floor(Math.random() * love.length)];
-    if (interaction.options.getUser("send")) {
-      userRequest = interaction.options.getUser("send");
+    if (interaction.options.getUser("user")) {
+      userRequest = interaction.options.getUser("user");
       responseEmbed = G.GenerateEmbed(
         "RANDOM",
         `${userRequest}\n${RandomLove}`

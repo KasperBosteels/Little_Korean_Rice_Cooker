@@ -1,16 +1,23 @@
-const { Discord, SlashCommandBuilder } = require("discord.js");
+const { ApplicationCommandType } = require("discord.js");
+const { Discord, SlashCommandBuilder, Application } = require("discord.js");
 const credit = require("../../socalCredit");
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("credit")
-    .setDefaultPermission(true)
-    .setDescription("Look at your own or someone elses credit.")
-    .addUserOption((option) =>
-      option
-        .setName("user")
-        .setDescription("Social credit from a user(optional).")
-        .setRequired(false)
-    ),
+  name: "credit",
+  description: "Look at your own or someone elses social credit.",
+  command: {
+    enabled: true,
+    slashCommand: {
+      enabled: true,
+      ephemeral: false,
+      dmPermission: false,
+      options: {
+        type: ApplicationCommandType.User,
+        required: false,
+        name: "user",
+        description: "Social credit of a user",
+      },
+    },
+  },
   async execute(client, interaction, con) {
     await interaction.deferReply({ ephemeral: true });
     let user = await interaction.options.getUser("user");
