@@ -1,4 +1,4 @@
-# keep in mind when discord updates stuff breaks, and it can take some time for me to get to that.
+# keep in mind when discord updates, certain things might break.
 
 <br/>
 <p align="center">
