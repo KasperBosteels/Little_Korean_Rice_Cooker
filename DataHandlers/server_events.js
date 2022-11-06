@@ -1,4 +1,4 @@
-const leave = require("./leave");
+const leave = require("../leave");
 
 module.exports = {
   async join(guild, con) {

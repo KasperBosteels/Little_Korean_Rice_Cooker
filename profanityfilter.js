@@ -1,5 +1,5 @@
 const channel_alert = require("./profanity_alert_data_collector");
-const profanity_enabled = require("./profanity_enabled");
+const profanity_enabled = require("./DataHandlers/profanity_enabled");
 const score = require("./socalCredit");
 const warn = require("./commands/warnv2.js");
 const Discord = require("discord.js");
@@ -67,13 +67,6 @@ async function proffilter(message, client, con) {
       }
     }
   }
-  //check if any of the characters are arabic if true replace with chiken soup
-  /*
-    if(HasArabicCharacters(message)){
-        message.delete();
-        message.channel.send("chiken soup !");
-    };
-    */
 }
 //get swear words from json file
 async function getswearwords(guildID) {
@@ -86,11 +79,6 @@ async function getswearwords(guildID) {
     allswearwords = customs.custom;
   }
   return allswearwords;
-}
-//check for arabic
-function HasArabicCharacters(text) {
-  var arregex = /[\u0600-\u06FF]/;
-  return arregex.test(text);
 }
 function sendMessageToChannel(message, client) {
   let alertChannel = channel_alert.GET(message.guild.id);

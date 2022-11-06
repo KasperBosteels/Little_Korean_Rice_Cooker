@@ -16,30 +16,26 @@ const prefixcheck = require("./prefixcheck.js");
 const commandFiles = fs
   .readdirSync("./commands")
   .filter((file) => file.endsWith(".js"));
-const slashCommandsFiles = fs
-  .readdirSync("./commands/SlashCommands")
-  .filter((file) => file.endsWith(".js"));
 const profanity = require("./profanityfilter.js");
 const level = require("./level.js");
 const rice = require("./text responses/rice.js").execute;
-const getprefix = require("./getprefixData.js");
-const welcome_channel = require("./welcome_data.js");
-const profanity_alert_data_collector = require("./profanity_alert_data_collector.js");
-const profanity_enabled = require("./profanity_enabled");
-const leveling_enabled = require("./leveling_enabled");
-const welcomeLeaveMessages = require("./welcome_leave_messages");
+const getprefix = require("./DataHandlers/getprefixData");
+const welcome_channel = require("./DataHandlers/welcome_data.js");
+const profanity_alert_data_collector = require("./DataHandlers/profanity_alert_data_collector");
+const profanity_enabled = require("./DataHandlers/profanity_enabled");
+const leveling_enabled = require("./DataHandlers/leveling_enabled");
+const welcomeLeaveMessages = require("./DataHandlers/welcome_leave_messages");
 const power = require("./powerButton");
 const leave = require("./leave").execute;
-const server = require("./server_events");
-const ignoreusers = require("./ignored_users");
+const server = require("./DataHandlers/server_events");
+const ignoreusers = require("./DataHandlers/ignored_users");
 const cooldowns = new Map();
-const slashCommandsUpload = require("./uploadSlashCommand");
-const logchannels = require("./getLogChannels");
+const logchannels = require("./DataHandlers/getLogChannels");
 const { guildjoin, guildleave } = require("./member_events");
-const custom_Welcome = require("./welcome_message_data_collector.js");
+const custom_Welcome = require("./DataHandlers/welcome_message_data_collector.js");
 const { Player } = require("discord-music-player");
 const G = require("./Generators/GenerateSimpleEmbed");
-const updateSwears = require("./update_swear_words");
+const updateSwears = require("./DataHandlers/update_swear_words");
 const processModal = require("./processModal.js").execute;
 const SlashCommandLoader = require("./uploadSlashCommand").execute;
 //#endregion
@@ -75,10 +71,6 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
   console.log(`command file loaded: ${command.name}`);
 }
-
-//#endregion
-
-//#region  load slash commands
 
 //#endregion
 
