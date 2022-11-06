@@ -1,11 +1,14 @@
 const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9"); //#endregion
+const { Routes } = require("discord-api-types/v9");
+const { Collection } = require("discord.js");
+const fs = require("node:fs");
+
 module.exports = {
-  async execute(token, client) {
+  async execute(token, client, collection) {
     client.slashCommands = new Collection();
     const cmdFiles = fs.readdirSync("./commands/SlashCommands/");
     const rest = new REST({ version: 10 }).setToken(token);
-    const commands = [];
+    let commands = [];
     for (const file of cmdFiles) {
       const cmd = require(`./commands/SlashCommands/${file}`);
       commands.push({
@@ -23,7 +26,7 @@ module.exports = {
           : null,
       });
       if (cmd.name) {
-        client.slashcommands.set(cmd.name, cmd);
+        client.slashCommands.set(cmd.name, cmd);
       } else {
         console.log(`failed to load ${file.split(".js")[0]}`);
       }
@@ -34,10 +37,11 @@ module.exports = {
       try {
         console.log("Started refreshing application (/) commands.");
         await rest.put(Routes.applicationGuildCommands(clientId, guildid), {
-          body: slashcommands,
+          body: commands,
         });
         console.log("Successfully reloaded application (/) commands.");
       } catch (error) {
+        //console.log(error.rawError.errors.description._errors);
         console.error(error);
       }
     })();
