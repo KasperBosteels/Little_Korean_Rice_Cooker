@@ -1,11 +1,14 @@
-const { ApplicationCommand } = require("discord.js");
-const { ApplicationCommandType } = require("discord.js");
-const { SlashCommandBuilder, Application } = require("discord.js");
+const {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} = require("discord-api-types/v9");
 const wiki = require("wikipedia");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {
   name: "wiki",
   description: "Search Wikipedia",
+  type: ApplicationCommandType.ChatInput,
+
   command: {
     enabled: true,
     minArsCout: 1,
@@ -15,7 +18,7 @@ module.exports = {
       dmPermission: true,
       options: [
         {
-          type: ApplicationCommandType.String,
+          type: ApplicationCommandOptionType.String,
           required: true,
           name: "search",
           description: "Wikipedia Article you want to look up.",

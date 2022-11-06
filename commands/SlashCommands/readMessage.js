@@ -1,8 +1,10 @@
-const { SlashCommandBuilder } = require("discord.js");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
+const { ApplicationCommandType } = require("discord-api-types/v9");
 module.exports = {
   name: "read_mail",
   description: "Read all messages you send or received from the developers.",
+  type: ApplicationCommandType.ChatInput,
+
   command: {
     enabled: true,
     slashCommand: {

@@ -1,10 +1,13 @@
-const { ApplicationCommand } = require("discord.js");
-const { ApplicationCommandType } = require("discord.js");
-const { SlashCommandBuilder, Application } = require("discord.js");
+const {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} = require("discord-api-types/v9");
 const search = require("yt-search");
 module.exports = {
   name: "Youtube",
   description: "Quickly look up a Youtube video.",
+  type: ApplicationCommandType.ChatInput,
+
   command: {
     enabled: true,
     minArsCount: 1,
@@ -14,7 +17,7 @@ module.exports = {
       dmPermission: true,
       options: [
         {
-          type: ApplicationCommandType.String,
+          type: ApplicationCommandOptionType.String,
           required: true,
           name: "search",
           description: "Name of the video you want to show.",

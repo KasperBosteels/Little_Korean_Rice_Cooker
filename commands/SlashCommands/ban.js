@@ -1,12 +1,16 @@
-const { ApplicationCommandOptionType } = require("discord-api-types/v9");
-const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} = require("discord-api-types/v9");
+
 const G = require("../../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "ban",
   description: "Ban a user from your server.",
   userPermissions: ["BanMembers"],
+  type: ApplicationCommandType.ChatInput,
   command: {
-    enabled: true,
+    enabled: false,
     minArgsCount: 1,
     slashCommand: {
       enabled: true,
@@ -18,21 +22,20 @@ module.exports = {
           type: ApplicationCommandOptionType.User,
           required: true,
           name: "user",
-          description: "The user you want to ban",
+          description: "The user you want to ban.",
         },
         {
           type: ApplicationCommandOptionType.String,
           required: false,
           name: "reason",
-          description: "The reason you want to ban",
+          description: "Reason for banning.",
           maxLength: 255,
         },
         {
           type: ApplicationCommandOptionType.Integer,
           required: false,
           name: "duration",
-          description:
-            "How long you want this person to stay banned(leave empty for indefinite).",
+          description: "for how long you want to ban this user",
         },
       ],
     },

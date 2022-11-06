@@ -1,20 +1,18 @@
-const { ApplicationCommandType } = require("discord.js");
-const { ApplicationCommand } = require("discord.js");
 const {
-  SlashCommandBuilder,
-  PermissionFlagsBits,
-  Application,
-} = require("discord.js");
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} = require("discord-api-types/v9");
 const { GenerateEmbed } = require("../../Generators/GenerateSimpleEmbed");
 const { logWithNoMember } = require("../../sendToLogChannel");
-const logging = require("../../sendToLogChannel");
 module.exports = {
   name: "warn",
   description:
     "Warn a user.\nWarnings will be saved so you can see them later on.",
   userPermissions: ["ModerateMembers"],
+  type: ApplicationCommandType.ChatInput,
+
   command: {
-    enabled: true,
+    enabled: false,
     minArgsCount: 1,
     slashCommand: {
       enabled: true,
@@ -22,13 +20,13 @@ module.exports = {
       dmPermission: false,
       options: [
         {
-          type: ApplicationCommandType.User,
+          type: ApplicationCommandOptionType.User,
           required: true,
           name: "user",
           description: "The User you want to warn",
         },
         {
-          type: ApplicationCommandType.String,
+          type: ApplicationCommandOptionType.String,
           required: false,
           name: "reason",
           description: "The reason for this warning.",

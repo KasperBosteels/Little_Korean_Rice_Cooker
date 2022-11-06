@@ -1,16 +1,16 @@
-const { ApplicationCommandType } = require("discord.js");
 const {
-  SlashCommandBuilder,
-  PermissionFlagsBits,
-  Application,
-} = require("discord.js");
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} = require("discord-api-types/v9");
 const G = require("../../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "unban",
   description: "Unban a user from your server",
   userPermissions: ["BanMembers"],
+  type: ApplicationCommandType.ChatInput,
+
   command: {
-    enabled: true,
+    enabled: false,
     minArsCount: 1,
     slashCommand: {
       enabled: true,
@@ -18,7 +18,7 @@ module.exports = {
       dmPermission: false,
       options: [
         {
-          type: ApplicationCommandType.String,
+          type: ApplicationCommandOptionType.String,
           required: true,
           name: "id",
           description: "Id of the user you want to unban",

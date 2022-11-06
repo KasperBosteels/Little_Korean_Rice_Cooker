@@ -1,5 +1,7 @@
-const { ApplicationCommandOptionType } = require("discord.js");
-const { SlashCommandBuilder } = require("discord.js");
+const {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} = require("discord-api-types/v9");
 const {
   ModalBuilder,
   MessageActionRow,
@@ -9,6 +11,8 @@ const confirm = require("../../leveling_enabled").CONFIRM;
 module.exports = {
   name: "mail",
   description: "Send a message to de developers",
+  type: ApplicationCommandType.ChatInput,
+
   command: {
     enabled: true,
     slashCommand: {

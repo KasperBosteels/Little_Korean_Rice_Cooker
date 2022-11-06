@@ -1,10 +1,14 @@
-const { ApplicationCommandType, Application } = require("discord.js");
-const { SlashCommandBuilder } = require("discord.js");
+const {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} = require("discord-api-types/v9");
 const G = require("../../Generators/GenerateSimpleEmbed");
 const path = require("../../jsonFiles/bodily_affection.json").pats;
 module.exports = {
   name: "pet",
   description: "Sometimes you just need to put your hands on it.",
+  type: ApplicationCommandType.ChatInput,
+
   command: {
     enabled: true,
     slashCommand: {
@@ -13,13 +17,13 @@ module.exports = {
       dmPermission: true,
       options: [
         {
-          type: ApplicationCommandType.User,
+          type: ApplicationCommandOptionType.User,
           name: "user",
           required: false,
           description: "Pet a user.",
         },
         {
-          type: ApplicationCommandType.String,
+          type: ApplicationCommandOptionType.String,
           required: false,
           name: "text",
           description: "Something you want to pet.",

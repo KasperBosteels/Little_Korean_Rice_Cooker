@@ -1,4 +1,8 @@
-const { ApplicationCommandOptionType } = require("discord.js");
+const {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} = require("discord-api-types/v9");
+
 const eat = require("../../jsonFiles/bodily_affection.json").eating;
 const eatingtext = require("../../jsonFiles/bodily_affection.json")[
   "eating-text"
@@ -8,6 +12,8 @@ const { userPermissions } = require("./ban");
 module.exports = {
   name: "eat",
   descritpion: "Eat something or someone.",
+  type: ApplicationCommandType.ChatInput,
+
   command: {
     enabled: true,
     minArgsCount: 0,

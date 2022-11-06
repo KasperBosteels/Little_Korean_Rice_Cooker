@@ -1,17 +1,22 @@
-const { ApplicationCommandType } = require("discord.js");
-const { Discord, SlashCommandBuilder, Application } = require("discord.js");
+const { Discord } = require("discord.js");
+const {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} = require("discord-api-types/v9");
 const credit = require("../../socalCredit");
 module.exports = {
   name: "credit",
   description: "Look at your own or someone elses social credit.",
+  type: ApplicationCommandType.ChatInput,
+
   command: {
-    enabled: true,
+    enabled: false,
     slashCommand: {
       enabled: true,
       ephemeral: false,
       dmPermission: false,
       options: {
-        type: ApplicationCommandType.User,
+        type: ApplicationCommandOptionType.User,
         required: false,
         name: "user",
         description: "Social credit of a user",

@@ -1,6 +1,10 @@
 const ox = require("oxford-dictionary");
-const { Discord, SlashCommandBuilder } = require("discord.js");
-const { ApplicationCommandType } = require("discord.js");
+const { Discord } = require("discord.js");
+const {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} = require("discord-api-types/v9");
+
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 const ID = process.env.OXFORD_ID;
 const KEY = process.env.OXFORD_KEY;
@@ -9,6 +13,8 @@ const dict = new ox(config);
 module.exports = {
   name: "oxford",
   description: "Find definitions from the oxford api",
+  type: ApplicationCommandType.ChatInput,
+
   command: {
     enabled: true,
     minArgsCount: 1,
@@ -18,7 +24,7 @@ module.exports = {
       dmPermission: true,
       options: [
         {
-          type: ApplicationCommandType.String,
+          type: ApplicationCommandOptionType.String,
           name: "word",
           description: "The Word you want to look up",
           required: false,

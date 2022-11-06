@@ -1,8 +1,10 @@
-const { SlashCommandBuilder } = require("discord.js");
 const discord = require("discord.js");
+const { ApplicationCommandType } = require("discord-api-types/v9");
 module.exports = {
   name: "ping",
   description: "ping pong ping",
+  type: ApplicationCommandType.ChatInput,
+
   command: {
     enabled: true,
     slashCommand: {

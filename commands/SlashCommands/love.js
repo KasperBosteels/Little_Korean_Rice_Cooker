@@ -1,9 +1,14 @@
-const { ApplicationCommandOptionType } = require("discord.js");
+const {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} = require("discord-api-types/v9");
 const G = require("../../Generators/GenerateSimpleEmbed");
 const love = require("../../jsonFiles/love.json").answer;
 module.exports = {
   name: "love",
   description: "For whenever you need some affection of an inanimate object.",
+  type: ApplicationCommandType.ChatInput,
+
   command: {
     enabled: true,
     slashCommand: {
