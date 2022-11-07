@@ -1,5 +1,5 @@
 const { Permissions } = require("discord.js");
-const welcome_data = require("../welcome_data");
+const welcome_data = require("../DataHandlers/welcome_data");
 module.exports = {
   name: "welcome_channel",
   description:

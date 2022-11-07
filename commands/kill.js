@@ -1,7 +1,7 @@
 const link = require("../jsonFiles/bodily_affection.json").kill;
 const synonyms = require("../jsonFiles/bodily_affection.json").killsynonyms;
 const G = require("../Generators/GenerateSimpleEmbed");
-const score = require("../socalCredit");
+const score = require("../DataHandlers/socialCredit");
 module.exports = {
   name: "kill",
   description: "Kill someone.",

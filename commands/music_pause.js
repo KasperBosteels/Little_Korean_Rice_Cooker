@@ -1,4 +1,4 @@
-const score = require("../socalCredit");
+const score = require("../DataHandlers/socialCredit");
 const resume = require("./music_resume");
 module.exports = {
   name: "pause",

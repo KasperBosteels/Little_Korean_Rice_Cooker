@@ -1,4 +1,4 @@
-const save_channels = require("../profanity_alert_data_collector");
+const save_channels = require("../DataHandlers/profanity_alert_data_collector");
 const { Permissions } = require("discord.js");
 module.exports = {
   name: "profanity-alert",

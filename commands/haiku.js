@@ -1,5 +1,5 @@
 const haiku = require("haiku-random");
-const score = require("../socalCredit");
+const score = require("../DataHandlers/socialCredit");
 const G = require("../Generators/GenerateSimpleEmbed");
 var hard_Haiku = [
   `You're a vast ocean,\nSo oddly terrifying\nSuch a strange comfort.\nby Achi`,

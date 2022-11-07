@@ -1,5 +1,5 @@
 const { Permissions } = require("discord.js");
-const logchannels = require("../getLogChannels.js");
+const logchannels = require("../DataHandlers/getLogChannels.js");
 module.exports = {
   name: "bot-log",
   description:

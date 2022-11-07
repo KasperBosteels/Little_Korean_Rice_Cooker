@@ -11,9 +11,8 @@ var tickleDatabase = [
   "https://i.pinimg.com/originals/de/63/73/de6373193dc2b6622ec4178382a6a18b.gif",
   "https://i.imgur.com/yKzEEmA.gif",
 ];
-const { createPool } = require("mysql");
 const G = require("../Generators/GenerateSimpleEmbed");
-const score = require("../socalCredit");
+const score = require("../DataHandlers/socialCredit");
 module.exports = {
   name: "tickle",
   description: "Tickle me this, tickle me that.",

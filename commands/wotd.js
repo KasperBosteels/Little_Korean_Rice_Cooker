@@ -1,5 +1,5 @@
 const ud = require("urban-dictionary");
-const social = require("../socalCredit");
+const social = require("../DataHandlers/socialCredit");
 const G = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "wotd",

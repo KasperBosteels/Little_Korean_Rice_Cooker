@@ -1,5 +1,5 @@
 const config = require("./auth.json");
-const fs = require("fs");
+const fs = require("node:fs");
 module.exports = {
   execute(message) {
     return check(message);

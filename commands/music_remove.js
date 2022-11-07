@@ -1,4 +1,4 @@
-const score = require("../socalCredit");
+const score = require("../DataHandlers/socialCredit");
 module.exports = {
   name: "remove",
   description: "If you need to remove a specific song.",

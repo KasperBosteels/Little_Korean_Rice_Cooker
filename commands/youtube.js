@@ -1,5 +1,5 @@
 const search = require("yt-search");
-const social = require("../socalCredit");
+const social = require("../DataHandlers/socialCredit");
 module.exports = {
   name: "youtube",
   description: "I will look for some good videos.",

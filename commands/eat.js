@@ -1,5 +1,5 @@
 const eat = require("../jsonFiles/bodily_affection.json").eating;
-const score = require("../socalCredit");
+const score = require("../DataHandlers/socialCredit");
 const G = require("../Generators/GenerateSimpleEmbed");
 
 module.exports = {

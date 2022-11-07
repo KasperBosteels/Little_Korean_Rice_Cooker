@@ -1,8 +1,8 @@
-const controlLevel = require("./leveling_enabled").GET;
-const G = require("./Generators/GenerateSimpleEmbed").GenerateEmbed;
-const controlPrefix = require("./getprefixData").GET;
-const updateprefix = require("./commands/changeprefix").update;
-const updateLevel = require("./commands/leveling").update;
+const controlLevel = require("../DataHandlers/leveling_enabled").GET;
+const G = require("../Generators/GenerateSimpleEmbed").GenerateEmbed;
+const controlPrefix = require("../DataHandlers/getprefixData").GET;
+const updateprefix = require("../commands/changeprefix").update;
+const updateLevel = require("../commands/leveling").update;
 module.exports = {
   async execute(interaction, con) {
     let prefixchange = false,

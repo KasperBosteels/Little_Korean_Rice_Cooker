@@ -1,4 +1,4 @@
-const pr = require("../getprefixData.js");
+const pr = require("../DataHandlers/getprefixData.js");
 const { Permissions } = require("discord.js");
 module.exports = {
   name: "prefix",

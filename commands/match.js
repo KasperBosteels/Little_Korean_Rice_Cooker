@@ -1,7 +1,7 @@
 const G = require("../Generators/GenerateSimpleEmbed").GenerateEmbed;
 const gif = require("../jsonFiles/bodily_affection.json");
-const score = require("../socalCredit");
-const prefixGET = require("../getprefixData").GET;
+const score = require("../DataHandlers/socialCredit");
+const prefixGET = require("../DataHandlers/getprefixData").GET;
 var chosen = " ";
 var value = 0;
 var users = [];

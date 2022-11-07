@@ -1,5 +1,5 @@
-const { GET } = require("./getLogChannels");
-const welcome_channel = require("./welcome_data");
+const { GET } = require("./DataHandlers/getLogChannels");
+const welcome_channel = require("./DataHandlers/welcome_data");
 module.exports = {
   async embedWithLog(member, embed, message) {
     let channelID = GET(member.guild.id);

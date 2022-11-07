@@ -1,6 +1,6 @@
 const G = require("../Generators/GenerateSimpleEmbed");
 const pats = require("../jsonFiles/bodily_affection.json").pats;
-const score = require("../socalCredit");
+const score = require("../DataHandlers/socialCredit");
 module.exports = {
   name: "pet",
   description: "Pet someone.",

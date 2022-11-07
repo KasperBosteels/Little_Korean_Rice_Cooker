@@ -1,6 +1,6 @@
 const G = require("../Generators/GenerateSimpleEmbed");
 const hug = require("../jsonFiles/bodily_affection.json").hugs;
-const score = require("../socalCredit");
+const score = require("../DataHandlers/socialCredit");
 module.exports = {
   name: "hug",
   description: "Hug someone.",

@@ -1,4 +1,4 @@
-const score = require("../socalCredit");
+const score = require("../DataHandlers/socialCredit");
 module.exports = {
   name: "skip",
   description: "Skip the current song, or a song from the queue",

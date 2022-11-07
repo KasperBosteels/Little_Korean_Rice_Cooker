@@ -1,4 +1,4 @@
-const score = require("../socalCredit");
+const score = require("../DataHandlers/socialCredit");
 const { RepeatMode } = require("discord-music-player");
 module.exports = {
   name: "repeat",

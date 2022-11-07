@@ -1,4 +1,4 @@
-const { writeFile } = require("fs");
+const { writeFile } = require("node:fs");
 module.exports = {
   async execute(
     prefix,

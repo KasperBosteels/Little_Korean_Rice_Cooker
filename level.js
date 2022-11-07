@@ -1,5 +1,5 @@
-const leveling_enabled = require("./leveling_enabled");
-const score = require("./socalCredit");
+const leveling_enabled = require("./DataHandlers/leveling_enabled");
+const score = require("./DataHandlers/socialCredit");
 const logchannel = require("./sendToLogChannel");
 module.exports = {
   async execute(message, con, args, Discord) {

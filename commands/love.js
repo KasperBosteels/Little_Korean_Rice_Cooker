@@ -1,5 +1,5 @@
 const love = require("../jsonFiles/love.json").answer;
-const score = require("../socalCredit");
+const score = require("../DataHandlers/socialCredit");
 module.exports = {
   name: "love",
   description: "A loving message.",

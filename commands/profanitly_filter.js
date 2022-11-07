@@ -1,4 +1,4 @@
-const profanity = require("../profanity_enabled");
+const profanity = require("../DataHandlers/profanity_enabled");
 const { Permissions } = require("discord.js");
 module.exports = {
   name: "profanity-filter",

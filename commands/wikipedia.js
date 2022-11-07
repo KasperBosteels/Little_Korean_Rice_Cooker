@@ -1,4 +1,4 @@
-const score = require("../socalCredit");
+const score = require("../DataHandlers/socialCredit");
 const wiki = require("wikipedia");
 const G = require("../Generators/GenerateSimpleEmbed");
 module.exports = {

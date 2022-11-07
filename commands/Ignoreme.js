@@ -1,4 +1,4 @@
-const ignoreusers = require("../ignored_users");
+const ignoreusers = require("../DataHandlers/ignored_users");
 module.exports = {
   name: "ignore-me",
   description: "I will remove all you data, and ignore you.",

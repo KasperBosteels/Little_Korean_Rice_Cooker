@@ -1,5 +1,5 @@
 const { Permissions } = require("discord.js");
-const welcome_data = require("../welcome_message_data_collector");
+const welcome_data = require("../DataHandlers/welcome_message_data_collector");
 module.exports = {
   name: "custom_welcome",
   description:

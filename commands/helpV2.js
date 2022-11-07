@@ -1,9 +1,8 @@
 const botconfig = require("../auth.json");
-const getprefix = require("../getprefixData.js");
-const { MessageEmbedBuilder, Permissions } = require("discord.js");
+const getprefix = require("../DataHandlers/getprefixData.js");
+const { Permissions } = require("discord.js");
 const dropdown = require("../dropdown");
 const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
-const message = require("./SlashCommands/message");
 var prefix = "-";
 //page settings
 module.exports = {

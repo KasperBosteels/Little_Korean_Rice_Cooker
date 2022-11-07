@@ -1,4 +1,4 @@
-const leveling = require("../leveling_enabled");
+const leveling = require("../DataHandlers/leveling_enabled");
 const { Permissions } = require("discord.js");
 module.exports = {
   name: "level-system",

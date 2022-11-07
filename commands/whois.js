@@ -1,4 +1,4 @@
-const credit = require("../socalCredit");
+const credit = require("../DataHandlers/socialCredit");
 const G = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "whois",

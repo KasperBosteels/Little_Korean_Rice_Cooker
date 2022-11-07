@@ -1,8 +1,8 @@
 const G = require("./Generators/GenerateSimpleEmbed");
 const embedlogger = require("./sendToLogChannel");
 const logger = require("./logger");
-const socialcreddit = require("./socalCredit");
-const customwelcome = require("./welcome_message_data_collector");
+const socialcreddit = require("./DataHandlers/socialCredit");
+const customwelcome = require("./DataHandlers/welcome_message_data_collector");
 module.exports = {
   async guildjoin(member, client, con) {
     let custommessage = await createCustomMessage(member);

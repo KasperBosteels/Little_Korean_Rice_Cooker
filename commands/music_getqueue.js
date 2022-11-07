@@ -1,4 +1,4 @@
-const score = require("../socalCredit");
+const score = require("../DataHandlers/socialCredit");
 const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "queue",

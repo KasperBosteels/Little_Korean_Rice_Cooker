@@ -1,9 +1,11 @@
-const channel_alert = require("./profanity_alert_data_collector");
+const channel_alert = require("./DataHandlers/profanity_alert_data_collector");
 const profanity_enabled = require("./DataHandlers/profanity_enabled");
-const score = require("./socalCredit");
-const warn = require("./commands/warnv2.js");
-const Discord = require("discord.js");
-const { get_default_swear_words, GET } = require("./update_swear_words");
+const score = require("./DataHandlers/socialCredit");
+const warn = require("./commands/warnv2");
+const {
+  get_default_swear_words,
+  GET,
+} = require("./DataHandlers/update_swear_words");
 const { profanity } = require("./logger");
 const G = require("./Generators/GenerateSimpleEmbed").GenerateEmbed;
 const threats = [
