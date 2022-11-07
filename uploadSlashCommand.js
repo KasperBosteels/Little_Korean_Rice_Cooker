@@ -1,6 +1,6 @@
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
-const { Collection } = require("discord.js");
+const { Collection, PermissionsBitField } = require("discord.js");
 const fs = require("node:fs");
 
 module.exports = {
@@ -11,6 +11,17 @@ module.exports = {
     let commands = [];
     for (const file of cmdFiles) {
       const cmd = require(`./commands/SlashCommands/${file}`);
+      if (
+        !cmd.name ||
+        !cmd.description ||
+        !cmd.type ||
+        !cmd.defaultMemberPermissions
+      )
+        return console.warn(
+          "\x1b[31m",
+          `${cmd.name} is not complete`,
+          "\x1b[0m"
+        );
       commands.push({
         name: cmd.name,
         description: cmd.description,
@@ -19,14 +30,14 @@ module.exports = {
         default_permissions: cmd.default_permissions
           ? default_permissions
           : null,
-        default_member_permissions: cmd.default_member_permissions
-          ? PermissionsBitField.resolve(
-              cmd.default_member_permissions
-            ).toString()
+        defaultMemberPermissions: cmd.defaultMemberPermissions
+          ? PermissionsBitField.resolve(cmd.defaultMemberPermissions).toString()
           : null,
+        dmPermission: cmd.dmPermission ? cmd.dmPermission : null,
       });
       if (cmd.name) {
         client.slashCommands.set(cmd.name, cmd);
+        console.log("\x1b[32m", `loaded ${cmd.name}.js (/)`, "\x1b[0m");
       } else {
         console.log(`failed to load ${file.split(".js")[0]}`);
       }
@@ -41,7 +52,8 @@ module.exports = {
         });
         console.log("Successfully reloaded application (/) commands.");
       } catch (error) {
-        //console.log(error.rawError.errors.description._errors);
+        if (error.rawError.errors.description)
+          console.log(error.rawError.errors.description._errors);
         console.error(error);
       }
     })();
