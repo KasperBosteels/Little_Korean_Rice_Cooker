@@ -8,7 +8,6 @@ const eatingtext = require("../../jsonFiles/bodily_affection.json")[
   "eating-text"
 ];
 const G = require("../../Generators/GenerateSimpleEmbed");
-const { userPermissions } = require("./ban");
 module.exports = {
   name: "eat",
   descritpion: "Eat something or someone.",

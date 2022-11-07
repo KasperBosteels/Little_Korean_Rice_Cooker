@@ -7,7 +7,7 @@ const {
   MessageActionRow,
   TextInputComponent,
 } = require("discord.js");
-const confirm = require("../../leveling_enabled").CONFIRM;
+const confirm = require("../../DataHandlers/leveling_enabled").CONFIRM;
 module.exports = {
   name: "mail",
   description: "Send a message to de developers",

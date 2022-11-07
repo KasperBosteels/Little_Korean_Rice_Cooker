@@ -3,7 +3,7 @@ const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
 } = require("discord-api-types/v9");
-const credit = require("../../socalCredit");
+const credit = require("../../DataHandlers/socialCredit");
 module.exports = {
   name: "credit",
   description: "Look at your own or someone elses social credit.",
