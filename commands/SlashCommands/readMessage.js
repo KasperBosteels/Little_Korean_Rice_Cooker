@@ -4,15 +4,9 @@ module.exports = {
   name: "read_mail",
   description: "Read all messages you send or received from the developers.",
   type: ApplicationCommandType.ChatInput,
+  dmPermission: true,
+  defaultMemberPermissions: ["SendMessages", "ViewChannel"],
 
-  command: {
-    enabled: true,
-    slashCommand: {
-      enabled: true,
-      ephemeral: true,
-      dmPermission: true,
-    },
-  },
   async execute(client, interaction, con) {
     await con.query(
       `SELECT * FROM user_messages WHERE userID = ${interaction.member.id}`,

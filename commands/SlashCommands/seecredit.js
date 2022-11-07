@@ -8,21 +8,16 @@ module.exports = {
   name: "credit",
   description: "Look at your own or someone elses social credit.",
   type: ApplicationCommandType.ChatInput,
-
-  command: {
-    enabled: false,
-    slashCommand: {
-      enabled: true,
-      ephemeral: false,
-      dmPermission: false,
-      options: {
-        type: ApplicationCommandOptionType.User,
-        required: false,
-        name: "user",
-        description: "Social credit of a user",
-      },
+  defaultMemberPermissions: ["ModerateMembers", "SendMessages", "ViewChannel"],
+  dmPermission: false,
+  options: [
+    {
+      type: ApplicationCommandOptionType.User,
+      required: false,
+      name: "user",
+      description: "Social credit of a user",
     },
-  },
+  ],
   async execute(client, interaction, con) {
     await interaction.deferReply({ ephemeral: true });
     let user = await interaction.options.getUser("user");

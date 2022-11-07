@@ -8,32 +8,24 @@ module.exports = {
   name: "warn",
   description:
     "Warn a user.\nWarnings will be saved so you can see them later on.",
-  userPermissions: ["ModerateMembers"],
+  defaultMemberPermissions: ["ModerateMembers"],
   type: ApplicationCommandType.ChatInput,
-
-  command: {
-    enabled: false,
-    minArgsCount: 1,
-    slashCommand: {
-      enabled: true,
-      ephemeral: false,
-      dmPermission: false,
-      options: [
-        {
-          type: ApplicationCommandOptionType.User,
-          required: true,
-          name: "user",
-          description: "The User you want to warn",
-        },
-        {
-          type: ApplicationCommandOptionType.String,
-          required: false,
-          name: "reason",
-          description: "The reason for this warning.",
-        },
-      ],
+  dmPermission: false,
+  options: [
+    {
+      type: ApplicationCommandOptionType.User,
+      required: true,
+      name: "user",
+      description: "The User you want to warn",
     },
-  },
+    {
+      type: ApplicationCommandOptionType.String,
+      required: false,
+      name: "reason",
+      description: "The reason for this warning.",
+    },
+  ],
+
   async execute(client, interaction, con) {
     let member = await interaction.options.getMember("user");
     let reason = "no reason given";

@@ -7,39 +7,30 @@ const G = require("../../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "ban",
   description: "Ban a user from your server.",
-  userPermissions: ["BanMembers"],
+  defaultMemberPermissions: ["BanMembers"],
   type: ApplicationCommandType.ChatInput,
-  command: {
-    enabled: false,
-    minArgsCount: 1,
-    slashCommand: {
-      enabled: true,
-      ephemeral: true,
-      dmPermission: false,
-
-      options: [
-        {
-          type: ApplicationCommandOptionType.User,
-          required: true,
-          name: "user",
-          description: "The user you want to ban.",
-        },
-        {
-          type: ApplicationCommandOptionType.String,
-          required: false,
-          name: "reason",
-          description: "Reason for banning.",
-          maxLength: 255,
-        },
-        {
-          type: ApplicationCommandOptionType.Integer,
-          required: false,
-          name: "duration",
-          description: "for how long you want to ban this user",
-        },
-      ],
+  dmPermission: false,
+  options: [
+    {
+      type: ApplicationCommandOptionType.User,
+      required: true,
+      name: "user",
+      description: "The user you want to ban.",
     },
-  },
+    {
+      type: ApplicationCommandOptionType.String,
+      required: false,
+      name: "reason",
+      description: "Reason for banning.",
+      maxLength: 255,
+    },
+    {
+      type: ApplicationCommandOptionType.Integer,
+      required: false,
+      name: "duration",
+      description: "for how long you want to ban this user",
+    },
+  ],
   async execute(client, interaction, con) {
     let userRequest,
       banReason = "no Reason given",

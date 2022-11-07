@@ -6,26 +6,18 @@ const G = require("../../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "unban",
   description: "Unban a user from your server",
-  userPermissions: ["BanMembers"],
+  defaultMemberPermissions: ["BanMembers"],
   type: ApplicationCommandType.ChatInput,
-
-  command: {
-    enabled: false,
-    minArsCount: 1,
-    slashCommand: {
-      enabled: true,
-      ephemeral: true,
-      dmPermission: false,
-      options: [
-        {
-          type: ApplicationCommandOptionType.String,
-          required: true,
-          name: "id",
-          description: "Id of the user you want to unban",
-        },
-      ],
+  dmPermission: false,
+  options: [
+    {
+      type: ApplicationCommandOptionType.String,
+      required: true,
+      name: "id",
+      description: "Id of the user you want to unban",
     },
-  },
+  ],
+
   async execute(client, interaction, con) {
     if (interaction.options.getUser("id")) {
       let userid = interaction.options.getString("id");

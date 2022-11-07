@@ -4,7 +4,6 @@ const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
 } = require("discord-api-types/v9");
-
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 const ID = process.env.OXFORD_ID;
 const KEY = process.env.OXFORD_KEY;
@@ -14,24 +13,16 @@ module.exports = {
   name: "oxford",
   description: "Find definitions from the oxford api",
   type: ApplicationCommandType.ChatInput,
-
-  command: {
-    enabled: true,
-    minArgsCount: 1,
-    slashCommand: {
-      enabled: true,
-      ephemeral: false,
-      dmPermission: true,
-      options: [
-        {
-          type: ApplicationCommandOptionType.String,
-          name: "word",
-          description: "The Word you want to look up",
-          required: false,
-        },
-      ],
+  defaultMemberPermissions: ["SendMessages", "ViewChannel"],
+  options: [
+    {
+      type: ApplicationCommandOptionType.String,
+      name: "word",
+      description: "The Word you want to look up",
+      required: false,
     },
-  },
+  ],
+
   async execute(client, interaction, con) {
     interaction.deferReply();
     const searchword = interaction.options.getString("word");

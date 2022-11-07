@@ -4,15 +4,8 @@ module.exports = {
   name: "ping",
   description: "ping pong ping",
   type: ApplicationCommandType.ChatInput,
-
-  command: {
-    enabled: true,
-    slashCommand: {
-      enabled: true,
-      ephemeral: false,
-      dmPermission: true,
-    },
-  },
+  dmPermission: true,
+  defaultMemberPermissions: ["SendMessages", "ViewChannel"],
   async execute(client, interaction, con) {
     await interaction.reply({
       content: " ",

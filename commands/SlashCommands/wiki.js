@@ -8,24 +8,18 @@ module.exports = {
   name: "wiki",
   description: "Search Wikipedia",
   type: ApplicationCommandType.ChatInput,
+  defaultMemberPermissions: ["SendMessages", "ViewChannel"],
+  dmPermission: true,
 
-  command: {
-    enabled: true,
-    minArsCout: 1,
-    slashCommand: {
-      enabled: true,
-      ephemeral: false,
-      dmPermission: true,
-      options: [
-        {
-          type: ApplicationCommandOptionType.String,
-          required: true,
-          name: "search",
-          description: "Wikipedia Article you want to look up.",
-        },
-      ],
+  options: [
+    {
+      type: ApplicationCommandOptionType.String,
+      required: true,
+      name: "search",
+      description: "Wikipedia Article you want to look up.",
     },
-  },
+  ],
+
   async execute(client, interaction, con) {
     await interaction.deferReply();
     const input = interaction.options.getString("search");

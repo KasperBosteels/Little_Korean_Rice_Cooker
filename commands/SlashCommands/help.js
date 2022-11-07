@@ -5,15 +5,8 @@ module.exports = {
   name: "help",
   description: "A handy guide for the bot.",
   type: ApplicationCommandType.ChatInput,
-
-  command: {
-    enabled: true,
-    slashCommand: {
-      enabled: true,
-      ephemeral: true,
-      dmPermission: true,
-    },
-  },
+  dmPermission: true,
+  defaultMemberPermissions: [],
   async execute(client, interaction, con) {
     await help.execute(client, interaction, [], null, null, null);
   },

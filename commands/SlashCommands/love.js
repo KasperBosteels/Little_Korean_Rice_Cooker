@@ -8,23 +8,16 @@ module.exports = {
   name: "love",
   description: "For whenever you need some affection of an inanimate object.",
   type: ApplicationCommandType.ChatInput,
-
-  command: {
-    enabled: true,
-    slashCommand: {
-      enabled: true,
-      ephemeral: false,
-      dmPermission: true,
-      options: [
-        {
-          type: ApplicationCommandOptionType.User,
-          required: false,
-          name: "user",
-          description: "Share some love with someone.",
-        },
-      ],
+  dmPermission: true,
+  defaultMemberPermissions: ["SendMessages", "ViewChannel"],
+  options: [
+    {
+      type: ApplicationCommandOptionType.User,
+      required: false,
+      name: "user",
+      description: "Share some love with someone.",
     },
-  },
+  ],
 
   async execute(client, interaction, con) {
     await interaction.deferReply();

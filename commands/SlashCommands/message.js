@@ -12,24 +12,18 @@ module.exports = {
   name: "mail",
   description: "Send a message to de developers",
   type: ApplicationCommandType.ChatInput,
-
-  command: {
-    enabled: true,
-    slashCommand: {
-      enabled: true,
-      ephemeral: true,
-      dmPermission: true,
-      options: [
-        {
-          type: ApplicationCommandOptionType.String,
-          name: "topic",
-          description: "the topic for your email",
-          required: false,
-          maxLength: 255,
-        },
-      ],
+  dmPermission: true,
+  defaultMemberPermissions: ["SendMessages", "ViewChannel"],
+  options: [
+    {
+      type: ApplicationCommandOptionType.String,
+      name: "topic",
+      description: "the topic for your email",
+      required: false,
+      maxLength: 255,
     },
-  },
+  ],
+
   async execute(client, interaction, con) {
     if (confirm(interaction.guild.id)) currentLevelStatus = "enabled";
     const modal = new ModalBuilder()

@@ -10,33 +10,25 @@ const eatingtext = require("../../jsonFiles/bodily_affection.json")[
 const G = require("../../Generators/GenerateSimpleEmbed");
 module.exports = {
   name: "eat",
-  descritpion: "Eat something or someone.",
+  description: "Eat something or someone.",
   type: ApplicationCommandType.ChatInput,
-
-  command: {
-    enabled: true,
-    minArgsCount: 0,
-    slashCommand: {
-      enabled: true,
-      ephemeral: false,
-      dmPermission: true,
-      options: [
-        {
-          type: ApplicationCommandOptionType.String,
-          required: false,
-          name: "eat",
-          description: "Thing you want to put in your mouth.",
-          maxLength: 255,
-        },
-        {
-          type: ApplicationCommandOptionType.User,
-          required: false,
-          name: "cannibalize",
-          description: "the user you want to nibble on.",
-        },
-      ],
+  defaultMemberPermissions: ["SendMessages", "ViewChannel"],
+  dmPermission: true,
+  options: [
+    {
+      type: ApplicationCommandOptionType.String,
+      required: false,
+      name: "eat",
+      description: "Thing you want to put in your mouth.",
     },
-  },
+    {
+      type: ApplicationCommandOptionType.User,
+      required: false,
+      name: "cannibalize",
+      description: "the user you want to nibble on.",
+    },
+  ],
+
   async execute(client, interaction, con) {
     await interaction.deferReply();
     let userRequest, responsetext, inbetween;
