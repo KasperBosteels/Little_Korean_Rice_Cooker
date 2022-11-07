@@ -1,4 +1,3 @@
-const Discord = require("discord.js");
 const { Permissions } = require("discord.js");
 module.exports = {
   name: "ban",
