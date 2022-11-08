@@ -8,7 +8,7 @@ module.exports = {
   args: "true",
   category: "fun",
   guildOnly: "false",
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   async execute(client, message, args) {
     //slice sentence and join them again with spaces for nice sentence
