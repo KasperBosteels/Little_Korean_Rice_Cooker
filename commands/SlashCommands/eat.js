@@ -45,7 +45,7 @@ module.exports = {
     }
     const gif = eat[Math.floor(Math.random() * eat.length)];
     let embed = G.GenerateEmbed(
-      "RANDOM",
+      "Random",
       responsetext,
       false,
       false,
