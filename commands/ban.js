@@ -6,8 +6,8 @@ module.exports = {
   guildOnly: "true",
   category: "moderating",
   cooldown: 1,
-  perms: ["BAN_MEMBERS", "SEND_MESSAGES"],
-  userperms: ["BAN_MEMBERS"],
+  perms: ["BanMembers", "SendMessages"],
+  userperms: ["BanMembers"],
   async execute(client, message, args, con) {
     //check permissions of user
     if (!permissioncheck(message))

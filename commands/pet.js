@@ -8,7 +8,7 @@ module.exports = {
   usage: "<@user> / <blank> / <something you like>",
   aliases: ["pat", "pat"],
   category: "fun",
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   async execute(client, message, args, con) {
     coin = await Math.floor(Math.random() * Math.floor(pats.length));

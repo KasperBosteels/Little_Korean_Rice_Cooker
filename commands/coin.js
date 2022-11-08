@@ -6,7 +6,7 @@ module.exports = {
   aliases: ["flip", "coinflip", "cf"],
   usage: " ",
   category: "fun",
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   async execute(client, message, args, con) {
     //randil 1 or 2

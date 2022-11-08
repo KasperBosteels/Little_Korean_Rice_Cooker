@@ -6,7 +6,7 @@ module.exports = {
   usage: " ",
   category: "general",
   aliases: ["link", "invite"],
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   execute(client, message, args) {
     message.channel.send({
@@ -24,11 +24,5 @@ module.exports = {
         ),
       ],
     });
-    /*
-    message.channel.send({
-      content: `https://canary.discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376646&scope=applications.commands%20bot `,
-    });
-    */
   },
 };
-//latest https://canary.discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376646&scope=bot

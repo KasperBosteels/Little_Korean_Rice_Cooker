@@ -8,7 +8,7 @@ module.exports = {
   category: "config",
   aliases: ["leveling", "level_system"],
   perms: ["SEND_MESSAGES"],
-  userperms: ["ADMINISTRATOR"],
+  userperms: ["Administrator"],
   async execute(client, message, args, con) {
     if (!permission(message))
       return message.reply({
@@ -96,6 +96,6 @@ module.exports = {
 function permission(message) {
   let mem = message.member;
   //check perms
-  if (!mem.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return false;
+  if (!mem.permissions.has(Permissions.Flags.Administrator)) return false;
   return true;
 }

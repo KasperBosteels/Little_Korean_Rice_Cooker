@@ -9,8 +9,8 @@ module.exports = {
   category: "config",
   args: "true",
   guildOnly: "true",
-  persm: ["SEND_MESSAGES"],
-  userperms: ["ADMINISTRATOR"],
+  persm: ["SendMessages"],
+  userperms: ["Administrator"],
   async execute(client, message, args, con) {
     if (!permissioncheck(message))
       return message.reply({
@@ -63,7 +63,7 @@ module.exports = {
 };
 function permissioncheck(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTATOR))
+  if (!message.member.permissions.has(Permissions.Flags.Administrator))
     return false;
   return true;
 }

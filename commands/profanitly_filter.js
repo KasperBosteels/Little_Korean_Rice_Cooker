@@ -7,8 +7,8 @@ module.exports = {
   usage: "<enable> / <disable>",
   category: "config",
   aliases: ["profanityfilter", "prf"],
-  perms: ["SEND_MESSAGES", "MANAGE_MESSAGES"],
-  userperms: ["ADMINISTRATOR"],
+  perms: ["SendMessages", "ManageMessages"],
+  userperms: ["Administrator"],
   execute(client, message, args, con) {
     if (!permission(message))
       return message.reply({ content: "you have no permission to do that." });
@@ -62,7 +62,7 @@ module.exports = {
 };
 function permission(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR))
+  if (!message.member.permissions.has(Permissions.Flags.Administrator))
     return false;
   return true;
 }

@@ -6,8 +6,8 @@ module.exports = {
   cooldown: 1,
   usage: " ",
   category: "music",
-  perms: ["SEND_MESSAGES", "CONNECT", "SPEAK"],
-  userperms: ["CONNECT", "SPEAK"],
+  perms: ["SendMessages", "Connect", "Speak"],
+  userperms: ["Connect"],
   async execute(client, message, args, con) {
     let guildQueue = client.player.getQueue(message.guild.id);
     guildQueue.setPaused(true);

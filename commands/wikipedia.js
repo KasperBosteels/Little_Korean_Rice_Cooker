@@ -8,7 +8,7 @@ module.exports = {
   usage: "<something you want to learn about>",
   category: "fun",
   aliases: ["wiki"],
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   async execute(client, message, args, con) {
     if (!args[0])

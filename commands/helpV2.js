@@ -12,7 +12,7 @@ module.exports = {
   usage: "optional: [command name]\n optional: [category]",
   cooldown: 5,
   category: "general",
-  perms: ["SEND_MESSAGES", "MANAGE_MESSAGES"],
+  perms: ["SendMessages", "ManageMessages"],
   userperms: [],
   async execute(client, message, args, con, options, button) {
     prefix = await this.guildprefix(message.guild.id);

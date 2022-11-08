@@ -5,7 +5,7 @@ module.exports = {
   cooldown: 5,
   category: "config",
   usage: " ",
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   async execute(client, message, args, con) {
     //get current time and message recieved timestamp subtract and send back

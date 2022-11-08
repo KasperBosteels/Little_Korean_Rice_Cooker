@@ -6,7 +6,7 @@ module.exports = {
   cooldown: 2,
   usage: "<blank> / <user-id or @user>",
   category: "general",
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   async execute(client, message, args, con) {
     let user, member, SCS;
