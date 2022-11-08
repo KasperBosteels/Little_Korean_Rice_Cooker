@@ -24,7 +24,7 @@ async function term(message) {
       message.channel.send({
         embeds: [
           G.GenerateEmbed(
-            "RANDOM",
+            "Random",
             results[coin].definition,
             false,
             (fields = [{ name: "examples:", content: results[coin].example }]),

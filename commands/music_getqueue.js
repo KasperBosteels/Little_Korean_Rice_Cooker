@@ -12,7 +12,7 @@ module.exports = {
     let guildQueue = client.player.getQueue(message.guild.id);
     let volume = guildQueue.volume;
     let embed = GenerateEmbed(
-      "RANDOm",
+      "Random",
       "the current colume is " + `${volume}%\n`,
       {
         text: message.member.displayName,

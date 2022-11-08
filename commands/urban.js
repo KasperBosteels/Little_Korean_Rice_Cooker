@@ -29,7 +29,7 @@ async function term(word, message) {
       explain[2] = result[0].permalink;
       sendembed(
         G.GenerateEmbed(
-          "RANDOM",
+          "Random",
           explain[0],
           message,
           (fields = [{ name: "examples:", content: explain[1] }]),

@@ -124,7 +124,7 @@ function synonymGET(object) {
 }
 function makeEmbed(author, word, object, Discord) {
   let messageEmbed = G(
-    "RANDOM",
+    "Random",
     "Nothing found sorry.",
     false,
     false,

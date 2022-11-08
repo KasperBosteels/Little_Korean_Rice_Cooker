@@ -19,7 +19,7 @@ module.exports = {
         return message.channel.send({
           embeds: [
             G.GenerateEmbed(
-              "RANDOM",
+              "Random",
               false,
               false,
               false,
@@ -57,7 +57,7 @@ async function fallbackfunction(message) {
       return message.channel.send({
         embeds: [
           G.GenerateEmbed(
-            "RANDOM",
+            "Random",
             false,
             false,
             false,

@@ -126,7 +126,7 @@ function synonymGET(object) {
 }
 function makeEmbed(author, word, object, Discord) {
   let embed = G.GenerateEmbed(
-    "RANDOM",
+    "Random",
     false,
     (footer = { text: author, url: "" }),
     false,

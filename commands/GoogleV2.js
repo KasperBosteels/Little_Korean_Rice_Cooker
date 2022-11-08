@@ -38,7 +38,7 @@ module.exports = {
         }
         for (let i = 0; i < images.length; i++) {
           list[i] = G.GenerateEmbed(
-            "RANDOM",
+            "Random",
             false,
             (footer = { text: `page ${i + 1}/${images.length}`, url: "" }),
             false,

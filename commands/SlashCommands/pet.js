@@ -42,7 +42,7 @@ module.exports = {
     }
     const gif = path[Math.floor(Math.random() * path.length)];
     let embed = G.GenerateEmbed(
-      "RANDOM",
+      "Random",
       responsetext,
       false,
       false,

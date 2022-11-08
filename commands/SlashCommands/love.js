@@ -26,11 +26,11 @@ module.exports = {
     if (interaction.options.getUser("user")) {
       userRequest = interaction.options.getUser("user");
       responseEmbed = G.GenerateEmbed(
-        "RANDOM",
+        "Random",
         `${userRequest}\n${RandomLove}`
       );
     } else {
-      responseEmbed = G.GenerateEmbed("RANDOM", RandomLove);
+      responseEmbed = G.GenerateEmbed("Random", RandomLove);
     }
     return await interaction.editReply({
       embeds: [responseEmbed],
