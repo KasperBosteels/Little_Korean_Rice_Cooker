@@ -27,9 +27,9 @@ module.exports = {
     if (
       !args.length &&
       message.guild.me.permissions.has([
-        Permissions.FLAGS.SEND_MESSAGES,
-        Permissions.FLAGS.MANAGE_MESSAGES,
-        Permissions.FLAGS.EMBED_LINKS,
+        Permissions.Flags.SendMessages,
+        Permissions.Flags.ManageMessages,
+        Permissions.Flags.EmbedLinks,
       ])
     ) {
       //#region create command list in strings

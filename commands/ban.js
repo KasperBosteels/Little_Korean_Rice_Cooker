@@ -27,7 +27,10 @@ module.exports = {
     if (!Reason) Reason = `no reason given by ${message.author.username}`;
     try {
       //try to ban member with reason
-      await message.guild.members.ban(user, { days: 7, reason: Reason });
+      await message.guild.members.ban(user, {
+        deleteMessageSeconds: 24 * 60 * 60,
+        reason: Reason,
+      });
       await message.channel.send({
         content: `:man_police_officer: ${user.username} has been successfully banned :man_police_officer: `,
       });
@@ -41,9 +44,9 @@ module.exports = {
 };
 function permissioncheck(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS))
+  if (!message.member.permissions.has(Permissions.Flags.BanMembers))
     return false;
-  if (!message.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS))
+  if (!message.guild.me.permissions.has(Permissions.Flags.BanMembers))
     return false;
   return true;
 }
