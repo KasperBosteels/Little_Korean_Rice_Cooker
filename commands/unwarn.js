@@ -9,16 +9,16 @@ module.exports = {
   aliases: ["uw", "unw", "rw"],
   category: "moderating",
   cooldown: 5,
-  perms: ["SEND_MESSAGES"],
-  userperms: ["MODERATE_MEMBERS"],
+  perms: ["SendMessages"],
+  userperms: ["ModerateMembers"],
   async execute(client, message, args, con) {
     //#region default check
-    if (!message.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS))
+    if (!message.member.permissions.has(Permissions.Flags.ModerateMembers))
       return message.reply({
         content: "You do not have permission to do this.",
       });
     if (!args[0]) return message.reply("no user tagged");
-    if (!message.guild.me.permissions.has(Permissions.FLAGS.KICK_MEMBERS))
+    if (!message.guild.me.permissions.has(Permissions.Flags.ModerateMembers))
       return message.reply({ content: "I do not have permission to do this." });
     var unwarnuser = getUserFromMention(args[0], client);
     if (!unwarnuser) return message.reply({ content: "no user found" });

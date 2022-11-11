@@ -9,15 +9,15 @@ module.exports = {
   aliases: ["delete", "remove"],
   category: "moderating",
   cooldown: 2,
-  perms: ["SEND_MESSAGES", "MANAGE_MESSAGES"],
-  userperms: ["MODERATE_MEMBERS", "MANAGE_MESSAGES"],
+  perms: ["SendMessages", "ManageMessages"],
+  userperms: ["ModerateMembers", "ManageMessages"],
   async execute(client, message, args, con) {
     //check parms
-    if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
+    if (!message.member.permissions.has(Permissions.Flags.ManageMessages))
       return message.reply({
         content: "You do not have permission to do this.",
       });
-    if (!message.guild.me.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
+    if (!message.guild.me.permissions.has(Permissions.Flags.ManageMessages))
       return message.reply({ content: "I do not have permission to do this." });
 
     //get amount to delete

@@ -6,7 +6,7 @@ module.exports = {
   usage: " ",
   category: "general",
   aliases: ["link", "invite"],
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   execute(client, message, args) {
     message.channel.send({

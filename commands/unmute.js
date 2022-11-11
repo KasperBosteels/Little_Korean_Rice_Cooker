@@ -9,15 +9,15 @@ module.exports = {
   args: "true",
   category: "moderating",
   aliases: [, "unm"],
-  perms: ["SEND_MESSAGES", "MODERATE_MEMBERS"],
-  userperms: ["MODERATE_MEMBERS"],
+  perms: ["SendMessages", "ModerateMembers"],
+  userperms: ["ModerateMembers"],
   async execute(client, message, args, con) {
     //check perms
-    if (!message.member.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS))
+    if (!message.member.permissions.has(Permissions.Flags.ModerateMembers))
       return message.reply({
         content: "Permission denied(moderate members).)",
       });
-    if (!message.guild.me.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS))
+    if (!message.guild.me.permissions.has(Permissions.Flags.ModerateMembers))
       return message.reply({
         content:
           "I do not have the permission to mute/unmute a member(moderate members).",

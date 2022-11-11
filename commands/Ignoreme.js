@@ -5,7 +5,7 @@ module.exports = {
   cooldown: 1,
   usage: " ",
   category: "config",
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   async execute(client, message, args, con) {
     let id = message.author.id;

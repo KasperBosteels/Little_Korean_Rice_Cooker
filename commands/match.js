@@ -14,7 +14,7 @@ module.exports = {
   usage: "<@user> or <@user> <@user> ",
   aliases: ["mm", "match"],
   category: "fun",
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   async execute(client, message, args, con) {
     if (!args[0])

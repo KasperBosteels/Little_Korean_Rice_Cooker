@@ -6,8 +6,8 @@ module.exports = {
   cooldown: 1,
   usage: " ",
   category: "music",
-  perms: ["SEND_MESSAGES"],
-  userperms: ["CONNECT"],
+  perms: ["SendMessages"],
+  userperms: ["Connect"],
   async execute(client, message, args, con) {
     let guildQueue = client.player.getQueue(message.guild.id);
     let volume = guildQueue.volume;

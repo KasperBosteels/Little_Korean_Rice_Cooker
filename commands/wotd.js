@@ -7,7 +7,7 @@ module.exports = {
   cooldown: 3,
   usage: " ",
   category: "fun",
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   async execute(client, message, args, con) {
     await term(message);

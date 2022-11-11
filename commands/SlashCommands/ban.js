@@ -49,7 +49,7 @@ module.exports = {
         userRequest.send({
           embeds: [
             G.GenerateEmbed(
-              "RANDOM",
+              "Random",
               `you where banned from ${interaction.guild.name}`,
               banReason
             ),
@@ -62,7 +62,7 @@ module.exports = {
         interaction.reply({
           embeds: [
             G.GenerateEmbed(
-              "RANDOM",
+              "Random",
               `${userRequest.displayName} was banned.`,
               `reason`
             ),
@@ -71,7 +71,7 @@ module.exports = {
       } catch (error) {
         console.log(error);
         interaction.reply({
-          embeds: [G.GenerateEmbed("RANDOM", "Something went wrong")],
+          embeds: [G.GenerateEmbed("Random", "Something went wrong")],
         });
       }
     }

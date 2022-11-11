@@ -15,7 +15,7 @@ module.exports = {
   usage: "<your query>",
   category: "fun",
   aliases: ["img"],
-  perms: ["SEND_MESSAGES", "MANAGE_MESSAGES", "EMBED_LINKS"],
+  perms: ["SendMessages", "ManageMessages", "EmbedLinks"],
   userperms: [],
   async execute(client, message, args, con) {
     //#region google search

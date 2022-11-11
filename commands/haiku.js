@@ -10,7 +10,7 @@ module.exports = {
   cooldown: 1,
   usage: " (optional: <number>)",
   category: "fun",
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   async execute(client, message, args, con) {
     let smile = " ";

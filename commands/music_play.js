@@ -8,8 +8,8 @@ module.exports = {
   usage: "<name | url>",
   category: "music",
   aliases: ["p"],
-  perms: ["SEND_MESSAGES", "CONNECT", "SPEAK"],
-  userperms: ["CONNECT"],
+  perms: ["SendMessages", "Connect", "Speak"],
+  userperms: ["Connect"],
   async execute(client, message, args, con) {
     if (args.length < 1)
       return message.channel.send({

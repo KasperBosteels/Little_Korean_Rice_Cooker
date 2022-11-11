@@ -9,8 +9,8 @@ module.exports = {
   guildOnly: "true",
   aliases: ["btl", "botlog"],
   category: "config",
-  perms: ["SEND_MESSAGES"],
-  userperms: ["ADMINISTRATOR"],
+  perms: ["SendMessages"],
+  userperms: ["Administrator"],
   execute(client, message, args, con) {
     //check perms
     if (!permission(message))
@@ -83,7 +83,7 @@ module.exports = {
 };
 function permission(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTATOR)) {
+  if (!message.member.permissions.has(Permissions.Flags.Administrator)) {
     return false;
   }
   return true;

@@ -5,8 +5,8 @@ module.exports = {
   cooldown: 5,
   usage: "<number of your song>",
   category: "music",
-  perms: ["SEND_MESSAGES", "CONNECT", "SPEAK"],
-  userperms: ["CONNECT"],
+  perms: ["SendMessages", "Connect"],
+  userperms: ["Connect", "SendMessages"],
   async execute(client, message, args, con) {
     guildQueue = client.player.getQueue(message.guild.id);
     let song = parseInt(args[0]);

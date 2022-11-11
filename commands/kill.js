@@ -22,7 +22,7 @@ module.exports = {
     "terminate",
   ],
   category: "fun",
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   async execute(client, message, args, con) {
     try {

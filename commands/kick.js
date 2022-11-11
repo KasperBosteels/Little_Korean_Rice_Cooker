@@ -7,15 +7,15 @@ module.exports = {
   usage: "<@user>",
   guildOnly: "true",
   category: "moderating",
-  perms: ["SEND_MESSAGES", "KICK_MEMBERS"],
-  userperms: ["KICK_MEMBERS"],
+  perms: ["SendMessages", "KickMembers"],
+  userperms: ["KickMembers"],
   execute(client, message, args, con) {
     //check perms or if there is a mention
-    if (!message.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS))
+    if (!message.member.permissions.has(Permissions.Flags.KickMembers))
       return message.reply({
         content: "You need the permission to kick members.",
       });
-    if (!message.guild.me.permissions.has(Permissions.FLAGS.KICK_MEMBERS))
+    if (!message.guild.me.permissions.has(Permissions.Flags.KickMembers))
       return message.reply({
         content: "I need the permission to kick members.",
       });
@@ -30,7 +30,7 @@ module.exports = {
     if (!member) return message.reply({ content: "Didn't find that user." });
 
     //check if user is a mod
-    if (member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
+    if (member.permissions.has(Permissions.Flags.ManageMessages))
       return message.reply({ content: "This person is possibly a mod." });
     // Kick
     let reason = `No reason give, by:${message.author.tag}`;

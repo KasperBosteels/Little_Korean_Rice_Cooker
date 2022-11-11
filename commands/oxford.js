@@ -11,7 +11,7 @@ module.exports = {
   cooldown: 3,
   usage: "<word> ",
   category: "fun",
-  perms: ["SEND_MESSAGES"],
+  perms: ["SendMessages"],
   userperms: [],
   async execute(client, message, args, con) {
     if (!args[0])

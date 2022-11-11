@@ -7,7 +7,7 @@ module.exports = {
   usage: "<title>",
   aliases: ["yt"],
   category: "fun",
-  perms: ["SEND_MESSAGES", "EMBED_LINKS"],
+  perms: ["Sendmessages", "EmbedLinks"],
   userperms: [],
   async execute(client, message, args, con, options) {
     if (!args[0])
