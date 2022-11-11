@@ -46,14 +46,27 @@ module.exports = {
     const clientId = "742037772503744582";
     (async () => {
       try {
-        console.log("Started refreshing application (/) commands.");
+        console.log(
+          "\x1b[33m",
+          "Started refreshing application (/) commands.",
+          "\x1b[0m"
+        );
         await rest.put(Routes.applicationGuildCommands(clientId, guildid), {
           body: commands,
         });
-        console.log("Successfully reloaded application (/) commands.");
+        console.log(
+          "\x1b[32m",
+          "Successfully reloaded application (/) commands.",
+          "\x1b[0m"
+        );
       } catch (error) {
         if (error.rawError.errors.description)
-          console.log(error.rawError.errors.description._errors);
+          console.log(
+            "\x1b[31m",
+            "Failed to reload application (/) commands.",
+            "\x1b[0m"
+          );
+        console.log(error.rawError.errors.description._errors);
         console.error(error);
       }
     })();

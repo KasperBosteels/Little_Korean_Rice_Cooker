@@ -20,15 +20,10 @@ module.exports = {
           false,
           false,
           false,
-          "https://canary.discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376646&scope=applications.commands%20bot"
+          "https://discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=2081514974422&scope=applications.commands%20bot"
         ),
       ],
     });
-    /*
-    message.channel.send({
-      content: `https://canary.discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376646&scope=applications.commands%20bot `,
-    });
-    */
   },
 };
-//latest https://canary.discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376646&scope=bot
+//latest "https://canary.discord.com/api/oauth2/authorize?client_id=742037772503744582&permissions=1514516376646&scope=applications.commands%20bot"

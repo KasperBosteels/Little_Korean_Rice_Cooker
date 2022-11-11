@@ -2,7 +2,7 @@ const time = 1 * 10 * 1000;
 const statusTexts = ["-help", "beep beep boop", "your lovely voice"];
 const statusType = ["WATCHING", "LISTENING", "LISTENING"];
 const { CronJob } = require("cron");
-const fs = require("fs");
+const fs = require("node:fs");
 module.exports = {
   async execute(client, con) {
     await con.connect();

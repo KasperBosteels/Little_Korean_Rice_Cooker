@@ -9,34 +9,33 @@ module.exports = {
   userperms: [],
   async execute(client, message, args, con) {
     //get current time and message recieved timestamp subtract and send back
-    message.channel.send({ content: "ping..." }).then((sent) => {
-      sent.edit({
-        embeds: [
-          G.GenerateEmbed(
-            false,
-            false,
-            false,
-            (fields = [
-              {
-                name: "*roundstrip latency*",
-                content: `\`\`\` ${
-                  sent.createdTimestamp - message.createdTimestamp
-                } ms \`\`\``,
-              },
-              {
-                name: "*websocket heartbeat:*",
-                content: `\`\`\` ${client.ws.ping} ms \`\`\``,
-              },
-              {
-                name: "*uptime:*",
-                content: `\`\`\` ${uptimeGET(client)} \`\`\``,
-              },
-            ]),
-            false,
-            false,
-            "**PING**"
-          ),
-        ],
+    message.channel.send({ content: "ping..." }).then((send) => {
+      const embed = G.GenerateEmbed(
+        false,
+        false,
+        false,
+        (fields = [
+          {
+            name: "*roundstrip latency*",
+            value: `\`\`\` ${
+              send.createdTimestamp - message.createdTimestamp
+            } ms \`\`\``,
+          },
+          {
+            name: "*websocket heartbeat:*",
+            value: `\`\`\` ${client.ws.ping} ms \`\`\``,
+          },
+          {
+            name: "*uptime:*",
+            value: `\`\`\` ${uptimeGET(client)} \`\`\``,
+          },
+        ]),
+        false,
+        false,
+        "**PING**"
+      );
+      send.edit({
+        embeds: [embed],
       });
     });
     return;

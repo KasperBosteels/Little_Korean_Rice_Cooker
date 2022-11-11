@@ -1,10 +1,9 @@
 const botconfig = require("../auth.json");
 const getprefix = require("../DataHandlers/getprefixData.js");
-const { Permissions } = require("discord.js");
-const dropdown = require("../dropdown");
+const dropdown = require("../SelectMenus/HelpSelectMenu");
 const { GenerateEmbed } = require("../Generators/GenerateSimpleEmbed");
+const { PermissionsBitField } = require("discord.js");
 var prefix = "-";
-//page settings
 module.exports = {
   name: "help",
   description: "List all of my commands or info about a specific command.",
@@ -16,207 +15,79 @@ module.exports = {
   userperms: [],
   async execute(client, message, args, con, options, button) {
     prefix = await this.guildprefix(message.guild.id);
-
-    //checks if a specific command query was asked if not send dm withh all commmands
     if (
-      !args.length &&
-      !message.guild.me.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
+      !args[0] &&
+      !message.guild.members.me.permissions.has(
+        PermissionsBitField.Flags.ManageMessages
+      )
     ) {
-      return message.reply({ embeds: [await firstPage(prefix)] });
-    }
-    if (
+      return message.channel.send({ embeds: [await firstPage(prefix)] });
+    } else if (
       !args.length &&
-      message.guild.me.permissions.has([
-        Permissions.FLAGS.SEND_MESSAGES,
-        Permissions.FLAGS.MANAGE_MESSAGES,
-        Permissions.FLAGS.EMBED_LINKS,
+      message.guild.members.me.permissions.has([
+        PermissionsBitField.Flags.SendMessages,
+        PermissionsBitField.Flags.ManageMessages,
+        PermissionsBitField.Flags.EmbedLinks,
+        PermissionsBitField.Flags.ReadMessageHistory,
       ])
     ) {
-      //#region create command list in strings
-      var commandlist = [];
-      //for each command in commands folder get name description and category and usage
-      client.commands.forEach((command) => {
-        var constructor = {
-          name: command.name,
-          description: command.description,
-          category: command.category,
-          usage: command.usage,
-        };
-        //assign values to command list array
-        commandlist.push(constructor);
-      });
-      //default markup
-      let general = [];
-      let moderating = [];
-      let fun = [];
-      let debug = [];
-      let music = [];
-      let currency = [];
-      //for the every command in the commandlist add values to a string from its category
-      for (let i = 0; i < commandlist.length; i++) {
-        const command = commandlist[i];
-        if (command["category"] == "general") {
-          general[i] = command;
-        } else if (command["category"] == "moderating") {
-          moderating[i] = command;
-        } else if (command["category"] == "config") {
-          debug[i] = command;
-        } else if (command["category"] == "fun") {
-          fun[i] = command;
-        } else if (command["category"] == "music") {
-          music[i] = command;
-        } else if (command["category"] == "currency") {
-          currency[i] = command;
-        }
-      }
-      var response = [
-        await MakeEmbed(general, prefix, 2),
-        await MakeEmbed(fun, prefix, 3),
-        await MakeEmbed(music, prefix, 4),
-        await MakeEmbed(moderating, prefix, 5),
-        await MakeEmbed(debug, prefix, 6),
-      ];
-      response.unshift(await firstPage(prefix));
-
-      dropdown.execute(client, message, response);
-      //END UNSPECIFIED HELP RECUEST
-      //if specific command was asked
+      dropdown.execute(client, message);
     } else if (
-      !args.length ||
-      args[0] == "index" ||
-      args[0] == "general" ||
-      args[0] == "fun" ||
-      args[0] == "music" ||
-      args[0] == "config" ||
-      args[0] == "moderating" ||
-      args[0] == 1 ||
-      args[0] == 2 ||
-      args[0] == 3 ||
-      args[0] == 4 ||
-      args[0] == 5 ||
-      args[0] == 6
+      args[0] &&
+      message.guild.members.me.permissions.has([
+        PermissionsBitField.Flags.SendMessages,
+        PermissionsBitField.Flags.ManageMessages,
+        PermissionsBitField.Flags.EmbedLinks,
+        PermissionsBitField.Flags.ReadMessageHistory,
+      ])
     ) {
-      //#region repeated code
-      var commandlist = [];
-
-      //for each command in commands folder get name description and category and usage
-      client.commands.forEach((command) => {
-        var constructor = {
-          name: command.name,
-          description: command.description,
-          category: command.category,
-          usage: command.usage,
-          perms: command.perms,
-          userperms: command.userperms,
-        };
-        //assign values to command list array
-        commandlist.push(constructor);
-      });
-      //default markup
-
-      let general = [];
-      let moderating = [];
-      let fun = [];
-      let debug = [];
-      let music = [];
-      let currency = [];
-      //for the every command in the commandlist add values to a string from its category
-      for (let i = 0; i < commandlist.length; i++) {
-        const command = commandlist[i];
-        if (command["category"] == "general") {
-          general[i] = command;
-        } else if (command["category"] == "moderating") {
-          moderating[i] = command;
-        } else if (command["category"] == "config") {
-          debug[i] = command;
-        } else if (command["category"] == "fun") {
-          fun[i] = command;
-        } else if (command["category"] == "music") {
-          music[i] = command;
-        } else if (command["category"] == "currency") {
-          currency[i] = command;
-        }
-      }
-      var response = [
-        await MakeEmbed(general, prefix, 2),
-        await MakeEmbed(fun, prefix, 3),
-        await MakeEmbed(music, prefix, 4),
-        await MakeEmbed(moderating, prefix, 5),
-        await MakeEmbed(debug, prefix, 6),
-      ];
-      response.unshift(await firstPage(prefix));
-      if (!args.length) {
-        return message.reply({ embeds: response[0] });
-      } else {
-        switch (args[0]) {
-          case "index":
-            return message.reply({ embeds: [response[0]], ephemeral: true });
-          case "1":
-            return message.reply({ ephemeral: true, embeds: [response[0]] });
-          case "general":
-            return message.channel.send({
-              ephemeral: true,
-              embeds: [response[1]],
-            });
-          case "2":
-            return message.channel.send({
-              ephemeral: true,
-              embeds: [response[1]],
-            });
-          case "fun":
-            return message.channel.send({
-              ephemeral: true,
-              embeds: [response[2]],
-            });
-
-          case "3":
-            return message.channel.send({
-              ephemeral: true,
-              embeds: [response[2]],
-            });
-          case "music" || "4":
-            return message.channel.send({
-              ephemeral: true,
-              embeds: [response[3]],
-            });
-
-          case "4":
-            return message.channel.send({
-              ephemeral: true,
-              embeds: [response[3]],
-            });
-          case "moderating":
-            return message.channel.send({
-              ephemeral: true,
-              embeds: [response[4]],
-            });
-
-          case "5":
-            return message.channel.send({
-              ephemeral: true,
-              embeds: [response[4]],
-            });
-          case "config":
-            return message.channel.send({
-              ephemeral: true,
-              embeds: [response[5]],
-            });
-
-          case "6":
-            return message.channel.send({
-              ephemeral: true,
-              embeds: [response[5]],
-            });
+      if (
+        (args.length == 1 && args[0] == "index") ||
+        args[0] == "general" ||
+        args[0] == "fun" ||
+        args[0] == "music" ||
+        args[0] == "config" ||
+        args[0] == "moderating" ||
+        args[0] == 1 ||
+        args[0] == 2 ||
+        args[0] == 3 ||
+        args[0] == 4 ||
+        args[0] == 5 ||
+        args[0] == 6
+      ) {
+        switch (args[0].toLowerCase()) {
+          case "index" || 1:
+            dropdown.execute(client, message);
+            break;
+          case "general" || 2:
+            dropdown.execute(client, message, 2);
+            break;
+          case "fun" || 3:
+            dropdown.execute(client, message, 3);
+            break;
+          case "music" || 4:
+            dropdown.execute(client, message, 4);
+            break;
+          case "config" || 5:
+            dropdown.execute(client, message, 5);
+            break;
+          case "moderating" || 6:
+            dropdown.execute(client, message, 6);
+            break;
           default:
-            return message.channel.send({
-              ephemeral: true,
-              embeds: [response[0]],
-            });
+            dropdown.execute(client, message);
+            break;
         }
       }
-      //#endregion
+    } else if (
+      !args.length &&
+      !message.guild.members.me.permissions.has([
+        permissions.Flags.ReadMessageHistory,
+      ])
+    ) {
+      //return await dropdown.execute(client,message)
+      return await message.author.send({ embeds: [firstPage(prefix)] });
     } else {
-      const data = [];
       const { commands } = message.client;
       //get the command that was mentioned check all the names and aliases
       const name = args[0].toLowerCase();
@@ -257,7 +128,7 @@ module.exports = {
         false,
         commandFields,
         false,
-        fal,
+        false,
         `**${command.name}**`
       );
       return message.reply({ embeds: [betterEmbed], ephemeral: true });
@@ -272,6 +143,7 @@ module.exports = {
     }
   },
 };
+
 function MakeEmbed(content, prefix, i, pages = 6) {
   let FieldContent = [];
   content.forEach((field) => {
@@ -283,12 +155,16 @@ function MakeEmbed(content, prefix, i, pages = 6) {
   let embed = GenerateEmbed(
     "#00ff00",
     false,
-    `You can find more info about a commmand by using: ${prefix}help <command name>\n page:${i}/${pages}`,
+
+    {
+      text: `You can find more info about a commmand by using: ${prefix}help <command name>\n page:${i}/${pages}`,
+      url: null,
+    },
+
     FieldContent
   );
   return embed;
 }
-
 function firstPage(prefix) {
   let fields = [
     { name: ":bookmark: index", value: `\`\`\`${prefix}help \`\`\`` },
@@ -301,7 +177,7 @@ function firstPage(prefix) {
     },
     {
       name: ":screwdriver: config",
-      values: `\`\`\`${prefix}help config\`\`\``,
+      value: `\`\`\`${prefix}help config\`\`\``,
     },
     {
       name: ":books: quick guide",
@@ -316,6 +192,11 @@ function firstPage(prefix) {
       value: `If you need additional help, you can join **[the support server](https://discord.gg/y8QDMpuwZs)**.`,
     },
   ];
-  let betterEmbed = GenerateEmbed("#00ff00", false, "page: 1/6", fields);
+  let betterEmbed = GenerateEmbed(
+    "#00ff00",
+    false,
+    { text: "page: 1/6", url: null },
+    fields
+  );
   return betterEmbed;
 }

@@ -25,7 +25,7 @@ module.exports = {
           inconURL: footer.author.displayAvatarUrl,
         });
       } else {
-        embed.setFooter({ text: footer.text, inconURL: footer.url });
+        embed.setFooter({ text: footer.text, iconURL: footer.url });
       }
     }
     if (

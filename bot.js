@@ -5,16 +5,19 @@ const start = require("./startup.js");
 const mysql = require("mysql");
 const fs = require("node:fs");
 const {
-  Interaction,
   version,
   GatewayIntentBits,
   Client,
   Collection,
 } = require("discord.js");
+const Discord = require("discord.js");
 const config = require("./auth.json");
 const prefixcheck = require("./prefixcheck.js");
 const commandFiles = fs
   .readdirSync("./commands")
+  .filter((file) => file.endsWith(".js"));
+const SelectFiles = fs
+  .readdirSync("./SelectMenus")
   .filter((file) => file.endsWith(".js"));
 const profanity = require("./profanityfilter.js");
 const level = require("./level.js");
@@ -39,7 +42,7 @@ const updateSwears = require("./DataHandlers/update_swear_words");
 const processModal = require("./processModal.js").execute;
 const SlashCommandLoader = require("./uploadSlashCommand").execute;
 //#endregion
-console.log("running discord.js@" + version);
+console.log("\x1b[33m", "running discord.js@" + version, "\x1b[0m");
 //#region init bot as client
 let intents = [
   GatewayIntentBits.Guilds,
@@ -55,6 +58,8 @@ let intents = [
   GatewayIntentBits.DirectMessageReactions,
   GatewayIntentBits.DirectMessages,
   GatewayIntentBits.GuildPresences,
+  GatewayIntentBits.MessageContent,
+  GatewayIntentBits.DirectMessages,
 ];
 const client = new Client({
   intents: intents,
@@ -68,8 +73,27 @@ client.player = player;
 client.commands = new Collection();
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-  console.log(`command file loaded: ${command.name}`);
+  if (command.name) {
+    client.commands.set(command.name, command);
+    console.log("\x1b[32m", `command file loaded: ${command.name}`, "\x1b[0m");
+  } else {
+    console.log("\x1b[33m", `command file not loaded: ${file}`, "\x1b[0m");
+  }
+}
+
+client.selectMenus = new Collection();
+for (const file of SelectFiles) {
+  const menu = require(`./SelectMenus/${file}`);
+  if (menu.name) {
+    client.selectMenus.set(menu.name, menu);
+    console.log("\x1b[32m", `select menu loaded ${menu.name} [^]`, "\x1b[0m");
+  } else {
+    console.log(
+      "\x1b[33m",
+      `failed to load ${file.split(".js")[0]}`,
+      "\x1b[0m"
+    );
+  }
 }
 
 //#endregion
@@ -103,50 +127,51 @@ client.once("ready", () => {
     ignoreusers.execute(con);
     logchannels.execute(con);
     custom_Welcome.execute(con);
-    //writeAllPermissions(client);
+    SlashCommandLoader(process.env.DISCORD_TOKEN, client);
   } catch (err) {
     console.log(err);
   }
-  SlashCommandLoader(process.env.DISCORD_TOKEN, client);
 });
 //#endregion
 
 //#region error handler
-client.rest.on("error", (Err) => {
-  console.log(`An error occured, if problem persists inform devs pls.`);
-  fs.writeFileSync("./errors.json", JSON.stringify(Err, null, 2), (err) => {
-    if (err) console.log(err);
-  });
+client.on("error", (Err) => {
+  fs.writeFileSync(
+    "./info/errors.json",
+    JSON.stringify(Err, null, 2),
+    (err) => {
+      if (err) console.log(err);
+    }
+  );
 });
 //#endregion
 
 //#region server join/leave.
-client.rest.on("guildCreate", async (guild) => {
+client.on("guildCreate", async (guild) => {
   await server.join(guild, con);
 });
-client.rest.on("guildDelete", async (guild) => {
+client.on("guildDelete", async (guild) => {
   await server.leave(guild, con);
 });
 //#endregion
 
 //#region member join/leave.
-client.rest.on("guildMemberRemove", async (member) => {
+client.on("guildMemberRemove", async (member) => {
   guildleave(member, con);
 });
-client.rest.on("guildMemberAdd", async (member) => {
+client.on("guildMemberAdd", async (member) => {
   guildjoin(member, client, con);
 });
 //#endregion
 
 //#region message processor
-client.rest.on("messageCreate", async (Interaction) => {
+client.on("messageCreate", async (Interaction) => {
   if (Interaction.author.bot) return;
   power.execute(Interaction, con);
   profanity.execute(Interaction, client, con);
   if (ignoreusers.GET(Interaction.author.id) == true) return;
   rice(Interaction);
   leave(Interaction, client);
-
   //removes prefix and puts arguments in variable
   const usedprefix = getprefix.GET(Interaction.guild.id);
   const args = Interaction.content.slice(usedprefix.length).trim().split(/ +/);
@@ -211,8 +236,7 @@ client.rest.on("messageCreate", async (Interaction) => {
   try {
     const startTime = new Date();
     await command.execute(client, Interaction, args, con);
-    const endTime = new Date();
-    const workTime = endTime - startTime;
+    const workTime = new Date() - startTime;
     logger.execute(
       usedprefix,
       commandName,
@@ -239,7 +263,7 @@ client.rest.on("messageCreate", async (Interaction) => {
   }
 });
 //#endregion
-client.rest.on("interactionCreate", async (interaction) => {
+client.on("interactionCreate", async (interaction) => {
   if (interaction.isModalSubmit()) {
     try {
       await interaction.deferReply({
@@ -251,7 +275,24 @@ client.rest.on("interactionCreate", async (interaction) => {
     } catch (error) {
       console.log(error);
     }
-  } else if (!interaction.isChatInputCommand()) return;
+  } else if (interaction.isSelectMenu()) {
+    await interaction.deferReply();
+    const selectMenus = client.selectMenus;
+    const { customId } = interaction;
+    const menu = selectMenus.get(customId);
+    if (!menu)
+      return console.log(
+        `There is no select menu found with the id of: ${customId}`
+      );
+    try {
+      const guildPrefix = await getprefix.GET(interaction.guildId);
+      await menu.execute(client, interaction, guildPrefix);
+    } catch (error) {
+      console.log(error);
+    }
+  } else if (!interaction.isChatInputCommand()) {
+    return console.log("is not chatinput quiting process");
+  }
   const slashcommand = client.slashCommands.get(interaction.commandName);
   if (!slashcommand) return;
   try {
