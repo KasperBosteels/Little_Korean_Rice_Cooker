@@ -22,7 +22,7 @@ module.exports = {
       if (footer.member && footer.author) {
         embed.setFooter({
           text: footer.member.displayName,
-          inconURL: footer.author.displayAvatarUrl,
+          iconURL: footer.author.displayAvatarUrl,
         });
       } else {
         embed.setFooter({ text: footer.text, iconURL: footer.url });
