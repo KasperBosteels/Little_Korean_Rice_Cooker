@@ -1,7 +1,7 @@
 const G = require("../Generators/GenerateSimpleEmbed");
 const imageSearch = require("image-search-google");
 const paginationEmbed = require("discordjs-button-pagination");
-const { MessageButton } = require("discord.js");
+const { ButtonBuilder } = require("discord.js");
 const time = 60000;
 const GoogleClient = new imageSearch(
   process.env.CSE_ID,
@@ -22,14 +22,14 @@ module.exports = {
     let Q = args.join(" ");
     var list = [];
 
-    const button1 = new MessageButton()
+    const button1 = new ButtonBuilder()
       .setCustomId("previousbtn")
       .setLabel("Previous")
-      .setStyle("DANGER");
-    const button2 = new MessageButton()
+      .setStyle("Danger");
+    const button2 = new ButtonBuilder()
       .setCustomId("nextbtn")
       .setLabel("Next")
-      .setStyle("SUCCESS");
+      .setStyle("Success");
     let buttons = [button1, button2];
     try {
       await GoogleClient.search(Q, options).then((images) => {
@@ -40,7 +40,7 @@ module.exports = {
           list[i] = G.GenerateEmbed(
             "Random",
             false,
-            (footer = { text: `page ${i + 1}/${images.length}`, url: "" }),
+            { text: `page ${i + 1}/${images.length}`, url: null },
             false,
             false,
             images[i].url
