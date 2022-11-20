@@ -74,7 +74,7 @@ stuff you need to install first
 - npm (i use 7.21.1 atm)
 - [ffmpeg](https://www.hostinger.com/tutorials/how-to-install-ffmpeg).
 - the discord bot [token](https://discord.com/developers).
-- an SQL [server](https://learn.microsoft.com/en-us/sql/relational-databases/databases/create-a-database?view=sql-server-ver16).
+- a MySql [server](https://learn.microsoft.com/en-us/sql/relational-databases/databases/create-a-database?view=sql-server-ver16).
 - node node version 16.9.0 should work(thats what i use).
 
 ### Versions
