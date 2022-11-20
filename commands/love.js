@@ -20,7 +20,7 @@ module.exports = {
       score.ADD(con, 200, message.author.id);
       //argument given, assign mention to variable
       var member = message.mentions.members.first();
-      if (
+      if (member && 
         member.id == "397286381883359232" &&
         message.author.id == "258217948819357697"
       ) {
@@ -42,6 +42,8 @@ module.exports = {
         return message.channel.send({
           content: `${manualinput}\n${love[coin]} <:cooker:927889501295095879> `,
         });
+      }else if(!member && args[0]){
+        return message.reply({ content: ` ${love[coin]}` });
       } else {
         //return member and text
         return message.channel.send({
