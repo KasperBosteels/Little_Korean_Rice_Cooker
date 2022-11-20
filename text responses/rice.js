@@ -9,6 +9,9 @@ module.exports = {
     ) {
       reply("pspspspspspspspsps, here kitty.");
       return;
+    }else if( tempstring.split(" ").length == 1 &&
+    tempstring.split(" ")[0] == "woof"){
+      reply("YIF!!, *zips the back of your furry suit open*")
     } else if (tempstring == "bot lies" || tempstring == "bot lie") {
       reply("I don't lie!");
       return;
