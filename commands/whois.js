@@ -84,51 +84,41 @@ function rolesMap(member, guildID) {
   return roles;
 }
 function makeEmbed(user, member, message, score) {
+  
+let socialcreditlevel = "normal";
+if (score < 1000)
+  socialcreditlevel = "bad <:sadgeCooker:910210761136148581>  ";
+if (score >= 1500 && score <= 1999)
+  socialcreditlevel = "good <:Cooker:910220565955104818>  ";
+if (score >= 2000 && score <= 2999) socialcreditlevel = "very good";
+if (score >= 3000 && score <= 3999) socialcreditlevel = "outstanding!";
+if (score >= 4000) socialcreditlevel = "**PERFECT**";
+const fields = [
+{name:"user",value: `\`\`\`${member.user.username}#${member.user.discriminator}\`\`\``,inline:true},
+{name:"id",value: `\`\`\`${user.id}\`\`\``,inline:true},
+{name:"nickname",value: `\`\`\`${member.nickname}\`\`\``,inline:true},
+{name:"bot",value:`${member.user.bot}`,inline:true},
+{name:"create date",value:`${member.user.createdAt}`,inline:true},
+{name:"join date",value:`${member.joinedAt}`},
+{name:"social credit",value:`${score} this score is ${socialcreditlevel}`,inline:true},
+]
+if (user.system) {
+fields.push({name:`**OFFICIAL DISCORD SYSTEM USER**`, value:"TRUE"});
+}
+if (rolesMap(member, message.guild.id).length > 0) {
+fields.push({name:"Roles", value:`${rolesMap(member, message.guild.id)}`, inline:true});
+}
   const embed = G.GenerateEmbed(
     "#00ff00",
     false,
     message,
-    false,
+    fields,
     true,
     false,
     false,
     false,
     user.avatarURL({ dynamic: true, format: "png", size: 64 })
   );
-  embed.addField(
-    "user",
-    `\`\`\`${member.user.username}#${member.user.discriminator}\`\`\``,
-    (inline = true)
-  );
-  embed.addField("id", `\`\`\`${user.id}\`\`\``, (inline = true));
-  if (member.nickname != null && member.nickname != undefined) {
-    embed.addField(
-      "nickname",
-      `\`\`\`${member.nickname}\`\`\``,
-      (inline = true)
-    );
-  }
-  embed.addField("bot", `${member.user.bot}`, (inline = true));
-  embed.addField("creation date", `${member.user.createdAt}`, (inline = true));
-  embed.addField("join date", `${member.joinedAt}`);
-  let socialcreditlevel = "normal";
-  if (score < 1000)
-    socialcreditlevel = "bad <:sadgeCooker:910210761136148581>  ";
-  if (score >= 1500 && score <= 1999)
-    socialcreditlevel = "good <:Cooker:910220565955104818>  ";
-  if (score >= 2000 && score <= 2999) socialcreditlevel = "very good";
-  if (score >= 3000 && score <= 3999) socialcreditlevel = "outstanding!";
-  if (score >= 4000) socialcreditlevel = "**PERFECT**";
-  embed.addField(
-    "social Credit",
-    `${score} this score is ${socialcreditlevel}`,
-    (inline = true)
-  );
-  if (user.system) {
-    embed.addField(`**OFFICIAL DISCORD SYSTEM USER**`, "TRUE");
-  }
-  if (rolesMap(member, message.guild.id).length > 0) {
-    embed.addField("Roles", `${rolesMap(member, message.guild.id)}`, true);
-  }
+ 
   return embed;
 }

@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const {AttachmentBuilder} = require("discord.js");
 const canvacord = require("canvacord");
 module.exports = {
   name: "level",
@@ -72,7 +72,7 @@ function makeCard(lev, exp, nextlevel, rank, mem, message) {
     .setUsername(mem.user.username)
     .setDiscriminator(mem.user.discriminator);
   card.build().then((data) => {
-    const attachment = new Discord.MessageAttachment(data, "rankcard.png");
+    const attachment = new AttachmentBuilder(data, "rankcard.png");
     sendCard(attachment, message);
   });
   return;

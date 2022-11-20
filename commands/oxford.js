@@ -128,7 +128,7 @@ function makeEmbed(author, word, object, Discord) {
   let embed = G.GenerateEmbed(
     "Random",
     false,
-    (footer = { text: author, url: "" }),
+    { text: author, url: null },
     false,
     false,
     false,

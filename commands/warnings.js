@@ -55,7 +55,7 @@ function getUserFromMention(mention, client) {
 }
 function permissioncheck(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.FLAGS.MODERATE_MEMBERS))
+  if (!message.member.permissions.has(Permissions.Flags.ModerateMembers))
     return false;
   return true;
 }
