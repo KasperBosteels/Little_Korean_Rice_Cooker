@@ -41,6 +41,7 @@ const G = require("./Generators/GenerateSimpleEmbed");
 const updateSwears = require("./DataHandlers/update_swear_words");
 const processModal = require("./processModal.js").execute;
 const SlashCommandLoader = require("./uploadSlashCommand").execute;
+const makeIndex =require('./SelectMenus/HelpSelectMenu').makeIndex;
 //#endregion
 console.log("\x1b[33m", "running discord.js@" + version, "\x1b[0m");
 //#region init bot as client
@@ -279,6 +280,7 @@ client.on("interactionCreate", async (interaction) => {
     await interaction.deferReply();
     const selectMenus = client.selectMenus;
     const { customId } = interaction;
+    console.log(customId)
     const menu = selectMenus.get(customId);
     if (!menu)
       return console.log(
@@ -286,7 +288,7 @@ client.on("interactionCreate", async (interaction) => {
       );
     try {
       const guildPrefix = await getprefix.GET(interaction.guildId);
-      await menu.execute(client, interaction, guildPrefix);
+      await menu.execute(client, interaction,  makeIndex(interaction.values[0]));
     } catch (error) {
       console.log(error);
     }
