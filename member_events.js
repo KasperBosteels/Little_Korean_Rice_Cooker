@@ -51,17 +51,13 @@ module.exports = {
       member.user.avatarURL({ dynamic: true, format: "png", size: 64 })
     );
     if (banned) {
+      const fields=[]
       if (banned.reason == null) {
-        embed.addField(
-          ":warning: **BANNED** :warning:",
-          `\`\`\`no reason provided\`\`\``
-        );
+      fields=[{name: ":warning: **BANNED** :warning:",value:`\`\`\`no reason provided\`\`\``},]
       } else {
-        embed.addField(
-          ":warning: **BANNED** :warning:",
-          `\`\`\`${banned.reason}\`\`\``
-        );
+      fields=[{name:":warning: **BANNED** :warning:",value:`\`\`\`${banned.reason}\`\`\``}]
       }
+      embed.addFields(fields);
       embed
         .setTitle("good riddance!")
         .setDescription(`${member.displayName} won't be missed.`)
