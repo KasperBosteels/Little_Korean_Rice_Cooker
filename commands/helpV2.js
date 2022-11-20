@@ -82,7 +82,7 @@ module.exports = {
     } else if (
       !args.length &&
       !message.guild.members.me.permissions.has([
-        permissions.Flags.ReadMessageHistory,
+        PermissionsBitField.Flags.ReadMessageHistory,
       ])
     ) {
       //return await dropdown.execute(client,message)

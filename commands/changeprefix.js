@@ -1,5 +1,5 @@
 const pr = require("../DataHandlers/getprefixData.js");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 module.exports = {
   name: "prefix",
   description:
@@ -63,7 +63,7 @@ module.exports = {
 };
 function permissioncheck(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.Flags.Administrator))
+  if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator))
     return false;
   return true;
 }

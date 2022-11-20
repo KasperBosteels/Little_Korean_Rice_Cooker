@@ -1,5 +1,5 @@
 const G = require("../Generators/GenerateSimpleEmbed");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 const logging = require("../sendToLogChannel");
 module.exports = {
   name: "unmute",
@@ -13,11 +13,11 @@ module.exports = {
   userperms: ["ModerateMembers"],
   async execute(client, message, args, con) {
     //check perms
-    if (!message.member.permissions.has(Permissions.Flags.ModerateMembers))
+    if (!message.member.permissions.has(PermissionsBitField.Flags.ModerateMembers))
       return message.reply({
         content: "Permission denied(moderate members).)",
       });
-    if (!message.guild.me.permissions.has(Permissions.Flags.ModerateMembers))
+    if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.ModerateMembers))
       return message.reply({
         content:
           "I do not have the permission to mute/unmute a member(moderate members).",

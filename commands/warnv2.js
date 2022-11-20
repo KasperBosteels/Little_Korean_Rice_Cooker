@@ -1,4 +1,4 @@
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 const logging = require("../sendToLogChannel");
 const G = require("../Generators/GenerateSimpleEmbed");
 module.exports = {
@@ -101,7 +101,7 @@ function getUserFromMention(mention, client) {
 }
 function permissioncheck(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.Flags.ModerateMembers))
+  if (!message.member.permissions.has(PermissionsBitField.Flags.ModerateMembers))
     return false;
 
   return true;

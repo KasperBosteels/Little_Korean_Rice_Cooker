@@ -1,4 +1,4 @@
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 const logchannels = require("../DataHandlers/getLogChannels.js");
 module.exports = {
   name: "bot-log",
@@ -83,7 +83,7 @@ module.exports = {
 };
 function permission(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.Flags.Administrator)) {
+  if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
     return false;
   }
   return true;

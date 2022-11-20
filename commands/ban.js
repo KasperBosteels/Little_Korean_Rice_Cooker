@@ -1,4 +1,4 @@
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 module.exports = {
   name: "ban",
   description: "Ban user.",
@@ -44,9 +44,9 @@ module.exports = {
 };
 function permissioncheck(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.Flags.BanMembers))
+  if (!message.member.permissions.has(PermissionsBitField.Flags.BanMembers))
     return false;
-  if (!message.guild.me.permissions.has(Permissions.Flags.BanMembers))
+  if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.BanMembers))
     return false;
   return true;
 }

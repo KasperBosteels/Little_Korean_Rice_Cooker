@@ -1,5 +1,5 @@
 const leveling = require("../DataHandlers/leveling_enabled");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 module.exports = {
   name: "level-system",
   description: "Enable or disable the level system.",
@@ -96,6 +96,6 @@ module.exports = {
 function permission(message) {
   let mem = message.member;
   //check perms
-  if (!mem.permissions.has(Permissions.Flags.Administrator)) return false;
+  if (!mem.permissions.has(PermissionsBitField.Flags.Administrator)) return false;
   return true;
 }

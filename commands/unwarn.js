@@ -1,5 +1,5 @@
 const G = require("../Generators/GenerateSimpleEmbed");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 const loggging = require("../sendToLogChannel");
 module.exports = {
   name: "unwarn",
@@ -13,12 +13,12 @@ module.exports = {
   userperms: ["ModerateMembers"],
   async execute(client, message, args, con) {
     //#region default check
-    if (!message.member.permissions.has(Permissions.Flags.ModerateMembers))
+    if (!message.member.permissions.has(PermissionsBitField.Flags.ModerateMembers))
       return message.reply({
         content: "You do not have permission to do this.",
       });
     if (!args[0]) return message.reply("no user tagged");
-    if (!message.guild.me.permissions.has(Permissions.Flags.ModerateMembers))
+    if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.ModerateMembers))
       return message.reply({ content: "I do not have permission to do this." });
     var unwarnuser = getUserFromMention(args[0], client);
     if (!unwarnuser) return message.reply({ content: "no user found" });

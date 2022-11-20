@@ -1,4 +1,4 @@
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 const welcome_data = require("../DataHandlers/welcome_data");
 module.exports = {
   name: "welcome_channel",
@@ -88,7 +88,7 @@ module.exports = {
 };
 function permission(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.Flags.Administrator)) {
+  if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
     return false;
   }
   return true;

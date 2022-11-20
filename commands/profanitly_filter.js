@@ -1,5 +1,5 @@
 const profanity = require("../DataHandlers/profanity_enabled");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 module.exports = {
   name: "profanity-filter",
   description: "enable or disable the profanity filter",
@@ -62,7 +62,7 @@ module.exports = {
 };
 function permission(message) {
   //check perms
-  if (!message.member.permissions.has(Permissions.Flags.Administrator))
+  if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator))
     return false;
   return true;
 }

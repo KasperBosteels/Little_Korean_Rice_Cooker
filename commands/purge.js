@@ -1,5 +1,5 @@
 const G = require("../Generators/GenerateSimpleEmbed");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 const logging = require("../sendToLogChannel");
 module.exports = {
   name: "purge",
@@ -13,11 +13,11 @@ module.exports = {
   userperms: ["ModerateMembers", "ManageMessages"],
   async execute(client, message, args, con) {
     //check parms
-    if (!message.member.permissions.has(Permissions.Flags.ManageMessages))
+    if (!message.member.permissions.has(PermissionsBitField.Flags.ManageMessages))
       return message.reply({
         content: "You do not have permission to do this.",
       });
-    if (!message.guild.me.permissions.has(Permissions.Flags.ManageMessages))
+    if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageMessages))
       return message.reply({ content: "I do not have permission to do this." });
 
     //get amount to delete
