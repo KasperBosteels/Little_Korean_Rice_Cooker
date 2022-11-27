@@ -31,6 +31,7 @@ module.exports = {
         PermissionsBitField.Flags.ReadMessageHistory,
       ])
     ) {
+      await message.deferReply();
       dropdown.execute(client, message);
     } else if (
       args[0] &&
@@ -79,12 +80,7 @@ module.exports = {
             break;
         }
       }
-    } else if (
-      !args.length &&
-      !message.guild.members.me.permissions.has([
-        PermissionsBitField.Flags.ReadMessageHistory,
-      ])
-    ) {
+    } else if (!args.length && !message.guild.members.me.permissions.has([PermissionsBitField.Flags.ReadMessageHistory])) {
       //return await dropdown.execute(client,message)
       return await message.author.send({ embeds: [firstPage(prefix)] });
     } else {
@@ -106,10 +102,7 @@ module.exports = {
       //push values to data array
       let commandFields = [
         { name: "**Description**", value: command.description },
-        {
-          name: "**usage**",
-          value: `${prefix}${command.name} ${command.usage}`,
-        },
+        {name: "**usage**",value: `${prefix}${command.name} ${command.usage}`},
         { name: "**cooldown**", value: `${command.cooldown || 3} second(s)` },
       ];
       if (command.perms.length > 0)
