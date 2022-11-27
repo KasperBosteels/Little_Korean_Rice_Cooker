@@ -1,4 +1,4 @@
-var tickleDatabase = [
+const tickleDatabase = [
   "https://i.imgur.com/4LT8WJU.gif",
   "https://i.imgur.com/K1XmLDT.gif",
   "https://i.imgur.com/8GfodAL.gif",
