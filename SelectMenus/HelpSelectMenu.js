@@ -48,11 +48,11 @@ module.exports = {
         })
       );
     const embeds = await createCategoryEmbeds(prefix, client.commands);
-    console.log(embeds[0]);
+    if(!interaction.isStringSelectMenu()){
     await interaction.reply({
       content: "ㅤ",
       ephemeral: true,
-      embeds: [embeds[0]],
+      embeds: [embeds[index]],
       components: [new ActionRowBuilder().addComponents(menu)],
     });
 
@@ -88,7 +88,33 @@ module.exports = {
           break;
       }
     });
+  }else{
+    await interaction.updateReply({
+      content: "ㅤ",
+      ephemeral: true,
+      embeds: [embeds[index]],
+      components: [new ActionRowBuilder().addComponents(menu)],
+    });
+  }
   },
+  makeIndex(value){
+    switch (value) {
+      case "home":
+        return 0
+      case "general":
+        return 1;
+      case "fun":
+        return 2;
+        case "music":
+          return 3;
+          case "moderating":
+            return 4;
+            case "config":
+              return 5;
+              default:
+                return 0;
+    }
+  }
 };
 function MakeEmbed(content, prefix, i, pages = 6) {
   let FieldContent = [];
