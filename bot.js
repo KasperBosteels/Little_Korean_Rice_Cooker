@@ -196,7 +196,7 @@ client.on("messageCreate", async (Interaction) => {
   //checks if the command is applciable for dm's
   if (command.guildOnly && Interaction.channel.type === "dm") {
     return Interaction.reply({
-      content: "i can't perform this action in direct message chat",
+      content: "i can't perform this action in direct messages",
     });
   }
 
