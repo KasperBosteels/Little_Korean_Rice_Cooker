@@ -1,5 +1,9 @@
-import {Entity, BaseEntity,PrimaryColumn, Column} from "typeorm";
-import {IsBoolean, IsDefined, IsNumber, IsOptional, IsString, isDecimal} from "class-validator"
+import {Entity, BaseEntity,PrimaryColumn, Column, OneToMany, OneToOne} from "typeorm";
+import {IsBoolean, IsDefined, IsNumber, IsOptional} from "class-validator"
+import { Playlist } from "./Playlist";
+import { Message } from "./Message";
+import { Warning } from "./Warning";
+import { Social_credit } from "./Social_credit";
 
 @Entity()
 export class Member extends BaseEntity{
@@ -26,6 +30,18 @@ export class Member extends BaseEntity{
     @IsOptional()
     user_experience:number
 
+    @OneToMany(()=>Playlist,(p)=>p.member,{nullable:true,cascade:true})
+    @IsOptional()
+    playlists:Playlist[]
 
+    @OneToMany(()=>Message,(m)=>m.member,{nullable:true})
+    @IsOptional()
+    messages:Message[]
 
+    @OneToMany(()=>Warning,(w)=>w.member,{nullable:true})
+    @IsOptional()
+    warnings:Warning[]
+
+    @OneToOne(()=>Social_credit,(s)=>s.member,{cascade:true})
+    score:Social_credit
 }
