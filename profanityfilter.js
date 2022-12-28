@@ -72,7 +72,7 @@ async function proffilter(message, client, con) {
 }
 //get swear words from json file
 async function getswearwords(guildID) {
-  let customs = await GET(guildID);
+  let customs = GET(guildID);
   let allswearwords = [];
   allswearwords = await get_default_swear_words();
   if (customs.default == 1) {

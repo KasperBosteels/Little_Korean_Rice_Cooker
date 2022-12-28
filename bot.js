@@ -42,6 +42,11 @@ const updateSwears = require("./DataHandlers/update_swear_words");
 const processModal = require("./processModal.js").execute;
 const SlashCommandLoader = require("./uploadSlashCommand").execute;
 const makeIndex =require('./SelectMenus/HelpSelectMenu').makeIndex;
+//#region typeorm related imports
+import "reflect-metadata"
+
+
+//#endregion
 //#endregion
 console.log("\x1b[33m", "running discord.js@" + version, "\x1b[0m");
 //#region init bot as client
