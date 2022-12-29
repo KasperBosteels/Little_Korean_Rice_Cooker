@@ -1,8 +1,8 @@
 //#region get res
 require("dotenv").config();
+require("reflect-metadata")
 const logger = require("./logger.js");
 const start = require("./startup.js");
-const mysql = require("mysql");
 const fs = require("node:fs");
 const {
   version,
@@ -43,9 +43,17 @@ const processModal = require("./processModal.js").execute;
 const SlashCommandLoader = require("./uploadSlashCommand").execute;
 const makeIndex =require('./SelectMenus/HelpSelectMenu').makeIndex;
 //#region typeorm related imports
-import "reflect-metadata"
-
-
+const DataSource =require("typeorm");
+const Member =require("./src/entity/Member")
+const Guild =require("./src/entity/guild")
+const Message =require("./src/entity/Message");
+const Playlist=require("./src/entity/Playlist");
+const Profanity=require("./src/entity/Profanity");
+const Social_credit=require("./src/entity/Social_credit");
+const Swearword=require("./src/entity/Swearword");
+const Warning=require("./src/entity/Warning");
+const AppDataSource= require("./src/data-source.js")
+const con = AppDataSource;
 //#endregion
 //#endregion
 console.log("\x1b[33m", "running discord.js@" + version, "\x1b[0m");
@@ -104,26 +112,14 @@ for (const file of SelectFiles) {
 
 //#endregion
 
-//#region sql login data
-//sets sql login data in veriable for use
-const con = mysql.createConnection({
-  host: process.env.HOST,
-  user: process.env.USERSQLSERVER,
-  password: process.env.PASSWORDSQLSERVER,
-  database: process.env.DATABASE,
-  port: 3306,
-  multipleStatements: true,
-});
-//#endregion
-
 //#region bot ready
 //default state when bot starts up will set activity
 //and display succes message in terminal
 client.once("ready", () => {
   try {
     //enable discord buttons
-    start.execute(client, con);
-    getprefix.execute(con);
+    start.execute(client,con);
+    getprefix.execute(client,con);
     profanity_alert_data_collector.execute(con);
     profanity_enabled.execute(con);
     updateSwears.execute(con);
