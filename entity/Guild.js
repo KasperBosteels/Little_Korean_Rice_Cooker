@@ -1,4 +1,3 @@
-import { maxLength } from "class-validator"
 
 var EntitySchema = require("typeorm")
 
@@ -90,6 +89,7 @@ module.exports = new EntitySchema({
             target:"Message",
             type:"one-to-many",
             joinTable:true,
+            nullable:true,
             cascade:true
         },
         warnings:{
@@ -97,12 +97,14 @@ module.exports = new EntitySchema({
             type:"one-to-many",
             joinTable:true,
             cascade:true,
+            nullable:true
         },
         custom_swearlist:{
             target:"Custom_Swear",
             type:"one-to-one",
             joinTable:true,
-            cascade:true
+            cascade:true,
+            nullable:true
         }
     },
     createGuild(
