@@ -1,8 +1,8 @@
-const { Guild } = require("../src/entity/Guild");
 const fs = require("fs");
+const Guild = require("../src/entity/Guild")
 module.exports = {
   async execute(con) {
-  
+    
     await Guild.findBy({guild_profanity:true}).then((g)=>{
       let data = [];
       g.forEach(s => {
