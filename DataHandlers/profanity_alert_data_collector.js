@@ -1,12 +1,14 @@
+const { Guild } = require("../src/entity/Guild");
 const fs = require("fs");
 module.exports = {
-  execute(con) {
-    var data;
-    con.query("SELECT guildID,profanity_channel FROM guild;", (err, rows) => {
-      if (err) console.error(err);
-      data = JSON.stringify(rows);
-      this.SAVE(data);
-      console.log("profanity alert channel data saved");
+  async execute(con) {
+  
+    await Guild.findBy({guild_profanity:true}).then((g)=>{
+      let data = [];
+      g.forEach(s => {
+        data.push({guildID:s.guild_id,profanity_channel:s.profanity_channel})
+      });
+      this.SAVE(JSON.stringify(data))
     });
   },
   SAVE(data) {

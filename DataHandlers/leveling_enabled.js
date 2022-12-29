@@ -1,11 +1,13 @@
 const fs = require("fs");
+const Guild = require("../src/entity/Guild")
 module.exports = {
-  execute(con) {
-    var data;
-    con.query("SELECT guildID,level_system FROM guild;", (err, rows) => {
-      if (err) console.error(err);
-      data = JSON.stringify(rows);
-      this.SAVE(data);
+  async execute(con) {
+    Guild.findBy({level_system:true}).then((g)=>{
+      let data = []
+      g.forEach(i => {
+        data.push({guildID:i.guild_id,level_system:i.level_system})
+      });
+      this.SAVE(JSON.stringify(data))
     });
   },
   SAVE(data) {

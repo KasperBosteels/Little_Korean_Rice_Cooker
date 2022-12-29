@@ -1,26 +1,26 @@
 const fs = require("fs");
+const { Guild } = require("discord.js");
+const { Swearword } = require("../src/entity/Swearword");
 module.exports = {
-  execute(con) {
-    var data;
-    con.query(
-      "SELECT guildID,swearwords,default_enabled FROM customswearwords;",
-      (err, rows) => {
-        if (err) console.error(err);
-        data = JSON.stringify(rows);
-        this.SAVE(data);
-        console.log("custom swear words data saved");
-      }
-    );
-    con.query("SELECT words FROM swearwords;", (err, rows) => {
-      if (err) console.error(err);
-      let jsdata = [];
-      rows.forEach((row) => {
-        jsdata.push(row.words);
+  async execute(con) {
+    
+
+    await Guild.find({
+      relations:{custom_swearlist:true},
+      where:{guild_profanity:true}}).then((d)=>{
+        let data = []
+        d.forEach(g => {
+          data.push({guildID:g.guild_id,swearwords:g.custom_swearlist,default_enabled:g.guild_profanity})
+        });
+        this.SAVE(JSON.stringify(data))
+      })
+    await Swearword.find().then((s)=>{
+      let data = []
+      s.forEach(w => {
+        data.push(w.word)
       });
-      data = JSON.stringify(jsdata);
-      this.SAVEDEFAULT(data);
-      console.log("swear words data saved");
-    });
+      this.SAVEDEFAULT(JSON.stringify(data))
+    })  
   },
   SAVE(data) {
     fs.writeFileSync("./jsonFiles/custom_swear_words.json", data, (err) => {

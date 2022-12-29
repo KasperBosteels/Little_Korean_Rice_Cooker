@@ -1,81 +1,33 @@
+const { Member } = require("../src/entity/Member");
+
 module.exports = {
-  ADD(con, score = 1, userID) {
+  async ADD(con, score = 1, userID) {
+    var points;
+    points = score;
+
+    let m = await Member.findOneBy({user_id:userID})
+    if(m.score.length){
+      score+=points
+    }else{
+      score = 1000+points
+    }
+    await Member.update(m)
+  },
+  async SUBTRACT(con, score = -1, userID) {
     var userScore, points;
     points = score;
-    con.query(
-      `SELECT socialScore FROM score WHERE userID="${userID}"`,
-      (err, score) => {
-        if (score.length) {
-          userScore = score[0].socialScore;
-          con.query(
-            `UPDATE score set socialScore=${
-              userScore + points
-            } WHERE userID = '${userID}';`
-          );
-        } else {
-          con.query(
-            `INSERT INTO score (userID,socialScore) VALUES ("${userID}",${
-              1000 + points
-            });`
-          );
-          console.log(
-            `added new user to social credit database ${userID} ${
-              1000 + points
-            }`
-          );
-        }
-      }
-    );
+
+    const m = await Member.findOneBy({user_id:userID})
+    if(m.score.length){
+      m.score-= points
+    }else{
+      m.score = 1000-points
+    }
+    Member.update(m)
+
   },
-  SUBTRACT(con, score = -1, userID) {
-    var userScore, points;
-    points = score;
-    con.query(
-      `SELECT socialScore FROM score WHERE userID="${userID}"`,
-      (err, score) => {
-        if (score.length) {
-          userScore = score[0].socialScore;
-          con.query(
-            `UPDATE score set socialScore=${
-              userScore - points
-            } WHERE userID = '${userID}';`
-          );
-        } else {
-          con.query(
-            `INSERT INTO score (userID,socialScore) VALUES ("${userID}",${
-              1000 - points
-            });`
-          );
-          console.log(
-            `added new user to social credit database ${userID} ${
-              1000 - points
-            }`
-          );
-        }
-      }
-    );
-  },
-  ADDUSER(con, userID) {
-    con.query(
-      `INSERT INTO score (userID,socialScore) VALUES ("${userID}",1000);`,
-      (err, score) => {
-        if (err) return console.error(err);
-      }
-    );
-  },
-  GETSCORE(con, userID) {
-    let SCS = 1000;
-    con.query(
-      `SELECT socialScore FROM score WHERE userID="${userID}";`,
-      (err, score) => {
-        if (err) return console.error(err);
-        if (score.length) {
-          SCS = score[0].socialScore;
-        } else {
-          SCS = "no credit granted";
-        }
-      }
-    );
-    return SCS;
+  async GETSCORE(con, userID) {
+    const m = await Member.findOneBy({user_id:userID})
+    return m.score? m.score : 1000;
   },
 };

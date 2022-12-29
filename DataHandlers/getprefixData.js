@@ -1,15 +1,17 @@
 const fs = require("fs");
+const { Guild } = require("../src/entity/guild");
 module.exports = {
-  execute(con) {
-    var data;
-    con.query("SELECT guildID,prefix FROM guild;", (err, rows) => {
-      if (err) console.error(err);
-      data = JSON.stringify(rows);
-      this.SAVE(data);
-    });
+  async execute (client, con) {
+    var data= await Guild.find();
+    this.SAVE(data);
   },
   SAVE(data) {
-    fs.writeFileSync("./jsonFiles/prefix.json", data, (err) => {
+    let parsedData=[];
+    data.forEach(g => {
+      parsedData.push({guildID:g.guild_id,prefix:g.guild_prefix})
+    });
+
+    fs.writeFileSync("./jsonFiles/prefix.json",JSON.stringify(data), (err) => {
       if (err) {
         return console.error(err);
       }
