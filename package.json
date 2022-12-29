@@ -6,8 +6,8 @@
    "author": "Kasper",
    "license": "ISC",
    "scripts": {
-      "startjs": "nodemon bot.js --ignore ignore.json --ignore leveling_enabled.json --ignore logChannels.json --ignore prefix.json --ignore profanity_alert_channels.json --ignore profanity_enabled.json --ignore welcome_leave_messages.json --ignore welcome_channel.json --ignore custom_welcome_data.json --ignore custom_swear_words.json --ignore default_swear_words.json --ignore errors.json",
-      "start": "ts-node src/index.ts",
+      "start": "nodemon bot.js --ignore ignore.json --ignore leveling_enabled.json --ignore logChannels.json --ignore prefix.json --ignore profanity_alert_channels.json --ignore profanity_enabled.json --ignore welcome_leave_messages.json --ignore welcome_channel.json --ignore custom_welcome_data.json --ignore custom_swear_words.json --ignore default_swear_words.json --ignore errors.json",
+      "startts": "ts-node src/index.ts",
       "typeorm": "typeorm-ts-node-commonjs"
    },
    "dependencies": {
