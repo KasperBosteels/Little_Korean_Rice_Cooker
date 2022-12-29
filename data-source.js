@@ -1,13 +1,13 @@
-import "reflect-metadata"
-import { DataSource } from "typeorm"
-import { Member } from "./entity/Member"
-import { Guild } from "./entity/guild";
-import { Message } from "./entity/Message";
-import { Playlist } from "./entity/Playlist";
-import { Profanity } from "./entity/Profanity";
-import { Social_credit } from "./entity/Social_credit";
-import { Swearword } from "./entity/Swearword";
-import { Warning } from "./entity/Warning";
+require("reflect-metadata");
+const DataSource = require ("typeorm");
+const Member = require ("./entity/Member");
+const Guild = require ("./entity/guild");
+const Message = require ("./entity/Message");
+const Playlist =require( "./entity/Playlist");
+const Profanity = require ("./entity/Profanity");
+const Social_credit = require ("./entity/Social_credit");
+const Swearword = require ("./entity/Swearword");
+const Warning = require ("./entity/Warning");
 
 export const AppDataSource = new DataSource({
     type: "mysql",
