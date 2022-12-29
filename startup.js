@@ -5,7 +5,7 @@ const { CronJob } = require("cron");
 const fs = require("node:fs");
 module.exports = {
   async execute(client, con) {
-    await con.connect();
+    await con.initialize();
     console.log(
       `Logged in as ${client.user.tag} at: ${client.readyAt.toDateString()}`
     );
