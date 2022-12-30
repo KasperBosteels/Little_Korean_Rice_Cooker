@@ -1,4 +1,4 @@
-var EntitySchema = require("typeorm")
+var EntitySchema = require("typeorm").EntitySchema
 module.exports = new EntitySchema({
     name:"Playlist",
     tableName:"Playlists",

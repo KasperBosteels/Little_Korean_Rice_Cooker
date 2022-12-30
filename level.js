@@ -9,24 +9,13 @@ module.exports = {
     let randomint;
     randomint = Math.floor(Math.random() * args.length + 1);
     let userID = await message.author.id;
-    con.query(
-      `SELECT level FROM levels WHERE userID = "${userID}";`,
-      (err, rows) => {
-        if (err) console.log(err);
-        if (!rows.length) {
-          con.query(
-            `INSERT INTO levels (userID,level,exp) VALUES ("${userID}",1,0)`
-          );
+    const member = await con.manager.findOneBy("Member",{user_id:userID})
+    if(!member){await con.manager.create("Member",{ user_id:userID,user_name:message.member.username,user_level:1,is_ignored:false,user_experience:0,user_score:1000})
         } else {
-          con.query(
-            `SELECT level ,exp FROM levels WHERE userID = "${userID}"`,
-            (err, rows) => {
-              if (err) return console.log(err);
-              var LEV = rows[0].level;
-              var EXP = rows[0].exp + randomint;
+              var LEV = member.user_level;
+              var EXP = member.user_experience + randomint;
               var nextlevel = (15 + 300) * LEV;
               if (EXP >= nextlevel) {
-                //258217948819357697;
                 LEV++;
                 EXP = 0;
                 let mem = message.member;
@@ -61,24 +50,14 @@ module.exports = {
                 //#endregion
                 try {
                   logchannel.logWithNoMember(embed, message);
-                  con.query(
-                    `UPDATE levels SET level = ${LEV}, exp = 0 WHERE userID = "${userID}"`,
-                    (err) => {
-                      if (err) console.log(err);
-                    }
-                  );
+                  await con.manager.update("Member",{user_id:userID},{user_level:LEV,user_experience:0})
                 } catch (err) {
                   console.log(err);
                 }
                 score.ADD(con, 100, userID);
               }
-              con.query(
-                `UPDATE levels SET level = ${LEV}, exp = ${EXP} WHERE userID = "${userID}"`
-              );
+              await con.manager.update("Member",{user_id:userID},{user_level:LEV,user_experience:EXP});
             }
-          );
+          
         }
       }
-    );
-  },
-};

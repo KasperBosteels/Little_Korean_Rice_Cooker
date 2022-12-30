@@ -1,11 +1,9 @@
 const fs = require("fs");
-const { Guild } = require("discord.js");
-const { Swearword } = require("../src/entity/Swearword");
 module.exports = {
   async execute(con) {
     
 
-    await Guild.find({
+    await con.manager.find("Guild",{
       relations:{custom_swearlist:true},
       where:{guild_profanity:true}}).then((d)=>{
         let data = []
@@ -14,7 +12,7 @@ module.exports = {
         });
         this.SAVE(JSON.stringify(data))
       })
-    await Swearword.find().then((s)=>{
+    await con.manager.find("Swearword").then((s)=>{
       let data = []
       s.forEach(w => {
         data.push(w.word)

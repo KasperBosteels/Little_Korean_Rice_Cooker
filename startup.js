@@ -6,6 +6,7 @@ const fs = require("node:fs");
 module.exports = {
   async execute(client, con) {
     await con.initialize();
+    await con.synchronize();
     console.log(
       `Logged in as ${client.user.tag} at: ${client.readyAt.toDateString()}`
     );
@@ -19,7 +20,9 @@ module.exports = {
     };
     createLogCleaner();
     setStatus();
+
   },
+  
 };
 function createLogCleaner() {
   const Job = new CronJob("0 0 0 1/2 * * ", () => {

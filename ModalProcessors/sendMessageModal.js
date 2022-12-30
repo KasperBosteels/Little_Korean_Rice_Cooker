@@ -1,4 +1,6 @@
 const G = require("../Generators/GenerateSimpleEmbed").GenerateEmbed;
+const Message = require('../entity/Message');
+const Member = require('../entity/Member')
 module.exports = {
   async execute(interaction, con) {
     const mailTopic = interaction.fields.getTextInputValue("tid");
@@ -13,12 +15,25 @@ module.exports = {
       false,
       "Your message was send."
     );
-    con.query(
-      `INSERT INTO user_messages (userID,userName,guildID,channelID,guildName,channelName,topic,message) VALUES("${interaction.member.id}","${interaction.member.displayName}","${interaction.guildId}","${interaction.channelId}","${interaction.guild.name}","${interaction.channel.name}","${mailTopic}","${MailMessage}");`,
-      (err) => {
-        if (err) return console.error(err);
-      }
-    );
+    let member =await con.manager.findOneBy(Member,{user:interaction.member.id});
+    if(!member){
+      member = new Member({
+        user_id:interaction.member.id,
+        user_name:interaction.member.displayName,
+        user_level:0,
+        is_ignored:false,
+        user_experience:0,
+        user_score:1000,
+      });
+    }
+    const message = new Message({
+      message:MailMessage,
+      topic:mailTopic,
+      channel_id:interaction.channelId,
+      member:member,
+      guild:null
+    });
+    con.manager.Message.save(message);
     await interaction.editReply({ embeds: [embed], ephemeral: true });
   },
 };

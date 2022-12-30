@@ -43,17 +43,38 @@ const processModal = require("./processModal.js").execute;
 const SlashCommandLoader = require("./uploadSlashCommand").execute;
 const makeIndex =require('./SelectMenus/HelpSelectMenu').makeIndex;
 //#region typeorm related imports
-const DataSource =require("typeorm");
-const Member =require("./src/entity/Member")
-const Guild =require("./src/entity/guild")
-const Message =require("./src/entity/Message");
-const Playlist=require("./src/entity/Playlist");
-const Profanity=require("./src/entity/Profanity");
-const Social_credit=require("./src/entity/Social_credit");
-const Swearword=require("./src/entity/Swearword");
-const Warning=require("./src/entity/Warning");
-const AppDataSource= require("./src/data-source.js")
-const con = AppDataSource;
+const DataSource = require ("typeorm").DataSource
+
+const con = new DataSource({
+  type: "mysql",
+  host: process.env.HOST,
+  port: 3306,
+  username: process.env.USERSQLSERVER,
+  password: process.env.PASSWORDSQLSERVER,
+  database: process.env.DATABASE,
+  synchronize: true,
+  logging: true,
+  migrations:true,
+  logging:true,
+  poolSize:30,
+  migrationsRun:true,
+  entities:[
+      require ("./entity/Member"),
+      require ("./entity/guild"),
+      require ("./entity/Message"),
+      require( "./entity/Playlist"),
+      require ("./entity/Swearword"),
+      require ("./entity/Warning")
+  ],
+  migrations: [],
+  subscribers: [],
+  connectTimeout:5000,
+  acquireTimeout:5000,
+  multipleStatements:true,
+});
+con.initialize();
+con.synchronize();
+console.log("typeorm connected: ",con.isInitialized)
 //#endregion
 //#endregion
 console.log("\x1b[33m", "running discord.js@" + version, "\x1b[0m");
@@ -130,6 +151,8 @@ client.once("ready", () => {
     logchannels.execute(con);
     custom_Welcome.execute(con);
     SlashCommandLoader(process.env.DISCORD_TOKEN, client);
+    console.log("typeorm connected: ", con.isInitialized)
+
   } catch (err) {
     console.log(err);
   }
@@ -389,7 +412,7 @@ process.on("uncaughtException", (error) => console.log("error", error));
 process.on("unhandledRejection", (error) => console.log("error", error));
 process.on("ECONNRESET", (error) => {
   con.destroy();
-  con.connect();
+  con.initialize();
   console.error(error.message);
 });
 process.on("PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR", (error) => {

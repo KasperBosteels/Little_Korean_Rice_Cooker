@@ -1,4 +1,4 @@
-var EntitySchema = require("typeorm")
+var EntitySchema = require("typeorm").EntitySchema
 module.exports = new EntitySchema({
     name:"Member",
     tableName:"Members",
@@ -19,6 +19,7 @@ module.exports = new EntitySchema({
         user_level:{
             name:"user_level",
             nullable:false,
+            default:0,
             type:"numeric"
         },
         is_ignored:{

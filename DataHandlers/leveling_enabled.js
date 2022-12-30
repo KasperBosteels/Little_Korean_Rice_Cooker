@@ -1,8 +1,7 @@
 const fs = require("fs");
-const Guild = require("../src/entity/Guild")
 module.exports = {
   async execute(con) {
-    Guild.findBy({level_system:true}).then((g)=>{
+    con.manager.findBy("Guild",{level_system:true}).then((g)=>{
       let data = []
       g.forEach(i => {
         data.push({guildID:i.guild_id,level_system:i.level_system})

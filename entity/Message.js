@@ -1,4 +1,4 @@
-var EntitySchema = require("typeorm")
+var EntitySchema = require("typeorm").EntitySchema
 
 module.exports= new EntitySchema({
     name:"Message",
@@ -8,6 +8,12 @@ module.exports= new EntitySchema({
             primary:true,
             generated:true,
             type:"numeric"
+        },
+        topic:{
+            name:"topic",
+            nullable:true,
+            type:"text",
+            unique:false,
         },
         message:{
             name:"message",
@@ -30,6 +36,7 @@ module.exports= new EntitySchema({
         guild:{
             target:"Guild",
             type:"many-to-one",
+            nullable:true
         },
 
     }

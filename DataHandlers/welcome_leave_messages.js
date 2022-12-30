@@ -1,9 +1,8 @@
-const { Guild } = require("discord.js");
 const fs = require("fs");
 module.exports = {
   async execute(con) {
     
-    await Guild.findBy({welcome:true}).then((s)=>{
+    await con.manager.findBy("Guild",{welcome:true}).then((s)=>{
       let data = [];
       s.forEach(g => {
         data.push({

@@ -1,9 +1,8 @@
 const fs = require("fs");
-const { Guild } = require("../src/entity/Guild");
 module.exports = {
   async execute(con) {
     
-    await Guild.findOneBy({welcome:true}).then((s)=>{
+    await con.manager.findBy("Guild",{welcome:true}).then((s)=>{
       let data = []
       s.forEach(g => {
         data.push({guildID:g.guild_id,welcome_message:g.welcome_message})

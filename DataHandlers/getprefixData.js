@@ -1,8 +1,7 @@
 const fs = require("fs");
-const { Guild } = require("../src/entity/guild");
 module.exports = {
   async execute (client, con) {
-    var data= await Guild.find();
+    var data= await con.manager.find("Guilds");
     this.SAVE(data);
   },
   SAVE(data) {
