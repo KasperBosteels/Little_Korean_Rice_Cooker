@@ -1,6 +1,6 @@
 const G = require("../Generators/GenerateSimpleEmbed").GenerateEmbed;
 const Message = require('../entity/Message');
-const Member = require('../entity/Member')
+const Member = require('../entity/User')
 module.exports = {
   async execute(interaction, con) {
     const mailTopic = interaction.fields.getTextInputValue("tid");
