@@ -44,13 +44,19 @@ const SlashCommandLoader = require("./uploadSlashCommand").execute;
 const makeIndex =require('./SelectMenus/HelpSelectMenu').makeIndex;
 //#region typeorm related imports
 const DataSource = require ("typeorm").DataSource
-
+const Member =require ("./entity/Member");
+const Guild = require ("./entity/guild");
+const Message = require ("./entity/Message");
+const Playlist = require( "./entity/Playlist");
+const Swearword = require ("./entity/Swearword");
+const Warning = require ("./entity/Warning");
+const Custom_Swear = require('./entity/Custom_Swears.js')
 const con = new DataSource({
-  type: "mysql",
+  type: process.env.TYPE,
   host: process.env.HOST,
-  port: 3306,
-  username: process.env.USERSQLSERVER,
-  password: process.env.PASSWORDSQLSERVER,
+  port:parseInt(process.env.PORT),
+  username: process.env.SERVER_USER,
+  password: process.env.SERVER_PASSWORD,
   database: process.env.DATABASE,
   synchronize: true,
   logging: true,
@@ -58,23 +64,13 @@ const con = new DataSource({
   logging:true,
   poolSize:30,
   migrationsRun:true,
-  entities:[
-      require ("./entity/Member"),
-      require ("./entity/guild"),
-      require ("./entity/Message"),
-      require( "./entity/Playlist"),
-      require ("./entity/Swearword"),
-      require ("./entity/Warning")
-  ],
+  entities:[ Member, Custom_Swear,Warning,Guild,Message,Playlist,Swearword],
   migrations: [],
   subscribers: [],
   connectTimeout:5000,
   acquireTimeout:5000,
   multipleStatements:true,
 });
-con.initialize();
-con.synchronize();
-console.log("typeorm connected: ",con.isInitialized)
 //#endregion
 //#endregion
 console.log("\x1b[33m", "running discord.js@" + version, "\x1b[0m");
@@ -136,10 +132,10 @@ for (const file of SelectFiles) {
 //#region bot ready
 //default state when bot starts up will set activity
 //and display succes message in terminal
-client.once("ready", () => {
+client.once("ready",async  () => {
   try {
     //enable discord buttons
-    start.execute(client,con);
+    await start.execute(client,con);
     getprefix.execute(client,con);
     profanity_alert_data_collector.execute(con);
     profanity_enabled.execute(con);
@@ -151,8 +147,6 @@ client.once("ready", () => {
     logchannels.execute(con);
     custom_Welcome.execute(con);
     SlashCommandLoader(process.env.DISCORD_TOKEN, client);
-    console.log("typeorm connected: ", con.isInitialized)
-
   } catch (err) {
     console.log(err);
   }
