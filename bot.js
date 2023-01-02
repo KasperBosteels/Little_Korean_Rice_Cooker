@@ -44,7 +44,7 @@ const SlashCommandLoader = require("./uploadSlashCommand").execute;
 const makeIndex =require('./SelectMenus/HelpSelectMenu').makeIndex;
 //#region typeorm related imports
 const DataSource = require ("typeorm").DataSource
-const Member =require ("./entity/Member");
+const User =require ("./entity/User.js");
 const Guild = require ("./entity/guild");
 const Message = require ("./entity/Message");
 const Playlist = require( "./entity/Playlist");
@@ -59,12 +59,11 @@ const con = new DataSource({
   password: process.env.SERVER_PASSWORD,
   database: process.env.DATABASE,
   synchronize: true,
-  logging: true,
+  logging: false,
   migrations:true,
-  logging:true,
   poolSize:30,
   migrationsRun:true,
-  entities:[ Member, Custom_Swear,Warning,Guild,Message,Playlist,Swearword],
+  entities:[ User, Custom_Swear,Warning,Guild,Message,Playlist,Swearword],
   migrations: [],
   subscribers: [],
   connectTimeout:5000,
@@ -72,8 +71,8 @@ const con = new DataSource({
   multipleStatements:true,
 });
 //#endregion
-//#endregion
 console.log("\x1b[33m", "running discord.js@" + version, "\x1b[0m");
+//#endregion
 //#region init bot as client
 let intents = [
   GatewayIntentBits.Guilds,
@@ -130,22 +129,21 @@ for (const file of SelectFiles) {
 //#endregion
 
 //#region bot ready
-//default state when bot starts up will set activity
-//and display succes message in terminal
 client.once("ready",async  () => {
   try {
-    //enable discord buttons
     await start.execute(client,con);
     getprefix.execute(client,con);
     profanity_alert_data_collector.execute(con);
     profanity_enabled.execute(con);
     updateSwears.execute(con);
+    /*
     leveling_enabled.execute(con);
     welcome_channel.execute(con);
     welcomeLeaveMessages.execute(con);
     ignoreusers.execute(con);
     logchannels.execute(con);
     custom_Welcome.execute(con);
+    */
     SlashCommandLoader(process.env.DISCORD_TOKEN, client);
   } catch (err) {
     console.log(err);
