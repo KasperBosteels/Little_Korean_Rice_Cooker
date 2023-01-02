@@ -87,19 +87,28 @@ module.exports = new EntitySchema({
             target:"Message",
             type:"one-to-many",
             nullable:true,
-            cascade:true
+            cascade:true,
+            one:{
+                referencedColumnName:"message_id"
+            }
         },
         warnings:{
             target:"Warning",
             type:"one-to-many",
             cascade:true,
-            nullable:true
+            nullable:true,
+            one:{
+                referencedColumnName:"warning_id"
+            }
         },
         custom_swearlist:{
             target:"Custom_Swear",
             type:"one-to-one",
             cascade:true,
-            nullable:true
+            nullable:true,
+            one:{
+                referencedColumnName:"list_id"
+            }
         }
     },
 });

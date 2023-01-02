@@ -20,6 +20,11 @@ module.exports = new EntitySchema({
         guild:{
             target:"Guild",
             type:"one-to-one",
+            joinColumn:{
+                name:"guild_id",
+                referencedColumnName:"guild_id"
+
+            },
         }
     }
 })

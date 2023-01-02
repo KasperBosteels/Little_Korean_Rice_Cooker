@@ -17,4 +17,18 @@ module.exports = new EntitySchema({
             unique:false,
         },
     },
+    relations:{
+        guild:{
+            target:"Guild",
+            type:"many-to-one",
+            nullable:false,
+            joinColumn:{name:"guild_id"}
+        },
+        member:{
+            target:"Member",
+            type:"many-to-one",
+            nullable:false,
+            joinColumn:{name:"user_id"}
+        }
+    }
 })

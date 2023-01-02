@@ -1,7 +1,7 @@
 var EntitySchema = require("typeorm").EntitySchema
 module.exports = new EntitySchema({
-    name:"Member",
-    tableName:"Members",
+    name:"User",
+    tableName:"Users",
     columns:{
         user_id:{
             name:"user_id",
@@ -39,7 +39,6 @@ module.exports = new EntitySchema({
             nullable:false,
             default:1000,
             type:"numeric",
-
         } 
     },
     relations:{
@@ -48,18 +47,31 @@ module.exports = new EntitySchema({
             type:"one-to-many",
             nullable:true,
             cascade:true,
+            one:{
+                name:"user_id",
+                referencedColumnName:"playlist_id"
+            }
         },
         messages:{
             target:"Message",
             type:"one-to-many",
             cascade:true,
-            nullable:true
+            nullable:true,
+            one:{
+                name:"message_id",
+                referencedColumnName:"message_id"
+            }
+
         },
         warnings:{
             target:"Warning",
             type:"one-to-many",
             cascade:false,
             nullable:true,
+            one:{
+                name:"warning_id",
+                referencedColumnName:"warning_id"
+            }
         },
     }
 });

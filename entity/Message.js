@@ -1,5 +1,4 @@
 var EntitySchema = require("typeorm").EntitySchema
-
 module.exports= new EntitySchema({
     name:"Message",
     tableName:"Messages",
@@ -21,23 +20,24 @@ module.exports= new EntitySchema({
             type:"longtext",
             unique:false
         },
-        channel_id:{
-            name:"channel_id",
-            nullable:false,
-            type:"varchar",
-            unique:false,
-        },
     },
     relations:{
         member:{
-            target:"Member",
+            target:"User",
             type:"many-to-one",
+            joinColumn:{
+                name:"user_id",
+                ReferencedColumnName:"user_id"
+            },
         },
         guild:{
             target:"Guild",
             type:"many-to-one",
-            nullable:true
+            nullable:true,
+            joinColumn:{
+                name:"guild_id",
+                ReferencedColumnName:"guild_id"
+            },
         },
-
     }
 })
