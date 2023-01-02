@@ -2,10 +2,10 @@ const fs = require("fs");
 module.exports = {
   async execute(con) {
     
-    await con.manager.findBy("Guild",{guild_profanity:true}).then((g)=>{
+    await con.manager.find("Guilds",{guild_profanity:true}).then((g)=>{
       let data = [];
       g.forEach(s => {
-        data.push({guildID:s.guild_id,profanity_channel:s.profanity_channel})
+      if(s.profanity_channel!==null)data.push({guildID:s.guild_id,profanity_channel:s.profanity_channel})
       });
       this.SAVE(JSON.stringify(data))
     });

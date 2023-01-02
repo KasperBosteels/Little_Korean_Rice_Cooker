@@ -1,15 +1,16 @@
 const fs = require("fs");
 module.exports = {
   async execute (client, con) {
-    var data= await con.manager.find("Guilds");
-    this.SAVE(data);
+
+    await con.manager.find("Guilds").then((d)=>{
+      let parsedData=[];
+      d.forEach(g => {
+        parsedData.push({guildID:g.guild_id,prefix:g.guild_prefix})
+      });
+      this.SAVE(parsedData);
+    })
   },
   SAVE(data) {
-    let parsedData=[];
-    data.forEach(g => {
-      parsedData.push({guildID:g.guild_id,prefix:g.guild_prefix})
-    });
-
     fs.writeFileSync("./jsonFiles/prefix.json",JSON.stringify(data), (err) => {
       if (err) {
         return console.error(err);
