@@ -6,14 +6,13 @@ module.exports = new EntitySchema({
         playlist_id:{
             primary:true,
             generated:true,
-            type:"numeric",
+            type:"int",
             name:"playlist_id"
         },
         playlist_name:{
             type:"varchar",
             name:"playlist_name",
-            default:toString(this.playlist_id),
-            nullable:true,
+            nullable:false,
             unique:false,
         },
         playlist_songs:{

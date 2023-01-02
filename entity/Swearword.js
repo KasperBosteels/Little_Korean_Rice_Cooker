@@ -1,5 +1,5 @@
-var EntityShema = require("typeorm").EntitySchema
-module.exports = new EntityShema({
+var EntitySchema = require("typeorm").EntitySchema
+module.exports = new EntitySchema({
    name: "Swearword",
    tableName: "Swearwords",
    columns: {

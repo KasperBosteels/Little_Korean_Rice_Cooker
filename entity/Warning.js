@@ -1,7 +1,4 @@
-
 var EntitySchema = require('typeorm').EntitySchema
-
-
 module.exports = new EntitySchema({
     name:"Warning",
     tableName:"Warnings",
@@ -9,7 +6,7 @@ module.exports = new EntitySchema({
         warning_id:{
             primary:true,
             generated:true,
-            type:"numeric",
+            type:"int",
             name:"warning_id"
         },
         warning_message:{
@@ -20,14 +17,4 @@ module.exports = new EntitySchema({
             unique:false,
         },
     },
-    relations:{
-        guild:{
-            type:"many-to-one",
-            nullable:false,
-        },
-        member:{
-            type:"many-to-one",
-            nullable:false,
-        }
-    }
 })

@@ -7,10 +7,10 @@ module.exports = new EntitySchema({
             primary:true,
             generated:true,
             name:"list_id",
-            type:"numeric",
+            type:"int",
         },
         swear_list:{
-            type:"longtext",
+            type:"text",
             unique:false,
             nullable:true,
             name:"swear_list",

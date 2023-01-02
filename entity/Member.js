@@ -24,7 +24,7 @@ module.exports = new EntitySchema({
         },
         is_ignored:{
             name:"is_ignored",
-            nullable:true,
+            nullable:false,
             type:"boolean",
             default:false,
         },
@@ -47,20 +47,17 @@ module.exports = new EntitySchema({
             target:"Playlist",
             type:"one-to-many",
             nullable:true,
-            joinTable:true,
             cascade:true,
         },
         messages:{
             target:"Message",
             type:"one-to-many",
-            joinTable:true,
             cascade:true,
             nullable:true
         },
         warnings:{
             target:"Warning",
             type:"one-to-many",
-            joinTable:true,
             cascade:false,
             nullable:true,
         },

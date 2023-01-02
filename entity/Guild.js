@@ -86,47 +86,20 @@ module.exports = new EntitySchema({
         messages:{
             target:"Message",
             type:"one-to-many",
-            joinTable:true,
             nullable:true,
             cascade:true
         },
         warnings:{
             target:"Warning",
             type:"one-to-many",
-            joinTable:true,
             cascade:true,
             nullable:true
         },
         custom_swearlist:{
             target:"Custom_Swear",
             type:"one-to-one",
-            joinTable:true,
             cascade:true,
             nullable:true
         }
     },
-    createGuild(
-        guildID,
-        level_system=false,
-        log_channel,
-        prefix="-",
-        profanity=false,
-        profanity_channel,
-        welcome=false,
-        welcome_channel){
-    const g = new Guild();
-    g.guild_id=guildID
-    g.level_system=level_system
-    g.log_channel=log_channel
-    g.guild_prefix=prefix
-    if(profanity){
-        g.guild_profanity=profanity
-        g.profanity_channel=profanity_channel
-    }
-    if(welcome){
-        g.welcome=welcome
-        g.welcome_channel=welcome_channel
-    }
-    Guild.save(g);
-}
 });

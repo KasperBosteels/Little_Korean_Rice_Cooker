@@ -7,7 +7,7 @@ module.exports= new EntitySchema({
         message_id:{
             primary:true,
             generated:true,
-            type:"numeric"
+            type:"int"
         },
         topic:{
             name:"topic",
