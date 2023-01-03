@@ -26,7 +26,7 @@ module.exports = new EntitySchema({
                 name:"guild_id",
             }
         },
-        member:{
+        user:{
             target:"User",
             type:"many-to-one",
             nullable:false,

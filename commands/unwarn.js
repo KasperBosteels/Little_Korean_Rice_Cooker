@@ -23,16 +23,11 @@ module.exports = {
     var unwarnuser = getUserFromMention(args[0], client);
     if (!unwarnuser) return message.reply({ content: "no user found" });
     //#endregion
-
     //delete warnings from sql server
-    con.query(
-      `DELETE FROM warnings WHERE userID = "${unwarnuser.id}" AND guildID = "${message.guild.id}"`
-    );
-
+    await con.manager.delete("Warnings",{user:unwarnuser.id,guild:message.guild.id})
     //#region embed
-    con.query(
-      `SELECT COUNT(*) AS number FROM warnings where userID = '${unwarnuser.id}' AND guildID = '${message.guild.id}';`,
-      (err, rows, fields) => {
+
+    await con.manager.findAndCountBy("Warnings",{user:unwarnuser.id,guild:message.guild.id}).then((rows)=>{
         amount = rows[0].number;
         //#endregion
         try {

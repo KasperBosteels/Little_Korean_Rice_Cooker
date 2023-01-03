@@ -14,13 +14,6 @@ module.exports = {
     let ID = member.id;
     const user = await con.manager.findOneBy("Users",{user_id:ID})
     if(!user)return message.channel.send({ content: "I didn't find that user." })
-    /*
-    SELECT s.level,s.exp,s.number 
-    FROM ( SELECT userID,level,exp,(@ROW_NUMBER:=@ROW_NUMBER + 1 ) AS number 
-    FROM levels, (SELECT @ROW_NUMBER := 0) 
-    init_variable ORDER BY level DESC) AS s WHERE userID = "${ID}";`,
-    */
-    
     var LEV = user.user_level
     var EXP = user.user_experience
     if (LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);

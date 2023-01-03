@@ -10,7 +10,7 @@ module.exports = {
   aliases: ["profanityalert", "pra"],
   perms: ["SendMessages"],
   userperms: ["Administrator"],
-  execute(client, message, args, con) {
+  async execute(client, message, args, con) {
     //check perms
     if (!permission(message))
       return message.reply({ content: "you have no permission to do that." });
@@ -20,69 +20,40 @@ module.exports = {
     if (!channel) return console.log("no channel");
     if (!guild) return console.log("no guild");
     if (args[0] && args[0].toLowerCase() == "disable") {
-      con.query(
-        `SELECT EXISTS(SELECT profanity_channel FROM guild WHERE guildID = "${guild}")AS exist;`,
-        (err, rows) => {
-          if (err) {
-            console.log(err);
-            message.channel.send({ content: "NO 2.1*" });
-          }
-          if (rows[0].exist != null) {
-            con.query(
-              `UPDATE guild set profanity_channel = NULL WHERE guildID = "${guild}";`
-            );
-            message.channel.send({
+      const Guild = await con.manager.findOneBy("Guilds",{guild_id:guild})
+            if(Guild){
+              Guild.profanity_channel=null
+              con.manager.save(Guild)
+            return await message.channel.send({
               content: "I will not send any profanity alert messages here.",
             });
           } else {
-            return message.channel.send({
+            return await message.channel.send({
               content:
                 "There wasn't any profanity alert channel set, if there are still messages popping up, send me a message (with the message command).",
             });
           }
-        }
-      );
     } else {
       //checks if database already exists if true update else insert
-      con.query(
-        `SELECT EXISTS(SELECT profanity_channel FROM guild WHERE guildID = "${guild}")AS exist;`,
-        (err, rows) => {
-          if (err) {
-            console.log(err);
-            message.channel.send({
-              content: "Something broke, i'm sorry. error: 5",
-            });
-          }
-          if (rows[0].exist != null) {
-            con.query(
-              `UPDATE guild SET profanity_channel = '${channel}' WHERE guildID = '${guild}';`
-            );
+      const Guild =await con.manager.findOneBy("Guild",{guild_id:guild})
+          if (Guild) {
+            Guild.profanity_channel=toString(channel)
+            await con.manager.save(Guild);
           } else {
-            con.query(
-              `INSERT INTO guild (guildID,profanity_channel) VALUES("${guild}","${channel}");`,
-              (err) => {
-                if (err) {
-                  console.log(err);
-                  message.channel.send({
-                    content: "Something broke, very sorry. error: 6",
-                  });
-                }
-              }
-            );
-          }
-          return message.channel.send({
+            await con.manager.insert("Guilds",{guild_id:guild,profanity_channel:channel})   
+            
+           message.channel.send({
             content: "i will send my alerts here now",
           });
         }
-      );
+      }
       try {
         save_channels.execute(con);
       } catch (err) {
         return console.log(err);
       }
     }
-  },
-};
+}
 function permission(message) {
   //check perms
   if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator))

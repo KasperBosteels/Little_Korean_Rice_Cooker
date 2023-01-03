@@ -17,7 +17,7 @@ module.exports = {
   category: "config",
   perms: ["SendMessages"],
   userperms: ["Administrator"],
-  execute(client, message, args, con) {
+  async execute(client, message, args, con) {
     //check perms
     if (!permission(message))
       return message.reply({
@@ -30,59 +30,27 @@ module.exports = {
     if (!guild) return console.log("no guild");
 
     if (args[0] && args[0].toLowerCase() == "disable") {
-      con.query(
-        `SELECT EXISTS(SELECT welcome_channel FROM guild WHERE guildID = "${guild}")AS exist;`,
-        (err, rows) => {
-          if (err) {
-            console.log(err);
-            message.channel.send("ERROR something broke.");
-          }
-          if (rows[0].exist != 0) {
-            con.query(
-              `UPDATE guild SET welcome_channel = NULL WHERE guildID = "${guild}";`
-            );
-            message.channel.send({
-              content: "I will not send any welcome messages here.",
-            });
-          } else {
+      const G = await con.manager.findoneBy("Guilds",{guild_id:guild})
+      if(!G.welcome_channel){
+        G.welcome_channel = null
+        await con.manager.save(G)
+        return await message.channel.send({
+          content: "I will not send any welcome messages here.",
+        });
+      } else {
             return message.channel.send({
               content: "There wasn't any welcome channel set.",
             });
           }
-        }
-      );
-    } else {
+      } else {
       //checks if database already exists if true update else insert
-      con.query(
-        `SELECT EXISTS(SELECT welcome_channel FROM guild WHERE guildID = "${guild}")AS exist;`,
-        (err, rows) => {
-          if (err) {
-            console.log(err);
-            message.channel.send({ content: "Something broke, sorry." });
-          }
-          if (rows[0].exist != 0) {
-            con.query(
-              `UPDATE guild SET welcome_channel = '${channel}' WHERE guildID = '${guild}';`
-            );
-          } else {
-            con.query(
-              `INSERT INTO guild (guildID,welcome_channel) VALUES("${guild}","${channel}");`,
-              (err) => {
-                if (err) {
-                  console.log(err);
-                  message.channel.send({
-                    content: "Something broke, very sorry.",
-                  });
-                }
-              }
-            );
-          }
-          welcome_data.execute(con);
-          return message.channel.send({
-            content: "i will send welcomes here now",
-          });
-        }
-      );
+      const M = await con.manager.findOneBy("Guilds",{guild_id:guild})
+        M.welcome_channel= toString(channel)
+        await con.manager.save(M)
+        await welcome_data.execute(con);
+        return message.channel.send({
+          content: "i will send welcomes here now",
+        });
     }
   },
 };

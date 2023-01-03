@@ -9,7 +9,7 @@ module.exports = {
   aliases: ["profanityfilter", "prf"],
   perms: ["SendMessages", "ManageMessages"],
   userperms: ["Administrator"],
-  execute(client, message, args, con) {
+  async execute(client, message, args, con) {
     if (!permission(message))
       return message.reply({ content: "you have no permission to do that." });
 
@@ -29,32 +29,17 @@ module.exports = {
             "No filter was set for this server or it was already removed.",
         });
 
-      con.query(
-        `UPDATE guild SET profanity = 0 WHERE guildID = '${guildID}';`,
-        (err) => {
-          if (err) {
-            console.error(err);
-            return message.channel.send({
-              content:
-                "An error occurred, try again later.\nPS. is this pproblem keeps occuring notify me with the message command",
-            });
-          }
-        }
-      );
+      await con.manager.findOneBy("Guilds",{guild_id:guildID}).then((g)=>{
+        g.profanity=0
+        con.manager.save(g)
+      })
       profanity.execute(con);
       return message.channel.send({ content: "filter is off" });
     } else {
-      con.query(
-        `UPDATE guild set profanity = 1 WHERE guildID = '${guildID}';`,
-        (err) => {
-          if (err) {
-            console.log(err);
-            return message.channel.send({
-              content: "An error occurred, try again later.",
-            });
-          }
-        }
-      );
+      await con.manager.findOneBy("Guilds",{guild_id:guildID}).then((g)=>{
+        g.profanity=1
+        con.manager.save(g)
+      })
       profanity.execute(con);
       return message.channel.send({ content: "filter is on" });
     }

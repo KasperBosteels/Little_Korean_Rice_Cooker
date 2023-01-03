@@ -29,18 +29,10 @@ module.exports = {
         return message.channel.send({
           content: "Leveling is already disabled in this server.",
         });
-      con.query(
-        `UPDATE guild set level_system = 0 WHERE guildID = '${guildID}';`,
-        (err) => {
-          if (err) {
-            console.error(err);
-            return message.channel.send({
-              content:
-                "An error occurred, try again later.\nPS. is this problem keeps occuring notify me with the message command.",
-            });
-          }
-        }
-      );
+        await con.manager.findOneBy("Guilds",{guild_id:guildID}).then((g)=>{
+          g.level_system=0
+          con.manager.save(g)
+        })
       await leveling.execute(con);
       return message.channel.send({ content: "Leveling system is disabled." });
     } else if (args[0].toLowerCase() == "enable") {
@@ -48,17 +40,10 @@ module.exports = {
         return message.channel.send({
           content: "Leveling is already enabled in this server.",
         });
-      con.query(
-        `UPDATE guild SET level_system = 1 WHERE guildID="${message.guild.id}"`,
-        (err) => {
-          if (err) {
-            console.log(err);
-            return message.channel.send({
-              content: "An error occurred, try again later.",
-            });
-          }
-        }
-      );
+      await con.manager.findOneBy("Guilds",{guild_id:message.guild.id}).then((g)=>{
+        g.level_system=1
+        con.manager.save(g)
+      })
       await leveling.execute(con);
       return message.channel.send({ content: "Leveling is enabled." });
     } else {
@@ -69,27 +54,15 @@ module.exports = {
     }
   },
   async update(guildID, value) {
-    con.query(
-      `SELECT level_system from guild where guildID = ${guildID}`,
-      (err, rows) => {
-        if (err) return console.error(err);
-        try {
-          if (rows.length) {
-            con.query(
-              `UPDATE guild set level_system = ${value} WHERE guildID = '${guildID}';`
-            );
+
+    const Guild = await con.manager.findOneBy("Guilds",{guild_id:guildID})
+    if(Guild){
+      Guild.level_system=value
+      await con.manager.save(Guild)
           } else {
-            con.query(
-              `INSERT INTO guild (guild,level_system) VALUES ("${guildID},${value}")`
-            );
-          }
+        await con.manager.insert("Guilds",{guild_id:guildID,level_system:value})
           return true;
-        } catch (error) {
-          console.error(error);
-          return false;
-        }
-      }
-    );
+          }
     await leveling.execute(con);
   },
 };
