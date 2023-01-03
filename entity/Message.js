@@ -25,7 +25,7 @@ module.exports= new EntitySchema({
         member:{
             target:"User",
             type:"many-to-one",
-            joinColumn:{
+            joinColumns:{
                 name:"user_id",
                 ReferencedColumnName:"user_id"
             },
@@ -34,7 +34,7 @@ module.exports= new EntitySchema({
             target:"Guild",
             type:"many-to-one",
             nullable:true,
-            joinColumn:{
+            joinColumns:{
                 name:"guild_id",
                 ReferencedColumnName:"guild_id"
             },

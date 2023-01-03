@@ -61,7 +61,7 @@ const con = new DataSource({
   synchronize: true,
   logging: false,
   migrations:true,
-  poolSize:30,
+  poolSize:100,
   migrationsRun:true,
   entities:[ User, Custom_Swear,Warning,Guild,Message,Playlist,Swearword],
   migrations: [],
@@ -132,18 +132,17 @@ for (const file of SelectFiles) {
 client.once("ready",async  () => {
   try {
     await start.execute(client,con);
+    
     getprefix.execute(client,con);
     profanity_alert_data_collector.execute(con);
     profanity_enabled.execute(con);
     updateSwears.execute(con);
-    /*
     leveling_enabled.execute(con);
     welcome_channel.execute(con);
     welcomeLeaveMessages.execute(con);
     ignoreusers.execute(con);
     logchannels.execute(con);
     custom_Welcome.execute(con);
-    */
     SlashCommandLoader(process.env.DISCORD_TOKEN, client);
   } catch (err) {
     console.log(err);

@@ -28,7 +28,7 @@ module.exports = new EntitySchema({
             target:"User",
             type:"many-to-one",
             nullable:false,
-            joinColumn:{name:"user_id",
+            joinColumns:{name:"user_id",
             referencedColumnName:"user_id"
         },
         }

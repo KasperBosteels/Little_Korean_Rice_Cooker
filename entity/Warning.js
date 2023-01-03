@@ -22,13 +22,17 @@ module.exports = new EntitySchema({
             target:"Guild",
             type:"many-to-one",
             nullable:false,
-            joinColumn:{name:"guild_id"}
+            joinColumns:{
+                name:"guild_id",
+            }
         },
         member:{
-            target:"Member",
+            target:"User",
             type:"many-to-one",
             nullable:false,
-            joinColumn:{name:"user_id"}
+            joinColumns:{
+                name:"user_id",
+            }
         }
     }
 })

@@ -12,35 +12,28 @@ module.exports = {
   async execute(client, message, args, con) {
     var member = getID(message, args, client);
     let ID = member.id;
-    con.query(`SELECT * FROM levels WHERE userID = "${ID}";`, (err, rows) => {
-      if (err) console.log(err);
-      if (!rows.length) {
-        return message.channel.send({ content: "I didn't find that user." });
-      } else {
-        con.query(
-          `SELECT s.level,s.exp,s.number FROM ( SELECT userID,level,exp,(@ROW_NUMBER:=@ROW_NUMBER + 1 ) AS number FROM levels, (SELECT @ROW_NUMBER := 0) init_variable ORDER BY level DESC) AS s WHERE userID = "${ID}";`,
-          (err, rows) => {
-            //con.query(`SELECT level, exp, ( @ROW_NUMBER:=@ROW_NUMBER + 1 ) AS number FROM levels, (SELECT @ROW_NUMBER := 0) init_variable WHERE userID = "${ID}" ORDER BY level DESC`,(err,rows) =>{
-            if (err) {
-              console.log(err);
-            }
-            var LEV = rows[0].level;
-            var EXP = rows[0].exp;
-            var rank = rows[0].number;
-            if (LEV == null || EXP == null)
-              return console.log(`${LEV}\n${EXP}`);
-            var nextlevel = (15 + 300) * LEV;
-            try {
-              makeCard(LEV, EXP, nextlevel, rank, member, message);
-            } catch (err) {
-              console.log(err);
-            }
-          }
-        );
-      }
-    });
-  },
-};
+    const user = await con.manager.findOneBy("Users",{user_id:ID})
+    if(!user)return message.channel.send({ content: "I didn't find that user." })
+    /*
+    SELECT s.level,s.exp,s.number 
+    FROM ( SELECT userID,level,exp,(@ROW_NUMBER:=@ROW_NUMBER + 1 ) AS number 
+    FROM levels, (SELECT @ROW_NUMBER := 0) 
+    init_variable ORDER BY level DESC) AS s WHERE userID = "${ID}";`,
+    */
+    
+    var LEV = user.user_level
+    var EXP = user.user_experience
+    if (LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);
+    var nextlevel = (15 + 300) * LEV;
+    try {
+         makeCard(LEV, EXP, nextlevel, rank, member, message);
+     } catch (err) {
+          console.log(err);
+     }
+          
+        
+    }     
+}
 function getID(message, args, client) {
   let member =
     message.mentions.members.first() ||

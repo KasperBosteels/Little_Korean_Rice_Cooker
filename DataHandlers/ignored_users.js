@@ -1,7 +1,7 @@
 const fs = require("fs");
 module.exports = {
   async execute(con) {
-    await con.manager.findBy("Member",{is_ignored:true}).then((m)=>{
+    await con.manager.findBy("User",{is_ignored:true}).then((m)=>{
       let d =[]
       m.forEach(i => {
         d.push({userID:d.user_id})

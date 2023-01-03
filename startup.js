@@ -6,7 +6,7 @@ const fs = require("node:fs");
 module.exports = {
   async execute(client, con) {
     try {
-      await con.initialize();
+      if(!con.isInitialized)await con.initialize();
       await con.synchronize();
     }catch(err){
       console.log(err)

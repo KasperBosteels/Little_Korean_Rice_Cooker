@@ -1,24 +1,25 @@
 const fs = require("fs");
 module.exports = {
   async execute(con) {
-    let data = []
-await con.manager.find("Guilds",{
+    
+    await con.manager.find("Guilds",{
       relations:{custom_swearlist:true},
       where:{guild_profanity:true}}).then((d)=>{
+        let data = []
         d.forEach(g => {
           data.push({guildID:g.guild_id,swearwords:g.custom_swearlist,default_enabled:g.guild_profanity})
         });
+        this.SAVE(JSON.stringify(data))
       });
-    let defaultData=[];
+    
 await con.manager.find("Swearwords").then((s)=>{
+  let defaultData=[];
       s.forEach(w => {
-        console.log(w)
-        defaultData.push({swearwords:w.word})
+        defaultData.push(w.word)
       });
-    })
-    console.log(data,defaultData)
-    this.SAVE(JSON.stringify(data))
-    this.SAVEDEFAULT(JSON.stringify(defaultData))
+      this.SAVEDEFAULT(JSON.stringify(defaultData))
+    });
+    
   },
   SAVE(data) {
     fs.writeFileSync("./jsonFiles/custom_swear_words.json", data, (err) => {

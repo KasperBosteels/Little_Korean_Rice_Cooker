@@ -106,7 +106,7 @@ module.exports = new EntitySchema({
             type:"one-to-one",
             cascade:true,
             nullable:true,
-            one:{
+            joinColumn:{
                 referencedColumnName:"list_id"
             }
         }

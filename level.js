@@ -1,6 +1,7 @@
 const leveling_enabled = require("./DataHandlers/leveling_enabled");
 const score = require("./DataHandlers/socialCredit");
 const logchannel = require("./sendToLogChannel");
+const G = require("./Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {
   async execute(message, con, args, Discord) {
     //if leveling is disabled then stop this command and return
@@ -35,21 +36,10 @@ module.exports = {
                   return console.log(mem);
                 }
                 //#region embed
-                var embed = new Discord.MessageEmbed()
-                  .setColor("#006400")
-                  .setTitle(":partying_face: level up :partying_face:")
-                  .setTimestamp()
-                  .setAuthor(
-                    "Little_Korean_Rice_Cooker",
-                    "https://i.imgur.com/A2SSxSE.png"
-                  )
-                  .setImage("https://i.imgur.com/Uyw52SY.gif")
-                  .setDescription(
-                    `YEAH!! ${name} reached level ${LEV}\nTO THE STARS AND BEYOND!!`
-                  );
+                const E = G("#006400", `YEAH!! ${name} reached level ${LEV}\nTO THE STARS AND BEYOND!!`,false,false,true,"https://i.imgur.com/Uyw52SY.gif",":partying_face: level up :partying_face:")
                 //#endregion
                 try {
-                  logchannel.logWithNoMember(embed, message);
+                  logchannel.logWithNoMember(E, message);
                   await con.manager.update("User",{user_id:userID},{user_level:LEV,user_experience:0})
                 } catch (err) {
                   console.log(err);

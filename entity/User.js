@@ -64,7 +64,7 @@ module.exports = new EntitySchema({
 
         },
         warnings:{
-            target:"Warning",
+            target:"Warnings",
             type:"one-to-many",
             cascade:false,
             nullable:true,
