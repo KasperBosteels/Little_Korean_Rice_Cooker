@@ -13,8 +13,8 @@ module.exports = {
     const member = await con.manager.findOneBy("User",{user_id:userID})
     if(!member){await con.manager.create("User",{ user_id:userID,user_name:message.member.username,user_level:1,is_ignored:false,user_experience:0,user_score:1000})
         } else {
-              var LEV = member.user_level;
-              var EXP = member.user_experience + randomint;
+              var LEV =parseInt(member.user_level);
+              var EXP = parseInt(member.user_experience) + randomint;
               var nextlevel = (15 + 300) * LEV;
               if (EXP >= nextlevel) {
                 LEV++;
