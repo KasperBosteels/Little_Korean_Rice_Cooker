@@ -9,6 +9,7 @@ const {
   GatewayIntentBits,
   Client,
   Collection,
+  Events,
 } = require("discord.js");
 const Discord = require("discord.js");
 const config = require("./auth.json");
@@ -129,7 +130,7 @@ for (const file of SelectFiles) {
 //#endregion
 
 //#region bot ready
-client.once("ready",async  () => {
+client.once(Events.ClientReady,async  () => {
   try {
     await start.execute(client,con);
     
@@ -151,7 +152,7 @@ client.once("ready",async  () => {
 //#endregion
 
 //#region error handler
-client.on("error", (Err) => {
+client.on(Events.Error, (Err) => {
   fs.writeFileSync(
     "./info/errors.json",
     JSON.stringify(Err, null, 2),
@@ -163,25 +164,25 @@ client.on("error", (Err) => {
 //#endregion
 
 //#region server join/leave.
-client.on("guildCreate", async (guild) => {
+client.on(Events.GuildCreate, async (guild) => {
   await server.join(guild, con);
 });
-client.on("guildDelete", async (guild) => {
+client.on(Events.GuildDelete, async (guild) => {
   await server.leave(guild, con);
 });
 //#endregion
 
 //#region member join/leave.
-client.on("guildMemberRemove", async (member) => {
+client.on(Events.GuildMemberRemove, async (member) => {
   guildleave(member, con);
 });
-client.on("guildMemberAdd", async (member) => {
+client.on(Events.GuildMemberAdd, async (member) => {
   guildjoin(member, client, con);
 });
 //#endregion
 
 //#region message processor
-client.on("messageCreate", async (Interaction) => {
+client.on(Events.MessageCreate, async (Interaction) => {
   if (Interaction.author.bot) return;
   power.execute(Interaction, con);
   profanity.execute(Interaction, client, con);
@@ -279,7 +280,7 @@ client.on("messageCreate", async (Interaction) => {
   }
 });
 //#endregion
-client.on("interactionCreate", async (interaction) => {
+client.on(Events.InteractionCreate, async (interaction) => {
   if (interaction.isModalSubmit()) {
     try {
       await interaction.deferReply({
@@ -291,8 +292,7 @@ client.on("interactionCreate", async (interaction) => {
     } catch (error) {
       console.log(error);
     }
-  } else if (interaction.isSelectMenu()) {
-    await interaction.deferReply();
+  } else if (interaction.isStringSelectMenu()) {
     const selectMenus = client.selectMenus;
     const { customId } = interaction;
     console.log(customId)
@@ -302,8 +302,8 @@ client.on("interactionCreate", async (interaction) => {
         `There is no select menu found with the id of: ${customId}`
       );
     try {
-      const guildPrefix = await getprefix.GET(interaction.guildId);
-      await menu.execute(client, interaction,  makeIndex(interaction.values[0]));
+      await interaction.deferReply();
+      await menu.execute(client, interaction, makeIndex(interaction.values[0]));
     } catch (error) {
       console.log(error);
     }
