@@ -1,26 +1,25 @@
 const fs = require("fs");
 module.exports = {
-  execute(con) {
-    var data;
-    con.query(
-      "SELECT guildID,swearwords,default_enabled FROM customswearwords;",
-      (err, rows) => {
-        if (err) console.error(err);
-        data = JSON.stringify(rows);
-        this.SAVE(data);
-        console.log("custom swear words data saved");
-      }
-    );
-    con.query("SELECT words FROM swearwords;", (err, rows) => {
-      if (err) console.error(err);
-      let jsdata = [];
-      rows.forEach((row) => {
-        jsdata.push(row.words);
+  async execute(con) {
+    
+    await con.manager.find("Guilds",{
+      relations:{custom_swearlist:true},
+      where:{guild_profanity:true}}).then((d)=>{
+        let data = []
+        d.forEach(g => {
+          data.push({guildID:g.guild_id,swearwords:g.custom_swearlist,default_enabled:g.guild_profanity})
+        });
+        this.SAVE(JSON.stringify(data))
       });
-      data = JSON.stringify(jsdata);
-      this.SAVEDEFAULT(data);
-      console.log("swear words data saved");
+    
+await con.manager.find("Swearwords").then((s)=>{
+  let defaultData=[];
+      s.forEach(w => {
+        defaultData.push(w.word)
+      });
+      this.SAVEDEFAULT(JSON.stringify(defaultData))
     });
+    
   },
   SAVE(data) {
     fs.writeFileSync("./jsonFiles/custom_swear_words.json", data, (err) => {
@@ -58,8 +57,6 @@ module.exports = {
       "utf-8"
     );
     let file = JSON.parse(rawData);
-    let words = [];
-    file.forEach((element) => {});
     return file;
   },
 };

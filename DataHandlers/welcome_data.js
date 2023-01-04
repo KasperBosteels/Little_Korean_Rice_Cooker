@@ -1,13 +1,14 @@
 const fs = require("fs");
 module.exports = {
-  execute(con) {
-    var data;
-    con.query("SELECT guildID,welcome_channel FROM guild;", (err, rows) => {
-      if (err) console.error(err);
-      data = JSON.stringify(rows);
-      this.SAVE(data);
-      console.log("welcome channel data saved");
+  async execute(con) {
+    
+    await con.manager.findBy("Guild",{welcome:true}).then((g)=>{
+    let data = [];
+    g.forEach(s => {
+      data.push({guildID:s.guild_id,welcome_channel:s.welcome_channel})
     });
+    this.SAVE(JSON.stringify(data))
+    })
   },
   SAVE(data) {
     fs.writeFileSync("./jsonFiles/welcome_channel.json", data, (err) => {

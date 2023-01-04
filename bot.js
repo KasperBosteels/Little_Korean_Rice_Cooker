@@ -1,14 +1,15 @@
 //#region get res
 require("dotenv").config();
+require("reflect-metadata")
 const logger = require("./logger.js");
 const start = require("./startup.js");
-const mysql = require("mysql");
 const fs = require("node:fs");
 const {
   version,
   GatewayIntentBits,
   Client,
   Collection,
+  Events,
 } = require("discord.js");
 const Discord = require("discord.js");
 const config = require("./auth.json");
@@ -42,8 +43,37 @@ const updateSwears = require("./DataHandlers/update_swear_words");
 const processModal = require("./processModal.js").execute;
 const SlashCommandLoader = require("./uploadSlashCommand").execute;
 const makeIndex =require('./SelectMenus/HelpSelectMenu').makeIndex;
+//#region typeorm related imports
+const DataSource = require ("typeorm").DataSource
+const User =require ("./entity/User.js");
+const Guild = require ("./entity/guild");
+const Message = require ("./entity/Message");
+const Playlist = require( "./entity/Playlist");
+const Swearword = require ("./entity/Swearword");
+const Warning = require ("./entity/Warning");
+const Custom_Swear = require('./entity/Custom_Swears.js')
+const con = new DataSource({
+  type: process.env.TYPE,
+  host: process.env.HOST,
+  port:parseInt(process.env.PORT),
+  username: process.env.SERVER_USER,
+  password: process.env.SERVER_PASSWORD,
+  database: process.env.DATABASE,
+  synchronize: true,
+  logging: false,
+  migrations:true,
+  poolSize:100,
+  migrationsRun:true,
+  entities:[ User, Custom_Swear,Warning,Guild,Message,Playlist,Swearword],
+  migrations: [],
+  subscribers: [],
+  connectTimeout:5000,
+  acquireTimeout:5000,
+  multipleStatements:true,
+});
 //#endregion
 console.log("\x1b[33m", "running discord.js@" + version, "\x1b[0m");
+//#endregion
 //#region init bot as client
 let intents = [
   GatewayIntentBits.Guilds,
@@ -99,26 +129,12 @@ for (const file of SelectFiles) {
 
 //#endregion
 
-//#region sql login data
-//sets sql login data in veriable for use
-const con = mysql.createConnection({
-  host: process.env.HOST,
-  user: process.env.USERSQLSERVER,
-  password: process.env.PASSWORDSQLSERVER,
-  database: process.env.DATABASE,
-  port: 3306,
-  multipleStatements: true,
-});
-//#endregion
-
 //#region bot ready
-//default state when bot starts up will set activity
-//and display succes message in terminal
-client.once("ready", () => {
+client.once(Events.ClientReady,async  () => {
   try {
-    //enable discord buttons
-    start.execute(client, con);
-    getprefix.execute(con);
+    await start.execute(client,con);
+    
+    getprefix.execute(client,con);
     profanity_alert_data_collector.execute(con);
     profanity_enabled.execute(con);
     updateSwears.execute(con);
@@ -136,7 +152,7 @@ client.once("ready", () => {
 //#endregion
 
 //#region error handler
-client.on("error", (Err) => {
+client.on(Events.Error, (Err) => {
   fs.writeFileSync(
     "./info/errors.json",
     JSON.stringify(Err, null, 2),
@@ -148,25 +164,25 @@ client.on("error", (Err) => {
 //#endregion
 
 //#region server join/leave.
-client.on("guildCreate", async (guild) => {
+client.on(Events.GuildCreate, async (guild) => {
   await server.join(guild, con);
 });
-client.on("guildDelete", async (guild) => {
+client.on(Events.GuildDelete, async (guild) => {
   await server.leave(guild, con);
 });
 //#endregion
 
 //#region member join/leave.
-client.on("guildMemberRemove", async (member) => {
+client.on(Events.GuildMemberRemove, async (member) => {
   guildleave(member, con);
 });
-client.on("guildMemberAdd", async (member) => {
+client.on(Events.GuildMemberAdd, async (member) => {
   guildjoin(member, client, con);
 });
 //#endregion
 
 //#region message processor
-client.on("messageCreate", async (Interaction) => {
+client.on(Events.MessageCreate, async (Interaction) => {
   if (Interaction.author.bot) return;
   power.execute(Interaction, con);
   profanity.execute(Interaction, client, con);
@@ -264,7 +280,7 @@ client.on("messageCreate", async (Interaction) => {
   }
 });
 //#endregion
-client.on("interactionCreate", async (interaction) => {
+client.on(Events.InteractionCreate, async (interaction) => {
   if (interaction.isModalSubmit()) {
     try {
       await interaction.deferReply({
@@ -276,19 +292,16 @@ client.on("interactionCreate", async (interaction) => {
     } catch (error) {
       console.log(error);
     }
-  } else if (interaction.isSelectMenu()) {
-    await interaction.deferReply();
+  } else if (interaction.isStringSelectMenu()) {
     const selectMenus = client.selectMenus;
     const { customId } = interaction;
-    console.log(customId)
     const menu = selectMenus.get(customId);
     if (!menu)
       return console.log(
         `There is no select menu found with the id of: ${customId}`
       );
     try {
-      const guildPrefix = await getprefix.GET(interaction.guildId);
-      await menu.execute(client, interaction,  makeIndex(interaction.values[0]));
+      await menu.execute(client, interaction, makeIndex(interaction.values[0]));
     } catch (error) {
       console.log(error);
     }
@@ -388,7 +401,7 @@ process.on("uncaughtException", (error) => console.log("error", error));
 process.on("unhandledRejection", (error) => console.log("error", error));
 process.on("ECONNRESET", (error) => {
   con.destroy();
-  con.connect();
+  con.initialize();
   console.error(error.message);
 });
 process.on("PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR", (error) => {

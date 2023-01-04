@@ -1,15 +1,13 @@
 const fs = require("fs");
 module.exports = {
   async execute(con) {
-    var data;
-    con.query(
-      "SELECT userID FROM score WHERE socialScore < 500 UNION SELECT * FROM ignoredUsers",
-      (err, rows) => {
-        if (err) console.error(err);
-        data = JSON.stringify(rows);
-        this.SAVE(data);
-      }
-    );
+    await con.manager.findBy("User",{is_ignored:true}).then((m)=>{
+      let d =[]
+      m.forEach(i => {
+        d.push({userID:d.user_id})
+      });
+      this.SAVE(JSON.stringify(d))
+    })
   },
   SAVE(data) {
     fs.writeFileSync("./jsonFiles/ignore.json", data, (err) => {

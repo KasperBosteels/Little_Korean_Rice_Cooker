@@ -19,23 +19,17 @@ module.exports = {
       member = message.member;
     }
     //query data base score tabel
-    con.query(
-      `SELECT socialScore FROM score WHERE userID="${user.id}";`,
-      (err, score) => {
-        if (err) return console.error(err);
-        if (score.length) {
-          SCS = score[0].socialScore;
-        } else {
-          SCS = 1000;
-          credit.ADDUSER(con, user.id);
-        }
+    const M = await con.manager.findOneBy("Users",{user_id:user.id})
+    if(M){
 
-        //return with embed message
-        return message.channel.send({
-          embeds: [makeEmbed(user, member, message, SCS)],
-        });
-      }
-    );
+      SCS = M.user_score;
+    }else{
+      SCS = 1000;
+      credit.ADDUSER(con, user.id);
+    }
+    return message.channel.send({
+      embeds: [makeEmbed(user, member, message, SCS)],
+    });
   },
 };
 function getUserFromMention(mention, client, message) {

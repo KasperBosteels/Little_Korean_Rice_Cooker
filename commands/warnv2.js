@@ -22,14 +22,10 @@ module.exports = {
     if (!warnuser) return message.reply({ content: "No user found." });
     //#endregion
     //get data and insert into data base
-    con.query(
-      `INSERT INTO warnings (guildID,userID,warnings) VALUES("${message.guild.id}","${warnuser.id}","${reason}")`
-    );
+    await con.manager.insert("Warnings",{guild:message.guild.id,user:warnuser.id,warning_message:reason})
     //get the amounts a user was warned
-    await con.query(
-      `SELECT COUNT(*) AS number FROM warnings where userID = '${warnuser.id}' AND guildID = '${message.guild.id}';`,
-      (err, rows, fields) => {
-        amount = rows[0].number;
+    const count = await con.manager.findAndCount("Warnings",{user:warnuser.id,guild:message.guild.id})
+        amount = count.count;
         //#region embed
         var embed = G.GenerateEmbed(
           "#ff0000",
@@ -44,26 +40,19 @@ module.exports = {
 
         //send embed message to logchannel and channel where the command was given
         try {
-          logging.logWithNoMember(embed, message);
+          await logging.logWithNoMember(embed, message);
         } catch (err) {
           return console.log(err);
         } finally {
-          message.channel.send({ embeds: [embed] });
+          return await message.channel.send({ embeds: [embed] });
         }
-      }
-    );
   },
   async aleternateWarn(con, guildID, userID, input, memberName) {
     //insert warning.
-    await con.query(
-      `INSERT INTO warnings (guildID,userID,warnings) VALUES("${guildID}","${userID}","${input}")`
-    );
-
+    await con.manager.insert("Warnings",{guild:guildID,user:userID,warning_message:input})
     //create warning embed
-    await con.query(
-      `SELECT COUNT(*) AS number FROM warnings where userID = '${userID}' AND guildID = '${guildID}';`,
-      (err, rows, fields) => {
-        amount = rows[0].number;
+    await con.manager.findAndCount("Warnings",{user:userID,guild:guildID}).then((C)=>{
+        amount = C.count;
         //#region embed
         var embed = G.GenerateEmbed(
           "#ff0000",

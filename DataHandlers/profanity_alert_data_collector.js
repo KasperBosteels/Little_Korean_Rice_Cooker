@@ -1,12 +1,13 @@
 const fs = require("fs");
 module.exports = {
-  execute(con) {
-    var data;
-    con.query("SELECT guildID,profanity_channel FROM guild;", (err, rows) => {
-      if (err) console.error(err);
-      data = JSON.stringify(rows);
-      this.SAVE(data);
-      console.log("profanity alert channel data saved");
+  async execute(con) {
+    
+    await con.manager.find("Guilds",{guild_profanity:true}).then((g)=>{
+      let data = [];
+      g.forEach(s => {
+      if(s.profanity_channel!==null)data.push({guildID:s.guild_id,profanity_channel:s.profanity_channel})
+      });
+      this.SAVE(JSON.stringify(data))
     });
   },
   SAVE(data) {

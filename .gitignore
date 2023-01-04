@@ -1,5 +1,9 @@
-.env
+.idea/
+.vscode/
 node_modules/
+build/
+tmp/
+temp/
 log.txt
 ignore.json
 leveling_enabled.json
@@ -7,3 +11,4 @@ prefix.json
 profanity_alert_channels.json
 profanity_enabled.json
 errors.json
+.env

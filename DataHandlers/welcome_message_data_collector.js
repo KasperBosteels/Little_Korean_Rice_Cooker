@@ -1,16 +1,14 @@
 const fs = require("fs");
 module.exports = {
-  execute(con) {
-    var data;
-    con.query(
-      "SELECT guildID,welcome_message FROM custom_welcome_message;",
-      (err, rows) => {
-        if (err) console.error(err);
-        data = JSON.stringify(rows);
-        this.SAVE(data);
-        console.log("custom welcome data saved");
-      }
-    );
+  async execute(con) {
+    
+    await con.manager.findBy("Guild",{welcome:true}).then((s)=>{
+      let data = []
+      s.forEach(g => {
+        data.push({guildID:g.guild_id,welcome_message:g.welcome_message})
+      });
+      this.SAVE(JSON.stringify(data))
+    })
   },
   SAVE(data) {
     fs.writeFileSync("./jsonFiles/custom_welcome_data.json", data, (err) => {

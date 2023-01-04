@@ -2,16 +2,10 @@ const leave = require("../leave");
 
 module.exports = {
   async join(guild, con) {
-    con.query(
-      `INSERT INTO guild (guildID,level_system,log_channel,prefix,profanity,profanity_channel,welcome_channel) VALUES("${guild.id}",0,NULL,'-',0,NULL,NULL);`,
-      (err) => {
-        if (err) return console.log(err);
-      }
-    );
+    await con.manager.insert("Guild",{guild_id:guild.id,guild_name:undefined,log_channel:null,guild_prefix:'-',level_system:undefined,guild_profanity:null,profanity_channel:null,guild_chatbot:null})
   },
   async leave(guild, con) {
-    con.query(`DELETE FROM guild WHERE guildID = "${guild.id}";`, (err) => {
-      if (err) return console.log(err);
-    });
+    const g =await con.manager.findOneBy("Guild",{guild_id:guild.id})
+    Guild.remove(g)
   },
 };

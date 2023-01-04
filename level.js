@@ -1,6 +1,7 @@
 const leveling_enabled = require("./DataHandlers/leveling_enabled");
 const score = require("./DataHandlers/socialCredit");
 const logchannel = require("./sendToLogChannel");
+const G = require("./Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {
   async execute(message, con, args, Discord) {
     //if leveling is disabled then stop this command and return
@@ -9,24 +10,13 @@ module.exports = {
     let randomint;
     randomint = Math.floor(Math.random() * args.length + 1);
     let userID = await message.author.id;
-    con.query(
-      `SELECT level FROM levels WHERE userID = "${userID}";`,
-      (err, rows) => {
-        if (err) console.log(err);
-        if (!rows.length) {
-          con.query(
-            `INSERT INTO levels (userID,level,exp) VALUES ("${userID}",1,0)`
-          );
+    const member = await con.manager.findOneBy("User",{user_id:userID})
+    if(!member){await con.manager.create("User",{ user_id:userID,user_name:message.member.username,user_level:1,is_ignored:false,user_experience:0,user_score:1000})
         } else {
-          con.query(
-            `SELECT level ,exp FROM levels WHERE userID = "${userID}"`,
-            (err, rows) => {
-              if (err) return console.log(err);
-              var LEV = rows[0].level;
-              var EXP = rows[0].exp + randomint;
+              var LEV =parseInt(member.user_level);
+              var EXP = parseInt(member.user_experience) + randomint;
               var nextlevel = (15 + 300) * LEV;
               if (EXP >= nextlevel) {
-                //258217948819357697;
                 LEV++;
                 EXP = 0;
                 let mem = message.member;
@@ -46,39 +36,18 @@ module.exports = {
                   return console.log(mem);
                 }
                 //#region embed
-                var embed = new Discord.MessageEmbed()
-                  .setColor("#006400")
-                  .setTitle(":partying_face: level up :partying_face:")
-                  .setTimestamp()
-                  .setAuthor(
-                    "Little_Korean_Rice_Cooker",
-                    "https://i.imgur.com/A2SSxSE.png"
-                  )
-                  .setImage("https://i.imgur.com/Uyw52SY.gif")
-                  .setDescription(
-                    `YEAH!! ${name} reached level ${LEV}\nTO THE STARS AND BEYOND!!`
-                  );
+                const E = G("#006400", `YEAH!! ${name} reached level ${LEV}\nTO THE STARS AND BEYOND!!`,false,false,true,"https://i.imgur.com/Uyw52SY.gif",":partying_face: level up :partying_face:")
                 //#endregion
                 try {
-                  logchannel.logWithNoMember(embed, message);
-                  con.query(
-                    `UPDATE levels SET level = ${LEV}, exp = 0 WHERE userID = "${userID}"`,
-                    (err) => {
-                      if (err) console.log(err);
-                    }
-                  );
+                  logchannel.logWithNoMember(E, message);
+                  await con.manager.update("User",{user_id:userID},{user_level:LEV,user_experience:0})
                 } catch (err) {
                   console.log(err);
                 }
                 score.ADD(con, 100, userID);
               }
-              con.query(
-                `UPDATE levels SET level = ${LEV}, exp = ${EXP} WHERE userID = "${userID}"`
-              );
+              await con.manager.update("User",{user_id:userID},{user_level:LEV,user_experience:EXP});
             }
-          );
+          
         }
       }
-    );
-  },
-};

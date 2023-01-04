@@ -21,9 +21,8 @@ module.exports = {
     if (!warnuser) return message.reply({ content: "No user found." });
     //#endregion
     //get the amounts a user was warned
-    await con.query(
-      `SELECT warnings FROM warnings WHERE userID = ${warnuser.id} AND guildID = ${message.guild.id};`,
-      (err, rows, fields) => {
+
+    await con.manager.find("Warnings",{user:warnuser.id,guild:message.guild.id}).then((rows)=>{
         let warningsString = "```";
         if (rows.length == 0) warningsString += "No warnings.";
         for (let i = 0; i < rows.length; i++) {
