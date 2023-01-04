@@ -1,7 +1,7 @@
 const G = require("./Generators/GenerateSimpleEmbed");
 const embedlogger = require("./sendToLogChannel");
 const logger = require("./logger");
-const socialcreddit = require("./DataHandlers/socialCredit");
+const {ADDUSER,SUBTRACT} = require("./DataHandlers/socialCredit");
 const customwelcome = require("./DataHandlers/welcome_message_data_collector");
 module.exports = {
   async guildjoin(member, client, con) {
@@ -29,7 +29,7 @@ module.exports = {
       console.log(err);
       await logger.LEAVE_JOINLOG(err, member.guild, "USER JOINED SERVER");
     }
-    socialcreddit.ADDUSER(con, member.id);
+    ADDUSER(con, member);
   },
   async guildleave(member, con) {
     let banned = await member.guild.bans.fetch(member).catch((error) => {
@@ -63,7 +63,7 @@ module.exports = {
         .setDescription(`${member.displayName} won't be missed.`)
         .setColor("#FF0000");
       await logger.LEAVE_JOINLOG(undefined, member.guild, "USER BANNED");
-      socialcreddit.SUBTRACT(con, 500, member.id);
+      SUBTRACT(con, 500, member.id);
     } else {
       embed
         .setTitle("oh no")
