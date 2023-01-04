@@ -1,53 +1,57 @@
+const { ComponentType } = require("discord.js");
 const {
-  SelectMenuOptionBuilder,
-  SelectMenuBuilder,
+  StringSelectMenuOptionBuilder,
+  StringSelectMenuBuilder,
   ActionRowBuilder,
 } = require("discord.js");
 const getprefix = require("../DataHandlers/getprefixData").GET;
 const GenerateEmbed =
   require("../Generators/GenerateSimpleEmbed").GenerateEmbed;
+const GenerateSimpleStringSelect = require("../Generators/GenerateSimpleStringSelect").GenerateSelectMenu;
 module.exports = {
   name: "help",
   async execute(client, interaction, index = 0) {
+    if(!interaction)return;
     const prefix = await guildprefix(interaction.guildId);
-    const menu = new SelectMenuBuilder()
+    const embeds = await createCategoryEmbeds(prefix, client.commands);
+    const menu = new StringSelectMenuBuilder()
       .setCustomId("help")
       .setPlaceholder("Select help topic.")
       .setMinValues(1)
       .setMaxValues(1)
       .setOptions(
-        new SelectMenuOptionBuilder({
+        new StringSelectMenuOptionBuilder({
           label: "Home",
           description: "1. Home",
           value: "home",
         }),
-        new SelectMenuOptionBuilder({
+        new StringSelectMenuOptionBuilder({
           label: "General",
           description: "2. General information.",
           value: "general",
         }),
-        new SelectMenuOptionBuilder({
+        new StringSelectMenuOptionBuilder({
           label: "Fun",
           description: "3. Funny commands.",
           value: "fun",
         }),
-        new SelectMenuOptionBuilder({
+        new StringSelectMenuOptionBuilder({
           label: "Music",
           description: "4. Musical commands.",
           value: "music",
         }),
-        new SelectMenuOptionBuilder({
+        new StringSelectMenuOptionBuilder({
           label: "Moderating",
           description: "5. Commands for moderation purposes.",
           value: "moderating",
         }),
-        new SelectMenuOptionBuilder({
+        new StringSelectMenuOptionBuilder({
           label: "Config",
           description: "6. Configuration of the bot?",
           value: "config",
         })
       );
-    const embeds = await createCategoryEmbeds(prefix, client.commands);
+    
     if(!interaction.isStringSelectMenu()){
     await interaction.reply({
       content: "ㅤ",
@@ -55,47 +59,45 @@ module.exports = {
       embeds: [embeds[index]],
       components: [new ActionRowBuilder().addComponents(menu)],
     });
-
-    const collector = interaction.channel.createMessageComponentCollector({
-      componentType: "SelectMenu",
-    });
-    collector.on("collect", async (collected) => {
-      console.log(collected);
-      if (collected.componentType != "SelectMenu") return;
-      await collected.deferUpdate();
-      const value = collected.values[0];
-      switch (value) {
-        case "home":
-          await collected.editReply({ embeds: [embeds[0]], ephemeral: true });
-          break;
-        case "general":
-          await collected.editReply({ embeds: [embeds[1]], ephemeral: true });
-          break;
-        case "fun":
-          await collected.editReply({ embeds: [embeds[2]], ephemeral: true });
-          break;
-        case "music":
-          await collected.editReply({ embeds: [embeds[3]], ephemeral: true });
-          break;
-        case "moderating":
-          await collected.editReply({ embeds: [embeds[4]], ephemeral: true });
-          break;
-        case "config":
-          await collected.editReply({ embeds: [embeds[5]], ephemeral: true });
-          break;
-        default:
-          await collected.editReply({ embeds: [embeds[0]], ephemeral: true });
-          break;
-      }
-    });
-  }else{
-    await interaction.updateReply({
-      content: "ㅤ",
-      ephemeral: true,
-      embeds: [embeds[index]],
-      components: [new ActionRowBuilder().addComponents(menu)],
-    });
+    
+    
   }
+  const filter =async i =>{
+    await i.deferUpdate();
+    return i.user.id === interaction.user.id;
+  }
+  const collector = interaction.channel.createMessageComponentCollector({
+    filter,
+    componentType: ComponentType.StringSelect,
+    time:30000,
+  });
+  collector.on("collect", async (collected) => {
+    if (collected.componentType != ComponentType.StringSelect) return;
+    const value = collected.values[0];
+    switch (value) {
+      case "home":
+        await collected.editReply({ embeds: [embeds[0]], ephemeral: true });
+        break;
+      case "general":
+        await collected.editReply({ embeds: [embeds[1]], ephemeral: true });
+        break;
+      case "fun":
+        await collected.editReply({ embeds: [embeds[2]], ephemeral: true });
+        break;
+      case "music":
+        await collected.editReply({ embeds: [embeds[3]], ephemeral: true });
+        break;
+      case "moderating":
+        await collected.editReply({ embeds: [embeds[4]], ephemeral: true });
+        break;
+      case "config":
+        await collected.editReply({ embeds: [embeds[5]], ephemeral: true });
+        break;
+      default:
+        await collected.editReply({ embeds: [embeds[0]], ephemeral: true });
+        break;
+    }
+  });
   },
   makeIndex(value){
     switch (value) {
@@ -105,14 +107,14 @@ module.exports = {
         return 1;
       case "fun":
         return 2;
-        case "music":
-          return 3;
-          case "moderating":
-            return 4;
-            case "config":
-              return 5;
-              default:
-                return 0;
+      case "music":
+        return 3;
+      case "moderating":
+        return 4;
+      case "config":
+        return 5;
+      default:
+        return 0;
     }
   }
 };
@@ -127,12 +129,10 @@ function MakeEmbed(content, prefix, i, pages = 6) {
   let embed = GenerateEmbed(
     "#00ff00",
     false,
-
     {
       text: `You can find more info about a commmand by using: ${prefix}help <command name>\n page:${i}/${pages}`,
       url: null,
     },
-
     FieldContent
   );
   return embed;
