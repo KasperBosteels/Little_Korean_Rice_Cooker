@@ -295,14 +295,12 @@ client.on(Events.InteractionCreate, async (interaction) => {
   } else if (interaction.isStringSelectMenu()) {
     const selectMenus = client.selectMenus;
     const { customId } = interaction;
-    console.log(customId)
     const menu = selectMenus.get(customId);
     if (!menu)
       return console.log(
         `There is no select menu found with the id of: ${customId}`
       );
     try {
-      await interaction.deferReply();
       await menu.execute(client, interaction, makeIndex(interaction.values[0]));
     } catch (error) {
       console.log(error);
