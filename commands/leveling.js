@@ -21,7 +21,7 @@ module.exports = {
 
     //get data from local database
     let enable = await leveling.GET(guildID);
-
+    if(!args[0])return message.reply({content:"you need to give me arguments to work with\n example: "+this.name+this.usage,ephemeral:true})
     //check if the request was to remove alert
     if (args[0].toLowerCase() == "disable") {
       //stop if no data found
