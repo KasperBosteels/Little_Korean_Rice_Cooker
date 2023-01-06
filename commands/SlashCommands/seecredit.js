@@ -4,6 +4,7 @@ const {
   ApplicationCommandType,
 } = require("discord-api-types/v9");
 const credit = require("../../DataHandlers/socialCredit");
+const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {
   name: "credit",
   description: "Look at your own or someone elses social credit.",
@@ -24,39 +25,20 @@ module.exports = {
     if (user == undefined) {
       user = interaction.user;
     }
-    con.query(
-      `SELECT socialScore FROM score WHERE userID="${user.id}"; `,
-      (err, score) => {
-        if (err) return console.error(err);
-        if (score.length) {
-          SCS = score[0].socialScore;
-        } else {
-          SCS = 1000;
-          credit.ADDUSER(con, user.id);
-        }
 
+          let  SCS =1000
+          SCS =await credit.GETSCORE(con,user.id)
+          
         //return with embed message
         return interaction.editReply({
-          content: " ",
-          embeds: [makeEmbed(client, user, SCS)],
+          embeds: [makeEmbed( user, SCS)],
           ephemeral: true,
         });
-      }
-    );
   },
 };
 
-function makeEmbed(client, user, score) {
-  const embed = new Discord.MessageEmbed().setColor("#00ff00").setTimestamp();
-  embed.addField(
-    "user",
-    `\`\`\`${user.username}#${user.discriminator}\`\`\``,
-    (inline = true)
-  );
-  embed.addField("id", `\`\`\`${user.id}\`\`\``, (inline = true));
-  embed.setThumbnail(
-    user.avatarURL({ dynamic: true, format: "png", size: 64 })
-  );
+function makeEmbed( user, score) {
+  
   let socialcreditlevel = "normal";
   if (score < 500)
     socialcreditlevel = `too low to use commands <:cookerangry:927889358231597127> `;
@@ -66,13 +48,22 @@ function makeEmbed(client, user, score) {
   if (score >= 2000 && score <= 2999) socialcreditlevel = "very good";
   if (score >= 3000 && score <= 3999) socialcreditlevel = "outstanding!";
   if (score >= 4000) socialcreditlevel = "**AMAZING**";
-  embed.addField(
-    "social Credit",
-    `${score} this score is ${socialcreditlevel}`,
-    (inline = true)
-  );
-  if (user.system) {
-    embed.addField(`**OFFICIAL DISCORD SYSTEM USER**`, "TRUE");
-  }
-  return embed;
+  const fields = [
+    {
+      name:"user",
+      value: `\`\`\`${user.username}#${user.discriminator}\`\`\``,
+      inline: true
+    },
+    {
+      name:"id",
+      value: `\`\`\`${user.id}\`\`\``,
+      inline: true
+    },{
+      name:"social credit",
+      value:`${score} this score is ${socialcreditlevel}`,
+      inline:true
+    }
+  ]
+  const E = G("#00ff00",false,false,fields,true,false,false,false, user.avatarURL({ dynamic: true, format: "png", size: 64 }))
+  return E;
 }
