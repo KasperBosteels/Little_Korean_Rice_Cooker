@@ -1,6 +1,7 @@
 .idea/
 .vscode/
 node_modules/
+jsonFiles/*.json
 build/
 tmp/
 temp/
