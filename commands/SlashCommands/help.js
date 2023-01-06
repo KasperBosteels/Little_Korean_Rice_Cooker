@@ -19,6 +19,7 @@ module.exports = {
   async execute(client, interaction, con) {
   const specific = interaction.options.getString("command");
   if(!specific)return await HelpSelectMenu.execute(client,interaction,0);
+  await interaction.deferReply();
   const requestedCommand = client.commands.filter(c=>c.name===specific);
   const prefix = prefix(interaction.guild.id);
   const Embed = GenerateEmbed("RANDOM",`placeholder text`,false,[{name:prefix+requestedCommand.name,value:requestedCommand.usage}],false,false,"details about: "+prefix+specific,false,false);
