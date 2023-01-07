@@ -38,7 +38,7 @@ const {
             type:ApplicationCommandOptionType.SubcommandGroup,
             required:false,
             name:"remove",
-            descriptions:"Remove a song from a playlist",
+            description:"Remove a song from a playlist",
             options:[
                 {
                     type:ApplicationCommandOptionType.String,
@@ -48,7 +48,7 @@ const {
                 },
                 {
                     type:ApplicationCommandOptionType.Integer,
-                    require:true,
+                    required:true,
                     name:"song",
                     description:"Number of the song you want to delete."
                 }
