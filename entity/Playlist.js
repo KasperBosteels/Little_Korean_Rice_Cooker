@@ -31,6 +31,16 @@ module.exports = new EntitySchema({
             joinColumns:{name:"user_id",
             referencedColumnName:"user_id"
         },
+        songs:{
+            target:"Song",
+            type:"one-to-many",
+            nullable:true,
+            cascade:true,
+            one:{
+                name:"playlist_id",
+                referencedColumnName:"song_id"
+            }
+        }
         }
     }
 })
