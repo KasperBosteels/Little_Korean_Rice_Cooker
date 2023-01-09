@@ -51,7 +51,8 @@ const Message = require ("./entity/Message");
 const Playlist = require( "./entity/Playlist");
 const Swearword = require ("./entity/Swearword");
 const Warning = require ("./entity/Warning");
-const Custom_Swear = require('./entity/Custom_Swears.js')
+const Custom_Swear = require('./entity/Custom_Swears.js');
+const Song = require("./entity/Song");
 const con = new DataSource({
   type: process.env.TYPE,
   host: process.env.HOST,
@@ -60,11 +61,11 @@ const con = new DataSource({
   password: process.env.SERVER_PASSWORD,
   database: process.env.DATABASE,
   synchronize: true,
-  logging: false,
+  logging: true,
   migrations:true,
   poolSize:100,
   migrationsRun:true,
-  entities:[ User, Custom_Swear,Warning,Guild,Message,Playlist,Swearword],
+  entities:[ User, Custom_Swear,Warning,Guild,Message,Playlist,Song,Swearword],
   migrations: [],
   subscribers: [],
   connectTimeout:5000,
