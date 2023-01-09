@@ -21,6 +21,9 @@ module.exports = new EntitySchema({
             target:"Playlist",
             type:"many-to-one",
             nullable:false,
+            cascade:true,
+            onDelete:"CASCADE",
+            eager:true,
             joinColumns:{name:"playlist_id",
             referencedColumnName:"playlist_id"
         },
