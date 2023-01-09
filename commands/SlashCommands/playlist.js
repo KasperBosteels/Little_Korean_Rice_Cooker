@@ -2,68 +2,80 @@ const {
     ApplicationCommandOptionType,
     ApplicationCommandType,
   } = require("discord-api-types/v9");
+const { NewsChannel } = require("discord.js");
 
   module.exports={
     name:"playlist",
     description:"play, edit or create a playlist",
-    defaultMemberPermissions:["Speak","JoinVoiceChannel"],
+    defaultMemberPermissions: ["SendMessages", "ViewChannel"],
     type:ApplicationCommandType.ChatInput,
     dmPermission:false,
     options:[
         {
-            type:ApplicationCommandOptionType.String,
+            type:ApplicationCommandOptionType.Subcommand,
             required:false,
             name:"create",
-            description:"Create a new playlist."
+            description:"Create a new playlist.",
+            options:[
+                {
+
+                    type:ApplicationCommandOptionType.String,
+                    required:true,
+                    name:"name",
+                    description:"Name of the new Playlist."
+                }
+        ]
         },
         {
-            type:ApplicationCommandOptionType.SubcommandGroup,
+            type:ApplicationCommandOptionType.Subcommand,
             required:false,
             name:"add",
             description:"Add a new song to your playlist.",
             options:[
             {
                 type:ApplicationCommandOptionType.String,
-                required:true,
                 name:"playlist",
+                required:true,
                 description:"Name of the playlist you want to add a song to.",
             },
             {
                 type:ApplicationCommandOptionType.String,
-                required:true,
                 name:"url",
+                required:true,
                 description:"Url of the song you want to add."
             }
         ]
         },
         {
-            type:ApplicationCommandOptionType.String,
-            required:false,
-            name:"details",
-            description:"Look at the songs in your playlist."
-        },
-        {
-            type:ApplicationCommandOptionType.String,
-            required:false,
+            type:ApplicationCommandOptionType.Subcommand,
             name:"delete",
-            description:"Delete a playlist."
+            description:"Delete a playlist.",
+            options:[
+                {
+                    type:ApplicationCommandOptionType.String,
+                    name:"name",
+                    required:true,
+                    description:"Name of the playlist you want to delete."
+                }]
         },
         {
-            type:ApplicationCommandOptionType.SubcommandGroup,
+            type:ApplicationCommandOptionType.Subcommand,
             required:false,
             name:"remove",
             description:"Remove a song from a playlist",
             options:[
                 {
                     type:ApplicationCommandOptionType.String,
-                    required:true,
                     name:"playlist",
+                    required:true,
+
                     description:"Name of the playlist you want to remove from"
                 },
                 {
-                    type:ApplicationCommandOptionType.Integer,
-                    required:true,
+                    type:ApplicationCommandOptionType.Number,
                     name:"song",
+                    required:true,
+
                     description:"Number of the song you want to delete."
                 }
             ]
@@ -71,35 +83,58 @@ const {
     ],
     async execute(client,interaction,con){
         await interaction.deferReply();
-        let response;
-        let create = interaction.options.getString("create"),
-        add=interaction.options.getSubCommand("add"),
-        details = interaction.options.getString("details"),
-        delete_playlist = interaction.options.getString("delete"),
-        remove = interaction.options.getSubCommand("remove");
-        if(create){
-            await con.manager.insert("Playlists",{playlist_name:create})
-            return interaction.reply({content:"playlist created",ephermeral:true})
-        }else if (add){
+        const user = await con.manager.findOneBy("Users",{user_id:interaction.user.id})
+        const playrepository = await con.manager.getRepository("Playlists");
+        const songrepository = await con.manager.getRepository("Songs");
+        let sub = interaction.options.getSubcommand();
+        if(sub ==="create"){
+            const playname = interaction.options.getString("name")
+            const user = await con.manager.findOneBy("Users",{user_id:interaction.user.id});
+            const newPlaylist = playrepository.create({
+                playlist_name:playname,
+                member:user
+            });
+            await playrepository.save(newPlaylist)
+            return interaction.editReply({content:`Playlist '${playname}' created.`,ephermeral:true})
+        }else if (sub === "add"){
             const list = interaction.options.getString("playlist");
             const song = interaction.options.getString("url");
-            const playlist = await con.manager.findOneBy("Playslists",{user:interaction.user.id,playlist_name:list})
-            if(playlist){
-                await con.manager.insert("Song",{playlist:playlist_id,song_url:song})
-            }
-        }else if (details){
-            const playlist = await con.manager.findOneBy("Playlist",{user:interaction.user.id,playlist_name:details});
-            const songs = await con.manager.findBy("Song",{playlist:playlist.playlist_id})
-        }else if (delete_playlist){
-            await con.manager.delete("Playlist", {playlist_name:delete_playlist})
-        }else if (remove){
-            const playlistName = interaction.options.getString("playlist")
-            const song = interaction.options.getInterger("song")
-            await con.manager.findOneBy("Playlist",{playlist_name:playlistName,user:interaction.user.id}).then(async(p)=>{
-                await con.manager.delete("Song",{playlist:p.playlist_id,song_url:song});
+            const playlist = await con.manager.findOneBy("Playlists",{member:user,playlist_name:list})
+            if(!playlist)return await interaction.editReply({content:"This playlist was not found."})
+            console.log(playlist)
+            const newSong = songrepository.create({
+                song_url:song,
+                playlist:playlist
             });
+            try{
+            await songrepository.save(newSong)
+            return await interaction.editReply({content:`Added this song to ${playlist.playlist_name}`});
+        }catch(error){
+            return await interaction.editReply({content:"Unable to add songs to playlists at the moment."})
+        }
+        }else if (sub ==="delete"){
+            const name = interaction.options.getString("name");
+            try{
+            await con.manager.delete("Playlist",{member:user,playlist_name:name});
+            return await interaction.editReply({content:`Removed ${name} from you playlists`});
+        }catch(error){
+            console.log(error);
+            return await interaction.editReply({content:"Unable to delete this playlist"});
+            }
+        }else if (sub ==="remove"){
+
+            const playlist =con.manager.findOneBy("Playlists",{playlist_name: interaction.options.getString("playlist"),member:user});
+            const index = interaction.options.getNumber("song");
+            try{
+               const songs =  await con.manager.findBy("Songs",{playlist:playlist});
+                const song = songs[index-1];
+                await songrepository.delete(song);
+                return await interaction.editReply({content:"Removed that song for you."})
+            }catch(error){
+                return await interaction.editReply({content:"Unable to remove songs at this moment."})
+            }
         }else {
-            
+            await interaction.reply({content:"appears when nothing is input"})
         }
     }
   }
