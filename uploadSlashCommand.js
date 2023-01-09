@@ -60,15 +60,17 @@ module.exports = {
           "\x1b[0m"
         );
       } catch (error) {
-        if (error.rawError.errors.description)
+        if (error)
           console.log(
             "\x1b[31m",
             "Failed to reload application (/) commands.",
             "\x1b[0m"
           );
-        console.log(error.rawError.errors.description._errors);
         console.error(error);
+        console.log(
+          error.rawError.errors.options)
       }
     })();
+    console.log(client.slashCommands)
   },
 };

@@ -18,11 +18,11 @@ module.exports = {
       description: "Share some love with someone.",
     },
   ],
-
   async execute(client, interaction, con) {
     await interaction.deferReply();
     let userRequest, responseEmbed;
     const RandomLove = love[Math.floor(Math.random() * love.length)];
+    console.log(RandomLove)
     if (interaction.options.getUser("user")) {
       userRequest = interaction.options.getUser("user");
       responseEmbed = G(
@@ -32,7 +32,7 @@ module.exports = {
     } else {
       responseEmbed = G("Random", RandomLove);
     }
-    return await interaction.editReply({
+    return await interaction.reply({
       embeds: [responseEmbed],
     });
   },

@@ -41,7 +41,44 @@ module.exports = {
     if(!interaction)return;
     const prefix = await guildprefix(interaction.guildId);
     const embeds = await createCategoryEmbeds(prefix, client.commands);
-    const menu = await GenerateSimpleStringSelect("help","Select help topic.",1,1,options)
+    const menu = new StringSelectMenuBuilder()
+      .setCustomId("help")
+      .setPlaceholder("Select help topic.")
+      .setMinValues(1)
+      .setMaxValues(1)
+      .setOptions(
+        new StringSelectMenuOptionBuilder({
+          label: "Home",
+          description: "1. Home",
+          value: "home",
+        }),
+        new StringSelectMenuOptionBuilder({
+          label: "General",
+          description: "2. General information.",
+          value: "general",
+        }),
+        new StringSelectMenuOptionBuilder({
+          label: "Fun",
+          description: "3. Funny commands.",
+          value: "fun",
+        }),
+        new StringSelectMenuOptionBuilder({
+          label: "Music",
+          description: "4. Musical commands.",
+          value: "music",
+        }),
+        new StringSelectMenuOptionBuilder({
+          label: "Moderating",
+          description: "5. Commands for moderation purposes.",
+          value: "moderating",
+        }),
+        new StringSelectMenuOptionBuilder({
+          label: "Config",
+          description: "6. Configuration of the bot?",
+          value: "config",
+        })
+      );
+    
     if(!interaction.isStringSelectMenu()){
     await interaction.reply({
       content: "ㅤ",

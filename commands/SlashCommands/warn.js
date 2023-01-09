@@ -10,6 +10,7 @@ module.exports = {
     "Warn a user.\nWarnings will be saved so you can see them later on.",
   defaultMemberPermissions: ["ModerateMembers"],
   type: ApplicationCommandType.ChatInput,
+  defaultMemberPermissions:["ModerateMembers"],
   dmPermission: false,
   options: [
     {
@@ -32,27 +33,22 @@ module.exports = {
     if (interaction.option.getString("reason")) {
       reason = await interaction.option.getString("reason");
     }
-    con.query(
-      `INSERT INTO warnings (guildID,userID,warnings) VALUES("${interaction.guildId}","${member.id}","${reason}")`
-    );
-    await con.query(
-      `SELECT COUNT(*) AS number FROM warnings where userID = '${member.id}' AND guildID = '${interaction.guildId}';`,
-      (err, rows, fields) => {
-        amount = rows[0].number;
-        var embed = GenerateEmbed(
-          "#ff0000",
-          `**warned:** ${member}\n **warned by:** ${interaction.author} **reason:** ${reason}`,
-          false,
-          [{ name: "warnings: ", value: `${amount}` }]
-        );
+    await con.manager.insert("Warnings",{guild:interaction.guildId,user:member.id,warning_message:reason});
+    await con.manager.findBy("Warnings",{user:member.id,guild:interaction.guildId}).then(async (warns)=>{
+      const count = warns.length;
+      var embed = GenerateEmbed(
+        "#ff0000",
+        `**warned:** ${member}\n **warned by:** ${interaction.author} **reason:** ${reason}`,
+        false,
+        [{ name: "warning: ", value: `${count}` }]
+      );
+      try {
+        logWithNoMember(embed, interaction);
+      } catch (err) {
+        return console.log(err);
+      } finally {
+        await interaction.reply({ embeds: [embed] });
       }
-    );
-    try {
-      logWithNoMember(embed, interaction);
-    } catch (err) {
-      return console.log(err);
-    } finally {
-      await interaction.reply({ embeds: [embed] });
-    }
-  },
+    });
+  }
 };
