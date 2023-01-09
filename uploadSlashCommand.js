@@ -26,14 +26,15 @@ module.exports = {
         name: cmd.name,
         description: cmd.description,
         type: cmd.type,
-        options: cmd.options ? cmd.options : null,
-        default_permissions: cmd.default_permissions
+        choices: cmd.choices!== undefined ? cmd.choices : null,
+        options: cmd.options!== undefined  ? cmd.options : null,
+        default_permissions: cmd.default_permissions!== undefined 
           ? default_permissions
           : null,
-        defaultMemberPermissions: cmd.defaultMemberPermissions
+        defaultMemberPermissions: cmd.defaultMemberPermissions!== undefined 
           ? PermissionsBitField.resolve(cmd.defaultMemberPermissions).toString()
           : null,
-        dmPermission: cmd.dmPermission ? cmd.dmPermission : null,
+        dmPermission: cmd.dmPermission!== undefined ? cmd.dmPermission : null,
       });
       if (cmd.name) {
         client.slashCommands.set(cmd.name, cmd);
@@ -69,8 +70,9 @@ module.exports = {
         console.error(error);
         console.log(
           error.rawError.errors.options)
+        console.log("options 2 error\n",error.rawError.errors.options["9"]._errors)
+          error.requestBody.json.map((j)=>console.log(j))
       }
     })();
-    console.log(client.slashCommands)
   },
 };
