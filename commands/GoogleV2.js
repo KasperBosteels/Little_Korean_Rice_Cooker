@@ -1,7 +1,5 @@
 const G = require("../Generators/GenerateSimpleEmbed");
 const imageSearch = require("image-search-google");
-const paginationEmbed = require("discordjs-button-pagination");
-const { ButtonBuilder } = require("discord.js");
 const { pagination, TypesButtons, StylesButton } = require('@devraelfreeze/discordjs-pagination');
 const time = 60000;
 const GoogleClient = new imageSearch(
@@ -22,16 +20,6 @@ module.exports = {
     //#region google search
     let Q = args.join(" ");
     var list = [];
-
-    const button1 = new ButtonBuilder()
-      .setCustomId("previousbtn")
-      .setLabel("Previous")
-      .setStyle("Danger");
-    const button2 = new ButtonBuilder()
-      .setCustomId("nextbtn")
-      .setLabel("Next")
-      .setStyle("Success");
-    let buttons = [button1, button2];
     try {
       await GoogleClient.search(Q, options).then((images) => {
         if (images.length == 0) {
@@ -50,7 +38,7 @@ module.exports = {
       });
       await pagination({
         embeds:list,
-        time:120000,
+        time:time,
         fastSkip:false,
         disableButtons:true,
         author:message.author,
