@@ -58,7 +58,6 @@ module.exports = {
           },
         ]
       },)
-//      paginationEmbed(message, list, buttons, time);
     } catch (error) {
       console.log(error);
     }
