@@ -2,6 +2,7 @@ const G = require("../Generators/GenerateSimpleEmbed");
 const imageSearch = require("image-search-google");
 const paginationEmbed = require("discordjs-button-pagination");
 const { ButtonBuilder } = require("discord.js");
+const { pagination, TypesButtons, StylesButton } = require('@devraelfreeze/discordjs-pagination');
 const time = 60000;
 const GoogleClient = new imageSearch(
   process.env.CSE_ID,
@@ -40,14 +41,36 @@ module.exports = {
           list[i] = G.GenerateEmbed(
             "Random",
             false,
-            { text: `page ${i + 1}/${images.length}`, url: null },
+            false,
             false,
             false,
             images[i].url
           );
         }
       });
-      paginationEmbed(message, list, buttons, time);
+      await pagination({
+        embeds:list,
+        time:120000,
+        fastSkip:false,
+        disableButtons:true,
+        author:message.author,
+        message:message,
+        buttons:[
+          {
+            value:TypesButtons.previous,
+            label:"Previous",
+            style: StylesButton.Danger,
+            emoji:null,
+          },
+          {
+            value:TypesButtons.next,
+            label:"Next",
+            style:StylesButton.Success,
+            emoji:null
+          },
+        ]
+      },)
+//      paginationEmbed(message, list, buttons, time);
     } catch (error) {
       console.log(error);
     }
