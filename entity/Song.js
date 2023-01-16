@@ -11,7 +11,7 @@ module.exports = new EntitySchema({
         },
         song_url:{
             type:"varchar",
-            name:"playlist_name",
+            name:"song",
             nullable:false,
             unique:false,
         }
