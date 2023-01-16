@@ -2,8 +2,8 @@ const {
     ApplicationCommandOptionType,
     ApplicationCommandType,
   } = require("discord-api-types/v9");
-const { NewsChannel } = require("discord.js");
-
+const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
+  
   module.exports={
     name:"playlist",
     description:"play, edit or create a playlist",
@@ -11,6 +11,12 @@ const { NewsChannel } = require("discord.js");
     type:ApplicationCommandType.ChatInput,
     dmPermission:false,
     options:[
+        {
+            type:ApplicationCommandOptionType.Subcommand,
+            required:false,
+            name:"all",
+            description:"See all your playlists.",
+        },
         {
             type:ApplicationCommandOptionType.Subcommand,
             required:false,
@@ -49,6 +55,7 @@ const { NewsChannel } = require("discord.js");
         {
             type:ApplicationCommandOptionType.Subcommand,
             name:"delete",
+            required:false,
             description:"Delete a playlist.",
             options:[
                 {
@@ -90,12 +97,17 @@ const { NewsChannel } = require("discord.js");
         if(sub ==="create"){
             const playname = interaction.options.getString("name")
             const user = await con.manager.findOneBy("Users",{user_id:interaction.user.id});
+           try{
             const newPlaylist = playrepository.create({
                 playlist_name:playname,
                 member:user
             });
             await playrepository.save(newPlaylist)
-            return interaction.editReply({content:`Playlist '${playname}' created.`,ephermeral:true})
+            const embed = G("#00802f","Your new playlist has been created.",false,false,true,false,"created "+playname)
+            return interaction.editReply({embeds:[embed]})
+            }catch(error){
+                console.error(error)
+            }
         }else if (sub === "add"){
             const list = interaction.options.getString("playlist");
             const song = interaction.options.getString("url");
@@ -108,18 +120,19 @@ const { NewsChannel } = require("discord.js");
             });
             try{
             await songrepository.save(newSong)
-            return await interaction.editReply({content:`Added this song to ${playlist.playlist_name}`});
+
+            return await interaction.editReply({embeds:[G("#0080ff",`Added ${song} to ${playlist.playlist_name}`,false,false,true,false,"Added song to your playlist.")]});
         }catch(error){
-            return await interaction.editReply({content:"Unable to add songs to playlists at the moment."})
+            return await interaction.editReply({embeds:[G("#00804f",`Adding ${song} to ${list} Failed`,false,false,true,false,"Adding song to your playlist.")]})
         }
         }else if (sub ==="delete"){
             const name = interaction.options.getString("name");
             try{
             await con.manager.delete("Playlist",{member:user,playlist_name:name});
-            return await interaction.editReply({content:`Removed ${name} from you playlists`});
+            return await interaction.editReply({embeds:[G("#00805f",`Deleted ${name} was successfull`,false,false,true,false,"Deleting a playlist.")]});
         }catch(error){
             console.log(error);
-            return await interaction.editReply({content:"Unable to delete this playlist"});
+            return await interaction.editReply({embeds:[G("#00808f",`Deleting ${name} has failed`,false,false,true,false,"Deleting a playlist.")]});
             }
         }else if (sub ==="remove"){
 
@@ -129,12 +142,26 @@ const { NewsChannel } = require("discord.js");
                const songs =  await con.manager.findBy("Songs",{playlist:playlist});
                 const song = songs[index-1];
                 await songrepository.delete(song);
-                return await interaction.editReply({content:"Removed that song for you."})
+                return await interaction.editReply({embeds:[G("#0080af",`Removing a song from ${playlist.playlist_name} was successfull`,false,false,true,false,"Removing a song from a playlist.")]})
             }catch(error){
-                return await interaction.editReply({content:"Unable to remove songs at this moment."})
+                return await interaction.editReply({embeds:[G("#0080bf",`Removing a song from ${playlist.playlist_name} has failed`,false,false,true,false,"Removing a song from a playlist.")]})
             }
         }else {
-            await interaction.reply({content:"appears when nothing is input"})
+            const playlist = await con.manager.findBy("Playlists",{member:user},{songs:true});
+            console.log(playlist)
+            const playlistFields=[];
+            playlist.map(async (e,i) => {
+                playlistFields.push({name:"Playlist: "+e.playlist_name,value:`playlist id: ${i}\nAmount of songs: placeholder`})
+            });
+            console.log(playlistFields)
+            let embed;
+            try{
+            embed = G("#00800f","All your playlists.",false,playlistFields,true);
+            }catch(error){
+                console.log(error)
+            }
+            return await interaction.editReply({embeds:[embed]});
+           
         }
     }
   }
