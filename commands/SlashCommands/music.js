@@ -87,6 +87,11 @@ module.exports = {
         channelTypes:[ChannelType.GuildVoice],
         type:ApplicationCommandOptionType.Subcommand,
         description:"See all the songs for the current queue."
+    },
+    {
+        required:false,
+        name:"shuffle",
+        
     }
 ],
 async execute(client,interaction,con){
@@ -174,7 +179,7 @@ switch (sub) {
             const n = s.isFirst?"Playing: "+s.name :`${i}. `+s.name;
             songFields.push({name:n ,value:v})
         });
-        return await interaction.editReply({embeds:[G('#00ff000',"Songs currently in queue.",false,songFields,false,false,"Queue")]})
+        return await interaction.editReply({embeds:[G('Random',"Songs currently in queue.",false,songFields,false,false,"Queue")]})
     }catch(error){
         console.log(error)
     }

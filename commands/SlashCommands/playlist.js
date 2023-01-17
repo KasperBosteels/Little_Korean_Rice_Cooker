@@ -103,7 +103,7 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
                 member:user
             });
             await playrepository.save(newPlaylist)
-            const embed = G("#00802f","Your new playlist has been created.",false,false,true,false,"created "+playname)
+            const embed = G("Random","Your new playlist has been created.",false,false,true,false,"created "+playname)
             return interaction.editReply({embeds:[embed]})
             }catch(error){
                 console.error(error)
@@ -121,7 +121,7 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
             try{
             await songrepository.save(newSong)
 
-            return await interaction.editReply({embeds:[G("#0080ff",`Added ${song} to ${playlist.playlist_name}`,false,false,true,false,"Added song to your playlist.")]});
+            return await interaction.editReply({embeds:[G("#00801f",`Added ${song} to ${playlist.playlist_name}`,false,false,true,false,"Added song to your playlist.")]});
         }catch(error){
             return await interaction.editReply({embeds:[G("#00804f",`Adding ${song} to ${list} Failed`,false,false,true,false,"Adding song to your playlist.")]})
         }
@@ -132,7 +132,7 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
             return await interaction.editReply({embeds:[G("#00805f",`Deleted ${name} was successfull`,false,false,true,false,"Deleting a playlist.")]});
         }catch(error){
             console.log(error);
-            return await interaction.editReply({embeds:[G("#00808f",`Deleting ${name} has failed`,false,false,true,false,"Deleting a playlist.")]});
+            return await interaction.editReply({embeds:[G("#008f8f",`Deleting ${name} has failed`,false,false,true,false,"Deleting a playlist.")]});
             }
         }else if (sub ==="remove"){
 
@@ -142,9 +142,9 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
                const songs =  await con.manager.findBy("Songs",{playlist:playlist});
                 const song = songs[index-1];
                 await songrepository.delete(song);
-                return await interaction.editReply({embeds:[G("#0080af",`Removing a song from ${playlist.playlist_name} was successfull`,false,false,true,false,"Removing a song from a playlist.")]})
+                return await interaction.editReply({embeds:[G("#0a804f",`Removing a song from ${playlist.playlist_name} was successfull`,false,false,true,false,"Removing a song from a playlist.")]})
             }catch(error){
-                return await interaction.editReply({embeds:[G("#0080bf",`Removing a song from ${playlist.playlist_name} has failed`,false,false,true,false,"Removing a song from a playlist.")]})
+                return await interaction.editReply({embeds:[G("#00600f",`Removing a song from ${playlist.playlist_name} has failed`,false,false,true,false,"Removing a song from a playlist.")]})
             }
         }else {
             const playlist = await con.manager.findBy("Playlists",{member:user},{songs:true});
@@ -156,7 +156,7 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
             console.log(playlistFields)
             let embed;
             try{
-            embed = G("#00800f","All your playlists.",false,playlistFields,true);
+            embed = G("#007a0f","All your playlists.",false,playlistFields,true);
             }catch(error){
                 console.log(error)
             }
