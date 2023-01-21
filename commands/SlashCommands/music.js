@@ -88,11 +88,6 @@ module.exports = {
         type:ApplicationCommandOptionType.Subcommand,
         description:"See all the songs for the current queue."
     },
-    {
-        required:false,
-        name:"shuffle",
-        
-    }
 ],
 async execute(client,interaction,con){
 await interaction.deferReply();
@@ -184,10 +179,7 @@ switch (sub) {
         console.log(error)
     }
     break;
-
-
-
-    default:
+default:
         return await interaction.editReply({content:"doing nothing."})
 }
 }
