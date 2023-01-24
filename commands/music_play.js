@@ -32,7 +32,7 @@ module.exports = {
       data: { queueInitChannel: message.channel },
     });
     await queue.join(Vchannel);
-    let song = await queue
+    await queue
       .play(songquery, { requestedBy: message.author.username })
       .catch((_) => {
         if (!guildQueue) queue.stop();

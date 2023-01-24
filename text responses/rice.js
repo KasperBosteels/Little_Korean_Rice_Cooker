@@ -3,29 +3,21 @@ module.exports = {
   async execute(message) {
     let reply = async (words) => await message.channel.send({ content: words });
     let tempstring = message.content.toLowerCase();
-    if (
-      tempstring.split(" ").length == 1 &&
-      tempstring.split(" ")[0] == "meow"
-    ) {
-      reply("pspspspspspspspsps, here kitty.");
-      return;
-    }else if( tempstring.split(" ").length == 1 &&
-    tempstring.split(" ")[0] == "woof"){
-      reply("YIF!!, *zips the back of your furry suit open*")
-    } else if (tempstring == "bot lies" || tempstring == "bot lie") {
-      reply("I don't lie!");
-      return;
-    }else if (tempstring.split(" ")[0]==="steve")
-    {
-      reply("King Steve is the best and he will save us")
-      return;
-    
-    } else {
+    const temp =tempstring.split(" ");
+    switch(temp){
+      case temp[0] == "meow":
+        return reply("pspspspspspspspsps, here kitty.");
+        case tempstring.split(" ")[0] == "woof":
+        return reply("YIF!!, *zips the back of your furry suit open*");
+        case temp.join(" ") == "bot lies" || "bot lie":
+        return reply("I don't lie!");
+        case temp[0] === "steve":
+        return reply("King Steve is the best and he will save us");
+    }
       let swears = await getswearwords();
       await response(swears, tempstring).then((word) => {
         if (word != false) return reply(word);
       });
-    }
   },
 };
 function getswearwords() {
