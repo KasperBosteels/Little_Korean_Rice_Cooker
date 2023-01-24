@@ -86,6 +86,19 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
                     description:"Number of the song you want to delete."
                 }
             ]
+        },{
+            type:ApplicationCommandOptionType.Subcommand,
+            required:false,
+            name:"details",
+            description:"See all songs, and other information about a playlist.",
+            options:[
+                {
+                    type:ApplicationCommandOptionType.String,
+                    name:"playlist",
+                    required:true,
+                    description:"Name of the playlist you want to learn more about."
+                }
+            ]
         }
     ],
     async execute(client,interaction,con){
@@ -128,7 +141,7 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
             const name = interaction.options.getString("name");
             try{
             await con.manager.delete("Playlist",{member:user,playlist_name:name});
-            return await interaction.editReply({embeds:[G("#00805f",`Deleted ${name} was successfull`,false,false,true,false,"Deleting a playlist.")]});
+            return await interaction.editReply({embeds:[G("#00805f",`Deleting ${name} was successfull`,false,false,true,false,"Deleting a playlist.")]});
         }catch(error){
             console.log(error);
             return await interaction.editReply({embeds:[G("#008f8f",`Deleting ${name} has failed`,false,false,true,false,"Deleting a playlist.")]});
@@ -145,8 +158,9 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
             }catch(error){
                 return await interaction.editReply({embeds:[G("#00600f",`Removing a song from ${playlist.playlist_name} has failed`,false,false,true,false,"Removing a song from a playlist.")]})
             }
-        }else {
-            const playlist = await con.manager.findBy("Playlists",{member:user},{songs:true});
+        }else{
+            const playlistName = interaction.options.getString("playlist")
+            const playlist = await con.manager.findBy("Playlists",{member:user,playlist_name:playlistName},{songs:true});
             const playlistFields=[];
             playlist.map(async (e,i) => {
                 playlistFields.push({name:"Playlist: "+e.playlist_name,value:`playlist id: ${i}\nAmount of songs: placeholder`})
