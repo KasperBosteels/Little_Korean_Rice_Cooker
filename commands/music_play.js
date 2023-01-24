@@ -1,6 +1,9 @@
 const score = require("../DataHandlers/socialCredit");
 const stop = require("./music_stop");
 const pause = require("./music_pause.js");
+const {
+  ChannelType
+} = require("discord-api-types/v9");
 module.exports = {
   name: "play",
   description: "To play some tunes in VC.",
