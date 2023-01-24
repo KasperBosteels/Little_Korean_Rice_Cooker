@@ -1,4 +1,4 @@
-const pr = require("../DataHandlers/getprefixData.js");
+const updatePrefix = require("../DataHandlers/getprefixData.js");
 const { PermissionsBitField } = require("discord.js");
 module.exports = {
   name: "prefix",
@@ -16,47 +16,29 @@ module.exports = {
       return message.reply({
         content: "You need to be an administrator to do this.",
       });
-    con.query(
-      `SELECT prefix from guild where guildID = ${message.guild.id}`,
-      (err, rows) => {
-        if (err) return console.error(err);
-        if (rows.length) {
-          con.query(
-            `UPDATE guild SET prefix ="${args[0]}" WHERE guildID = "${message.guild.id}";`
-          );
-        } else {
-          con.query(
-            `INSERT INTO guild (guildID,prefix) VALUES ("${message.guild.id}","${args[0]}");`
-          );
-        }
-        pr.execute(con);
+      const guildId = message.guild.id;
+      if(!guildId)return message.channel.send({content:"An error occured, try again later."})
+      const guild = await con.manager.findOneBy("Guilds",{guild_id:guildId})
+      guild.guild_prefix = args[0]?args[0]:"-";
+      try{
+        await con.manager.save("Guilds",guild)
+        await updatePrefix.execute(client,con)
+        return message.channel.send({
+        content: `Updated your prefix to: "${args[0]?args[0]:"-"}".`,
+      });
+      }catch(e){
+        console.log(e)
       }
-    );
-    return message.channel.send({
-      content: `Updated your prefix to: "${args[0]}".`,
-    });
   },
   async update(guildID, prefix, con) {
-    try {
-      con.query(
-        `SELECT prefix from guild where guildID = ${guildID}`,
-        (err, rows) => {
-          if (err) return console.error(err);
-          if (rows.length) {
-            con.query(
-              `UPDATE guild SET prefix ="${prefix}" WHERE guildID = "${guildID}";`
-            );
-          } else {
-            con.query(
-              `INSERT INTO guild (guildID,prefix) VALUES ("${guildID}","${prefix}");`
-            );
-          }
-          pr.execute(con);
-        }
-      );
-      return true;
-    } catch (error) {
-      console.error(error);
+    const guild = await con.manager.findOneBy("Guilds",{guild_id:guildID})
+    guild.guild_prefix=prefix;
+    try{
+      await con.manager.save("Guilds",guild);
+      await updatePrefix.execute(client,con)
+      return true
+    }catch(e){
+      console.log(e)
       return false;
     }
   },
