@@ -117,7 +117,12 @@ switch (sub) {
                 const list = await con.manager.findBy("Songs",{playlist:playlist});
                 try{
                 list.forEach(async s => {
+                    try{
                     await queue.play(s.song_url,{requestedBy:interaction.user});
+                    }catch(e){
+                        console.log(e);
+                        interaction.channel.send({content:"Unable to play this song: "+s.song_url})
+                    }
                 });
                 return await interaction.editReply({content:"Added all the songs from "+playlist.playlist_name});
             }catch(error){
