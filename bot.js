@@ -46,7 +46,7 @@ const makeIndex =require('./SelectMenus/HelpSelectMenu').makeIndex;
 //#region typeorm related imports
 const DataSource = require ("typeorm").DataSource
 const User =require ("./entity/User.js");
-const Guild = require ("./entity/guild");
+const Guild = require ("./entity/Guild.js");
 const Message = require ("./entity/Message");
 const Playlist = require( "./entity/Playlist");
 const Swearword = require ("./entity/Swearword");
