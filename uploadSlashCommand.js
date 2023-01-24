@@ -52,7 +52,7 @@ module.exports = {
           "Started refreshing application (/) commands.",
           "\x1b[0m"
         );
-        await rest.put(Routes.applicationGuildCommands(clientId, guildid), {
+        await rest.put(Routes.applicationCommands(clientId), {
           body: commands,
         });
         console.log(
