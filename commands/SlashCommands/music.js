@@ -115,7 +115,6 @@ switch (sub) {
                 const user = await con.manager.findOneBy("Users",{user_id:interaction.user.id})
                 const playlist = await con.manager.findBy("Playlists",{playlist_name:playlistName,member:user})
                 const list = await con.manager.findBy("Songs",{playlist:playlist});
-                console.log(list)        
                 try{
                 list.forEach(async s => {
                     await queue.play(s.song_url,{requestedBy:interaction.user});
