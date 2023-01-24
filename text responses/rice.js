@@ -15,6 +15,11 @@ module.exports = {
     } else if (tempstring == "bot lies" || tempstring == "bot lie") {
       reply("I don't lie!");
       return;
+    }else if (tempstring.split(" ")[0]==="steve")
+    {
+      reply("King Steve is the best and he will save us")
+      return;
+    
     } else {
       let swears = await getswearwords();
       await response(swears, tempstring).then((word) => {
