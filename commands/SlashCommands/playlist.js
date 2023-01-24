@@ -113,7 +113,6 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
             const song = interaction.options.getString("url");
             const playlist = await con.manager.findOneBy("Playlists",{member:user,playlist_name:list})
             if(!playlist)return await interaction.editReply({content:"This playlist was not found."})
-            console.log(playlist)
             const newSong = songrepository.create({
                 song_url:song,
                 playlist:playlist
@@ -148,12 +147,10 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
             }
         }else {
             const playlist = await con.manager.findBy("Playlists",{member:user},{songs:true});
-            console.log(playlist)
             const playlistFields=[];
             playlist.map(async (e,i) => {
                 playlistFields.push({name:"Playlist: "+e.playlist_name,value:`playlist id: ${i}\nAmount of songs: placeholder`})
             });
-            console.log(playlistFields)
             let embed;
             try{
             embed = G("#007a0f","All your playlists.",false,playlistFields,true);
