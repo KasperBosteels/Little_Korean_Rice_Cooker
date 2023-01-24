@@ -1,7 +1,7 @@
 const ignoreusers = require("../DataHandlers/ignored_users");
 module.exports = {
   name: "ignore-me",
-  description: "I will remove all you data, and ignore you.",
+  description: "I will remove almost all you data, and ignore you.",
   cooldown: 1,
   usage: " ",
   category: "config",
@@ -9,42 +9,40 @@ module.exports = {
   userperms: [],
   async execute(client, message, args, con) {
     let id = message.author.id;
-    let data_removed_string = " ";
     if (!id) return console.log("no ID found from message.");
-    await con.query(`DELETE FROM levels WHERE userID = "${id}";`, (err) => {
-      if (err) {
-        data_removed_string =
-          "unable to remove level data, please contact dev using the message command.";
-        console.log(err);
-      } else {
-        data_removed_string = "level data removed.";
-      }
-    });
-    await con.query(`DELETE FROM score WHERE userID = "${id}";`, (err) => {
-      if (err) {
-        data_removed_string +=
-          "\nunable to remove social score data, contact dev using the message command.";
-        console.log(err);
-      } else {
-        data_removed_string += "\nsocial score data removed.";
-      }
-    });
-    await con.query(`DELETE FROM warnings WHERE userID = "${id}";`, (err) => {
-      if (err) {
-        console.log(err);
-        data_removed_string +=
-          "\nunable to delete warnings data, contact dev using the message command.";
-      }
-    });
-    await con.query(
-      `INSERT INTO ignoredUsers (userID) VALUES ("${message.author.id}");`,
-      (err) => {
-        if (err) {
-          console.log(err);
-        }
-      }
-    );
-    await ignoreusers.execute();
+    let data_removed_string = " ";
+    const user = await con.manager.findOneBy("Users", {user_id:id});
+    try{
+      user.user_name=null;
+      user.user_level=0
+      user.is_ignored=true
+      user.user_experience=0
+      user.user_score=0
+      await con.manager.save("Users",user);
+      data_removed_string =
+      "Removed non-critical data from user.";
+    }catch(e){
+      console.log(e)
+      data_removed_string = "Unable to remove non-critical data from user.";
+    }
+
+
+    try{
+      await con.manager.delete("Messages",{member:user});
+      data_removed_string+="\nSuccesfully removed messages."
+    }catch(e){
+      console.log(e)
+      data_removed_string+="\nUnable to remove messages."
+    }
+
+    try{
+      await con.manager.delete("Playlists",{member:user});
+      data_removed_string+="\nSucessfully removed playlists."
+    }catch(e){
+      console.log(e)
+      data_removed_string+="\nUnable to remove playlists."
+    }
+    await ignoreusers.execute(con);
     return message.reply({ content: `${data_removed_string}` });
   },
 };

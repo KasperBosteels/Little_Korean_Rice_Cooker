@@ -1,12 +1,13 @@
 const fs = require("fs");
 module.exports = {
   async execute(con) {
-    await con.manager.findBy("User",{is_ignored:true}).then((m)=>{
+    await con.manager.findBy("User",{is_ignored:1}).then((m)=>{
       let d =[]
       m.forEach(i => {
-        d.push({userID:d.user_id})
+        d.push({userID:i.user_id})
       });
-      this.SAVE(JSON.stringify(d))
+      const data=JSON.stringify(d)
+      this.SAVE(data)
     })
   },
   SAVE(data) {

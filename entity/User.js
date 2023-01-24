@@ -49,7 +49,10 @@ module.exports = new EntitySchema({
             cascade:true,
             one:{
                 name:"user_id",
-                referencedColumnName:"playlist_id"
+                referencedColumnName:"playlist_id",
+                cascade:["delete"],
+                onDelete:"CASCADE",
+                eager:true,
             }
         },
         messages:{
@@ -59,7 +62,10 @@ module.exports = new EntitySchema({
             nullable:true,
             one:{
                 name:"message_id",
-                referencedColumnName:"message_id"
+                referencedColumnName:"message_id",
+                cascade:["delete"],
+                onDelete:"CASCADE",
+                eager:true,
             }
 
         },

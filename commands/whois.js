@@ -25,7 +25,7 @@ module.exports = {
       SCS = M.user_score;
     }else{
       SCS = 1000;
-      credit.ADDUSER(con, user.id);
+      credit.ADDUSER(con, user);
     }
     return message.channel.send({
       embeds: [makeEmbed(user, member, message, SCS)],

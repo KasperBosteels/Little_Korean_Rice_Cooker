@@ -1,6 +1,6 @@
 {
   "name": "little_korean_rice_cooker",
-  "version": "3.0.5",
+  "version": "3.1.0",
   "description": "A bot that loves you, and has a generous offer of commands.",
   "main": "bot.js",
   "author": "Kasper",
@@ -9,6 +9,7 @@
     "start": "nodemon bot.js --ignore ignore.json --ignore leveling_enabled.json --ignore logChannels.json --ignore prefix.json --ignore profanity_alert_channels.json --ignore profanity_enabled.json --ignore welcome_leave_messages.json --ignore welcome_channel.json --ignore custom_welcome_data.json --ignore custom_swear_words.json --ignore default_swear_words.json --ignore errors.json"
   },
   "dependencies": {
+    "@devraelfreeze/discordjs-pagination": "^2.6.8",
     "@discordjs/opus": "^0.9.0",
     "@discordjs/rest": "^1.3.0",
     "@discordjs/voice": "^0.6.0",
@@ -22,7 +23,6 @@
     "discord.js": "^14.7.1",
     "discord.js-embed-menu": "^1.0.3",
     "discord.js-menu": "^2.3.1",
-    "discordjs-button-pagination": "^1.0.7",
     "dotenv": "^16.0.0",
     "ffmpeg-static": "^4.4.1",
     "formidable": "^2.1.1",

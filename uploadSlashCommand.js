@@ -26,14 +26,15 @@ module.exports = {
         name: cmd.name,
         description: cmd.description,
         type: cmd.type,
-        options: cmd.options ? cmd.options : null,
-        default_permissions: cmd.default_permissions
+        choices: cmd.choices!== undefined ? cmd.choices : null,
+        options: cmd.options!== undefined  ? cmd.options : null,
+        default_permissions: cmd.default_permissions!== undefined 
           ? default_permissions
           : null,
-        defaultMemberPermissions: cmd.defaultMemberPermissions
+        defaultMemberPermissions: cmd.defaultMemberPermissions!== undefined 
           ? PermissionsBitField.resolve(cmd.defaultMemberPermissions).toString()
           : null,
-        dmPermission: cmd.dmPermission ? cmd.dmPermission : null,
+        dmPermission: cmd.dmPermission!== undefined ? cmd.dmPermission : null,
       });
       if (cmd.name) {
         client.slashCommands.set(cmd.name, cmd);
@@ -51,7 +52,7 @@ module.exports = {
           "Started refreshing application (/) commands.",
           "\x1b[0m"
         );
-        await rest.put(Routes.applicationGuildCommands(clientId, guildid), {
+        await rest.put(Routes.applicationCommands(clientId), {
           body: commands,
         });
         console.log(
@@ -60,14 +61,17 @@ module.exports = {
           "\x1b[0m"
         );
       } catch (error) {
-        if (error.rawError.errors.description)
+        if (error)
           console.log(
             "\x1b[31m",
             "Failed to reload application (/) commands.",
             "\x1b[0m"
           );
-        console.log(error.rawError.errors.description._errors);
         console.error(error);
+        console.log(
+          error.rawError.errors.options)
+        console.log("options 2 error\n",error.rawError.errors.options["9"]._errors)
+          error.requestBody.json.map((j)=>console.log(j))
       }
     })();
   },

@@ -51,7 +51,8 @@ const Message = require ("./entity/Message");
 const Playlist = require( "./entity/Playlist");
 const Swearword = require ("./entity/Swearword");
 const Warning = require ("./entity/Warning");
-const Custom_Swear = require('./entity/Custom_Swears.js')
+const Custom_Swear = require('./entity/Custom_Swears.js');
+const Song = require("./entity/Song");
 const con = new DataSource({
   type: process.env.TYPE,
   host: process.env.HOST,
@@ -60,11 +61,11 @@ const con = new DataSource({
   password: process.env.SERVER_PASSWORD,
   database: process.env.DATABASE,
   synchronize: true,
-  logging: false,
+  logging: true,
   migrations:true,
   poolSize:100,
   migrationsRun:true,
-  entities:[ User, Custom_Swear,Warning,Guild,Message,Playlist,Swearword],
+  entities:[ User, Custom_Swear,Warning,Guild,Message,Playlist,Song,Swearword],
   migrations: [],
   subscribers: [],
   connectTimeout:5000,
@@ -325,7 +326,7 @@ client.player
     queue.data.queueInitChannel.send({
       embeds: [
         G.GenerateEmbed(
-          "RANDOM",
+          "#00ff00",
           "oof, its awfully quiet in here, maybe ill leave too..."
         ),
       ],
@@ -336,7 +337,7 @@ client.player
     queue.data.queueInitChannel.send({
       embeds: [
         G.GenerateEmbed(
-          "RANDOM",
+          "#00ff00",
           `${song.name}\ntime: ${song.duration}\nrequested by: ${song.requestedBy}`
         ),
       ],
@@ -347,7 +348,7 @@ client.player
     queue.data.queueInitChannel.send({
       embeds: [
         G.GenerateEmbed(
-          "RANDOM",
+          "#00ff00",
           `with ${playlist.song.length} songs\nby: ${playlist.author}`
         ),
       ],
@@ -358,7 +359,7 @@ client.player
   // Emitted when the queue was destroyed (either by ending or stopping).
   .on("queueEnd", (queue) =>
     queue.data.queueInitChannel.send({
-      embeds: [G.GenerateEmbed("RANDOM", "Playlist finished.")],
+      embeds: [G.GenerateEmbed("#008000", "Playlist finished.")],
     })
   )
   // Emitted when a song changed.
@@ -366,7 +367,7 @@ client.player
     queue.data.queueInitChannel.send({
       embeds: [
         G.GenerateEmbed(
-          "RANDOM",
+          "#00ff00",
           `and that was our lovely ${oldSong.author} with ${oldSong.name}\n now upcoming ${newSong.name}\n${newSong.length}`,
           false,
           false,
@@ -390,9 +391,6 @@ client.player
   // Emitted when deafenOnJoin is true and the bot was undeafened
   .on("clientUndeafen", (queue) => console.log(`I got undefeanded.`))
   // Emitted when there was an error in runtime
-  .on("error", (error, queue) => {
-    console.log(`Error: ${error} in ${queue.guild.name}`);
-  });
 //#endregion
 client.login(process.env.DISCORD_TOKEN);
 

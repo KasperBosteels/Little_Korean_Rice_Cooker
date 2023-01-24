@@ -1,0 +1,32 @@
+var EntitySchema = require("typeorm").EntitySchema
+module.exports = new EntitySchema({
+    name:"Song",
+    tableName:"Songs",
+    columns:{
+        song_id:{
+            primary:true,
+            generated:true,
+            type:"int",
+            name:"song_id"
+        },
+        song_url:{
+            type:"varchar",
+            name:"song",
+            nullable:false,
+            unique:false,
+        }
+    },
+    relations:{
+        playlist:{
+            target:"Playlist",
+            type:"many-to-one",
+            nullable:false,
+            cascade:true,
+            onDelete:"CASCADE",
+            eager:true,
+            joinColumns:{name:"playlist_id",
+            referencedColumnName:"playlist_id"
+        },
+        }
+    }
+})

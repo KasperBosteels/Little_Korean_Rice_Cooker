@@ -15,22 +15,28 @@ module.exports = new EntitySchema({
             nullable:false,
             unique:false,
         },
-        playlist_songs:{
-            name:"playlist_songs",
-            nullable:false,
-            unique:false,
-            type:"longtext"
-        }
-
     },
     relations:{
         member:{
             target:"User",
             type:"many-to-one",
             nullable:false,
+            cascade:false,
             joinColumns:{name:"user_id",
             referencedColumnName:"user_id"
         },
+        songs:{
+            target:"Song",
+            type:"one-to-many",
+            nullable:true,
+            one:{
+                name:"playlist_id",
+                referencedColumnName:"song_id",
+                cascade:["delete"],
+                onDelete:"CASCADE",
+                eager:true,
+            }
+        }
         }
     }
 })

@@ -8,6 +8,33 @@ const getprefix = require("../DataHandlers/getprefixData").GET;
 const GenerateEmbed =
   require("../Generators/GenerateSimpleEmbed").GenerateEmbed;
 const GenerateSimpleStringSelect = require("../Generators/GenerateSimpleStringSelect").GenerateSelectMenu;
+const options= [
+  {
+    label: "Home",
+    description: "1. Home",
+    value: "home",
+  },{
+    label: "General",
+    description: "2. General information.",
+    value: "general",
+  },{
+    label: "Fun",
+    description: "3. Funny commands.",
+    value: "fun",
+  },{
+    label: "Music",
+    description: "4. Musical commands.",
+    value: "music",
+  },{
+    label: "Moderating",
+    description: "5. Commands for moderation purposes.",
+    value: "moderating",
+  },{
+    label: "Config",
+    description: "6. Configuration of the bot?",
+    value: "config",
+  }
+]
 module.exports = {
   name: "help",
   async execute(client, interaction, index = 0) {

@@ -2,7 +2,7 @@ const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
 } = require("discord-api-types/v9");
-const G = require("../../Generators/GenerateSimpleEmbed");
+const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 const love = require("../../jsonFiles/love.json").answer;
 module.exports = {
   name: "love",
@@ -18,21 +18,21 @@ module.exports = {
       description: "Share some love with someone.",
     },
   ],
-
   async execute(client, interaction, con) {
     await interaction.deferReply();
     let userRequest, responseEmbed;
     const RandomLove = love[Math.floor(Math.random() * love.length)];
+    console.log(RandomLove)
     if (interaction.options.getUser("user")) {
       userRequest = interaction.options.getUser("user");
-      responseEmbed = G.GenerateEmbed(
+      responseEmbed = G(
         "Random",
         `${userRequest}\n${RandomLove}`
       );
     } else {
-      responseEmbed = G.GenerateEmbed("Random", RandomLove);
+      responseEmbed = G("Random", RandomLove);
     }
-    return await interaction.editReply({
+    return await interaction.reply({
       embeds: [responseEmbed],
     });
   },
