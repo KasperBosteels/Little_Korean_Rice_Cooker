@@ -21,6 +21,6 @@ module.exports = {
   return score;
   },
   async ADDUSER(con,user){
-    await con.manager.insert("Users",{user_id:user.id,user_name:user.displayName,user_score:1000})
+    await con.manager.insert("Users",{user_id:`${user.id}`,user_name:`${user.displayName}`,user_score:1000})
   }
 };
