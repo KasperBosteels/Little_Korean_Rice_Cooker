@@ -1,22 +1,27 @@
 const fs = require("fs");
 module.exports = {
   async execute(message) {
-    let reply = async (words) => await message.channel.send({ content: words });
     let tempstring = message.content.toLowerCase();
     const temp =tempstring.split(" ");
-    switch(temp){
-      case temp[0] == "meow":
-        return reply("pspspspspspspspsps, here kitty.");
-        case tempstring.split(" ")[0] == "woof":
-        return reply("YIF!!, *zips the back of your furry suit open*");
-        case temp.join(" ") == "bot lies" || "bot lie":
-        return reply("I don't lie!");
-        case temp[0] === "steve":
-        return reply("King Steve is the best and he will save us");
+    switch(temp[0]){
+      case "meow":
+        await message.channel.send({ content:"pspspspspspspspsps, here kitty."})
+        return;
+        case "woof":
+          await message.channel.send({ content:"YIF!!, *zips the back of your furry suit open*"})
+        return;
+         case "steve":
+          await message.channel.send({ content:"Agent Orange#6650 is the best and he will save us"})
+         return;
     }
+    /*
+     case temp.join(" ") == "bot lies" || "bot lie":
+          await message.channel.send({ content:"I don't lie!"})
+        return;
+    */
       let swears = await getswearwords();
-      await response(swears, tempstring).then((word) => {
-        if (word != false) return reply(word);
+      await response(swears, tempstring).then(async (word) => {
+        if (word != false) return await message.channel.send({ content:word});
       });
   },
 };
