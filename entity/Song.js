@@ -14,6 +14,36 @@ module.exports = new EntitySchema({
             name:"song",
             nullable:false,
             unique:false,
+        },
+        song_title:{
+            type:"varchar",
+            name:"title",
+            nullable:false,
+            unique:false,
+        },
+        song_thumbnail:{
+        type:"varchar",
+        name:"thumbnail",
+        nullable:true,
+        unique:false   
+        },
+        song_duration:{
+            type:"varchar",
+            name:"duration",
+            nullable:false,
+            unique:false
+        },
+        song_author:{
+            type:"varchar",
+            name:"author",
+            nullable:false,
+            unique:false,
+        },
+        song_author_url:{
+            type:"varchar",
+            name:"author_url",
+            nullable:false,
+            unique:false
         }
     },
     relations:{

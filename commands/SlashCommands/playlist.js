@@ -2,6 +2,7 @@ const {
     ApplicationCommandOptionType,
     ApplicationCommandType,
   } = require("discord-api-types/v9");
+const yts = require("yt-search");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
   
   module.exports={
@@ -126,12 +127,35 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
             const song = interaction.options.getString("url");
             const playlist = await con.manager.findOneBy("Playlists",{member:user,playlist_name:list})
             if(!playlist)return await interaction.editReply({content:"This playlist was not found."})
-            const newSong = songrepository.create({
-                song_url:song,
-                playlist:playlist
-            });
+            let songurl,songTitle,thumbnail,duration,author,authorurl,newSong,youtubeResult;
             try{
-            await songrepository.save(newSong)
+                await yts.search(song).then((r)=>
+                {
+                    youtubeResult=r.all[0];
+                    songurl= youtubeResult.url
+                    songTitle=youtubeResult.title
+                    thumbnail=youtubeResult.thumbnail
+                    duration=youtubeResult.duration.toString()
+                    author=youtubeResult.author.name
+                    authorurl=youtubeResult.author.url
+
+                    newSong = songrepository.create({
+                    song_url:song,
+                    song_title:songTitle,
+                    playlist:playlist,
+                    song_thumbnail:thumbnail,
+                    song_duration:duration,
+                    song_author:author,
+                    song_author_url:authorurl
+                    });
+                });
+                await songrepository.save(newSong)
+            }catch(error){
+                console.log(error)
+                return await interaction.editReply({content:"Could not find that song on youtube."})
+            }finally{
+        }
+            try{
 
             return await interaction.editReply({embeds:[G("#00801f",`Added ${song} to ${playlist.playlist_name}`,false,false,true,false,"Added song to your playlist.")]});
         }catch(error){
@@ -158,12 +182,32 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
             }catch(error){
                 return await interaction.editReply({embeds:[G("#00600f",`Removing a song from ${playlist.playlist_name} has failed`,false,false,true,false,"Removing a song from a playlist.")]})
             }
-        }else{
+        }else if (sub === "details"){
             const playlistName = interaction.options.getString("playlist")
-            const playlist = await con.manager.findBy("Playlists",{member:user,playlist_name:playlistName},{songs:true});
+            const playlist = await con.manager.findOneBy("Playlists",{member:user,playlist_name:playlistName},{songs:true});
+            const songs = await con.manager.findBy("Songs",{playlist:playlist})
             const playlistFields=[];
-            playlist.map(async (e,i) => {
-                playlistFields.push({name:"Playlist: "+e.playlist_name,value:`playlist id: ${i}\nAmount of songs: placeholder`})
+            try{
+            songs.forEach(async (s,i) => {
+                    playlistFields.push({name:`${i+1}. ${s.song_title}`,value:`duration: ${s.song_duration}\nauthor: [${s.song_author}](${s.song_author_url})\n`})
+            });
+            }catch(e){
+                console.log(e)
+            }finally{
+                console.log(playlistFields)
+                let embed=await G("#007a0f",`${playlist.playlist_name}`,false,playlistFields,true);
+                return await interaction.editReply({embeds:[embed]});
+            }
+        }else {
+            const playlist = await con.manager.find("Playlists",{member:user},{songs:true});
+            const playlistFields=[];
+            playlist.map(async (s,i) => {
+                try{
+                console.log(s)
+                playlistFields.push({name:"playlist: "+s.playlist_name,value:`amount of songs: ${0}`})
+                }catch(e){
+                    console.log(e)
+                }
             });
             let embed;
             try{
@@ -172,7 +216,6 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
                 console.log(error)
             }
             return await interaction.editReply({embeds:[embed]});
-           
         }
     }
   }
