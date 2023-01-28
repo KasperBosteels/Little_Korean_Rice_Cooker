@@ -127,7 +127,7 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
             const song = interaction.options.getString("url");
             const playlist = await con.manager.findOneBy("Playlists",{member:user,playlist_name:list})
             if(!playlist)return await interaction.editReply({content:"This playlist was not found."})
-            let songurl,songTitle,thumbnail,duration,author,authorurl,newSong,youtubeResult;
+            let songTitle,thumbnail,duration,author,authorurl,newSong,youtubeResult;
             try{
                 await yts.search(song).then((r)=>
                 {
@@ -194,7 +194,6 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
             }catch(e){
                 console.log(e)
             }finally{
-                console.log(playlistFields)
                 let embed=await G("#007a0f",`${playlist.playlist_name}`,false,playlistFields,true);
                 return await interaction.editReply({embeds:[embed]});
             }
@@ -203,7 +202,6 @@ const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
             const playlistFields=[];
             playlist.map(async (s,i) => {
                 try{
-                console.log(s)
                 playlistFields.push({name:"playlist: "+s.playlist_name,value:`amount of songs: ${0}`})
                 }catch(e){
                     console.log(e)

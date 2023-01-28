@@ -154,15 +154,13 @@ switch (sub) {
         }else if(loopOption === 'song' ){
             await queue.setRepeatMode(1);
             return await interaction.editReply({content:"Looping this song."});
-        }else if( loopOption === 'all'){
+        }else{
+            //else if loopOption === 'all'
             await queue.setRepeatMode(2);
             return await interaction.editReply({content:"Looping trough all songs"});
-
         }
-    break;
     case'skip':
         try{
-
             await queue.skip()
             return await interaction.editReply({content:"skipping current song..."})
         }catch(error){
