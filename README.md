@@ -89,16 +89,11 @@ LTS
 V14
 ```
 
-works but no longer supported
-
-```txt
-V13
-```
-
 old(unsuported)
 
 ```txt
 V12
+V13
 ```
 
 ### Installation
