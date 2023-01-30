@@ -20,7 +20,7 @@ with a ton of features.
 </p>
 
 ![Contributors](https://img.shields.io/github/contributors/KasperBosteels/Little_Korean_Rice_Cooker?color=dark-green) ![Issues](https://img.shields.io/github/issues/KasperBosteels/Little_Korean_Rice_Cooker) ![License](https://img.shields.io/github/license/KasperBosteels/Little_Korean_Rice_Cooker)
-
+[![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
 ## Table Of Contents
 
 - [About the Project](#about-the-project)
@@ -131,8 +131,8 @@ npm install
 
 
 
-#where to get the key's and id's?
-
+<details><summary>where to get the key's and id's?</summary>
+<p>
 - The discord token can be created in [the discord developers platform](https://discord.com/login?redirect_to=%2Fdevelopers%2Fapplications)
 
 - The sql credentials you will need to create on your own after setting up an sql server.
@@ -143,8 +143,9 @@ npm install
 - For the programmable search engine (the CSE_ID) you will need to create one in [googles programmable search engine](https://programmablesearchengine.google.com/) dashboard
 - For the google-api key you will need to create a new project in the [google cloud platform](https://console.cloud.google.com/home)
   and get the google_api key from there.
-  
-  
+  </p>
+  </details>
+ 
  this should be all.
 ## Usage
 
