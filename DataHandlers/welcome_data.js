@@ -15,7 +15,7 @@ module.exports = {
       if (err) {
         return console.error(err);
       }
-      console.log("welcome channels saved into file");
+      console.log("\x1b[34m","welcome channels saved into file","\xb1[0m");
     });
   },
   GET(guildID) {

@@ -21,7 +21,7 @@ module.exports = {
         return console.error(err);
       }
     });
-    console.log("welcome message system data saved");
+    console.log("\x1b[34m","welcome message system data saved","\x1b[0m",);
   },
   CONFIRM(guildID) {
     let value;
