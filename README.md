@@ -98,19 +98,21 @@ V13
 
 ### Installation
 
+**simple installation in 3 steps:**
+
 1. Clone the repo
 
 ```sh
 git clone https://github.com/KasperBosteels/Little_Korean_Rice_Cooker.git
 ```
 
-3. Install NPM packages(may take a while).
+2. Install NPM packages(may take a while).
 
 ```sh
 npm install
 ```
 
-4. Create a .env file with the following enviroment variables
+3. Create a .env file with the following enviroment variables
 
 - DISCORD_TOKEN=`ENTER YOUR DISCORD TOKEN`
 - SERVER_PASSWORD=`YOUR SQL SERVER PASSWORD`
@@ -126,7 +128,10 @@ npm install
 - CSE_ID=`ID FOR THE PROGRAMMABLE GOOGLE SEARCH ENGINE`
 - GOOGLE_API_KEY=`API KEY FOR THE GOOGLE SEARCH ENGINE`
 
-where to get the key's and id's?
+
+
+
+#where to get the key's and id's?
 
 - The discord token can be created in [the discord developers platform](https://discord.com/login?redirect_to=%2Fdevelopers%2Fapplications)
 
@@ -138,7 +143,9 @@ where to get the key's and id's?
 - For the programmable search engine (the CSE_ID) you will need to create one in [googles programmable search engine](https://programmablesearchengine.google.com/) dashboard
 - For the google-api key you will need to create a new project in the [google cloud platform](https://console.cloud.google.com/home)
   and get the google_api key from there.
-
+  
+  
+ this should be all.
 ## Usage
 
 with your terminal navigate to the "Little_Korean_Rice_Cooker" directory.
