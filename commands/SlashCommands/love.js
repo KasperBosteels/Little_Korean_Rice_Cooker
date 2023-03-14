@@ -19,7 +19,6 @@ module.exports = {
     },
   ],
   async execute(client, interaction, con) {
-    await interaction.deferReply();
     let userRequest, responseEmbed;
     const RandomLove = love[Math.floor(Math.random() * love.length)];
     console.log(RandomLove)

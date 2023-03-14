@@ -36,8 +36,8 @@ module.exports = {
     if (interaction.options.getUser("cannibalize")) {
       userRequest = interaction.options.getUser("cannibalize");
       responsetext = `${interaction.user} **${inbetween}** ${userRequest}`;
-    } else if (interaction.options.getString("text")) {
-      userRequest = interaction.options.getString("text");
+    } else if (interaction.options.getString("eat")) {
+      userRequest = interaction.options.getString("eat");
       responsetext = `${interaction.user} **${inbetween}** ${userRequest}`;
     } else {
       userRequest = interaction.user;

@@ -7,7 +7,8 @@ module.exports = {
   dmPermission: true,
   defaultMemberPermissions: ["SendMessages", "ViewChannel"],
   async execute(client, interaction, con) {
-    await interaction.reply({
+    await interaction.deferReply();
+    await interaction.editreply({
       content: " ",
       embeds: [makeEmbed(client.ws.ping, uptimeGET(client))],
       ephemeral: true,
