@@ -7,12 +7,12 @@ module.exports = {
   async execute(client, con) {
     try {
       if(!con.isInitialized)await con.initialize();
-      await con.synchronize();
+      con.initialize? await con.synchronize():console.log("\x1b[34m","Not synchronizing with database.", "\x1b[0m")
     }catch(err){
       console.log(err)
     }
     console.log(
-      `Logged in as ${client.user.tag} at: ${client.readyAt.toDateString()}`
+      "\x1b[36m",`Logged in as ${client.user.tag} at: ${client.readyAt.toDateString()}`,"\x1b[0m"
     );
     let counter = 0;
     const setStatus = () => {

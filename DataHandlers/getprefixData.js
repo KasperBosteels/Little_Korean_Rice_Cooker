@@ -15,7 +15,7 @@ module.exports = {
         return console.error(err);
       }
     });
-    console.log("prefix data saved");
+    console.log("\x1b[34m","prefix data saved","\x1b[0m");
   },
   GET(guildID) {
     let rawData = fs.readFileSync("./jsonFiles/prefix.json", "utf-8");

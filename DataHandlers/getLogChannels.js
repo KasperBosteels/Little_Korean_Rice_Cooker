@@ -7,7 +7,7 @@ module.exports = {
       prasedData.push({guildID:g.guild_id,log_channel:g.log_channel})
     });      
     this.SAVE(JSON.stringify(prasedData));
-      console.log("logchannel data saved");
+      console.log("\x1b[34m","logchannel data saved","\x1b[0m");
   
   },
   SAVE(data) {

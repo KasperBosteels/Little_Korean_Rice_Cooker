@@ -17,7 +17,7 @@ module.exports = {
         return console.error(err);
       }
     });
-    console.log("profanity data saved");
+    console.log("\x1b[34m","profanity data saved","\x1b[0m");
   },
   GET(guildID) {
     let rawData = fs.readFileSync(
