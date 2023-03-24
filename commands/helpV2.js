@@ -15,16 +15,14 @@ module.exports = {
     switch (args[0]) {
       case "general":
         return message.reply({embeds:[embeds[1]], ephemeral:true})
-        case "general":
+        case "fun":
           return message.reply({embeds:[embeds[2]], ephemeral:true})
-          case "general":
+          case "music":
         return message.reply({embeds:[embeds[3]], ephemeral:true})
-        case "general":
+        case "moderating":
         return message.reply({embeds:[embeds[4]], ephemeral:true})
-        case "general":
+        case "config":
         return message.reply({embeds:[embeds[5]], ephemeral:true})
-        case "general":
-        return message.reply({embeds:[embeds[6]], ephemeral:true})
       default:
         return message.reply({embeds:[embeds[0]],ephemeral:true})
     }

@@ -7,6 +7,7 @@ const GoogleClient = new imageSearch(
   process.env.GOOGLE_API_KEY
 );
 const options = { page: 1 };
+
 module.exports = {
   name: "google",
   description: "Search google for images.",
@@ -16,50 +17,53 @@ module.exports = {
   aliases: ["img"],
   perms: ["SendMessages", "ManageMessages", "EmbedLinks"],
   userperms: [],
+
   async execute(client, message, args, con) {
-    //#region google search
-    let Q = args.join(" ");
-    var list = [];
     try {
-      await GoogleClient.search(Q, options).then((images) => {
-        if (images.length == 0) {
-          images.push({ url: "https://i.imgur.com/rA2dVik.png" });
-        }
-        for (let i = 0; i < images.length; i++) {
-          list[i] = G.GenerateEmbed(
-            "Random",
-            false,
-            false,
-            false,
-            false,
-            images[i].url
-          );
-        }
-      });
+      const Q = args.join(" ");
+      const images = await searchGoogle(Q);
+      const list = images.map((image) =>
+        G.GenerateEmbed("Random", false, false, false, false, image.url)
+      );
+      const feedbackMessage = await message.channel.send('Searching for images...');
+
       await pagination({
-        embeds:list,
-        time:time,
-        fastSkip:false,
-        disableButtons:true,
-        author:message.author,
-        message:message,
-        buttons:[
+        embeds: list,
+        time: time,
+        fastSkip: false,
+        disableButtons: true,
+        author: message.author,
+        message: feedbackMessage,
+        buttons: [
           {
-            value:TypesButtons.previous,
-            label:"Previous",
+            value: TypesButtons.previous,
+            label: "Previous",
             style: StylesButton.Danger,
-            emoji:null,
+            emoji: null,
           },
           {
-            value:TypesButtons.next,
-            label:"Next",
-            style:StylesButton.Success,
-            emoji:null
+            value: TypesButtons.next,
+            label: "Next",
+            style: StylesButton.Success,
+            emoji: null,
           },
-        ]
-      },)
+        ],
+      });
     } catch (error) {
       console.log(error);
+      message.channel.send("An error occurred while searching for images.");
     }
   },
 };
+
+async function searchGoogle(query) {
+  try {
+    const images = await GoogleClient.search(query, options);
+    return images.length === 0
+      ? [{ url: "https://i.imgur.com/rA2dVik.png" }]
+      : images;
+  } catch (error) {
+    console.log(error);
+    return [{ url: "https://i.imgur.com/rA2dVik.png" }];
+  }
+}
