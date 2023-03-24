@@ -19,18 +19,16 @@ module.exports = {
   ],
 
   async execute(client, interaction, con) {
+    try{
     interaction.deferReply();
     const word = interaction.options.getString("search");
-    await search(word, function (err, result) {
-      if (err) {
-        console.log(err);
-        return interaction.editReply({
-          content:
-            "Something went badly. error: 7 <:cookersad:927889427500499006>",
-        });
-      }
-      let videos = result.videos.slice(0, 5);
-      interaction.editReply(videos[0].url);
-    });
+    const result = await search.search(word)
+    let videos = result.videos.slice(0, 5);
+    interaction.followUp(videos[0].url);
+    }
+    catch(err){
+      console.log(err)
+      interaction.followUp("Something went wrong.")
+    }
   },
 };

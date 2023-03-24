@@ -94,6 +94,7 @@ await interaction.deferReply();
 const sub = interaction.options.getSubcommand();
 let channel, guildQueue;
 guildQueue = client.player.getQueue(interaction.guild.id);
+if(!guildQueue)return await interaction.editReply({content:"There is no queue for this guild."});
 channel = interaction.guild.members.cache.get(interaction.member.user.id).voice.channel;
 let queue = client.player.createQueue(interaction.guild.id, {
     data: { queueInitChannel: channel },
@@ -116,30 +117,30 @@ switch (sub) {
                 const playlist = await con.manager.findBy("Playlists",{playlist_name:playlistName,member:user})
                 const list = await con.manager.findBy("Songs",{playlist:playlist});
                 try{
-                list.forEach(async s => {
+                await Promise.all(list.forEach(async s => {
                     try{
                     await queue.play(s.song_url,{requestedBy:interaction.user});
                     }catch(e){
                         console.log(e);
                         interaction.channel.send({content:"Unable to play this song: "+s.song_url})
                     }
-                });
-                return await interaction.editReply({content:"Added all the songs from "+playlist.playlist_name});
+                }));
+                return await interaction.followUp({content:"Added all the songs from "+playlist.playlist_name});
             }catch(error){
                 console.log(error)
             }   
         }else{
-            return await interaction.editReply({content:"You need to give me a song or a playlist to play."})
+            return await interaction.followUp({content:"You need to give me a song or a playlist to play."})
         }
     break;
 
     case 'remove':
         const toSkip = interaction.options.getNumber("song")
-        if(isNaN(toSkip))return await interaction.editReply({content:"You need to give the index of the number."})
+        if(isNaN(toSkip))return await interaction.followUp({content:"You need to give the index of the number."})
         if(toSkip!==null){
             try{
             await queue.remove(toSkip)
-            return interaction.editReply({content:"removing..."})
+            return interaction.followUp({content:"removing..."})
             }catch(error){
                 console.log(error);
             }
@@ -150,19 +151,19 @@ switch (sub) {
         const loopOption = interaction.options.getString("looping");
         if(loopOption===null || loopOption === "stop"){
             await queue.setRepeatMode(0);
-            return await interaction.editReply({content:"Stopped looping"});
+            return await interaction.followUp({content:"Stopped looping"});
         }else if(loopOption === 'song' ){
             await queue.setRepeatMode(1);
-            return await interaction.editReply({content:"Looping this song."});
+            return await interaction.followUp({content:"Looping this song."});
         }else{
             //else if loopOption === 'all'
             await queue.setRepeatMode(2);
-            return await interaction.editReply({content:"Looping trough all songs"});
+            return await interaction.followUp({content:"Looping trough all songs"});
         }
     case'skip':
         try{
             await queue.skip()
-            return await interaction.editReply({content:"skipping current song..."})
+            return await interaction.followUp({content:"skipping current song..."})
         }catch(error){
             console.log(error)
         }
@@ -171,18 +172,18 @@ switch (sub) {
     case"queue":
     const allSongs = queue.songs, songFields =[];
     try{
-        allSongs.map((s,i) => {
+        await Promise.all(allSongs.map((s,i) => {
             const v= `\`\`\`author: ${s.author}\nduration: ${s.duration}\nrequested by: ${s.requestedBy.username}\`\`\``
             const n = s.isFirst?"Playing: "+s.name :`${i}. `+s.name;
             songFields.push({name:n ,value:v})
-        });
-        return await interaction.editReply({embeds:[G('Random',"Songs currently in queue.",false,songFields,false,false,"Queue")]})
+        }));
+        return await interaction.followUp({embeds:[G('Random',"Songs currently in queue.",false,songFields,false,false,"Queue")]})
     }catch(error){
         console.log(error)
     }
     break;
 default:
-        return await interaction.editReply({content:"doing nothing."})
+        return await interaction.followUp({content:"doing nothing."})
 }
 }
 }

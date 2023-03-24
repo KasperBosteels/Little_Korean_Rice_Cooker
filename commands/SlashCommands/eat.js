@@ -2,12 +2,11 @@ const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
 } = require("discord-api-types/v9");
-
 const eat = require("../../jsonFiles/bodily_affection.json").eating;
-const eatingtext = require("../../jsonFiles/bodily_affection.json")[
+const eatingText = require("../../jsonFiles/bodily_affection.json")[
   "eating-text"
 ];
-const G = require("../../Generators/GenerateSimpleEmbed");
+const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {
   name: "eat",
   description: "Eat something or someone.",
@@ -31,29 +30,21 @@ module.exports = {
 
   async execute(client, interaction, con) {
     await interaction.deferReply();
-    let userRequest, responsetext, inbetween;
-    inbetween = eatingtext[Math.floor(Math.random() * eatingtext.length)];
-    if (interaction.options.getUser("cannibalize")) {
-      userRequest = interaction.options.getUser("cannibalize");
-      responsetext = `${interaction.user} **${inbetween}** ${userRequest}`;
-    } else if (interaction.options.getString("eat")) {
-      userRequest = interaction.options.getString("eat");
-      responsetext = `${interaction.user} **${inbetween}** ${userRequest}`;
-    } else {
-      userRequest = interaction.user;
-      responsetext = `i nibble on ${userRequest}'s toes`;
+    const eatingTextRandom = eatingText[Math.floor(Math.random() * eatingText.length)];
+    let user = interaction.options.getUser("cannibalize");
+    let thing = interaction.options.getString("eat");
+  
+    if (!user && !thing) {
+      user = interaction.user;
+      thing = `${user}'s toes`;
+    } else if (user) {
+      thing = user.toString();
     }
+  
     const gif = eat[Math.floor(Math.random() * eat.length)];
-    let embed = G.GenerateEmbed(
-      "Random",
-      responsetext,
-      false,
-      false,
-      false,
-      gif
-    );
+    const embed = G("Random", `${interaction.user} **${eatingTextRandom}** ${thing}`, false, false, false, gif);
     return await interaction.editReply({
       embeds: [embed],
     });
-  },
+  }
 };

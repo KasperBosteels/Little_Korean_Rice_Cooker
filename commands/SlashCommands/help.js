@@ -20,9 +20,9 @@ module.exports = {
   const specific = interaction.options.getString("command");
   if(!specific)return await HelpSelectMenu.execute(client,interaction,0);
   await interaction.deferReply();
-  const requestedCommand = client.commands.filter(c=>c.name===specific);
-  const prefix = prefix(interaction.guild.id);
-  const Embed = GenerateEmbed("RANDOM",`placeholder text`,false,[{name:prefix+requestedCommand.name,value:requestedCommand.usage}],false,false,"details about: "+prefix+specific,false,false);
+  const requestedCommand = client.commands.find(c=>c.name===specific);
+  const Prefix = prefix(interaction.guild.id);
+  const Embed = GenerateEmbed("RANDOM",`placeholder text`,false,[{name:Prefix+requestedCommand.name,value:requestedCommand.usage}],false,false,"details about: "+Prefix+specific,false,false);
   return await interaction.reply({embeds:[Embed], ephemeral:false});
   },
 };

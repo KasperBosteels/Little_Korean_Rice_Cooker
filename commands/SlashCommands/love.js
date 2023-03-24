@@ -17,22 +17,19 @@ module.exports = {
       name: "user",
       description: "Share some love with someone.",
     },
-  ],
-  async execute(client, interaction, con) {
-    let userRequest, responseEmbed;
+  ],  async execute(client, interaction, con) {
+    await interaction.deferReply();
+    const requestedUser = interaction.options.getUser("user");
+
     const RandomLove = love[Math.floor(Math.random() * love.length)];
-    console.log(RandomLove)
-    if (interaction.options.getUser("user")) {
-      userRequest = interaction.options.getUser("user");
-      responseEmbed = G(
-        "Random",
-        `${userRequest}\n${RandomLove}`
-      );
-    } else {
-      responseEmbed = G("Random", RandomLove);
+
+    const responseEmbed = G("Random", `${requestedUser?.toString() || ''}\n${RandomLove}`);
+
+    try {
+      await interaction.reply({ embeds: [responseEmbed] });
+    } catch (err) {
+      console.log(err);
+      await interaction.reply("Something went wrong.");
     }
-    return await interaction.reply({
-      embeds: [responseEmbed],
-    });
   },
 };

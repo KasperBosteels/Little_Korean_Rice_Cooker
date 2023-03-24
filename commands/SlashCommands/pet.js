@@ -28,20 +28,20 @@ module.exports = {
 
   async execute(client, interaction, con) {
     await interaction.deferReply();
-    let userRequest, responsetext, inbetween;
+    let  responsetext, inbetween;
     inbetween = "*pets*";
     if (interaction.options.getUser("user")) {
-      userRequest = interaction.options.getUser("user");
-      responsetext = `${interaction.user} **${inbetween}** ${userRequest}`;
+      const {user} = interaction.options.getUser("user");
+      responsetext = `${interaction.user} **${inbetween}** ${user}`;
     } else if (interaction.options.getString("text")) {
-      userRequest = interaction.options.getString("text");
-      responsetext = `${interaction.user} **${inbetween}** ${userRequest}`;
+      const {user} = interaction.options.getString("text");
+      responsetext = `${interaction.user} **${inbetween}** ${user}`;
     } else {
       userRequest = interaction.user;
       responsetext = `i gently pet ${userRequest}`;
     }
     const gif = path[Math.floor(Math.random() * path.length)];
-    let embed = G.GenerateEmbed(
+    const embed = G.GenerateEmbed(
       "Random",
       responsetext,
       false,
@@ -49,8 +49,14 @@ module.exports = {
       false,
       gif
     );
-    return await interaction.editReply({
-      embeds: [embed],
-    });
+    try { 
+      await interaction.followUp({
+        embeds: [embed],
+      });
+    }
+    catch(err){
+      console.log(err)
+      await interaction.followUp("Something went wrong.")
+    }
   },
 };
