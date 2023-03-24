@@ -10,15 +10,7 @@ module.exports = {
         case "woof":
           await message.channel.send({ content:"YIF!!, *zips the back of your furry suit open*"})
         return;
-         case "steve":
-          await message.channel.send({ content:"Agent Orange#6650 is the best and he will save us"})
-         return;
     }
-    /*
-     case temp.join(" ") == "bot lies" || "bot lie":
-          await message.channel.send({ content:"I don't lie!"})
-        return;
-    */
       let swears = await getswearwords();
       await response(swears, tempstring).then(async (word) => {
         if (word != false) return await message.channel.send({ content:word});
