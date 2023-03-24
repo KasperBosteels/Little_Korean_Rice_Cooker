@@ -8,7 +8,6 @@ module.exports = {
     category: "general",
     args: 'true',
 	async execute(client,message,args,con,options,button) {
-        //258217948819357697
         let mail =message.content;
         let user = message.author;
         const row = new MessageActionRow()
@@ -22,18 +21,6 @@ module.exports = {
             .setCustomId('discard')
             .setStyle('DANGER'),
         );
-        /*
-        var button1 = new MessageButton()
-        .setStyle('green')
-        .setLabel('send')
-        .setID('send');
-        var button2 = new MessageButton()
-        .setStyle('red')
-        .setLabel('discard')
-        .setID('discard_email')
-        var row = new MessageActionRow()
-        .addComponents(button1,button2);
-        */
         
         let embed = new discord.MessageEmbed()
         .setColor('#008000')
@@ -54,23 +41,6 @@ module.exports = {
                 return;
             }
         })
-        
-        
-        
-        /*
-        client.on('clickButton', async (button)=>{
-            if(button.id === 'send'){
-                let response = await send_Mail(mail,message,client,con);
-                await button.reply.send(response);
-            }else if (button.id === 'discard_email'){
-                await button.reply.send('...discarding email.');
-            }else{
-                return;
-            }
-        })
-      */
-		
-
 	},
 };
 function send_Mail(mail,message,client,con){
