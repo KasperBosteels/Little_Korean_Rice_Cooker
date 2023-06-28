@@ -19,7 +19,7 @@ module.exports = {
     if (LEV == null || EXP == null)return console.log(`${LEV}\n${EXP}`);
     var nextlevel = (15 + 300) * LEV;
     try {
-         makeCard(LEV, EXP, nextlevel, rank, member, message);
+         makeCard(LEV, EXP, nextlevel, 0, member, message);
      } catch (err) {
           console.log(err);
      }
@@ -46,10 +46,10 @@ function makeCard(lev, exp, nextlevel, rank, mem, message) {
   const card = new canvacord.Rank()
 
     .setAvatar(mem.user.displayAvatarURL({ dynamic: true, format: "png" }))
-    .setCurrentXP(exp)
-    .setLevel(lev)
-    .setRank(rank)
-    .setRequiredXP(nextlevel);
+    .setCurrentXP(parseInt(exp))
+    .setLevel(parseInt(lev))
+    .setRank(parseInt(rank))
+    .setRequiredXP(parseInt(nextlevel));
   if (mem.presence != null) {
     card.setStatus(mem.presence.status);
   }

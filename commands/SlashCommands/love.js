@@ -18,7 +18,6 @@ module.exports = {
       description: "Share some love with someone.",
     },
   ],  async execute(client, interaction, con) {
-    await interaction.deferReply();
     const requestedUser = interaction.options.getUser("user");
 
     const RandomLove = love[Math.floor(Math.random() * love.length)];

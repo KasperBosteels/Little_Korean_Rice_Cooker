@@ -32,7 +32,7 @@ module.exports = {
       const title = summary.displaytitle.replace(/<\/?[^>]+(>|$)/g, ""); // Remove HTML tags from title
       const extract = summary.extract.replace(/<\/?[^>]+(>|$)/g, ""); // Remove HTML tags from extract
       const embed = G(
-        "#0x8c8c8c",
+        "#00ff00",
         `Wikipedia result for ${title}`,
         false,
         [{ name: title, content: extract }],

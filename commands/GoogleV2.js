@@ -1,6 +1,6 @@
 const G = require("../Generators/GenerateSimpleEmbed");
 const imageSearch = require("image-search-google");
-const { pagination, TypesButtons, StylesButton } = require('@devraelfreeze/discordjs-pagination');
+const { pagination, ButtonTypes, ButtonStyles } = require('@devraelfreeze/discordjs-pagination');
 const time = 60000;
 const GoogleClient = new imageSearch(
   process.env.CSE_ID,
@@ -36,15 +36,15 @@ module.exports = {
         message: feedbackMessage,
         buttons: [
           {
-            value: TypesButtons.previous,
+            value: ButtonTypes.previous,
             label: "Previous",
-            style: StylesButton.Danger,
+            style: ButtonStyles.Danger,
             emoji: null,
           },
           {
-            value: TypesButtons.next,
+            value: ButtonTypes.next,
             label: "Next",
-            style: StylesButton.Success,
+            style: ButtonStyles.Success,
             emoji: null,
           },
         ],

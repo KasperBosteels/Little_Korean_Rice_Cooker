@@ -48,12 +48,9 @@ module.exports = {
         }
   },
   async aleternateWarn(con, guildID, userID, input, memberName) {
-    //insert warning.
     await con.manager.insert("Warnings",{guild:guildID,user:userID,warning_message:input})
-    //create warning embed
     await con.manager.findAndCount("Warnings",{user:userID,guild:guildID}).then((C)=>{
         amount = C.count;
-        //#region embed
         var embed = G.GenerateEmbed(
           "#ff0000",
           `\`\`\`automatic warning\`\`\`\n\`\`\`${memberName} has been automatically warned for profanity\`\`\``,
@@ -64,9 +61,7 @@ module.exports = {
           (fields = [{ name: "warnings: ", content: `${amount}` }]),
           true
         );
-        //#endregion
 
-        //send embed message to logchannel and channel where the command was given
         try {
           logging.logWithNoMember(embed, message);
         } catch (err) {
@@ -90,8 +85,9 @@ function getUserFromMention(mention, client) {
 }
 function permissioncheck(message) {
   //check perms
-  if (!message.member.permissions.has(PermissionsBitField.Flags.ModerateMembers))
+  if (!message.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
+    message.reply("You don't have permission to run that command.");
     return false;
-
+  }
   return true;
 }
