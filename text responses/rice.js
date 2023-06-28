@@ -3,11 +3,11 @@ module.exports = {
   async execute(message) {
     let tempstring = message.content.toLowerCase();
     const temp =tempstring.split(" ");
-    switch(temp[0]){
-      case "meow":
+    switch(true){
+      case (temp.indexOf("meow") != -1):
         await message.channel.send({ content:"pspspspspspspspsps, here kitty."})
         return;
-        case "woof":
+        case (temp.indexOf("woof") != -1):
           await message.channel.send({ content:"YIF!!, *zips the back of your furry suit open*"})
         return;
     }
