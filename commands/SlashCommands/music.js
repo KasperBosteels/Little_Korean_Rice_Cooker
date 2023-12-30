@@ -92,13 +92,10 @@ module.exports = {
 async execute(client,interaction,con){
 await interaction.deferReply();
 const sub = interaction.options.getSubcommand();
-let channel, guildQueue;
-guildQueue = client.player.getQueue(interaction.guild.id);
-if(!guildQueue)return await interaction.editReply({content:"There is no queue for this guild."});
+let channel;
 channel = interaction.guild.members.cache.get(interaction.member.user.id).voice.channel;
 let queue = client.player.createQueue(interaction.guild.id, {
     data: { queueInitChannel: channel },
-
 });
 try{
     await queue.join(channel)
@@ -109,7 +106,16 @@ switch (sub) {
     case "play":
         const songName = interaction.options.getString("song"),playlistName = interaction.options.getString("playlist");
         if(songName!==null){
+            console.log(songName);
+            try
+            {
             await queue.play(songName,{requestedBy:interaction.user})
+            }
+            catch(error){
+                console.log(error)
+                return await interaction.editReply({content:"Unable to play this song: "+songName})
+            }
+            console.log("playing song")
             return await interaction.editReply({content:"Song added"})
             
             }else if (playlistName!==null){
@@ -182,8 +188,8 @@ switch (sub) {
         console.log(error)
     }
     break;
-default:
+    default:
         return await interaction.followUp({content:"doing nothing."})
-}
+    }
 }
 }
