@@ -109,7 +109,8 @@ switch (sub) {
             console.log(songName);
             try
             {
-            await queue.play(songName,{requestedBy:interaction.user})
+                await queue.play(songName,{requestedBy:interaction.user})
+                    .catch(error => {console.error(error);queue.stop();})
             }
             catch(error){
                 console.log(error)
