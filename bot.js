@@ -65,7 +65,7 @@ const con = new DataSource({
   migrations:true,
   poolSize:100,
   migrationsRun:true,
-  entities:[ User, Custom_Swear,Warning,Guild,Message,Playlist,Song,Swearword],
+  entities:[__dirname + '/entity/*.js'],
   migrations: [],
   subscribers: [],
   connectTimeout:5000,
