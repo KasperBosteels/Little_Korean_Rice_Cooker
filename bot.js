@@ -121,14 +121,17 @@ for (const file of SelectFiles) {
     console.log("\x1b[32m", `select menu loaded ${menu.name} [^]`, "\x1b[0m");
   } else {
     console.log(
-      "\x1b[33m",
-      `failed to load ${file.split(".js")[0]}`,
-      "\x1b[0m"
+      "\x1b[32m", `select menu loaded ${menu.name} [^]`, "\x1b[0m"
     );
   }
 }
 
 //#endregion
+
+client.on("ready", ()=>{
+  console.log( "\x1b[36m", `Ready to use DMP`, "\x1b[0m");
+});
+
 
 //#region bot ready
 client.once(Events.ClientReady,async  () => {
@@ -147,7 +150,7 @@ client.once(Events.ClientReady,async  () => {
     custom_Welcome.execute(con);
     SlashCommandLoader(process.env.DISCORD_TOKEN, client);
   } catch (err) {
-    console.log(err);
+    console.log("\x1b[31m",err, "\x1b[0m");
   }
 });
 //#endregion
@@ -158,7 +161,7 @@ client.on(Events.Error, (Err) => {
     "./info/errors.json",
     JSON.stringify(Err, null, 2),
     (err) => {
-      if (err) console.log(err);
+      if (err) console.log("\x1b[31m",err,"\x1b[0m");
     }
   );
 });
@@ -276,7 +279,7 @@ client.on(Events.MessageCreate, async (Interaction) => {
       Interaction.guild.id
     );
     await Interaction.reply({
-      content: "there was an error trying to execute that command!",
+      content: "There was an error trying to execute that command!",
     });
   }
 });
@@ -307,7 +310,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
       console.log(error);
     }
   } else if (!interaction.isChatInputCommand()) {
-    return console.log("is not chatinput quiting process");
+    return console.log("Is not chatinput quiting process");
   }
   const slashcommand = client.slashCommands.get(interaction.commandName);
   if (!slashcommand) return;
@@ -327,7 +330,7 @@ client.player
       embeds: [
         G.GenerateEmbed(
           "#00ff00",
-          "oof, its awfully quiet in here, maybe ill leave too..."
+          "Its awfully quiet in here, maybe ill leave too..."
         ),
       ],
     })
@@ -368,12 +371,12 @@ client.player
       embeds: [
         G.GenerateEmbed(
           "#00ff00",
-          `and that was our lovely ${oldSong.author} with ${oldSong.name}\n now upcoming ${newSong.name}\n${newSong.length}`,
+          `And that was ${oldSong.author} with ${oldSong.name}\n now upcoming ${newSong.name}\n${newSong.length}`,
           false,
           false,
           true,
           false,
-          "now playing",
+          "Now playing",
           newSong.url,
           newSong.thumbnail
         ),
