@@ -81,7 +81,7 @@ console.log("\x1b[33m", "running discord.js@" + version, "\x1b[0m");
 let intents = [
   GatewayIntentBits.Guilds,
   GatewayIntentBits.GuildMembers,
-  GatewayIntentBits.GuildBans,
+  GatewayIntentBits.GuildModeration,
   GatewayIntentBits.GuildVoiceStates,
   GatewayIntentBits.GuildMessages,
   GatewayIntentBits.GuildMessageReactions,
