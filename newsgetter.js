@@ -21,10 +21,10 @@ async function PostNews(embed, client, channel) {
 }
 
 async function callApi() {
-    const apiUrl = 'https://newsdata.io/api/1/latest?apikey=' + process.env.NEWS_API_KEY;
+    const apiUrl = 'https://newsdata.io/api/1/latest?apikey=' + process.env.NEWS_API_KEY+"&language=en,jp,lb&image=1";
    return await  fetch(apiUrl)
         .then(response => {
-
+            console.log(response);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -48,9 +48,6 @@ function makeEmbed(news) {
         .setURL(news.link)
         .setAuthor({ name: null, iconURL: news.source_icon, url: news.source_url })
         .setDescription(news.description)
-        .addFields(
-            { name: 'read here', value: news.content },
-        )
         .setImage(news.image_url)
         .setTimestamp()
     return newsEmbed;
