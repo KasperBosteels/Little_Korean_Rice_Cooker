@@ -80,6 +80,19 @@ module.exports = new EntitySchema({
             nullable:false,
             default:"**oh no**\n ${name} left.",
             unique:false
+        },
+        news_channel:{
+            name:"news_channel",
+            type:"boolean",
+            nullable:true,
+            default:false
+        },
+        news_channelId:{
+            target:"news_channelId",
+            type:"text",
+            nullable:false,
+            default:null,
+            unique:false,
         }
     },
     relations:{

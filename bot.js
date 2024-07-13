@@ -53,6 +53,8 @@ const Swearword = require ("./entity/Swearword");
 const Warning = require ("./entity/Warning");
 const Custom_Swear = require('./entity/Custom_Swears.js');
 const Song = require("./entity/Song");
+const news_chhannel = require("./DataHandlers/news_chhannel.js");
+
 const con = new DataSource({
   type: process.env.TYPE,
   host: process.env.HOST,
@@ -61,11 +63,11 @@ const con = new DataSource({
   password: process.env.SERVER_PASSWORD,
   database: process.env.DATABASE,
   synchronize: true,
-  logging: true,
+  logging: false,
   migrations:true,
   poolSize:100,
   migrationsRun:true,
-  entities:[__dirname + '/entity/*.js'],
+  entities:[User,Guild,Message,Playlist,Swearword,Warning,Custom_Swear,Song],
   migrations: [],
   subscribers: [],
   connectTimeout:5000,
@@ -79,7 +81,7 @@ console.log("\x1b[33m", "running discord.js@" + version, "\x1b[0m");
 let intents = [
   GatewayIntentBits.Guilds,
   GatewayIntentBits.GuildMembers,
-  GatewayIntentBits.GuildBans,
+  GatewayIntentBits.GuildModeration,
   GatewayIntentBits.GuildVoiceStates,
   GatewayIntentBits.GuildMessages,
   GatewayIntentBits.GuildMessageReactions,
@@ -148,6 +150,7 @@ client.once(Events.ClientReady,async  () => {
     ignoreusers.execute(con);
     logchannels.execute(con);
     custom_Welcome.execute(con);
+    news_chhannel.execute(con);
     SlashCommandLoader(process.env.DISCORD_TOKEN, client);
   } catch (err) {
     console.log("\x1b[31m",err, "\x1b[0m");

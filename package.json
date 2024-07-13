@@ -6,7 +6,7 @@
   "author": "Kasper",
   "license": "ISC",
   "scripts": {
-    "start": "nodemon bot.js --ignore ignore.json --ignore leveling_enabled.json --ignore logChannels.json --ignore prefix.json --ignore profanity_alert_channels.json --ignore profanity_enabled.json --ignore welcome_leave_messages.json --ignore welcome_channel.json --ignore custom_welcome_data.json --ignore custom_swear_words.json --ignore default_swear_words.json --ignore errors.json"
+    "start": "nodemon bot.js --ignore ignore.json --ignore leveling_enabled.json --ignore logChannels.json --ignore prefix.json --ignore profanity_alert_channels.json --ignore profanity_enabled.json --ignore welcome_leave_messages.json --ignore welcome_channel.json --ignore custom_welcome_data.json --ignore custom_swear_words.json --ignore default_swear_words.json --ignore news_channel.json --ignore errors.json"
   },
   "dependencies": {
     "@devraelfreeze/discordjs-pagination": "^2.6.8",
@@ -34,7 +34,7 @@
     "mysql": "^2.18.1",
     "node-cron": "^3.0.0",
     "node-fetch": "^2.6.7",
-    "npm": "^8.7.0",
+    "npm": "^10.5.1",
     "nvm": "^0.0.4",
     "oxford-dictionaries-api": "^0.1.2",
     "oxford-dictionary": "^1.6.0",
@@ -42,7 +42,6 @@
     "reflect-metadata": "^0.1.13",
     "translate": "^3.0.0",
     "typeorm": "^0.3.14",
-    "urban-dictionary": "^3.0.2",
     "wikipedia": "^1.1.6",
     "yt-search": "^2.10.3",
     "ytdl-core": "^4.11.5",

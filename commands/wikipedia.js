@@ -19,18 +19,19 @@ module.exports = {
     try {
       const page = await wiki.page(query);
       const summary = await page.summary();
-      let title = summary.displaytitle;
+      let title = summary.title;
       let link = summary.content_urls.desktop.page;
       let text = summary.extract;
+      let image = summary.thumbnail.source ? summary.thumbnail.source : false; 
       message.channel.send({
         embeds: [
           G.GenerateEmbed(
-            "#0x8c8c8c",
+            "#808080",
             `wikipedia result for ${title}`,
             message,
             [(fields = { name: title, content: text })],
             false,
-            false,
+            image,
             title,
             link
           ),
