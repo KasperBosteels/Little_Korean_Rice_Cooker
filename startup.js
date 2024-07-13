@@ -48,7 +48,7 @@ function createLogCleaner() {
 
 
 async function createNewsReported(client) {
-  const job = new CronJob("0 * 1/1 * * * ", async () => {
+  const job = new CronJob("0 0 1/1 * * * ", async () => {
     try {
       const news = await newsgetter.execute();
       const channels = await news_channel.GET()

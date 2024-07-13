@@ -19,7 +19,7 @@ async function PostNews(embed, client, channel) {
 }
 
 async function callApi() {
-    const apiUrl = 'https://newsdata.io/api/1/latest?apikey=' + process.env.NEWS_API_KEY+"&category=entertainment,politics,science,technology,top&language=en&domain=reuters,cnn,foxnews&prioritydomain=top&image=1";
+    const apiUrl = 'https://newsdata.io/api/1/latest?apikey=' + process.env.NEWS_API_KEY+"&category=politics,science,technology,top,world&language=en&domain=reuters,cnn,foxnews&prioritydomain=top&image=1";
    return await  fetch(apiUrl)
         .then(response => {
             if (!response.ok) {
