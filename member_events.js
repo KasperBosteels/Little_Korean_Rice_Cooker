@@ -51,7 +51,7 @@ module.exports = {
       member.user.avatarURL({ dynamic: true, format: "png", size: 64 })
     );
     if (banned) {
-      const fields=[]
+      let fields=[]
       if (banned.reason == null) {
       fields=[{name: ":warning: **BANNED** :warning:",value:`\`\`\`no reason provided\`\`\``},]
       } else {

@@ -15,25 +15,26 @@ module.exports = {
 };
 async function PostNews(embed, client, channel) {
     let newschannel = await client.channels.cache.get(channel);
-    console.log(newschannel);
-    console.log(channel);
     newschannel.send({ embeds: [embed] });
 }
 
 async function callApi() {
-    const apiUrl = 'https://newsdata.io/api/1/latest?apikey=' + process.env.NEWS_API_KEY+"&language=en&prioritydomain=top&image=1";
+    const apiUrl = 'https://newsdata.io/api/1/latest?apikey=' + process.env.NEWS_API_KEY+"&category=entertainment,politics,science,technology,top&language=en&domain=reuters,cnn,foxnews&prioritydomain=top&image=1";
    return await  fetch(apiUrl)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+            console.log(response);
             return response.json();
         })
         .then(data => {
+            console.log(data);
             return data.results;
 
         })
         .catch(error => {
+
             console.error('Error:', error);
         });
 
