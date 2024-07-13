@@ -1,7 +1,7 @@
 const fs = require("fs");
 module.exports = {
   async execute(con) {
-    con.manager.findBy("Guild",{level_system:true}).then((g)=>{
+    con.manager.findBy("Guilds",{level_system:true}).then((g)=>{
       let data = []
       g.forEach(i => {
         data.push({guildID:i.guild_id,level_system:i.level_system})
