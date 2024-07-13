@@ -21,7 +21,7 @@ async function PostNews(embed, client, channel) {
 }
 
 async function callApi() {
-    const apiUrl = 'https://newsdata.io/api/1/latest?apikey=' + process.env.NEWS_API_KEY+"&language=en,jp,lb&image=1";
+    const apiUrl = 'https://newsdata.io/api/1/latest?apikey=' + process.env.NEWS_API_KEY+"&language=en&prioritydomain=top&image=1&timeframe=6";
    return await  fetch(apiUrl)
         .then(response => {
             console.log(response);
