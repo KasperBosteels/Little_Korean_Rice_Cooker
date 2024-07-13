@@ -47,16 +47,19 @@ function createLogCleaner() {
 }
 
 
-function createNewsReported(client) {
-  const job = new CronJob("0 0 1/1 * * * ", () => {
+async function createNewsReported(client) {
+  const job = new CronJob("0 0 1/1 * * * ", async () => {
     try {
-      const news = newsgetter.execute();
-      const channels = news_channel.GET()
+      const news = await newsgetter.execute();
+      const channels = await news_channel.GET()
 
-      channels.forEach(channel => {
-        let randomNews = news[Math.floor(Math.random() * (news.length - 1))]
-        let embed = newsgetter.makeEmbed(randomNews);
-        newsgetter.postNewsEmbed(embed, client, channel)
+      channels.forEach(async channel => {
+        let randomNews = news[Math.floor(Math.random() * (news.length - 1))];
+        try {
+          await newsgetter.postNewsEmbed(newsgetter.makeEmbed(randomNews), client, channel);
+        } catch (error) {
+          console.error(error);
+        }
       });
     }
     catch (error) {

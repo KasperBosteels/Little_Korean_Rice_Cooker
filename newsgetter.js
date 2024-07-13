@@ -1,42 +1,43 @@
 require("dotenv").config();
 const { EmbedBuilder } = require('discord.js');
 module.exports = {
-    execute() {
-        return get();
+    async execute() {
+        
+        return await callApi();
     },
     makeEmbed(news) {
         return makeEmbed(news);
     },
-    postNewsEmbed(embed, bot, channel) {
-        PostNews(embed, bot, channel)
+    postNewsEmbed(embed, client, channel) {
+        PostNews(embed, client, channel)
     }
 
 };
-function get() {
-    let news = callApi();
-    if (news == null) return;
-    return news;
+async function PostNews(embed, client, channel) {
+    let newschannel = await client.channels.cache.get(channel);
+    console.log(newschannel);
+    console.log(channel);
+    newschannel.send({ embeds: [embed] });
 }
 
-function PostNews(embed, bot, channel) {
-    channel.send({ embeds: [embed] });
-}
-
-function callApi() {
+async function callApi() {
     const apiUrl = 'https://newsdata.io/api/1/latest?apikey=' + process.env.NEWS_API_KEY;
-
-    fetch(apiUrl)
+   return await  fetch(apiUrl)
         .then(response => {
+
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             return response.json();
         })
         .then(data => {
+            return data.results;
+
         })
         .catch(error => {
             console.error('Error:', error);
         });
+
 }
 
 
@@ -45,12 +46,12 @@ function makeEmbed(news) {
         .setColor(0x0099FF)
         .setTitle(news.title)
         .setURL(news.link)
-        .setAuthor({ name: news.creator[0], iconURL: news.source_icon, url: news.source_url })
+        .setAuthor({ name: null, iconURL: news.source_icon, url: news.source_url })
         .setDescription(news.description)
         .addFields(
             { name: 'read here', value: news.content },
         )
         .setImage(news.image_url)
-        .setTimestamp(news.pubDate)
+        .setTimestamp()
     return newsEmbed;
 }

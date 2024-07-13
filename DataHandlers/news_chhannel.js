@@ -23,7 +23,7 @@ module.exports = {
     let file = JSON.parse(rawData);
     let channels = [];
     for (let i = 0; i < file.length; i++) {
-      channels.push(file[i].news_channelId)
+      channels.push(file[i].news_channel)
     }
     return channels;
   },
