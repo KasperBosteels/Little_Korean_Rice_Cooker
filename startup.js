@@ -68,3 +68,26 @@ async function createNewsReported(client) {
   });
   job.start();
 }
+
+async function SufferFromAmnesia() {
+  const Job = new CronJob("0 0 * 1/2 * * ", () => {
+    try {
+
+      fs.writeFile("./jsonFiles/llamahistory.json", "[]", (error) => {
+        const message = `UNABLE TO REMOVE  LLAMA DATA PRIOR TO [${datum.toDateString()}]\n`;
+        fs.writeFile("./info/log.txt", message, (error) => {
+          if (error) throw console.error(error);
+        });
+        throw new Error("UNABLE TO REMOVE LLAMA DATA");
+      });
+      const datum = new Date();
+      const message = `REMOVED  LLAMA DATA PRIOR TO [${datum.toDateString()}]\n`;
+      fs.writeFile("./info/log.txt", message, (error) => {
+        if (error) throw console.error(error);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  });
+  Job.start();
+}

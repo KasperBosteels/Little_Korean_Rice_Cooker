@@ -30,6 +30,7 @@ const profanity_enabled = require("./DataHandlers/profanity_enabled");
 const leveling_enabled = require("./DataHandlers/leveling_enabled");
 const welcomeLeaveMessages = require("./DataHandlers/welcome_leave_messages");
 const power = require("./powerButton");
+const sentience = require("./sentience.js");
 const leave = require("./leave").execute;
 const server = require("./DataHandlers/server_events");
 const ignoreusers = require("./DataHandlers/ignored_users");
@@ -42,37 +43,36 @@ const G = require("./Generators/GenerateSimpleEmbed");
 const updateSwears = require("./DataHandlers/update_swear_words");
 const processModal = require("./processModal.js").execute;
 const SlashCommandLoader = require("./uploadSlashCommand").execute;
-const makeIndex =require('./SelectMenus/HelpSelectMenu').makeIndex;
+const makeIndex = require('./SelectMenus/HelpSelectMenu').makeIndex;
 //#region typeorm related imports
-const DataSource = require ("typeorm").DataSource
-const User =require ("./entity/User.js");
-const Guild = require ("./entity/Guild.js");
-const Message = require ("./entity/Message");
-const Playlist = require( "./entity/Playlist");
-const Swearword = require ("./entity/Swearword");
-const Warning = require ("./entity/Warning");
+const DataSource = require("typeorm").DataSource
+const User = require("./entity/User.js");
+const Guild = require("./entity/Guild.js");
+const Message = require("./entity/Message");
+const Playlist = require("./entity/Playlist");
+const Swearword = require("./entity/Swearword");
+const Warning = require("./entity/Warning");
 const Custom_Swear = require('./entity/Custom_Swears.js');
 const Song = require("./entity/Song");
 const news_chhannel = require("./DataHandlers/news_chhannel.js");
-
 const con = new DataSource({
   type: process.env.TYPE,
   host: process.env.HOST,
-  port:parseInt(process.env.PORT),
+  port: parseInt(process.env.PORT),
   username: process.env.SERVER_USER,
   password: process.env.SERVER_PASSWORD,
   database: process.env.DATABASE,
   synchronize: true,
   logging: false,
-  migrations:true,
-  poolSize:100,
-  migrationsRun:true,
-  entities:[User,Guild,Message,Playlist,Swearword,Warning,Custom_Swear,Song],
+  migrations: true,
+  poolSize: 100,
+  migrationsRun: true,
+  entities: [User, Guild, Message, Playlist, Swearword, Warning, Custom_Swear, Song],
   migrations: [],
   subscribers: [],
-  connectTimeout:5000,
-  acquireTimeout:5000,
-  multipleStatements:true,
+  connectTimeout: 5000,
+  acquireTimeout: 5000,
+  multipleStatements: true,
 });
 //#endregion
 console.log("\x1b[33m", "running discord.js@" + version, "\x1b[0m");
@@ -130,17 +130,17 @@ for (const file of SelectFiles) {
 
 //#endregion
 
-client.on("ready", ()=>{
-  console.log( "\x1b[36m", `Ready to use DMP`, "\x1b[0m");
+client.on("ready", () => {
+  console.log("\x1b[36m", `Ready to use DMP`, "\x1b[0m");
 });
 
 
 //#region bot ready
-client.once(Events.ClientReady,async  () => {
+client.once(Events.ClientReady, async () => {
   try {
-    await start.execute(client,con);
-    
-    getprefix.execute(client,con);
+    await start.execute(client, con);
+
+    getprefix.execute(client, con);
     profanity_alert_data_collector.execute(con);
     profanity_enabled.execute(con);
     updateSwears.execute(con);
@@ -153,7 +153,7 @@ client.once(Events.ClientReady,async  () => {
     news_chhannel.execute(con);
     SlashCommandLoader(process.env.DISCORD_TOKEN, client);
   } catch (err) {
-    console.log("\x1b[31m",err, "\x1b[0m");
+    console.log("\x1b[31m", err, "\x1b[0m");
   }
 });
 //#endregion
@@ -164,7 +164,7 @@ client.on(Events.Error, (Err) => {
     "./info/errors.json",
     JSON.stringify(Err, null, 2),
     (err) => {
-      if (err) console.log("\x1b[31m",err,"\x1b[0m");
+      if (err) console.log("\x1b[31m", err, "\x1b[0m");
     }
   );
 });
@@ -203,10 +203,16 @@ client.on(Events.MessageCreate, async (Interaction) => {
   try {
     level.execute(Interaction, con, args, Discord);
   } catch (error) {
-    console.error(error.message);
+    console.error(error.message); Z
   }
-
-  if (!prefixcheck.execute(Interaction)) return;
+  if (!prefixcheck.execute(Interaction)) {
+    try {
+      await sentience.live(Interaction, client);
+    } catch (eve) {
+      console.error(eve);
+    }
+    return;
+  }
 
   const commandName = args.shift().toLowerCase();
   const command =
@@ -396,7 +402,7 @@ client.player
   )
   // Emitted when deafenOnJoin is true and the bot was undeafened
   .on("clientUndeafen", (queue) => console.log(`I got undefeanded.`))
-  // Emitted when there was an error in runtime
+// Emitted when there was an error in runtime
 //#endregion
 client.login(process.env.DISCORD_TOKEN);
 
