@@ -1,6 +1,6 @@
 {
   "name": "little_korean_rice_cooker",
-  "version": "3.1.4",
+  "version": "3.1.7",
   "description": "A bot that loves you, and has a generous offer of commands.",
   "main": "bot.js",
   "author": "Kasper",
@@ -41,7 +41,7 @@
     "reconlx": "^2.5.2",
     "reflect-metadata": "^0.1.13",
     "translate": "^3.0.0",
-    "typeorm": "^0.3.14",
+    "typeorm": "^0.3.20",
     "wikipedia": "^1.1.6",
     "yt-search": "^2.10.3",
     "ytdl-core": "^4.11.5",

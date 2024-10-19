@@ -55,6 +55,7 @@ const Warning = require("./entity/Warning");
 const Custom_Swear = require('./entity/Custom_Swears.js');
 const Song = require("./entity/Song");
 const news_chhannel = require("./DataHandlers/news_chhannel.js");
+const Chat = require("./entity/Chat");
 const con = new DataSource({
   type: process.env.TYPE,
   host: process.env.HOST,
@@ -67,12 +68,13 @@ const con = new DataSource({
   migrations: true,
   poolSize: 100,
   migrationsRun: true,
-  entities: [User, Guild, Message, Playlist, Swearword, Warning, Custom_Swear, Song],
+  entities: [User, Guild, Message, Playlist, Swearword, Warning, Custom_Swear, Song, Chat],
   migrations: [],
   subscribers: [],
   connectTimeout: 5000,
   acquireTimeout: 5000,
   multipleStatements: true,
+  charset:'utf8mb4',
 });
 //#endregion
 console.log("\x1b[33m", "running discord.js@" + version, "\x1b[0m");
@@ -139,7 +141,7 @@ client.on("ready", () => {
 client.once(Events.ClientReady, async () => {
   try {
     await start.execute(client, con);
-
+    await start.SufferFromAmnesia(con);
     getprefix.execute(client, con);
     profanity_alert_data_collector.execute(con);
     profanity_enabled.execute(con);

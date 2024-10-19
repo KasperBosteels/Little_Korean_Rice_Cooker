@@ -5,6 +5,7 @@ const { CronJob } = require("cron");
 const fs = require("node:fs");
 const newsgetter = require("./newsgetter.js");
 const news_channel = require("./DataHandlers/news_chhannel.js");
+const llama = require("./DataHandlers/llamaMessageHistory.js");
 module.exports = {
   async execute(client, con) {
     try {
@@ -29,7 +30,40 @@ module.exports = {
     setStatus();
 
   },
+  async SufferFromAmnesia(con) {
+    if (!con.isInitialized) await con.initialize();
+    const Job = new CronJob("0 0 * 1/2 * * ", async () => {  // Ze '*/1' means every minute
+      let dateToCheck = new Date();
+      dateToCheck.setDate(dateToCheck.getDate() - 2);
+      try {
+        let allData = llama.GETALL();
+        const chatRepository = await con.manager.getRepository("Chats");
 
+        for (let i = 0; i < allData.length; i++) {
+          if (allData[i].Messages.length > 0 || allData[i].lastChanged < dateToCheck) {
+            let d = allData[i];
+            const user = await con.manager.findOneBy("Users", { user_id: d.userID });
+            const guild = await con.manager.findOneBy("Guilds", { guild_id: d.guildID });
+
+            let c = chatRepository.create({
+              guild: guild,
+              member: user,
+              last_changed: d.lastChanged,
+              message_history: JSON.stringify(d.Messages)
+            });
+            console.log(c);
+            await chatRepository.save(c);
+
+            allData[i].Messages = [];
+          }
+        }
+        llama.REFRESH([]);
+      } catch (error) {
+        console.error(error);
+      }
+    });
+    Job.start();
+  },
 };
 function createLogCleaner() {
   const Job = new CronJob("0 0 * 1/2 * * ", () => {
@@ -69,25 +103,3 @@ async function createNewsReported(client) {
   job.start();
 }
 
-async function SufferFromAmnesia() {
-  const Job = new CronJob("0 0 * 1/2 * * ", () => {
-    try {
-
-      fs.writeFile("./jsonFiles/llamahistory.json", "[]", (error) => {
-        const message = `UNABLE TO REMOVE  LLAMA DATA PRIOR TO [${datum.toDateString()}]\n`;
-        fs.writeFile("./info/log.txt", message, (error) => {
-          if (error) throw console.error(error);
-        });
-        throw new Error("UNABLE TO REMOVE LLAMA DATA");
-      });
-      const datum = new Date();
-      const message = `REMOVED  LLAMA DATA PRIOR TO [${datum.toDateString()}]\n`;
-      fs.writeFile("./info/log.txt", message, (error) => {
-        if (error) throw console.error(error);
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  });
-  Job.start();
-}

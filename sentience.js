@@ -17,10 +17,10 @@ async function live(message) {
     message.mentions.users.forEach(mention => {
         m = m.replace(`<@${mention.id}>`,mention.username);
     });
-    dataHandler.ADD(message.author.id, "user", m);
+    dataHandler.ADD(message.author.id, message.guild.id, "user", m);
     let body = {
         "model": "cooker",
-        "messages": dataHandler.GET(message.author.id),
+        "messages": dataHandler.GET(message.author.id, message.guild.id),
         "stream": false,
         "keep_alive":"1h"
     }
@@ -35,7 +35,7 @@ async function live(message) {
                 throw new Error('Network response was not ok');
             }
             let result = await response.json()
-            dataHandler.ADD(message.author.id, result.message.role, result.message.content)
+            dataHandler.ADD(message.author.id, message.guild.id, result.message.role, result.message.content)
             if (oneInTwenty()) {
                 message.reply({ content: result.message.content })
                     .catch((err) => {
