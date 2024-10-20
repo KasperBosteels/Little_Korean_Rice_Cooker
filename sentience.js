@@ -6,7 +6,7 @@ module.exports = {
         if (process.env.LLAMA_URL == "" || process.env.LLAMA_URL == undefined || process.env.LLAMA_URL == null) {
             return;
         }
-        if (message.mentions.has(client.user) || oneInTwenty()) {
+        if (message.mentions.has(client.user) || oneInTwenty() || (!message.mentions.has(client.user)  && oneInFifty())) {
             return await live(message);
         }
     },
@@ -50,4 +50,9 @@ async function live(message) {
 }
 function oneInTwenty() {
     return Math.random() < 1 / 20;
+}
+
+function oneInFifty(){
+    return Math.random() < 1 / 50;
+
 }
