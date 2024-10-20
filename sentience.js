@@ -15,14 +15,14 @@ async function live(message) {
     await message.channel.sendTyping();
     let m = message.content;
     message.mentions.users.forEach(mention => {
-        m = m.replace(`<@${mention.id}>`,mention.username);
+        m = m.replace(`<@${mention.id}>`, mention.username);
     });
     dataHandler.ADD(message.author.id, message.guild.id, "user", m);
     let body = {
         "model": "cooker",
         "messages": dataHandler.GET(message.author.id, message.guild.id),
         "stream": false,
-        "keep_alive":"1h"
+        "keep_alive": "1h"
     }
     return await fetch(process.env.LLAMA_URL, {
         method: "POST",
@@ -31,7 +31,6 @@ async function live(message) {
         .then(async (response) => {
             if (!response.ok) {
                 let r = await response.json();
-                console.log(r)
                 throw new Error('Network response was not ok');
             }
             let result = await response.json()

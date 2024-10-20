@@ -38,22 +38,18 @@ module.exports = {
       try {
         let allData = llama.GETALL();
         const chatRepository = await con.manager.getRepository("Chats");
-
         for (let i = 0; i < allData.length; i++) {
           if (allData[i].Messages.length > 0 || allData[i].lastChanged < dateToCheck) {
             let d = allData[i];
             const user = await con.manager.findOneBy("Users", { user_id: d.userID });
             const guild = await con.manager.findOneBy("Guilds", { guild_id: d.guildID });
-
             let c = chatRepository.create({
               guild: guild,
               member: user,
               last_changed: d.lastChanged,
               message_history: JSON.stringify(d.Messages)
             });
-            console.log(c);
             await chatRepository.save(c);
-
             allData[i].Messages = [];
           }
         }

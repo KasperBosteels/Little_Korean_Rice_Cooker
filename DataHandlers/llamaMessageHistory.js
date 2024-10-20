@@ -24,7 +24,6 @@ module.exports = {
     ADD(userID, guildID, direction, Message) {
         let role = direction
         let history = this.GETALL();
-        console.log(history)
         if (history.filter(x => x.userID == userID && x.guildID == guildID).length == 0) {
             history.push({
                 userID: userID,
