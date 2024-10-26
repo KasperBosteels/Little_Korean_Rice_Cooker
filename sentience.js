@@ -6,21 +6,22 @@ module.exports = {
         if (process.env.LLAMA_URL == "" || process.env.LLAMA_URL == undefined || process.env.LLAMA_URL == null) {
             return;
         }
-        if (message.mentions.has(client.user) || oneInFifty()) {
+        if (message.mentions.has(client.user) || oneInFifty() || message.channel.type === 1) {
             return await live(message);
         }
     },
 };
 async function live(message) {
     await message.channel.sendTyping();
-    let m = message.content;
+    let guildId = message.guild == null ? 1 : message.guild.id
+    let m =`${message.author.username}: ` + message.content;
     message.mentions.users.forEach(mention => {
         m = m.replace(`<@${mention.id}>`, mention.username);
     });
-    dataHandler.ADD(message.author.id, message.guild.id, "user", m);
+    dataHandler.ADD(message.author.id, guildId, message.channel.id, "user", m);
     let body = {
-        "model": "cooker",
-        "messages": dataHandler.GET(message.author.id, message.guild.id),
+        "model": "cookertest",
+        "messages": dataHandler.GET(message.author.id, guildId, message.channel.id),
         "stream": false,
         "keep_alive": "1h"
     }
@@ -34,7 +35,7 @@ async function live(message) {
                 throw new Error('Network response was not ok');
             }
             let result = await response.json()
-            dataHandler.ADD(message.author.id, message.guild.id, result.message.role, result.message.content)
+            dataHandler.ADD(message.author.id, guildId, message.channel.id, result.message.role, result.message.content)
             if (oneInTwenty()) {
                 message.reply({ content: result.message.content })
                     .catch((err) => {
@@ -52,7 +53,7 @@ function oneInTwenty() {
     return Math.random() < 1 / 20;
 }
 
-function oneInFifty(){
+function oneInFifty() {
     return Math.random() < 1 / 50;
 
 }

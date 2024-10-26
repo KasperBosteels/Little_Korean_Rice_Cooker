@@ -15,12 +15,19 @@ module.exports = new EntitySchema({
             nullable:true,
             name:"last_changed",
         },
+        channel_id:{
+            type:"int",
+            name:"channel_id",
+            unique:false,
+            nullable:true,
+        },
         message_history:{
             type:"text",
             unique:false,
             nullable:true,
             name:"message_history"
         }
+        
     },
     relations:{
         member:{

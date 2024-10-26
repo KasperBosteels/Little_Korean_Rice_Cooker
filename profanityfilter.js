@@ -26,6 +26,7 @@ module.exports = {
 };
 async function proffilter(message, client, con) {
   //check if this guild is being filtered
+  if(message.channel.type === 1 ) return;
   if (!profanity_enabled.GET(message.guild.id)) return;
 
   //split content of message and get list of swear words

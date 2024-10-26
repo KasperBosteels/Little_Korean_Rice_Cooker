@@ -5,6 +5,7 @@ const G = require("./Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {
   async execute(message, con, args, Discord) {
     //if leveling is disabled then stop this command and return
+    if(message.channel.type === 1) return // is dm
     if (!leveling_enabled.CONFIRM(message.guild.id)) return;
 
     let randomint;

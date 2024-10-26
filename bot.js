@@ -10,6 +10,7 @@ const {
   Client,
   Collection,
   Events,
+  Partials
 } = require("discord.js");
 const Discord = require("discord.js");
 const config = require("./auth.json");
@@ -91,14 +92,18 @@ let intents = [
   GatewayIntentBits.GuildEmojisAndStickers,
   GatewayIntentBits.GuildWebhooks,
   GatewayIntentBits.GuildMessageTyping,
-  GatewayIntentBits.DirectMessageReactions,
   GatewayIntentBits.DirectMessages,
   GatewayIntentBits.GuildPresences,
   GatewayIntentBits.MessageContent,
-  GatewayIntentBits.DirectMessages,
 ];
+let partials = [
+  Partials.Message,
+  Partials.Channel,
+
+]
 const client = new Client({
   intents: intents,
+  partials: partials,
 });
 const player = new Player(client, { leaveOnEmpty: false });
 client.player = player;
@@ -199,9 +204,8 @@ client.on(Events.MessageCreate, async (Interaction) => {
   rice(Interaction);
   leave(Interaction, client);
   //removes prefix and puts arguments in variable
-  const usedprefix = getprefix.GET(Interaction.guild.id);
+  const usedprefix = Interaction.guild == null ? "-" : getprefix.GET(Interaction.guild.id);
   const args = Interaction.content.slice(usedprefix.length).trim().split(/ +/);
-
   try {
     level.execute(Interaction, con, args, Discord);
   } catch (error) {
@@ -225,7 +229,7 @@ client.on(Events.MessageCreate, async (Interaction) => {
   if (!command) return;
 
   //checks if the command is applciable for dm's
-  if (command.guildOnly && Interaction.channel.type === "dm") {
+  if (command.guildOnly && Interaction.channel.type === 1) {
     return Interaction.reply({
       content: "i can't perform this action in direct messages",
     });
@@ -275,7 +279,7 @@ client.on(Events.MessageCreate, async (Interaction) => {
       args,
       undefined,
       Interaction.channel.id,
-      Interaction.guild.id,
+      Interaction.guild == null ? 1 : Interaction.guild.id,
       workTime
     );
   } catch (error) {
@@ -287,7 +291,7 @@ client.on(Events.MessageCreate, async (Interaction) => {
       args,
       error,
       Interaction.channel.id,
-      Interaction.guild.id
+      Interaction.guild == null ? 1 : Interaction.guild.id,
     );
     await Interaction.reply({
       content: "There was an error trying to execute that command!",

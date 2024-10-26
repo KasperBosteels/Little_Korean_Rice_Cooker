@@ -32,14 +32,14 @@ module.exports = {
   },
   async SufferFromAmnesia(con) {
     if (!con.isInitialized) await con.initialize();
-    const Job = new CronJob("0 0 * 1/2 * * ", async () => {  // Ze '*/1' means every minute
+    const Job = new CronJob("0 0 * 1/2 * * ", async () => {
       let dateToCheck = new Date();
       dateToCheck.setDate(dateToCheck.getDate() - 2);
       try {
         let allData = llama.GETALL();
         const chatRepository = await con.manager.getRepository("Chats");
         for (let i = 0; i < allData.length; i++) {
-          if (allData[i].Messages.length > 0 || allData[i].lastChanged < dateToCheck) {
+          if (allData[i].Messages.length > 0 && allData[i].lastChanged < dateToCheck) {
             let d = allData[i];
             const user = await con.manager.findOneBy("Users", { user_id: d.userID });
             const guild = await con.manager.findOneBy("Guilds", { guild_id: d.guildID });
