@@ -3,7 +3,7 @@ require("dotenv").config();
 
 module.exports = {
     async live(message, client) {
-        if (process.env.LLAMA_URL == "" || process.env.LLAMA_URL == undefined || process.env.LLAMA_URL == null) {
+        if (process.env.LLAMA_URL == "" || process.env.LLAMA_URL == undefined || process.env.LLAMA_URL == null || process.env.LLama_MODEL == null || process.env.LLama_MODEL == undefined) {
             return;
         }
         if (message.mentions.has(client.user) || oneInFifty() || message.channel.type === 1) {
@@ -20,7 +20,7 @@ async function live(message) {
     });
     dataHandler.ADD(message.author.id, guildId, message.channel.id, "user", m);
     let body = {
-        "model": "cookertest",
+        "model": process.env.LLama_MODEL,
         "messages": dataHandler.GET(message.author.id, guildId, message.channel.id),
         "stream": false,
         "keep_alive": "1h"
