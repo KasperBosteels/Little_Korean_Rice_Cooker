@@ -6,7 +6,7 @@ module.exports = {
         if (process.env.LLAMA_URL == "" || process.env.LLAMA_URL == undefined || process.env.LLAMA_URL == null) {
             return;
         }
-        if (message.mentions.has(client.user) || oneInTwenty() || (!message.mentions.has(client.user)  && oneInFifty())) {
+        if (message.mentions.has(client.user) || oneInFifty()) {
             return await live(message);
         }
     },
