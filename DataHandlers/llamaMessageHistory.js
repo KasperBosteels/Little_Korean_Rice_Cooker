@@ -15,11 +15,13 @@ module.exports = {
         );
         let file = JSON.parse(rawData);
         for (let i = 0; i < file.length; i++) {
-            if (channelId === 1) {
+            if (guildID === "1") {
+                console.log("hello dm")
                 if (file[i].userID == userID && file[i].guildID == guildID && file[i].channelID === channelId) {
                     return file[i].Messages;
                 }
             } else {
+                console.log("channel")
                 if (file[i].channelID == channelId && file[i].guildID == guildID) {
                     return file[i].Messages;
                 }
