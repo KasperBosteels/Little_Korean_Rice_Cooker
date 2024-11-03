@@ -13,7 +13,7 @@ module.exports = {
 };
 async function live(message) {
     await message.channel.sendTyping();
-    let guildId = message.guild == null ? 1 : message.guild.id
+    let guildId = message.guild == null ? "1" : message.guild.id
     let m =`${message.author.username}: ` + message.content;
     message.mentions.users.forEach(mention => {
         m = m.replace(`<@${mention.id}>`, mention.username);
@@ -31,7 +31,6 @@ async function live(message) {
     })
         .then(async (response) => {
             if (!response.ok) {
-                let r = await response.json();
                 throw new Error('Network response was not ok');
             }
             let result = await response.json()
