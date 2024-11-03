@@ -16,7 +16,6 @@ module.exports = {
         let file = JSON.parse(rawData);
         for (let i = 0; i < file.length; i++) {
             if (guildID === "1") {
-                console.log("hello dm")
                 if (file[i].userID == userID && file[i].guildID == guildID && file[i].channelID === channelId) {
                     return file[i].Messages;
                 }
