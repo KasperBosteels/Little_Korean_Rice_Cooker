@@ -75,7 +75,7 @@ const con = new DataSource({
   connectTimeout: 5000,
   acquireTimeout: 5000,
   multipleStatements: true,
-  charset:'utf8mb4',
+  charset: 'utf8mb4',
 });
 //#endregion
 console.log("\x1b[33m", "running discord.js@" + version, "\x1b[0m");
@@ -160,7 +160,7 @@ client.once(Events.ClientReady, async () => {
     news_chhannel.execute(con);
     SlashCommandLoader(process.env.DISCORD_TOKEN, client);
   } catch (err) {
-    console.log("\x1b[31m", err, "\x1b[0m");
+    console.error("\x1b[31m", err, "\x1b[0m");
   }
 });
 //#endregion
@@ -171,7 +171,7 @@ client.on(Events.Error, (Err) => {
     "./info/errors.json",
     JSON.stringify(Err, null, 2),
     (err) => {
-      if (err) console.log("\x1b[31m", err, "\x1b[0m");
+      if (err) console.error("\x1b[31m", err, "\x1b[0m");
     }
   );
 });
@@ -179,19 +179,40 @@ client.on(Events.Error, (Err) => {
 
 //#region server join/leave.
 client.on(Events.GuildCreate, async (guild) => {
-  await server.join(guild, con);
+  try {
+    await server.join(guild, con);
+
+  }
+  catch (err) {
+    console.error(err);
+  }
 });
 client.on(Events.GuildDelete, async (guild) => {
-  await server.leave(guild, con);
+  try {
+    await server.leave(guild, con);
+  }
+  catch (err) {
+    console.error(err);
+  }
 });
 //#endregion
 
 //#region member join/leave.
 client.on(Events.GuildMemberRemove, async (member) => {
-  guildleave(member, con);
+  try {
+    await guildleave(member, con);
+  }
+  catch (err) {
+    console.error(err);
+  }
 });
 client.on(Events.GuildMemberAdd, async (member) => {
-  guildjoin(member, client, con);
+  try {
+    await guildjoin(member, client, con);
+  }
+  catch (err) {
+    console.error(err);
+  }
 });
 //#endregion
 
@@ -309,7 +330,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
       });
       processModal(interaction, con);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   } else if (interaction.isStringSelectMenu()) {
     const selectMenus = client.selectMenus;
@@ -322,7 +343,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     try {
       await menu.execute(client, interaction, makeIndex(interaction.values[0]));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   } else if (!interaction.isChatInputCommand()) {
     return console.log("Is not chatinput quiting process");
@@ -413,8 +434,8 @@ client.player
 client.login(process.env.DISCORD_TOKEN);
 
 //#region  error handles
-process.on("uncaughtException", (error) => console.log("error", error));
-process.on("unhandledRejection", (error) => console.log("error", error));
+process.on("uncaughtException", (error) => console.error("error", error));
+process.on("unhandledRejection", (error) => console.error("error", error));
 process.on("ECONNRESET", (error) => {
   con.destroy();
   con.initialize();
@@ -430,10 +451,10 @@ process
       content:
         "Message was too big to send in discord, sorry. <:sadgeCooker:910210761136148581>",
     });
-    console.log(error);
+    console.error(error);
   })
   .on("error", (error, queue) => {
-    console.log(`ERROR: ${error} in ${queue.guild.name}`);
+    console.error(`ERROR: ${error} in ${queue.guild.name}`);
   });
 //#endregion
 
