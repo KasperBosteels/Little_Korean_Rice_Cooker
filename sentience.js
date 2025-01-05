@@ -6,7 +6,7 @@ module.exports = {
         if (process.env.LLAMA_URL == "" || process.env.LLAMA_URL == undefined || process.env.LLAMA_URL == null || process.env.LLama_MODEL == null || process.env.LLama_MODEL == undefined) {
             return;
         }
-        if (message.mentions.has(client.user) || oneInFifty() || message.channel.type === 1) {
+        if (!message.mentions.everyone && (message.mentions.has(client.user) || oneInFifty() || message.channel.type === 1)) {
             return await live(message);
         }
     },
@@ -53,6 +53,6 @@ function oneInTwenty() {
 }
 
 function oneInFifty() {
-    return Math.random() < 1 / 50;
+    return Math.random() < 1 / 100;
 
 }
