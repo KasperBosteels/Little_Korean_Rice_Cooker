@@ -23,7 +23,7 @@ async function live(message) {
         "model": process.env.LLama_MODEL,
         "messages": dataHandler.GET(message.author.id, guildId, message.channel.id),
         "stream": false,
-        "keep_alive": "1h"
+        "keep_alive": "48h"
     }
     return await fetch(process.env.LLAMA_URL, {
         method: "POST",
@@ -53,6 +53,6 @@ function oneInTwenty() {
 }
 
 function oneInFifty() {
-    return Math.random() < 1 / 100;
+    return Math.random() < 1 / 1000;
 
 }
