@@ -34,7 +34,7 @@ module.exports = {
     if (!con.isInitialized) await con.initialize();
     const Job = new CronJob("0 0 * 1/2 * * ", async () => {
       let dateToCheck = new Date();
-      dateToCheck.setDate(dateToCheck.getDate() - 2);
+      dateToCheck.setDate(dateToCheck.getDate() - 7);
       try {
         let allData = llama.GETALL();
         const chatRepository = await con.manager.getRepository("Chats");
