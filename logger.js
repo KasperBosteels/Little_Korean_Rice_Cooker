@@ -1,4 +1,7 @@
 const { writeFile } = require("node:fs");
+
+const getTimeStamp = () => new Date().toISOString();
+const getLocalTimeStamp = () => new Date().toLocaleString();
 module.exports = {
   async execute(
     prefix,
@@ -10,7 +13,7 @@ module.exports = {
     completionTime
   ) {
     const time = new Date();
-    const timeLog = `${time.toString()}`;
+    const timeLog = `${time.toLocaleString()}`;
     let errorMessage = "";
     if (error != undefined) errorMessage = error.message;
     const LOG = `${"-".repeat(
@@ -26,13 +29,15 @@ module.exports = {
     }
   },
   async LEAVE_JOINLOG(error = undefined, guildID, event) {
-    let LOG;
+const date = new Date();
+const datestr = date.toLocaleString();
+
     if (error) {
-      LOG = `${"+".repeat(30)}USER EVENT${"+".repeat(
+      LOG = `${"+".repeat(30)}USER EVENT - ${datestr}${"+".repeat(
         30
       )}\n${event}\nguild: ${guildID}\nerror: ${error}\n`;
     } else {
-      LOG = `${"+".repeat(30)}USER EVENT${"+".repeat(
+      LOG = `${"+".repeat(30)}USER EVENT - ${datestr}${"+".repeat(
         30
       )}\n${event}\nguild: ${guildID}\n`;
     }
@@ -46,7 +51,7 @@ module.exports = {
   },
   async profanity(channelID, guildID, Content) {
     const time = new Date();
-    const timeLog = `${time.toString()}`;
+    const timeLog = `${time.toLocaleString()}`;
     let LOG;
     LOG = `${"#".repeat(31)}PROFANITY${"#".repeat(
       30
