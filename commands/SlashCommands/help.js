@@ -7,7 +7,7 @@ module.exports = {
   description: "A handy guide for the bot.",
   type: ApplicationCommandType.ChatInput,
   dmPermission: true,
-  choices: [
+  options: [
     {
       type: ApplicationCommandOptionType.String,
       required:false,

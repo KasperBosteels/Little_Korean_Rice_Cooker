@@ -1,5 +1,4 @@
 const ox = require("oxford-dictionary");
-const { Discord } = require("discord.js");
 const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
@@ -34,7 +33,7 @@ module.exports = {
         let data = JSON.stringify(res, null, 4);
         let object = JSON.parse(data);
         return interaction.editReply({
-          embeds: [makeEmbed(author, searchword, object, Discord)],
+          embeds: [makeEmbed(author, searchword, object)],
         });
       })
       .catch((err) => {
@@ -122,7 +121,7 @@ function synonymGET(object) {
   }
   return synonyms;
 }
-function makeEmbed(author, word, object, Discord) {
+function makeEmbed(author, word, object) {
   let messageEmbed = G(
     "Random",
     "Nothing found sorry.",

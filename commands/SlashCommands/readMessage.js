@@ -8,21 +8,25 @@ module.exports = {
   defaultMemberPermissions: ["SendMessages", "ViewChannel"],
 
   async execute(client, interaction, con) {
-    await con.query(
-      `SELECT * FROM user_messages WHERE userID = ${interaction.member.id}`,
-      (err, rows) => {
-        if (err) return console.error(err);
-        let embed = G("#000ff", "all your messages", false, false, true);
-        rows.forEach((row) => {
-          embed.addFields({ name: `${row.topic}`, value: `${row.message}`, inline: false });
-          if (row.Reply != undefined) {
-            embed.addFields({ name: "reply:", value: `\`\`\`${row.Reply}\`\`\``, inline: true });
-          } else {
-            embed.addFields({ name: "reply:", value: `no reply`, inline: true });
-          }
-        });
-        interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
-      }
+    // Messages live in the Messages table, linked to their author via the
+    // memberUserId foreign key. Query it directly and parameterised (no string
+    // interpolation), then render whatever we find.
+    const rows = await con.query(
+      "SELECT topic, message FROM Messages WHERE memberUserId = ?",
+      [`${interaction.user.id}`]
     );
+    const embed = G("#0000ff", false, false, false, true, false, "Your messages");
+    if (!rows || rows.length === 0) {
+      embed.setDescription("You don't have any messages yet.");
+    } else {
+      rows.forEach((row) => {
+        embed.addFields({
+          name: `${row.topic || "(no topic)"}`,
+          value: `${row.message}`,
+          inline: false,
+        });
+      });
+    }
+    return interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
   },
 };

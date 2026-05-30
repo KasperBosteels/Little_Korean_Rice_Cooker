@@ -22,20 +22,26 @@ module.exports = {
           `${cmd.name} is not complete`,
           "\x1b[0m"
         );
-      commands.push({
+      // The raw REST endpoint expects the API's snake_case field names;
+      // camelCase keys (defaultMemberPermissions/dmPermission) are silently
+      // ignored, which is why per-command permissions never took effect.
+      const entry = {
         name: cmd.name,
         description: cmd.description,
         type: cmd.type,
-        choices: cmd.choices!== undefined ? cmd.choices : null,
-        options: cmd.options!== undefined  ? cmd.options : null,
-        default_permissions: cmd.default_permissions!== undefined
-          ? cmd.default_permissions
-          : null,
-        defaultMemberPermissions: cmd.defaultMemberPermissions!== undefined 
-          ? PermissionsBitField.resolve(cmd.defaultMemberPermissions).toString()
-          : null,
-        dmPermission: cmd.dmPermission!== undefined ? cmd.dmPermission : null,
-      });
+      };
+      if (cmd.options) entry.options = cmd.options;
+      // An empty permissions array means "no restriction" -> omit the field.
+      // (Sending "0" would hide the command from everyone except admins.)
+      if (Array.isArray(cmd.defaultMemberPermissions) && cmd.defaultMemberPermissions.length > 0) {
+        entry.default_member_permissions = PermissionsBitField
+          .resolve(cmd.defaultMemberPermissions)
+          .toString();
+      }
+      if (cmd.dmPermission !== undefined && cmd.dmPermission !== null) {
+        entry.dm_permission = cmd.dmPermission;
+      }
+      commands.push(entry);
       if (cmd.name) {
         client.slashCommands.set(cmd.name, cmd);
         console.log("\x1b[32m", `loaded ${cmd.name}.js (/)`, "\x1b[0m");

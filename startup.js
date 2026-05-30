@@ -7,6 +7,7 @@ const fs = require("node:fs");
 const newsgetter = require("./newsgetter.js");
 const news_channel = require("./DataHandlers/news_chhannel.js");
 const llama = require("./DataHandlers/llamaMessageHistory.js");
+const ensure = require("./DataHandlers/ensureRegistered.js");
 module.exports = {
   async execute(client, con) {
     try {
@@ -18,6 +19,11 @@ module.exports = {
     console.log(
       "\x1b[36m", `Logged in as ${client.user.tag} at: ${client.readyAt.toDateString()}`, "\x1b[0m"
     );
+    // Backfill any guilds the bot is already in -- GuildCreate only fires when
+    // the bot is freshly invited, so pre-existing servers would never be saved.
+    for (const guild of client.guilds.cache.values()) {
+      await ensure.ensureGuild(con, guild);
+    }
     let counter = 0;
     const setStatus = () => {
       client.user.setActivity(`${statusTexts[counter]}`, {

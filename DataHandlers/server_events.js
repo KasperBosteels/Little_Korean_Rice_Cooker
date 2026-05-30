@@ -1,11 +1,12 @@
-const leave = require("../leave");
+const ensure = require("./ensureRegistered.js");
 
 module.exports = {
   async join(guild, con) {
-    await con.manager.insert("Guild",{guild_id:guild.id,guild_name:undefined,log_channel:null,guild_prefix:'-',level_system:undefined,guild_profanity:null,profanity_channel:null,guild_chatbot:null})
+    // Delegate to the shared helper so the insert always satisfies the schema
+    // (e.g. the NOT NULL news_channelId column) and stays in one place.
+    await ensure.ensureGuild(con, guild);
   },
   async leave(guild, con) {
-    const g =await con.manager.findOneBy("Guild",{guild_id:guild.id})
-    Guild.remove(g)
+    await con.manager.delete("Guild", { guild_id: guild.id });
   },
 };

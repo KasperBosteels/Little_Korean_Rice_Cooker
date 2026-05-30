@@ -1,11 +1,9 @@
 const G = require("../Generators/GenerateSimpleEmbed").GenerateEmbed;
-const Message = require('../entity/Message');
-const Member = require('../entity/User')
+const ensure = require("../DataHandlers/ensureRegistered.js");
 module.exports = {
   async execute(interaction, con) {
     const mailTopic = interaction.fields.getTextInputValue("tid");
     const MailMessage = interaction.fields.getTextInputValue("mid");
-    console.log(mailTopic, MailMessage);
     let embed = G(
       "#0000ff",
       `topic: "${mailTopic}"\nmessage: "${MailMessage}"`,
@@ -15,25 +13,14 @@ module.exports = {
       false,
       "Your message was send."
     );
-    let member =await con.manager.findOneBy(Member,{user:interaction.member.id});
-    if(!member){
-      member = new Member({
-        user_id:interaction.member.id,
-        user_name:interaction.member.displayName,
-        user_level:0,
-        is_ignored:false,
-        user_experience:0,
-        user_score:1000,
-      });
-    }
-    const message = new Message({
-      message:MailMessage,
-      topic:mailTopic,
-      channel_id:interaction.channelId,
-      member:member,
-      guild:null
+    // Make sure the author has a row, then persist the message linked to them.
+    // (TypeORM's save() with a partial relation sets the memberUserId FK.)
+    await ensure.ensureUser(con, interaction.user);
+    await con.manager.getRepository("Message").save({
+      topic: mailTopic,
+      message: MailMessage,
+      member: { user_id: `${interaction.user.id}` },
     });
-    con.manager.Message.save(message);
     await interaction.editReply({ embeds: [embed] });
   },
 };

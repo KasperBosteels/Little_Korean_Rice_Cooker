@@ -1,4 +1,3 @@
-const { Discord } = require("discord.js");
 const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
@@ -51,7 +50,7 @@ function makeEmbed( user, score) {
   const fields = [
     {
       name:"user",
-      value: `\`\`\`${user.username}#${user.discriminator}\`\`\``,
+      value: `\`\`\`${user.username}\`\`\``,
       inline: true
     },
     {

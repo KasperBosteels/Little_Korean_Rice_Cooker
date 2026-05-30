@@ -46,6 +46,7 @@ const updateSwears = require("./DataHandlers/update_swear_words");
 const processModal = require("./processModal.js").execute;
 const SlashCommandLoader = require("./uploadSlashCommand").execute;
 const makeIndex = require('./SelectMenus/HelpSelectMenu').makeIndex;
+const ensureRegistered = require("./DataHandlers/ensureRegistered.js");
 //#region typeorm related imports
 const DataSource = require("typeorm").DataSource
 const User = require("./entity/User.js");
@@ -220,6 +221,10 @@ client.on(Events.GuildMemberAdd, async (member) => {
 //#region message processor
 client.on(Events.MessageCreate, async (Interaction) => {
   if (Interaction.author.bot) return;
+  // Register the guild + author on activity, so servers/members that predate
+  // this database (the bot only inserts on join events) still get a row.
+  await ensureRegistered.ensureGuild(con, Interaction.guild);
+  await ensureRegistered.ensureUser(con, Interaction.author);
   power.execute(Interaction, con);
   profanity.execute(Interaction, client, con);
   if (ignoreusers.GET(Interaction.author.id) == true) return;
@@ -231,7 +236,7 @@ client.on(Events.MessageCreate, async (Interaction) => {
   try {
     level.execute(Interaction, con, args, Discord);
   } catch (error) {
-    console.error(error.message); Z
+    console.error(error.message);
   }
   if (!prefixcheck.execute(Interaction)) {
     try {
@@ -322,6 +327,9 @@ client.on(Events.MessageCreate, async (Interaction) => {
 });
 //#endregion
 client.on(Events.InteractionCreate, async (interaction) => {
+  // Same on-activity registration for interactions (slash commands, menus...).
+  await ensureRegistered.ensureGuild(con, interaction.guild);
+  await ensureRegistered.ensureUser(con, interaction.user);
   if (interaction.isModalSubmit()) {
     try {
       await interaction.deferReply({

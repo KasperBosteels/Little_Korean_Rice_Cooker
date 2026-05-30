@@ -12,7 +12,7 @@ module.exports = {
     randomint = Math.floor(Math.random() * args.length + 1);
     let userID = await message.author.id;
     const member = await con.manager.findOneBy("User",{user_id:userID})
-    if(!member){await con.manager.create("User",{ user_id:userID,user_name:message.member.username,user_level:1,is_ignored:false,user_experience:0,user_score:1000})
+    if(!member){await con.manager.insert("User",{ user_id:userID,user_name:message.author.username,user_level:1,is_ignored:false,user_experience:0,user_score:1000})
         } else {
               var LEV =parseInt(member.user_level);
               var EXP = parseInt(member.user_experience) + randomint;

@@ -1,4 +1,4 @@
-const { ComponentType, MessageFlags } = require("discord.js");
+const { MessageFlags } = require("discord.js");
 const {
   StringSelectMenuOptionBuilder,
   StringSelectMenuBuilder,
@@ -78,53 +78,19 @@ module.exports = {
           value: "config",
         })
       );
-    
-    if(!interaction.isStringSelectMenu()){
-    await interaction.reply({
+    const row = new ActionRowBuilder().addComponents(menu);
+    // When the user picks a category, the interactionCreate router (bot.js)
+    // re-invokes this handler with the chosen index -> edit the message in
+    // place. The initial /help invocation sends the ephemeral menu instead.
+    if (interaction.isStringSelectMenu()) {
+      return interaction.update({ embeds: [embeds[index]], components: [row] });
+    }
+    return interaction.reply({
       content: "ㅤ",
       flags: MessageFlags.Ephemeral,
       embeds: [embeds[index]],
-      components: [new ActionRowBuilder().addComponents(menu)],
+      components: [row],
     });
-    
-    
-  }
-  const filter =async i =>{
-    await i.deferUpdate();
-    return i.user.id === interaction.user.id;
-  }
-  const collector = interaction.channel.createMessageComponentCollector({
-    filter,
-    componentType: ComponentType.StringSelect,
-    time:30000,
-  });
-  collector.on("collect", async (collected) => {
-    if (collected.componentType != ComponentType.StringSelect) return;
-    const value = collected.values[0];
-    switch (value) {
-      case "home":
-        await collected.editReply({ embeds: [embeds[0]] });
-        break;
-      case "general":
-        await collected.editReply({ embeds: [embeds[1]] });
-        break;
-      case "fun":
-        await collected.editReply({ embeds: [embeds[2]] });
-        break;
-      case "music":
-        await collected.editReply({ embeds: [embeds[3]] });
-        break;
-      case "moderating":
-        await collected.editReply({ embeds: [embeds[4]] });
-        break;
-      case "config":
-        await collected.editReply({ embeds: [embeds[5]] });
-        break;
-      default:
-        await collected.editReply({ embeds: [embeds[0]] });
-        break;
-    }
-  });
   },
   makeIndex(value){
     switch (value) {
