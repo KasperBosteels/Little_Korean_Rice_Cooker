@@ -1,7 +1,7 @@
 const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-} = require("discord-api-types/v9");
+} = require("discord.js");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 const love = require("../../jsonFiles/love.json").answer;
 module.exports = {

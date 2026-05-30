@@ -1,4 +1,4 @@
-const { ComponentType } = require("discord.js");
+const { ComponentType, MessageFlags } = require("discord.js");
 const {
   StringSelectMenuOptionBuilder,
   StringSelectMenuBuilder,
@@ -82,7 +82,7 @@ module.exports = {
     if(!interaction.isStringSelectMenu()){
     await interaction.reply({
       content: "ㅤ",
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
       embeds: [embeds[index]],
       components: [new ActionRowBuilder().addComponents(menu)],
     });
@@ -103,25 +103,25 @@ module.exports = {
     const value = collected.values[0];
     switch (value) {
       case "home":
-        await collected.editReply({ embeds: [embeds[0]], ephemeral: true });
+        await collected.editReply({ embeds: [embeds[0]] });
         break;
       case "general":
-        await collected.editReply({ embeds: [embeds[1]], ephemeral: true });
+        await collected.editReply({ embeds: [embeds[1]] });
         break;
       case "fun":
-        await collected.editReply({ embeds: [embeds[2]], ephemeral: true });
+        await collected.editReply({ embeds: [embeds[2]] });
         break;
       case "music":
-        await collected.editReply({ embeds: [embeds[3]], ephemeral: true });
+        await collected.editReply({ embeds: [embeds[3]] });
         break;
       case "moderating":
-        await collected.editReply({ embeds: [embeds[4]], ephemeral: true });
+        await collected.editReply({ embeds: [embeds[4]] });
         break;
       case "config":
-        await collected.editReply({ embeds: [embeds[5]], ephemeral: true });
+        await collected.editReply({ embeds: [embeds[5]] });
         break;
       default:
-        await collected.editReply({ embeds: [embeds[0]], ephemeral: true });
+        await collected.editReply({ embeds: [embeds[0]] });
         break;
     }
   });

@@ -3,7 +3,7 @@ const stop = require("./music_stop");
 const pause = require("./music_pause.js");
 const {
   ChannelType
-} = require("discord-api-types/v9");
+} = require("discord.js");
 module.exports = {
   name: "play",
   description: "To play some tunes in VC.",

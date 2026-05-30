@@ -1,6 +1,7 @@
+const { ActivityType } = require("discord.js");
 const time = 1 * 10 * 1000;
 const statusTexts = ["-help", "beep beep boop", "your lovely voice"];
-const statusType = ["WATCHING", "LISTENING", "LISTENING"];
+const statusType = [ActivityType.Watching, ActivityType.Listening, ActivityType.Listening];
 const { CronJob } = require("cron");
 const fs = require("node:fs");
 const newsgetter = require("./newsgetter.js");

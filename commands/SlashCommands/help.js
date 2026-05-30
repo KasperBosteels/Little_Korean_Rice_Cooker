@@ -1,4 +1,4 @@
-const { ApplicationCommandType,ApplicationCommandOptionType } = require("discord-api-types/v9");
+const { ApplicationCommandType,ApplicationCommandOptionType } = require("discord.js");
 const HelpSelectMenu = require("../../SelectMenus/HelpSelectMenu");
 const GenerateEmbed = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 const prefix = require("../../DataHandlers/getprefixData").GET;
@@ -23,6 +23,6 @@ module.exports = {
   const requestedCommand = client.commands.find(c=>c.name===specific);
   const Prefix = prefix(interaction.guild.id);
   const Embed = GenerateEmbed("RANDOM",`placeholder text`,false,[{name:Prefix+requestedCommand.name,value:requestedCommand.usage}],false,false,"details about: "+Prefix+specific,false,false);
-  return await interaction.reply({embeds:[Embed], ephemeral:false});
+  return await interaction.editReply({embeds:[Embed]});
   },
 };

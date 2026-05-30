@@ -1,7 +1,7 @@
 const {
     ApplicationCommandOptionType,
     ApplicationCommandType,
-  } = require("discord-api-types/v9");
+  } = require("discord.js");
 const yts = require("yt-search");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
   

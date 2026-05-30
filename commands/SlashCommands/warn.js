@@ -1,7 +1,7 @@
 const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-} = require("discord-api-types/v9");
+} = require("discord.js");
 const { GenerateEmbed } = require("../../Generators/GenerateSimpleEmbed");
 const { logWithNoMember } = require("../../sendToLogChannel");
 module.exports = {

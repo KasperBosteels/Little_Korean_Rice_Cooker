@@ -1,5 +1,5 @@
 const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9");
+const { Routes } = require("discord.js");
 const { Collection, PermissionsBitField } = require("discord.js");
 const fs = require("node:fs");
 
@@ -28,8 +28,8 @@ module.exports = {
         type: cmd.type,
         choices: cmd.choices!== undefined ? cmd.choices : null,
         options: cmd.options!== undefined  ? cmd.options : null,
-        default_permissions: cmd.default_permissions!== undefined 
-          ? default_permissions
+        default_permissions: cmd.default_permissions!== undefined
+          ? cmd.default_permissions
           : null,
         defaultMemberPermissions: cmd.defaultMemberPermissions!== undefined 
           ? PermissionsBitField.resolve(cmd.defaultMemberPermissions).toString()

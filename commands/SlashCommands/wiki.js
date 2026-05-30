@@ -1,7 +1,7 @@
 const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-} = require("discord-api-types/v9");
+} = require("discord.js");
 const wiki = require("wikipedia");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {

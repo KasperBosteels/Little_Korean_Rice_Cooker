@@ -34,6 +34,6 @@ module.exports = {
       guild:null
     });
     con.manager.Message.save(message);
-    await interaction.editReply({ embeds: [embed], ephemeral: true });
+    await interaction.editReply({ embeds: [embed] });
   },
 };

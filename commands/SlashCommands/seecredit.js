@@ -2,7 +2,8 @@ const { Discord } = require("discord.js");
 const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-} = require("discord-api-types/v9");
+  MessageFlags,
+} = require("discord.js");
 const credit = require("../../DataHandlers/socialCredit");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {
@@ -20,7 +21,7 @@ module.exports = {
     },
   ],
   async execute(client, interaction, con) {
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
     let user = await interaction.options.getUser("user");
     if (user == undefined) {
       user = interaction.user;
@@ -32,7 +33,6 @@ module.exports = {
         //return with embed message
         return interaction.editReply({
           embeds: [makeEmbed( user, SCS)],
-          ephemeral: true,
         });
   },
 };

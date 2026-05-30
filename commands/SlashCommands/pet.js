@@ -1,7 +1,7 @@
 const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-} = require("discord-api-types/v9");
+} = require("discord.js");
 const G = require("../../Generators/GenerateSimpleEmbed");
 const path = require("../../jsonFiles/bodily_affection.json").pats;
 module.exports = {

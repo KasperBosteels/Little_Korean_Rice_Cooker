@@ -2,7 +2,7 @@ const {
     ApplicationCommandOptionType,
     ApplicationCommandType,
     ChannelType
-  } = require("discord-api-types/v9");
+  } = require("discord.js");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 module.exports = {
     name:"music",

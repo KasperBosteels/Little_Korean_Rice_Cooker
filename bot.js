@@ -10,7 +10,8 @@ const {
   Client,
   Collection,
   Events,
-  Partials
+  Partials,
+  MessageFlags
 } = require("discord.js");
 const Discord = require("discord.js");
 const config = require("./auth.json");
@@ -89,7 +90,7 @@ let intents = [
   GatewayIntentBits.GuildMessages,
   GatewayIntentBits.GuildMessageReactions,
   GatewayIntentBits.DirectMessageReactions,
-  GatewayIntentBits.GuildEmojisAndStickers,
+  GatewayIntentBits.GuildExpressions,
   GatewayIntentBits.GuildWebhooks,
   GatewayIntentBits.GuildMessageTyping,
   GatewayIntentBits.DirectMessages,
@@ -324,9 +325,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
   if (interaction.isModalSubmit()) {
     try {
       await interaction.deferReply({
-        content:
-          "Your submission was received successfully and will be processed.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       processModal(interaction, con);
     } catch (error) {
@@ -354,7 +353,13 @@ client.on(Events.InteractionCreate, async (interaction) => {
     await slashcommand.execute(client, interaction, con);
   } catch (error) {
     if (error.code == 10062) return;
-    await interaction.editReply({ content: error.message, ephemeral: true });
+    // editReply only works once the interaction has been deferred/replied to;
+    // otherwise (command threw before responding) fall back to an ephemeral reply.
+    if (interaction.deferred || interaction.replied) {
+      await interaction.editReply({ content: error.message });
+    } else {
+      await interaction.reply({ content: error.message, flags: MessageFlags.Ephemeral });
+    }
     logger.execute("/", interaction.name, interaction.options, error);
   }
 });

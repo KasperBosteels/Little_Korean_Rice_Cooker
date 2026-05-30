@@ -3,7 +3,7 @@ const { Discord } = require("discord.js");
 const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-} = require("discord-api-types/v9");
+} = require("discord.js");
 const G = require("../../Generators/GenerateSimpleEmbed").GenerateEmbed;
 const ID = process.env.OXFORD_ID;
 const KEY = process.env.OXFORD_KEY;

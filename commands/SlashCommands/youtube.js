@@ -1,7 +1,7 @@
 const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-} = require("discord-api-types/v9");
+} = require("discord.js");
 const search = require("yt-search");
 module.exports = {
   name: "youtube",

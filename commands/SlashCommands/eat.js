@@ -1,7 +1,7 @@
 const {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-} = require("discord-api-types/v9");
+} = require("discord.js");
 const eat = require("../../jsonFiles/bodily_affection.json").eating;
 const eatingText = require("../../jsonFiles/bodily_affection.json")[
   "eating-text"
