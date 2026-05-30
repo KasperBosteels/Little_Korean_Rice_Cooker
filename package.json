@@ -20,7 +20,7 @@
     "discord-api-types": "^0.27.0",
     "discord-music-player": "^9.1.1",
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
-    "discord.js": "^14.7.1",
+    "discord.js": "^14.26.4",
     "discord.js-embed-menu": "^1.0.3",
     "discord.js-menu": "^2.3.1",
     "dotenv": "^16.0.0",
