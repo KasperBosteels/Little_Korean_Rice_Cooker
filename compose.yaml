@@ -1,0 +1,62 @@
+services:
+  # ---------------------------------------------------------------------------
+  # The database. We use the official MariaDB image (no Dockerfile needed).
+  # ---------------------------------------------------------------------------
+  db:
+    image: mariadb:11
+    container_name: rice_cooker_db
+    restart: unless-stopped
+    environment:
+      # On first start, the image creates the root user + an empty database.
+      # ${...} values are read from the .env file in this directory, so the DB
+      # password and name stay in ONE place and always match what the bot uses.
+      MARIADB_ROOT_PASSWORD: ${SERVER_PASSWORD}
+      MARIADB_DATABASE: ${DATABASE}
+    ports:
+      # Publish MariaDB to the host's loopback only, so your IDE (DataGrip /
+      # RustRover DB tool) can connect at 127.0.0.1:3306. Bound to 127.0.0.1
+      # (not 0.0.0.0) so it's NOT exposed to the LAN — the creds are weak and
+      # ufw is active. The bot itself doesn't use this; it reaches the DB
+      # internally via HOST=db on the compose network.
+      - "127.0.0.1:3306:3306"
+    volumes:
+      # Named volume => your data survives `docker compose down` and rebuilds.
+      # Without this, the DB would be wiped every time the container is recreated.
+      - db_data:/var/lib/mysql
+    healthcheck:
+      # Marks the container "healthy" only once MariaDB can actually accept
+      # connections. The bot waits for this (see depends_on below).
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # ---------------------------------------------------------------------------
+  # The Discord bot, built from your Dockerfile.
+  # ---------------------------------------------------------------------------
+  bot:
+    build: .
+    container_name: little_korean_rice_cooker
+    restart: unless-stopped
+    env_file:
+      - .env
+    extra_hosts:
+      # Lets the container reach services running on the host (e.g. your local
+      # Ollama at http://host.docker.internal:11434). "host-gateway" resolves
+      # to the host's IP automatically, so this works on Linux too.
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      db:
+        # Don't start the bot until the DB reports healthy. This avoids the
+        # bot crashing on boot because the DB isn't ready to accept connections.
+        condition: service_healthy
+    volumes:
+      # Persist runtime-written config + logs on the host so they survive
+      # rebuilds. These dirs are gitignored config the bot writes to at runtime.
+      - ./jsonFiles:/app/jsonFiles
+      - ./info:/app/info
+
+# Declares the named volume used above.
+volumes:
+  db_data:
