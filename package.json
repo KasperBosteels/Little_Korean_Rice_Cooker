@@ -41,7 +41,7 @@
     "reconlx": "^2.5.2",
     "reflect-metadata": "^0.1.13",
     "translate": "^3.0.0",
-    "typeorm": "^0.3.20",
+    "typeorm": "^0.3.29",
     "wikipedia": "^1.1.6",
     "yt-search": "^2.10.3",
     "ytdl-core": "^4.11.5",
