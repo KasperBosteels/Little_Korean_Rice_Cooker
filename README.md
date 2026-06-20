@@ -1,7 +1,7 @@
 # keep in mind when discord updates, certain things might break.
 
 <br/>
-<p align="center">
+<div align="center">
   <a href="https://github.com/KasperBosteels/Little_Korean_Rice_Cooker">
     <img src="https://imgur.com/A2SSxSE.png" alt="Logo" width="80" height="80">
   </a>
@@ -17,7 +17,7 @@ with a ton of features.
     .
     <a href="https://github.com/KasperBosteels/Little_Korean_Rice_Cooker/issues">Request Feature</a>
   </p>
-</p>
+</div>
 
 ![Contributors](https://img.shields.io/github/contributors/KasperBosteels/Little_Korean_Rice_Cooker?color=dark-green) ![Issues](https://img.shields.io/github/issues/KasperBosteels/Little_Korean_Rice_Cooker) ![License](https://img.shields.io/github/license/KasperBosteels/Little_Korean_Rice_Cooker)
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
@@ -28,7 +28,8 @@ with a ton of features.
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Versions](#versions)
-  - [Installation](#installation)
+  - [Installation (Manual)](#installation-manual)
+  - [Installation (Docker)](#installation-docker)
 - [Usage](#usage)
 - [License](#license)
 - [Authors](#authors)
@@ -74,12 +75,19 @@ How to run this project localy:
 
 stuff you need to install FIRST!
 
+#### For Manual Installation
 - node 16.13.2
 - npm (i use 8.1.2 as of 2023)
 - [ffmpeg](https://www.hostinger.com/tutorials/how-to-install-ffmpeg).
-- the discord bot [token](https://discord.com/developers).
 - a MySql [server](https://learn.microsoft.com/en-us/sql/relational-databases/databases/create-a-database?view=sql-server-ver16).
 - [pm2](https://pm2.keymetrics.io/)
+
+#### For Docker Installation
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+#### General
+- the discord bot [token](https://discord.com/developers).
 
 ### Versions
 
@@ -96,7 +104,7 @@ V12
 V13
 ```
 
-### Installation
+### Installation (Manual)
 
 **simple installation in 3 steps:**
 
@@ -132,7 +140,7 @@ npm install
 
 
 <details><summary>where to get the key's and id's?</summary>
-<p>
+
 - The discord token can be created in [the discord developers platform](https://discord.com/login?redirect_to=%2Fdevelopers%2Fapplications)
 
 - The sql credentials you will need to create on your own after setting up an sql server.
@@ -143,15 +151,41 @@ npm install
 - For the programmable search engine (the CSE_ID) you will need to create one in [googles programmable search engine](https://programmablesearchengine.google.com/) dashboard
 - For the google-api key you will need to create a new project in the [google cloud platform](https://console.cloud.google.com/home)
   and get the google_api key from there.
-  </p>
-  </details>
+
+</details>
  
  this should be all.
+
+### Installation (Docker)
+
+**Running with Docker is the easiest way to get started!**
+
+1. Clone the repo
+```sh
+git clone https://github.com/KasperBosteels/Little_Korean_Rice_Cooker.git
+cd Little_Korean_Rice_Cooker
+```
+
+2. Create a `.env` file with the environment variables listed in the [Manual Installation](#installation-manual) section.
+   - Note: For Docker, set `HOST=db` and `TYPE=mariadb`.
+
+3. Start the containers
+```sh
+docker compose up -d
+```
+
+Docker will automatically set up the MariaDB database and the bot for you.
 ## Usage
 
+### Manual Usage
 with your terminal navigate to the "Little_Korean_Rice_Cooker" directory.
 - windows: use "npm start" to start the bot.
 - linux: use "pm2 start bot.js" to start the bot.
+
+### Docker Usage
+- Start the bot: `docker compose up -d`
+- Stop the bot: `docker compose down`
+- View logs: `docker logs -f little_korean_rice_cooker`
 
 ## License
 
