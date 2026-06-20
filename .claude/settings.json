@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker logs *)",
+      "Bash(npm view *)",
+      "Bash(node --check *)"
+    ]
+  }
+}

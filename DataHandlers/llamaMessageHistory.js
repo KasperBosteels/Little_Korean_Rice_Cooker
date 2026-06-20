@@ -39,7 +39,7 @@ module.exports = {
                 lastChanged: new Date(),
                 Messages: [
                     {
-                        role: "user",
+                        role: role,
                         content: Message
                     }
                 ]
