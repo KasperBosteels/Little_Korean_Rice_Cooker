@@ -89,19 +89,20 @@ module.exports = {
         description:"See all the songs for the current queue."
     },
 ],
-async execute(client,interaction,con){
-await interaction.deferReply();
-const sub = interaction.options.getSubcommand();
-let channel;
-channel = interaction.guild.members.cache.get(interaction.member.user.id).voice.channel;
-let queue = client.player.createQueue(interaction.guild.id, {
-    data: { queueInitChannel: channel },
-});
-try{
-    await queue.join(channel)
-}catch(error){
-    console.log(error)
-}
+async execute(client, interaction, con) {
+        await interaction.deferReply();
+        const sub = interaction.options.getSubcommand();
+        let channel = interaction.member.voice.channel;
+        if (!channel) return await interaction.editReply({ content: "You must be in a voice channel to use this command." });
+        let queue = client.player.createQueue(interaction.guild.id, {
+            data: { queueInitChannel: channel },
+        });
+        try {
+            await queue.join(channel)
+        } catch (error) {
+            console.log(error)
+            return await interaction.editReply({ content: "Failed to join voice channel." });
+        }
 switch (sub) {
     case "play":
         const songName = interaction.options.getString("song"),playlistName = interaction.options.getString("playlist");
@@ -119,24 +120,25 @@ switch (sub) {
             console.log("playing song")
             return await interaction.editReply({content:"Song added"})
             
-            }else if (playlistName!==null){
-                const user = await con.manager.findOneBy("Users",{user_id:interaction.user.id})
-                const playlist = await con.manager.findBy("Playlists",{playlist_name:playlistName,member:user})
-                const list = await con.manager.findBy("Songs",{playlist:playlist});
-                try{
-                await Promise.all(list.forEach(async s => {
-                    try{
-                    await queue.play(s.song_url,{requestedBy:interaction.user});
-                    }catch(e){
-                        console.log(e);
-                        interaction.channel.send({content:"Unable to play this song: "+s.song_url})
+            } else if (playlistName !== null) {
+                const user = await con.manager.findOneBy("User", { user_id: interaction.user.id })
+                const playlist = await con.manager.findOneBy("Playlist", { playlist_name: playlistName, member: user })
+                if (!playlist) return await interaction.editReply({ content: "Playlist not found: " + playlistName })
+                const list = await con.manager.findBy("Song", { playlist: playlist });
+                try {
+                    for (const s of list) {
+                        try {
+                            await queue.play(s.song_url, { requestedBy: interaction.user });
+                        } catch (e) {
+                            console.log(e);
+                            await interaction.channel.send({ content: "Unable to play this song: " + s.song_url })
+                        }
                     }
-                }));
-                return await interaction.followUp({content:"Added all the songs from "+playlist.playlist_name});
-            }catch(error){
-                console.log(error)
-            }   
-        }else{
+                    return await interaction.editReply({ content: "Added all the songs from " + playlist.playlist_name });
+                } catch (error) {
+                    console.log(error)
+                }
+            } else {
             return await interaction.followUp({content:"You need to give me a song or a playlist to play."})
         }
     break;

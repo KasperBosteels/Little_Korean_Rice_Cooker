@@ -21,7 +21,7 @@ module.exports = {
     let Vchannel, songquery, guildQueue;
     guildQueue = client.player.getQueue(message.guild.id);
     Vchannel = message.member.voice.channel;
-    if (!Vchannel || !Vchannel.type === ChannelType.GuildVoice)
+    if (!Vchannel || Vchannel.type !== ChannelType.GuildVoice)
       return message.reply("You are not in a voice channel.");
     if (!args.length) {
       return await pause.execute(null, message, null, con);
@@ -31,9 +31,14 @@ module.exports = {
     let queue = client.player.createQueue(message.guild.id, {
       data: { queueInitChannel: message.channel },
     });
-    await queue.join(Vchannel);
+    try {
+      await queue.join(Vchannel);
+    } catch (error) {
+      console.log(error);
+      return message.reply("Failed to join voice channel.");
+    }
     await queue
-      .play(songquery, { requestedBy: message.author.username })
+      .play(songquery, { requestedBy: message.author })
       .catch((_) => {
         if (!guildQueue) queue.stop();
       });

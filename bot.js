@@ -30,6 +30,7 @@ const welcome_channel = require("./DataHandlers/welcome_data.js");
 const profanity_alert_data_collector = require("./DataHandlers/profanity_alert_data_collector");
 const profanity_enabled = require("./DataHandlers/profanity_enabled");
 const leveling_enabled = require("./DataHandlers/leveling_enabled");
+const ai_enabled = require("./DataHandlers/ai_enabled");
 const welcomeLeaveMessages = require("./DataHandlers/welcome_leave_messages");
 const power = require("./powerButton");
 const sentience = require("./sentience.js");
@@ -154,6 +155,7 @@ client.once(Events.ClientReady, async () => {
     profanity_enabled.execute(con);
     updateSwears.execute(con);
     leveling_enabled.execute(con);
+    ai_enabled.execute(con);
     welcome_channel.execute(con);
     welcomeLeaveMessages.execute(con);
     ignoreusers.execute(con);
@@ -442,7 +444,10 @@ client.player
   )
   // Emitted when deafenOnJoin is true and the bot was undeafened
   .on("clientUndeafen", (queue) => console.log(`I got undefeanded.`))
-// Emitted when there was an error in runtime
+  // Emitted when there was an error in runtime
+  .on("error", (error, queue) => {
+    console.error(`[${queue.guild.id}] Error: ${error}`);
+  });
 //#endregion
 client.login(process.env.DISCORD_TOKEN);
 

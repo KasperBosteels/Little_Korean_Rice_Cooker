@@ -14,6 +14,11 @@ RUN apt-get update && apt-get install -y \
     libgif-dev \
     librsvg2-dev \
     ffmpeg \
+    libtool \
+    autoconf \
+    automake \
+    libsodium-dev \
+    libopus-dev \
   && rm -rf /var/lib/apt/lists/*
 
 COPY package*.json ./

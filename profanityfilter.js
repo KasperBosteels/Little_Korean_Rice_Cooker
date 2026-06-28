@@ -30,7 +30,7 @@ async function proffilter(message, client, con) {
   if (!profanity_enabled.GET(message.guild.id)) return;
 
   //split content of message and get list of swear words
-  let messageArray = message.content.split();
+  let messageArray = message.content.split(/\s+/);
   let swear = await getswearwords(message.guild.id);
   let amountswear = 0;
   let userID = message.author.id;
@@ -42,32 +42,31 @@ async function proffilter(message, client, con) {
         amountswear++;
       }
     }
-    //#endregion
-    //if there are more than 0 swear words found be annoying
-    if (amountswear != 0) {
-      try {
-        let coin = Math.floor(Math.random() * Math.floor(threats.length));
-        sendMessageToChannel(message, client);
-        //message.channel.send(sentecUser);
-        message.channel.send({
-          content: `${message.author}` + `\n${threats[coin]}`,
-        });
-      } catch (err) {
-        return console.log(err);
-      } finally {
-        profanity(message.channel.id, message.guild.id, message.content);
-        score.SUBTRACT(con, 125, message.author.id);
-        if ((await score.GETSCORE(con, userID)) <= 500) {
-          warn.aleternateWarn(
-            con,
-            message.guild.id,
-            message.author.id,
-            "automatic profanity warning",
-            message.member.displayName
-          );
-        }
-        await message.delete();
+  }
+  //if there are more than 0 swear words found be annoying
+  if (amountswear != 0) {
+    try {
+      let coin = Math.floor(Math.random() * Math.floor(threats.length));
+      sendMessageToChannel(message, client);
+      //message.channel.send(sentecUser);
+      message.channel.send({
+        content: `${message.author}` + `\n${threats[coin]}`,
+      });
+    } catch (err) {
+      return console.log(err);
+    } finally {
+      profanity(message.channel.id, message.guild.id, message.content);
+      score.SUBTRACT(con, 125, message.author.id);
+      if ((await score.GETSCORE(con, userID)) <= 500) {
+        warn.aleternateWarn(
+          con,
+          message.guild.id,
+          message.author.id,
+          "automatic profanity warning",
+          message.member.displayName
+        );
       }
+      await message.delete().catch(() => {});
     }
   }
 }
