@@ -18,10 +18,10 @@ module.exports = {
       });
       const guildId = message.guild.id;
       if(!guildId)return message.channel.send({content:"An error occured, try again later."})
-      const guild = await con.manager.findOneBy("Guilds",{guild_id:guildId})
+      const guild = await con.manager.findOneBy("Guild",{guild_id:guildId})
       guild.guild_prefix = args[0]?args[0]:"-";
       try{
-        await con.manager.save("Guilds",guild)
+        await con.manager.save("Guild",guild)
         await updatePrefix.execute(client,con)
         return message.channel.send({
         content: `Updated your prefix to: "${args[0]?args[0]:"-"}".`,
@@ -31,10 +31,10 @@ module.exports = {
       }
   },
   async update(guildID, prefix, con) {
-    const guild = await con.manager.findOneBy("Guilds",{guild_id:guildID})
+    const guild = await con.manager.findOneBy("Guild",{guild_id:guildID})
     guild.guild_prefix=prefix;
     try{
-      await con.manager.save("Guilds",guild);
+      await con.manager.save("Guild",guild);
       await updatePrefix.execute(client,con)
       return true
     }catch(e){

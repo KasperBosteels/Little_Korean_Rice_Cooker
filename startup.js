@@ -60,7 +60,7 @@ module.exports = {
             allData[i].Messages = [];
           }
         }
-        llama.REFRESH([]);
+        llama.REFRESH(allData);
       } catch (error) {
         console.error(error);
       }

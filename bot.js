@@ -1,6 +1,21 @@
 //#region get res
 require("dotenv").config();
 require("reflect-metadata")
+
+// Add global timestamps to console logs
+const originalLog = console.log;
+const originalError = console.error;
+const originalWarn = console.warn;
+
+const getTimestamp = () => {
+  const now = new Date();
+  return `[${now.toLocaleDateString()} ${now.toLocaleTimeString()}]`;
+};
+
+console.log = (...args) => originalLog(getTimestamp(), ...args);
+console.error = (...args) => originalError(getTimestamp(), ...args);
+console.warn = (...args) => originalWarn(getTimestamp(), ...args);
+
 const logger = require("./logger.js");
 const start = require("./startup.js");
 const fs = require("node:fs");
@@ -108,6 +123,7 @@ const client = new Client({
   intents: intents,
   partials: partials,
 });
+client.con = con;
 const player = new Player(client, { leaveOnEmpty: false });
 client.player = player;
 //#endregion

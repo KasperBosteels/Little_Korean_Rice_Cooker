@@ -29,17 +29,19 @@ module.exports = {
             "No filter was set for this server or it was already removed.",
         });
 
-      await con.manager.findOneBy("Guilds",{guild_id:guildID}).then((g)=>{
+      const g = await con.manager.findOneBy("Guild",{guild_id:guildID});
+      if (g) {
         g.profanity=0
-        con.manager.save(g)
-      })
+        await con.manager.save("Guild", g)
+      }
       profanity.execute(con);
       return message.channel.send({ content: "filter is off" });
     } else {
-      await con.manager.findOneBy("Guilds",{guild_id:guildID}).then((g)=>{
+      const g = await con.manager.findOneBy("Guild",{guild_id:guildID});
+      if (g) {
         g.profanity=1
-        con.manager.save(g)
-      })
+        await con.manager.save("Guild", g)
+      }
       profanity.execute(con);
       return message.channel.send({ content: "filter is on" });
     }

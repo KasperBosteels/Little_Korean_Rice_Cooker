@@ -20,10 +20,10 @@ module.exports = {
     if (!channel) return console.log("no channel");
     if (!guild) return console.log("no guild");
     if (args[0] && args[0].toLowerCase() == "disable") {
-      const Guild = await con.manager.findOneBy("Guilds",{guild_id:guild})
+      const Guild = await con.manager.findOneBy("Guild",{guild_id:guild})
             if(Guild){
               Guild.profanity_channel=null
-              con.manager.save(Guild)
+              await con.manager.save("Guild", Guild)
             return await message.channel.send({
               content: "I will not send any profanity alert messages here.",
             });
@@ -38,9 +38,9 @@ module.exports = {
       const Guild =await con.manager.findOneBy("Guild",{guild_id:guild})
           if (Guild) {
             Guild.profanity_channel=toString(channel)
-            await con.manager.save(Guild);
+            await con.manager.save("Guild", Guild);
           } else {
-            await con.manager.insert("Guilds",{guild_id:guild,profanity_channel:channel})   
+            await con.manager.insert("Guild",{guild_id:guild,profanity_channel:channel})   
             
            message.channel.send({
             content: "i will send my alerts here now",

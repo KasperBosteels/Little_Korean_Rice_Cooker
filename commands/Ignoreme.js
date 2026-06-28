@@ -11,14 +11,14 @@ module.exports = {
     let id = message.author.id;
     if (!id) return console.log("no ID found from message.");
     let data_removed_string = " ";
-    const user = await con.manager.findOneBy("Users", {user_id:id});
+    const user = await con.manager.findOneBy("User", {user_id:id});
     try{
       user.user_name=null;
       user.user_level=0
       user.is_ignored=true
       user.user_experience=0
       user.user_score=0
-      await con.manager.save("Users",user);
+      await con.manager.save("User",user);
       data_removed_string =
       "Removed non-critical data from user.";
     }catch(e){
@@ -28,7 +28,7 @@ module.exports = {
 
 
     try{
-      await con.manager.delete("Messages",{member:user});
+      await con.manager.delete("Message",{member:user});
       data_removed_string+="\nSuccesfully removed messages."
     }catch(e){
       console.log(e)
@@ -36,7 +36,7 @@ module.exports = {
     }
 
     try{
-      await con.manager.delete("Playlists",{member:user});
+      await con.manager.delete("Playlist",{member:user});
       data_removed_string+="\nSucessfully removed playlists."
     }catch(e){
       console.log(e)

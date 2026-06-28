@@ -25,10 +25,10 @@ module.exports = {
 
     if (args[0] && args[0].toLowerCase() == "disable") {
 
-      const guild = await con.manager.findOneBy("Guilds",{guild_id:guildId})
+      const guild = await con.manager.findOneBy("Guild",{guild_id:guildId})
       guild.log_channel=null
       try{
-        await con.manager.save("Guilds",guild);
+        await con.manager.save("Guild",guild);
         await logchannels.execute(con);
 
         message.channel.send({
@@ -40,10 +40,10 @@ module.exports = {
       }
     } else {
       //checks if database already exists if true update else insert
-      const guild = await con.manager.findOneBy("Guilds",{guild_id:guildId});
+      const guild = await con.manager.findOneBy("Guild",{guild_id:guildId});
       guild.log_channel=channel
       try{
-        await con.manager.save("Guilds",guild);
+        await con.manager.save("Guild",guild);
         await logchannels.execute(con);
           return message.channel.send({
             content: "i will send my logs here now",

@@ -24,21 +24,19 @@ module.exports = {
     let action = interaction.options.getString("action");
 
     if (action === "disable") {
-      await con.manager.findOneBy("Guild", { guild_id: guildID }).then((g) => {
-        if (g) {
-            g.guild_chatbot = false;
-            con.manager.save(g);
-        }
-      });
+      const g = await con.manager.findOneBy("Guild", { guild_id: guildID });
+      if (g) {
+          g.guild_chatbot = false;
+          await con.manager.save("Guild", g);
+      }
       await ai_enabled.execute(con);
       return interaction.reply({ content: "AI features are now disabled for this server." });
     } else {
-      await con.manager.findOneBy("Guild", { guild_id: guildID }).then((g) => {
-        if (g) {
-            g.guild_chatbot = true;
-            con.manager.save(g);
-        }
-      });
+      const g = await con.manager.findOneBy("Guild", { guild_id: guildID });
+      if (g) {
+          g.guild_chatbot = true;
+          await con.manager.save("Guild", g);
+      }
       await ai_enabled.execute(con);
       return interaction.reply({ content: "AI features are now enabled for this server." });
     }

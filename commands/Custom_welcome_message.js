@@ -23,12 +23,12 @@ module.exports = {
       return console.log(
         "I was unnable to determine this guilds id, try again later."
       );
-      const guild = await con.manager.findOneBy('Guilds',{guild_id:guildid});
+      const guild = await con.manager.findOneBy('Guild',{guild_id:guildid});
     if (args[0] && args[0].toLowerCase() == "disable") {
     
       guild.welcome_message=undefined;
       try{
-        await con.manager.save("Guids",guild)
+        await con.manager.save("Guild",guild)
         await welcome_data.execute(con);
         return message.channel.send({
           content: "I removed your servers welcome message.",
@@ -43,7 +43,7 @@ module.exports = {
       //checks if database already exists if true update else insert
       guild.welcome_message = args.join(" ");
       try{
-        await con.manager.save("Guilds",guild)
+        await con.manager.save("Guild",guild)
         await welcome_data.execute(con);
         return message.channel.send({
           content: "Your custom welcome message was saved.",

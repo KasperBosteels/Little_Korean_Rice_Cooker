@@ -27,21 +27,19 @@ module.exports = {
     await ensureRegistered.ensureGuild(con, message.guild);
 
     if (action === "disable") {
-      await con.manager.findOneBy("Guild", { guild_id: guildID }).then(async (g) => {
-        if (g) {
-            g.guild_chatbot = false;
-            await con.manager.save(g);
-        }
-      });
+      const g = await con.manager.findOneBy("Guild", { guild_id: guildID });
+      if (g) {
+          g.guild_chatbot = false;
+          await con.manager.save("Guild", g);
+      }
       await ai_enabled.execute(con);
       return message.channel.send({ content: "AI features are now disabled for this server." });
     } else if (action === "enable") {
-      await con.manager.findOneBy("Guild", { guild_id: guildID }).then(async (g) => {
-        if (g) {
-            g.guild_chatbot = true;
-            await con.manager.save(g);
-        }
-      });
+      const g = await con.manager.findOneBy("Guild", { guild_id: guildID });
+      if (g) {
+          g.guild_chatbot = true;
+          await con.manager.save("Guild", g);
+      }
       await ai_enabled.execute(con);
       return message.channel.send({ content: "AI features are now enabled for this server." });
     } else {

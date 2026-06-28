@@ -29,10 +29,11 @@ module.exports = {
         return message.channel.send({
           content: "Leveling is already disabled in this server.",
         });
-        await con.manager.findOneBy("Guilds",{guild_id:guildID}).then((g)=>{
+        const g = await con.manager.findOneBy("Guild",{guild_id:guildID});
+        if (g) {
           g.level_system=0
-          con.manager.save(g)
-        })
+          await con.manager.save("Guild", g)
+        }
       await leveling.execute(con);
       return message.channel.send({ content: "Leveling system is disabled." });
     } else if (args[0].toLowerCase() == "enable") {
@@ -40,10 +41,11 @@ module.exports = {
         return message.channel.send({
           content: "Leveling is already enabled in this server.",
         });
-      await con.manager.findOneBy("Guilds",{guild_id:message.guild.id}).then((g)=>{
+      const g = await con.manager.findOneBy("Guild",{guild_id:message.guild.id});
+      if (g) {
         g.level_system=1
-        con.manager.save(g)
-      })
+        await con.manager.save("Guild", g)
+      }
       await leveling.execute(con);
       return message.channel.send({ content: "Leveling is enabled." });
     } else {
@@ -55,12 +57,12 @@ module.exports = {
   },
   async update(guildID, value) {
 
-    const Guild = await con.manager.findOneBy("Guilds",{guild_id:guildID})
+    const Guild = await con.manager.findOneBy("Guild",{guild_id:guildID})
     if(Guild){
       Guild.level_system=value
-      await con.manager.save(Guild)
+      await con.manager.save("Guild", Guild)
           } else {
-        await con.manager.insert("Guilds",{guild_id:guildID,level_system:value})
+        await con.manager.insert("Guild",{guild_id:guildID,level_system:value})
           return true;
           }
     await leveling.execute(con);

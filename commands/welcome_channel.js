@@ -30,10 +30,10 @@ module.exports = {
     if (!guild) return console.log("no guild");
 
     if (args[0] && args[0].toLowerCase() == "disable") {
-      const G = await con.manager.findoneBy("Guilds",{guild_id:guild})
+      const G = await con.manager.findOneBy("Guild",{guild_id:guild})
       if(!G.welcome_channel){
         G.welcome_channel = null
-        await con.manager.save(G)
+        await con.manager.save("Guild", G)
         return await message.channel.send({
           content: "I will not send any welcome messages here.",
         });
@@ -44,9 +44,9 @@ module.exports = {
           }
       } else {
       //checks if database already exists if true update else insert
-      const M = await con.manager.findOneBy("Guilds",{guild_id:guild})
+      const M = await con.manager.findOneBy("Guild",{guild_id:guild})
         M.welcome_channel= toString(channel)
-        await con.manager.save(M)
+        await con.manager.save("Guild", M)
         await welcome_data.execute(con);
         return message.channel.send({
           content: "i will send welcomes here now",
