@@ -23,7 +23,7 @@ module.exports = {
     async execute(message, args) {
         try {
             const guildId = message.guild == null ? "1" : message.guild.id;
-            const historyData = dataHandler.GET_ENTRY(message.author.id, guildId, message.channel.id);
+            const historyData = await dataHandler.GET_ENTRY(message.author.id, guildId, message.channel.id);
             
             if (!historyData || !historyData.Messages || historyData.Messages.length === 0) {
                 return "No conversation history found to summarize.";
@@ -46,7 +46,7 @@ module.exports = {
             const summary = response.message.content;
 
             // Update the persistent summary in the history file
-            dataHandler.UPDATE_SUMMARY(message.author.id, guildId, message.channel.id, summary);
+            await dataHandler.UPDATE_SUMMARY(message.author.id, guildId, message.channel.id, summary);
 
             return `Summary of previous conversation:\n${summary}`;
         } catch (err) {

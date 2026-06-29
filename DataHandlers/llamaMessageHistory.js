@@ -1,38 +1,83 @@
-const fs = require("fs");
+const fs = require("fs").promises;
+const { existsSync } = require("fs");
 const filePath = "./jsonFiles/llamahistory.json"
 
 const MAX_HISTORY = 100; // Keep last 100 messages per conversation
+let cache = null;
+let loadPromise = null;
 
-module.exports = {
-    GETALL() {
+async function loadCache() {
+    if (cache !== null) return cache;
+    if (loadPromise) return await loadPromise;
+
+    loadPromise = (async () => {
         try {
-            if (!fs.existsSync(filePath)) {
-                fs.writeFileSync(filePath, "[]");
-                return [];
+            if (!existsSync(filePath)) {
+                cache = [];
+                await fs.writeFile(filePath, "[]");
+                return cache;
             }
-            let rawData = fs.readFileSync(filePath, "utf-8");
-            return JSON.parse(rawData);
+            const rawData = await fs.readFile(filePath, "utf-8");
+            cache = JSON.parse(rawData);
+            return cache;
         } catch (e) {
             console.error("Error reading llama history:", e);
-            return [];
+            cache = [];
+            return cache;
+        } finally {
+            loadPromise = null;
         }
+    })();
+
+    return await loadPromise;
+}
+
+let isSaving = false;
+let pendingSave = false;
+
+async function saveCache() {
+    if (cache === null) return;
+    if (isSaving) {
+        pendingSave = true;
+        return;
+    }
+    isSaving = true;
+    try {
+        // Atomic write: write to tmp then rename
+        const tempPath = filePath + ".tmp";
+        await fs.writeFile(tempPath, JSON.stringify(cache, null, 2));
+        await fs.rename(tempPath, filePath);
+    } catch (err) {
+        console.error("Error writing llama history:", err);
+    } finally {
+        isSaving = false;
+        if (pendingSave) {
+            pendingSave = false;
+            await saveCache();
+        }
+    }
+}
+
+module.exports = {
+    async GETALL() {
+        return await loadCache();
     },
-    GET(userID, guildID, channelId) {
-        const entry = this.GET_ENTRY(userID, guildID, channelId);
+    async GET(userID, guildID, channelId) {
+        const entry = await this.GET_ENTRY(userID, guildID, channelId);
         return entry ? entry.Messages : null;
     },
-    GET_ENTRY(userID, guildID, channelId) {
-        const file = this.GETALL();
-        for (let i = 0; i < file.length; i++) {
-            if (file[i].guildID == guildID && file[i].channelID == channelId) {
-                if (guildID === "1" && file[i].userID != userID) continue;
-                return file[i];
+    async GET_ENTRY(userID, guildID, channelId) {
+        const history = await this.GETALL();
+        for (let i = 0; i < history.length; i++) {
+            if (history[i].guildID == guildID && history[i].channelID == channelId) {
+                if (guildID === "1" && history[i].userID != userID) continue;
+                return history[i];
             }
         }
         return null;
     },
-    UPDATE_SUMMARY(userID, guildID, channelId, summary) {
-        let history = this.GETALL();
+    async UPDATE_SUMMARY(userID, guildID, channelId, summary) {
+        let history = await this.GETALL();
         for (let i = 0; i < history.length; i++) {
             if (history[i].guildID == guildID && history[i].channelID == channelId) {
                 if (guildID === "1" && history[i].userID != userID) continue;
@@ -40,11 +85,11 @@ module.exports = {
                 break;
             }
         }
-        this.REFRESH(history);
+        await saveCache();
     },
-    ADD(userID, guildID, channelId, direction, Message) {
+    async ADD(userID, guildID, channelId, direction, Message) {
         const role = direction;
-        let history = this.GETALL();
+        let history = await this.GETALL();
         let found = false;
 
         for (let i = 0; i < history.length; i++) {
@@ -82,13 +127,11 @@ module.exports = {
             });
         }
 
-        this.REFRESH(history);
+        await saveCache();
     },
-    REFRESH(data) {
-        try {
-            fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-        } catch (err) {
-            console.error("Error writing llama history:", err);
-        }
+    // Keep REFRESH for compatibility if any other module uses it, but make it async
+    async REFRESH(data) {
+        cache = data;
+        await saveCache();
     }
 };

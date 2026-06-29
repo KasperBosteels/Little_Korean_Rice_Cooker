@@ -1,34 +1,47 @@
-const fs = require("fs");
+const fs = require("fs").promises;
+const { existsSync, readFileSync } = require("fs");
+const filePath = "./jsonFiles/ai_enabled.json";
+let cache = null;
+
 module.exports = {
   async execute(con) {
-    await con.manager.findBy("Guild",{guild_chatbot:true}).then((g)=>{
-      let data = [];
-      g.forEach(s => {
-        data.push({guildID:s.guild_id,ai:s.guild_chatbot})
-      });
-      this.SAVE(JSON.stringify(data))
-    })
+    try {
+        const g = await con.manager.findBy("Guild", { guild_chatbot: true });
+        let data = [];
+        g.forEach(s => {
+            data.push({ guildID: s.guild_id, ai: s.guild_chatbot })
+        });
+        cache = data;
+        await this.SAVE(JSON.stringify(data));
+    } catch (err) {
+        console.error("Error in ai_enabled.execute:", err);
+    }
   },
-  SAVE(data) {
-    fs.writeFileSync("./jsonFiles/ai_enabled.json", data, (err) => {
-      if (err) {
-        return console.error(err);
-      }
-    });
-    console.log("\x1b[34m","AI data saved","\x1b[0m");
+  async SAVE(data) {
+    try {
+        await fs.writeFile(filePath, data);
+        console.log("\x1b[34m", "AI data saved", "\x1b[0m");
+    } catch (err) {
+        console.error("Error saving ai_enabled.json:", err);
+    }
   },
   GET(guildID) {
-    if (!fs.existsSync("./jsonFiles/ai_enabled.json")) {
-        return false;
+    if (cache === null) {
+        if (!existsSync(filePath)) {
+            return false;
+        }
+        try {
+            let rawData = readFileSync(filePath, "utf-8");
+            cache = JSON.parse(rawData);
+        } catch (e) {
+            console.error("Error reading ai_enabled.json:", e);
+            return false;
+        }
     }
-    let rawData = fs.readFileSync(
-      "./jsonFiles/ai_enabled.json",
-      "utf-8"
-    );
-    let file = JSON.parse(rawData);
-    for (let i = 0; i < file.length; i++) {
-      if (file[i].guildID == guildID) {
-        if (file[i].ai == 1 || file[i].ai == true) return true;
+    
+    for (let i = 0; i < cache.length; i++) {
+      if (cache[i].guildID == guildID) {
+        if (cache[i].ai == 1 || cache[i].ai == true) return true;
       }
     }
     return false;

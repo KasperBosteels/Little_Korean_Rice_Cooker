@@ -43,7 +43,7 @@ module.exports = {
       let dateToCheck = new Date();
       dateToCheck.setDate(dateToCheck.getDate() - 7);
       try {
-        let allData = llama.GETALL();
+        let allData = await llama.GETALL();
         const chatRepository = await con.manager.getRepository("Chats");
         for (let i = 0; i < allData.length; i++) {
           if (allData[i].Messages.length > 0 && allData[i].lastChanged < dateToCheck) {
@@ -60,7 +60,7 @@ module.exports = {
             allData[i].Messages = [];
           }
         }
-        llama.REFRESH(allData);
+        await llama.REFRESH(allData);
       } catch (error) {
         console.error(error);
       }

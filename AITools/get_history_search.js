@@ -23,7 +23,7 @@ module.exports = {
         try {
             const query = args.query.toLowerCase();
             const guildId = message.guild == null ? "1" : message.guild.id;
-            const historyData = dataHandler.GET_ENTRY(message.author.id, guildId, message.channel.id);
+            const historyData = await dataHandler.GET_ENTRY(message.author.id, guildId, message.channel.id);
             
             if (!historyData || !historyData.Messages || historyData.Messages.length === 0) {
                 return "No conversation history found to search.";
