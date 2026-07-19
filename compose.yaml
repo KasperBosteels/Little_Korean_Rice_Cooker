@@ -57,6 +57,13 @@ services:
       - ./jsonFiles:/app/jsonFiles
       - ./info:/app/info
 
+  watchtower:
+    image: containrrr/watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.soc:/var/run/docker.sock
+    command: --interval 3600 --cleanup
+
 # Declares the named volume used above.
 volumes:
   db_data:
