@@ -75,6 +75,9 @@ const Custom_Swear = require('./entity/Custom_Swears.js');
 const Song = require("./entity/Song");
 const news_chhannel = require("./DataHandlers/news_chhannel.js");
 const Chat = require("./entity/Chat");
+const ScamImage = require("./entity/ScamImage.js");
+const scamImages = require("./DataHandlers/scamImages.js");
+const scamEnforcer = require("./DataHandlers/scamEnforcer.js");
 const con = new DataSource({
   type: process.env.TYPE,
   host: process.env.HOST,
@@ -87,7 +90,7 @@ const con = new DataSource({
   migrations: true,
   poolSize: 100,
   migrationsRun: true,
-  entities: [User, Guild, Message, Playlist, Swearword, Warning, Custom_Swear, Song, Chat],
+  entities: [User, Guild, Message, Playlist, Swearword, Warning, Custom_Swear, Song, Chat, ScamImage],
   migrations: [],
   subscribers: [],
   connectTimeout: 5000,
@@ -178,6 +181,7 @@ client.once(Events.ClientReady, async () => {
     logchannels.execute(con);
     custom_Welcome.execute(con);
     news_chhannel.execute(con);
+    await scamImages.execute(con);
     SlashCommandLoader(process.env.DISCORD_TOKEN, client);
   } catch (err) {
     console.error("\x1b[31m", err, "\x1b[0m");
@@ -245,6 +249,7 @@ client.on(Events.MessageCreate, async (Interaction) => {
   await ensureRegistered.ensureUser(con, Interaction.author);
   power.execute(Interaction, con);
   profanity.execute(Interaction, client, con);
+  scamEnforcer.checkMessage(Interaction, client, con);
   if (ignoreusers.GET(Interaction.author.id) == true) return;
   rice(Interaction);
   leave(Interaction, client);
