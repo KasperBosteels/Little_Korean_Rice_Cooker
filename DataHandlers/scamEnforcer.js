@@ -54,13 +54,15 @@ async function checkMessage(message, client, con) {
             } catch {
                 continue;
             }
-            if (scam.isScamHash(h)) {
+            const match = scam.findScamMatch(h);
+            if (match) {
+                await scam.recordDetection(con, match);
                 const reason = `Scam image auto-detected (msg ${message.id})`;
                 await message.delete().catch(() => {});
                 const banned = await banAcrossGuilds(client, message.author.id, reason);
                 console.log(
                     "\x1b[31m",
-                    `[scam] banned ${message.author.tag} in ${banned.length} guild(s)`,
+                    `[scam] banned ${message.author.tag} in ${banned.length} guild(s) — hash #${match.id} hits: ${match.detection_count}`,
                     "\x1b[0m"
                 );
                 return;

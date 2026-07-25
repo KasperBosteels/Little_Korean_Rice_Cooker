@@ -2,7 +2,8 @@ const phashOf = require("sharp-phash");
 const fetch = require("node-fetch");
 const ScamImage = require("../entity/ScamImage.js");
 
-// In-memory cache of known scam-image phashes (64-char binary strings).
+// In-memory cache of known scam-image phashes.
+// Each entry: { id, phash, detection_count }
 let cache = [];
 // Hamming distance threshold on 64-bit pHash. <= 6 catches recompression/resizes
 // while keeping false positives near zero. Don't push this above ~10.
@@ -14,13 +15,31 @@ function hamming(a, b) {
     return d;
 }
 
+function findMatch(h) {
+    if (!h || h.length !== 64) return null;
+    let best = null;
+    let bestDist = MAX_DISTANCE + 1;
+    for (const c of cache) {
+        const d = hamming(c.phash, h);
+        if (d <= MAX_DISTANCE && d < bestDist) {
+            best = c;
+            bestDist = d;
+        }
+    }
+    return best;
+}
+
 module.exports = {
     MAX_DISTANCE,
     async execute(con) {
         try {
             const repo = con.getRepository(ScamImage);
             const rows = await repo.find();
-            cache = rows.map((r) => r.phash);
+            cache = rows.map((r) => ({
+                id: r.scam_image_id,
+                phash: r.phash,
+                detection_count: r.detection_count || 0,
+            }));
             console.log("\x1b[32m", `scam images loaded: ${cache.length}`, "\x1b[0m");
         } catch (err) {
             console.error("\x1b[31m", "scamImages load failed:", err.message, "\x1b[0m");
@@ -33,8 +52,23 @@ module.exports = {
         return await phashOf(buf);
     },
     isScamHash(h) {
-        if (!h || h.length !== 64) return false;
-        return cache.some((c) => hamming(c, h) <= MAX_DISTANCE);
+        return findMatch(h) !== null;
+    },
+    findScamMatch(h) {
+        return findMatch(h);
+    },
+    async recordDetection(con, entry) {
+        if (!entry) return;
+        entry.detection_count = (entry.detection_count || 0) + 1;
+        try {
+            const repo = con.getRepository(ScamImage);
+            await repo.update(
+                { scam_image_id: entry.id },
+                { detection_count: entry.detection_count, last_detected_at: new Date() }
+            );
+        } catch (err) {
+            console.error("\x1b[31m", "scamImages recordDetection failed:", err.message, "\x1b[0m");
+        }
     },
     async addScamHash(con, hash, meta = {}) {
         const repo = con.getRepository(ScamImage);
@@ -43,11 +77,15 @@ module.exports = {
             added_by: meta.added_by || null,
             source_url: meta.source_url || null,
             note: meta.note || null,
+            detection_count: 0,
         });
         await repo.save(row);
-        cache.push(hash);
+        cache.push({ id: row.scam_image_id, phash: hash, detection_count: 0 });
     },
     GET_CACHE_SIZE() {
         return cache.length;
+    },
+    GET_CACHE() {
+        return cache;
     },
 };

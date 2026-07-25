@@ -38,6 +38,17 @@ module.exports = new EntitySchema({
             createDate: true,
             name: "created_at",
         },
+        detection_count: {
+            type: "int",
+            nullable: false,
+            default: 0,
+            name: "detection_count",
+        },
+        last_detected_at: {
+            type: "datetime",
+            nullable: true,
+            name: "last_detected_at",
+        },
     },
     indices: [
         { name: "idx_scam_phash", columns: ["phash"] },

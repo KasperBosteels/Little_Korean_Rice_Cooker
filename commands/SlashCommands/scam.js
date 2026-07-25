@@ -104,10 +104,10 @@ module.exports = {
             }
             try {
                 const h = await scam.hashUrl(att.url);
-                const match = scam.isScamHash(h);
+                const match = scam.findScamMatch(h);
                 return interaction.editReply({
                     content: match
-                        ? `MATCH — this image matches a known scam hash (pHash \`${h.slice(0, 16)}…\`).`
+                        ? `MATCH — this image matches known scam hash #${match.id} (pHash \`${h.slice(0, 16)}…\`). Detected ${match.detection_count} time(s) so far.`
                         : `No match. pHash \`${h.slice(0, 16)}…\` (threshold ${scam.MAX_DISTANCE}).`,
                 });
             } catch (err) {
@@ -116,8 +116,17 @@ module.exports = {
         }
 
         if (sub === "list") {
+            const entries = scam.GET_CACHE();
+            const total = entries.reduce((s, e) => s + (e.detection_count || 0), 0);
+            const top = [...entries]
+                .sort((a, b) => (b.detection_count || 0) - (a.detection_count || 0))
+                .slice(0, 10);
+            const lines = top.map(
+                (e) => `#${e.id} — \`${e.phash.slice(0, 16)}…\` — hits: ${e.detection_count || 0}`
+            );
+            const body = lines.length ? `\n\nTop hashes by detections:\n${lines.join("\n")}` : "";
             return interaction.editReply({
-                content: `Currently tracking ${scam.GET_CACHE_SIZE()} scam image hash(es).`,
+                content: `Currently tracking ${entries.length} scam image hash(es). Total detections: ${total}.${body}`,
             });
         }
 
