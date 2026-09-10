@@ -40,7 +40,7 @@
     "oxford-dictionary": "^1.6.0",
     "reconlx": "^2.5.2",
     "reflect-metadata": "^0.1.13",
-    "sharp": "^0.35.3",
+    "sharp": "^0.35.4",
     "sharp-phash": "^2.2.0",
     "translate": "^3.0.0",
     "typeorm": "^0.3.29",
